@@ -15,6 +15,7 @@ var view_mode := "rear"
 var placing := false
 var rear_buttons: Array[Button] = []
 var map_button: Button
+var leadership_diagnostics := false
 
 func _ready() -> void:
 	for entry in model.trace:
@@ -180,7 +181,18 @@ func _draw() -> void:
 				draw_line(soldier.position + Vector2(-7, 7), soldier.position + Vector2(7, -7), Color("e89882"), 2)
 			draw_arc(soldier.position, 8, 0, TAU, 16, Color(color, 0.5), 1)
 			label_at(soldier.position + Vector2(9, 4), soldier.id.get_slice(".", 1), 11, color)
+			if soldier.active and squad.current_leader() == soldier:
+				draw_line(soldier.position + Vector2(-5, -12), soldier.position + Vector2(0, -17), Color("e4e8cc"), 2)
+				draw_line(soldier.position + Vector2(0, -17), soldier.position + Vector2(5, -12), Color("e4e8cc"), 2)
 		label_at(squad.center() + Vector2(-20, -26), squad.id, 16, color)
+	for platoon in model.platoons:
+		var leader = platoon.leader
+		if leader.active:
+			draw_circle(leader.position, 8, Color("a4d4db"))
+			draw_arc(leader.position, 11, 0, TAU, 24, Color("e9e9c5"), 1)
+			label_at(leader.position + Vector2(-22, -18), leader.id, 13)
+		elif leader.body_present:
+			draw_line(leader.position - Vector2(7, 7), leader.position + Vector2(7, 7), Color("d9a487"), 2)
 	label_at(Vector2(273, 565), "P1-B / SUPPORT", 16, colors[1])
 	if not model.information.reconstructing:
 		var supply = model.supply
@@ -270,6 +282,15 @@ func _draw() -> void:
 				draw_arc(impact.impact, artillery.RADIUS, 0, TAU, 64, Color("efbc7d"), 2)
 				for effect in impact.effects:
 					draw_line(impact.impact, effect.position, Color("9edfe4") if effect.solid_obstruction else Color("ef987b"), 2)
+	if leadership_diagnostics and not model.information.reconstructing:
+		var squad = model.squads[0]
+		draw_rect(Rect2(40, 250, 285, 185), Color("112025"))
+		label_at(Vector2(54, 278), "FIELD COMMAND / P1-A", 18)
+		label_at(Vector2(54, 307), "Formal: " + squad.formal_leader.id + " / SGT", 14)
+		label_at(Vector2(54, 333), squad.leadership_state, 16)
+		label_at(Vector2(54, 359), "Acting: " + (squad.acting_leader.id + " / " + squad.acting_leader.formal_rank if squad.acting_leader != null else "none"), 14)
+		label_at(Vector2(54, 386), "Intent: " + squad.task, 14)
+		label_at(Vector2(54, 413), "No permanent promotion", 14)
 	if not model.information.reconstructing:
 		var recovery = model.recovery
 		draw_circle(recovery.position, 9, Color("b4addd"))
@@ -296,6 +317,8 @@ func _draw() -> void:
 	var contact_report: bool = model.artillery != null and not model.information.contact_knowledge.Squad.is_empty()
 	if contact_report:
 		lines[5] = "CONTACT REPORT → COMPANY"
+	if leadership_diagnostics:
+		lines[5] = "LEADER LOSS → COMPANY"
 	for index in range(lines.size()):
 		label_at(Vector2(948, 171 + index * 22), lines[index], 14)
 	for index in range(4):
@@ -303,8 +326,10 @@ func _draw() -> void:
 		var records: Array = model.information.knowledge[echelon]
 		if contact_report:
 			records = model.information.contact_knowledge[echelon] if index < 3 else []
+		if leadership_diagnostics:
+			records = model.information.leader_knowledge[echelon] if index < 3 else []
 		var observation_time: float = records[0].get("observation_time", 5.0) if not records.is_empty() else 0.0
-		label_at(Vector2(948, 325 + index * 22), "%s: %s" % [echelon, ("not in contact route" if index == 3 and contact_report else "not received") if records.is_empty() else "T=%.1f (observed %.1f)" % [records[0].received_at, observation_time]], 14)
+		label_at(Vector2(948, 325 + index * 22), "%s: %s" % [echelon, ("not in report route" if index == 3 and (contact_report or leadership_diagnostics) else "not received") if records.is_empty() else "T=%.1f (observed %.1f)" % [records[0].received_at, observation_time]], 14)
 	if model.artillery != null:
 		var artillery = model.artillery
 		label_at(Vector2(948, 260), "Mortar: %d shells · %s" % [artillery.inventory.MortarShell, "WAITING" if artillery.missions.is_empty() else artillery.missions.back().state], 13)

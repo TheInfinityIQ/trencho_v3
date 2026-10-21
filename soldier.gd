@@ -17,6 +17,12 @@ var faction := "friendly"
 var detected: Array[String] = []
 var assigned_vehicle_id := ""
 var assigned_equipment_id := ""
+var formal_rank := "PRIVATE"
+var normal_role := "Rifleman"
+var squad_command_qualified := false
+var acting_appointment := ""
+var squad_id := ""
+var rifle_proficiency := 0.5
 
 func _init(identity: String, start: Vector2, pace: float) -> void:
 	id = identity

@@ -15,6 +15,14 @@ var reconstruction: Array[Dictionary] = []
 var contact_knowledge := {"Squad": [], "Platoon": [], "Company": []}
 var contact_deliveries: Array[Dictionary] = []
 var contact_next_hop := 1
+var leader_knowledge := {"Squad": [], "Platoon": [], "Company": []}
+var leader_relays: Array[Dictionary] = []
+
+func queue_leader_report(report: Dictionary) -> void:
+	var local: Dictionary = report.duplicate(true)
+	local.received_at = report.sent_at
+	leader_knowledge.Squad.append(local)
+	leader_relays.append({"report": local, "hop": 1})
 
 func observe_enemy(observer: String, point: Vector2, now: float) -> void:
 	if not contact_knowledge.Squad.is_empty():
@@ -68,6 +76,13 @@ func advance(now: float, casualty) -> void:
 		contact_deliveries.append({"sender": sender, "recipient": recipient, "sent_at": receipt_time - HOP_DELAY, "received_at": receipt_time, "report_id": delivered.report_id})
 		print("CONTACT RELAY: ", JSON.stringify(contact_deliveries.back()))
 		contact_next_hop += 1
+	for relay in leader_relays:
+		while relay.hop < 3 and now + 0.000001 >= relay.report.sent_at + relay.hop * HOP_DELAY:
+			var received: Dictionary = relay.report.duplicate(true)
+			received.received_at = relay.report.sent_at + relay.hop * HOP_DELAY
+			leader_knowledge[ECHELONS[relay.hop]].append(received)
+			print("LEADER CASUALTY RELAY: ", ECHELONS[relay.hop], " ", JSON.stringify(received))
+			relay.hop += 1
 
 func player_observation() -> Dictionary:
 	if world_event.is_empty():

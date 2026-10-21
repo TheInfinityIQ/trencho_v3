@@ -9,7 +9,7 @@ const BUNKER := Rect2(820, 470, 70, 35)
 const EXPOSED_HIT := 0.4
 const COVERED_HIT := 0.1
 var model
-var defenders = Squad.new("E1", Vector2(790, 420))
+var defenders = Squad.new("E1", Vector2(790, 420), false)
 var enemy_random := RandomNumberGenerator.new()
 var friendly_random := RandomNumberGenerator.new()
 var next_fire: Dictionary = {}
@@ -59,8 +59,9 @@ func visible(start: Vector2, end: Vector2) -> bool:
 
 func add_suppression(amount: int, now: float, reason: String) -> void:
 	suppression += amount
-	decay_at = now + 2
-	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"]:
+	if amount > 0:
+		decay_at = now + 2
+	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"] and model.get_ref().squads[0].command_available():
 		tactical_state = "SUPPRESSED"
 		var living := 0
 		for soldier in model.get_ref().squads[0].soldiers:
@@ -89,6 +90,9 @@ func covered(shooter: Vector2, target: Vector2) -> bool:
 func kill(target, shooter, now: float) -> void:
 	target.active = false
 	target.body_present = true
+	for squad in model.get_ref().squads:
+		if target in squad.soldiers:
+			squad.recognize_leader_loss(now)
 	history.append({"event": "combat casualty", "person": target.id, "location": target.position, "time": now, "world_source": shooter.id, "body_inventory": target.inventory.duplicate(true)})
 	print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
 
@@ -114,6 +118,8 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 
 func move_to_cover(now: float) -> void:
 	var squad = model.get_ref().squads[0]
+	if not squad.command_available():
+		return
 	for index in range(squad.soldiers.size()):
 		var soldier = squad.soldiers[index]
 		if not soldier.active:
@@ -132,10 +138,13 @@ func advance(now: float) -> void:
 	var scenario = model.get_ref()
 	if scenario.supply.phase != "Final approach":
 		return
+	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"] and scenario.squads[0].command_available():
+		add_suppression(0, now, "Field command restored; pending suppression requires local cover")
 	var friends: Array = scenario.squads[0].soldiers
+	var friendly_targets: Array = friends + [scenario.platoons[0].leader]
 	if not encounter_over:
 		for enemy in defenders.soldiers:
-			var targets := detect(enemy, friends)
+			var targets := detect(enemy, friendly_targets)
 			if not targets.is_empty() and now + 0.000001 >= float(next_fire.get(enemy.id, -1)) and enemy.inventory[AMMO] > 0:
 				attempt_shot(enemy, targets[0], now, enemy_random.randf())
 		for friendly in friends:
@@ -157,7 +166,7 @@ func advance(now: float) -> void:
 		tactical_state = "SUPPRESSED_HOLD"
 		cover_arrived_at = now
 		decisions.append({"time": now, "state": tactical_state, "reason": "Members reached LOS-blocking cover; await safe suppression threshold"})
-	if tactical_state == "SUPPRESSED_HOLD" and suppression <= 1 and now >= cover_arrived_at + 1:
+	if tactical_state == "SUPPRESSED_HOLD" and suppression <= 1 and now >= cover_arrived_at + 1 and scenario.squads[0].command_available():
 		tactical_state = "RESUMING"
 		scenario.squads[0].assign("Seize Objective A", scenario.OBJECTIVE, scenario.OBSTACLE)
 		decisions.append({"time": now, "state": tactical_state, "reason": "Suppression at most one; resume original objective by local route"})

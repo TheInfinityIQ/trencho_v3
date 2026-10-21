@@ -8,6 +8,7 @@ const Recovery = preload("res://recovery.gd")
 const Combat = preload("res://combat.gd")
 const VehicleRoutes = preload("res://vehicle_routes.gd")
 const Artillery = preload("res://artillery.gd")
+const Person = preload("res://soldier.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -28,8 +29,11 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false, wit
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
-	platoons = [{"id": "P1", "squads": [squads[0], squads[1]], "assignment": "Unassigned"},
-		{"id": "P2", "squads": [squads[2], squads[3]], "assignment": "Unassigned"}]
+	platoons = [{"id": "P1", "squads": [squads[0], squads[1]], "assignment": "Unassigned", "leader": Person.new("P1-PL", Vector2(130, 280), 47), "follow_signature": ""},
+		{"id": "P2", "squads": [squads[2], squads[3]], "assignment": "Unassigned", "leader": Person.new("P2-PL", Vector2(110, 590), 47), "follow_signature": ""}]
+	for platoon in platoons:
+		platoon.leader.formal_rank = "LIEUTENANT"
+		platoon.leader.normal_role = "PlatoonLeader"
 	operational_decide()
 	supply = Supply.new(squads[0], with_rear)
 	if with_rear:
@@ -55,6 +59,8 @@ func blast_entities() -> Array:
 	for squad in squads + ([combat.defenders] if combat != null else []):
 		for person in squad.soldiers:
 			result.append({"person": person, "squad": squad})
+	for platoon in platoons:
+		result.append({"person": platoon.leader, "squad": null})
 	if vehicles != null:
 		for person in vehicles.drivers:
 			result.append({"person": person, "squad": null})
@@ -67,6 +73,8 @@ func total_ammunition() -> int:
 	for squad in squads:
 		for soldier in squad.soldiers:
 			total += int(soldier.inventory.get(Supply.CATEGORY, 0))
+	for platoon in platoons:
+		total += int(platoon.leader.inventory[Supply.CATEGORY])
 	if integrated_rear:
 		total += rear.ammunition + rear.shipment.cargo
 	if combat != null:
@@ -99,6 +107,8 @@ func company_receive(intent: String, target: Vector2) -> void:
 		platoon_receive(platoons[index], target)
 
 func platoon_receive(platoon: Dictionary, target: Vector2) -> void:
+	if not platoon.leader.active:
+		return
 	if platoon.assignment == "Reserve":
 		record("Platoon", platoon.id, "Remain staged", "Both squads hold current positions", "Company retained this platoon; no release received")
 		for squad in platoon.squads:
@@ -110,7 +120,9 @@ func platoon_receive(platoon: Dictionary, target: Vector2) -> void:
 	for index in range(2):
 		var squad = platoon.squads[index]
 		record("Platoon", platoon.id, "Main effort", "%s: %s" % [squad.id, jobs[index]], "Separate seizure and nearby support responsibilities")
-		trace.append(squad.assign(jobs[index], targets[index], OBSTACLE))
+		var local_decision: Dictionary = squad.assign(jobs[index], targets[index], OBSTACLE)
+		if not local_decision.is_empty():
+			trace.append(local_decision)
 		for soldier in squad.soldiers:
 			record("Soldier", soldier.id, jobs[index], "Execute own %d-point path" % soldier.path.size(), "Own position, speed and waypoint progress under squad intent")
 
@@ -119,7 +131,11 @@ func advance(delta: float) -> void:
 		return
 	elapsed += delta
 	for squad in squads:
+		squad.update_leadership(elapsed)
+		while not squad.leader_reports.is_empty():
+			information.queue_leader_report(squad.leader_reports.pop_front())
 		squad.advance(delta)
+	advance_platoon_people(delta)
 	information.advance(elapsed, squads[3].soldiers[3])
 	supply.advance(delta, elapsed)
 	if integrated_rear:
@@ -133,4 +149,29 @@ func advance(delta: float) -> void:
 	var objective_reached: bool = squads[0].complete() and squads[0].center().distance_to(OBJECTIVE) < 50
 	if not secured and supply.phase == "Final approach" and objective_reached:
 		secured = true
-		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by all four soldiers", "Each individual completed its own route")
+		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by surviving soldiers", "Each active individual completed its own route")
+
+func advance_platoon_people(delta: float) -> void:
+	for platoon in platoons:
+		var person = platoon.leader
+		if not person.active:
+			continue
+		var group = platoon.squads[0]
+		# Locomotion follows nearby troop movement, never acting-appointment data.
+		# Formal higher-command knowledge is updated solely by the delayed report.
+		var nearby: Array = group.soldiers.filter(func(member): return member.active)
+		if nearby.is_empty():
+			continue
+		nearby.sort_custom(func(a, b): return person.position.distance_squared_to(a.position) < person.position.distance_squared_to(b.position))
+		var anchor = nearby[0]
+		var signature: String = anchor.id + str(anchor.path) + str(anchor.waypoint)
+		if signature != platoon.follow_signature:
+			platoon.follow_signature = signature
+			person.route_origin = person.position
+			person.path.assign(anchor.path.slice(anchor.waypoint))
+			if person.path.is_empty():
+				person.path.append(anchor.position)
+			person.waypoint = 0
+			person.arrived = false
+		if person.position.distance_to(anchor.position) > 45:
+			person.advance(delta)

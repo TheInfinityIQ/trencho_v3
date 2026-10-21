@@ -2,6 +2,60 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-CMD-009 — Embodied leaders and acting command
+
+Every friendly squad references its existing .1 person as formal SERGEANT/SquadLeader
+and its .2 person as qualified CORPORAL/AssistantSquadLeader. Other members remain
+unqualified PRIVATE/Rifleman. Rank, normal role, rifle proficiency, command
+qualification and acting appointment are distinct data. Local route decisions
+identify the commanding person. Authority requires a live formal/acting leader;
+it is not an immortal hidden squad token. Sixteen squad people remain sixteen.
+Two additional unique LIEUTENANT/PlatoonLeader people physically accompany their
+platoons, follow nearby troop movement with independent paths/speed, and carry
+their own inventories. They are visible and can become ordinary casualties.
+Company/Operational command remains the accepted logical HQ representation.
+
+A formal/acting leader casualty is immediately recognized from the real inactive
+person. A0.5world-second disruption freezes squad maneuver without discarding
+the existing paths/intent. Eligible local members must be alive, squad members,
+command-qualified, Corporal-or-higher and free of incompatible command roles.
+Highest rank wins, then stable person-ID. The selected person receives an acting
+appointment; formal rank and normal role remain unchanged. Existing intent and
+local execution continue without rewriting higher-echelon tasks. Pending supply
+readiness/cover decisions wait for available field authority.
+
+If nobody qualifies, the squad remains LEADERLESS_HOLD, retains its intent and
+people, and initiates no new maneuver. No replacement or promotion is invented.
+Body/inventory/history stay with the dead leader; there is no equipment inheritance.
+Leaderless doctrine beyond stationary hold remains unresolved. The enemy defensive
+squad remains its previously bounded stationary combat fixture; this task embodies
+and governs friendly field authority only.
+
+After the disruption outcome is known, a LEADER_CASUALTY report carries deceased
+leader ID, squad, original observation time, acting replacement (or empty), and
+send time. It relays Squad->Platoon->Company at1s per hop. A T13casualty appoints
+locally atT13.5, reaches Platoon14.5 and Company15.5. Local appointment requires
+no superior approval. Higher-command knowledge records do not update from the
+person object. Platoon locomotion follows nearby physical troop movement and
+does not read acting-appointment metadata as a command-knowledge shortcut.
+
+PA-CMD-001..006 remain provisional: eligibility,0.5s disruption, no new maneuver,
+leaderless hold, rank/ID tie order and local acting authority. Additional fixtures
+are .1/.2 role assignment, the small rank catalog and platoon follow distance45
+(speed47units/s). No permanent promotion, platoon/company/operational succession,
+training, morale/career consequences or player commander replacement is added.
+This closes PA-HIER-007 for friendly squad/platoon embodiment only.
+
+`check_command.gd` uses one controlled real rifle hit during an active mission,
+then isolates further automatic combat to inspect succession. It checks unique
+people, rank/qualification/role eligibility, exact disruption, retained mission,
+local authority before delayed reports, equipment retention, physical platoon
+proximity/navigation, tie handling and the no-successor failure case. Renderer
+mode separately shows formal leader, actual death, disruption, corporal acting,
+higher report, same-mission completion and leaderless hold. Evidence is in
+`artifacts/command_checks.json`, `command_visual.log`, six command PNGs and eight
+regression logs. Human experience evaluation remains pending.
+
 ## T3-ART-008 — Knowledge-bound indirect fire
 
 The actual main scenario now also enables the fourth Scenario option, artillery.
