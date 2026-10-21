@@ -17,6 +17,8 @@ var rear_buttons: Array[Button] = []
 var map_button: Button
 var leadership_diagnostics := false
 var morale_diagnostics := false
+var campaign_session
+var next_battle_button: Button
 
 func _ready() -> void:
 	for entry in model.trace:
@@ -25,6 +27,8 @@ func _ready() -> void:
 	reconstruction_button = add_button("RECONSTRUCT [R]", Vector2(945, 667), reconstruct)
 	exit_button = add_button("EXIT RECONSTRUCTION [Esc]", Vector2(945, 709), exit_reconstruction)
 	map_button = add_button("SWITCH MAP [Tab]", Vector2(945, 45), switch_map)
+	if campaign_session != null:
+		next_battle_button = add_button("NEXT BATTLE [N]", Vector2(945, 82), transition_campaign)
 	rear_buttons.append(add_button("AVAILABLE [1]", Vector2(945, 370), func(): model.rear.set_policy("AVAILABLE")))
 	rear_buttons.append(add_button("RESERVE 8 [2]", Vector2(945, 412), func(): model.rear.set_policy("RESERVE", 8)))
 	rear_buttons.append(add_button("LOCKED [3]", Vector2(945, 454), func(): model.rear.set_policy("LOCKED")))
@@ -37,6 +41,15 @@ func switch_map() -> void:
 	if model.integrated_rear and not model.information.reconstructing:
 		view_mode = "battlefield" if view_mode == "rear" else "rear"
 		placing = false
+		refresh_controls()
+
+func transition_campaign() -> void:
+	if campaign_session != null and campaign_session.transition():
+		model = campaign_session.world
+		view_mode = "battlefield"
+		placing = false
+		queried = false
+		query_result.clear()
 		refresh_controls()
 
 func manual_work() -> void:
@@ -58,6 +71,8 @@ func refresh_controls() -> void:
 	reconstruction_button.visible = not is_rear and model.engineering == null
 	exit_button.visible = not is_rear and model.engineering == null
 	map_button.visible = model.integrated_rear
+	if next_battle_button != null:
+		next_battle_button.disabled = model.battle_state != "ENDED_FRIENDLY_VICTORY" or campaign_session.data.battle_index != 1
 
 func add_button(text: String, location: Vector2, action: Callable) -> Button:
 	var button := Button.new()
@@ -92,6 +107,9 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_N and campaign_session != null:
+		transition_campaign()
+		return
 	if not model.battle_active():
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -128,8 +146,12 @@ func _physics_process(delta: float) -> void:
 	if view_mode == "rear" and model.integrated_rear and model.battle_active():
 		var direction := Vector2(float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)), float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W)))
 		model.rear.move_avatar(direction, delta)
-	model.advance(delta)
-	if not model.battle_active():
+	if campaign_session != null:
+		campaign_session.advance(delta)
+		model = campaign_session.world
+	else:
+		model.advance(delta)
+	if not model.battle_active() or campaign_session != null:
 		refresh_controls()
 	reconstruction_button.disabled = query_result.is_empty() or model.information.reconstructing
 	exit_button.disabled = not model.information.reconstructing
@@ -354,9 +376,56 @@ func draw_battle() -> void:
 		label_at(Vector2(330, 570), "TERMINAL — WORLD FROZEN", 25, Color("e1c994"))
 	label_at(Vector2(28, 781), "Destroyed HQ identity and history persist / static inspection only after result", 16)
 
+func draw_campaign() -> void:
+	var session = campaign_session
+	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
+	draw_rect(model.OBSTACLE, Color("59625b"))
+	label_at(Vector2(28, 40), "TRENCHO / CAMPAIGN TRANSITION PROOF", 25)
+	label_at(Vector2(28, 76), "Same campaign people / separate battle worlds / explicit fresh physical fixtures", 17)
+	for hq in model.battle.hqs.values():
+		draw_rect(hq.geometry, Color("c3b38f"), false, 2)
+		label_at(hq.position + Vector2(-45, -35), hq.id, 14)
+		label_at(hq.position + Vector2(-45, 40), hq.state, 13)
+	for identity in session.ROSTER:
+		var person = session.find_person(model, identity)
+		if person == null or not person.on_battlefield:
+			continue
+		if person.active:
+			draw_circle(person.position, 7, Color("a9d3b8"))
+		else:
+			draw_line(person.position - Vector2(7, 7), person.position + Vector2(7, 7), Color("daa489"), 3)
+	var corporal = session.find_person(model, "P1-A.2")
+	label_at(Vector2(50, 140), "P1-A.2 / " + corporal.formal_rank + " / acting now: " + (corporal.acting_appointment if not corporal.acting_appointment.is_empty() else "none"), 16)
+	label_at(Vector2(50, 166), "Historical acting appointments: %d" % corporal.appointment_history.size(), 16)
+	draw_rect(Rect2(930, 120, 325, 630), Color("112025"))
+	label_at(Vector2(946, 147), session.data.campaign_id, 18)
+	var lines: Array[String] = ["Battle %d / local T%.2f" % [session.data.battle_index, model.elapsed], model.battle_state.replace("ENDED_FRIENDLY_", ""),
+		"Ammo production capability: " + str(session.data.capabilities.BoltActionAmmoProduction),
+		"Rear physical ammo: %d" % model.rear.ammunition,
+		"Metal %d / bench:%s" % [model.rear.metal, str(model.rear.placed)],
+		"Rear job active: " + str(not model.rear.job.is_empty()),
+		"Morale %d / suppression %d" % [model.squads[0].morale, model.squads[0].suppression],
+		"Formal leader: " + model.squads[0].formal_leader.id,
+		"Archived battles: %d" % session.data.completed_battles.size()]
+	for index in range(lines.size()):
+		label_at(Vector2(946, 180 + index * 27), lines[index], 13)
+	label_at(Vector2(946, 454), "PERSISTENT PERSON IDS", 15)
+	for index in range(session.NEXT_SQUAD.size()):
+		label_at(Vector2(946, 480 + index * 24), session.NEXT_SQUAD[index], 14)
+	label_at(Vector2(946, 576), "P1-PL / Platoon Leader", 14)
+	if not session.data.completed_battles.is_empty():
+		var archive: Dictionary = session.data.completed_battles[0]
+		label_at(Vector2(50, 650), "Archived Battle1 frozen at T%.2f / Enemy-HQ %s" % [archive.terminal_time, archive.hqs["Enemy-HQ"].state], 17)
+		label_at(Vector2(946, 625), "P1-A.1: DEAD / not respawned", 14)
+	label_at(Vector2(50, 610), "[N] transitions only terminal victory. [Tab] inspects this battle's fresh rear.", 16)
+	label_at(Vector2(28, 781), "Capability persists; workbench, Metal, labor and production time still create physical ammo.", 16)
+
 func _draw() -> void:
 	if view_mode == "rear" and model.integrated_rear:
 		draw_rear()
+		return
+	if campaign_session != null:
+		draw_campaign()
 		return
 	if model.battle != null:
 		draw_battle()

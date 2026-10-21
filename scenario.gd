@@ -37,15 +37,25 @@ var battle_state: String:
 func battle_active() -> bool:
 	return battle_state == "ACTIVE"
 
-func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false, with_battle := false) -> void:
+func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false, with_battle := false, roster_setup: Dictionary = {}) -> void:
 	integrated_rear = with_rear
-	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
-		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
-	platoons = [{"id": "P1", "squads": [squads[0], squads[1]], "assignment": "Unassigned", "leader": Person.new("P1-PL", Vector2(130, 280), 47), "follow_signature": ""},
-		{"id": "P2", "squads": [squads[2], squads[3]], "assignment": "Unassigned", "leader": Person.new("P2-PL", Vector2(110, 590), 47), "follow_signature": ""}]
+	var prefix: String = roster_setup.get("fresh_prefix", "")
+	var supplied: Array = roster_setup.get("main_members", [])
+	squads = [Squad.new("P1-A", Vector2(155, 300), true, supplied), Squad.new(prefix + "P1-B", Vector2(165, 420)),
+		Squad.new(prefix + "P2-A", Vector2(140, 610)), Squad.new(prefix + "P2-B", Vector2(240, 610))]
+	var leader = roster_setup.get("platoon_leader")
+	if leader == null:
+		leader = Person.new("P1-PL", Vector2(130, 280), 47)
+	else:
+		leader.position = Vector2(130, 280)
+		leader.origin = leader.position
+		leader.route_origin = leader.position
+	platoons = [{"id": "P1", "squads": [squads[0], squads[1]], "assignment": "Unassigned", "leader": leader, "follow_signature": ""},
+		{"id": "P2", "squads": [squads[2], squads[3]], "assignment": "Unassigned", "leader": Person.new(prefix + "P2-PL", Vector2(110, 590), 47), "follow_signature": ""}]
 	for platoon in platoons:
-		platoon.leader.formal_rank = "LIEUTENANT"
-		platoon.leader.normal_role = "PlatoonLeader"
+		if platoon.id != "P1" or not roster_setup.has("platoon_leader"):
+			platoon.leader.formal_rank = "LIEUTENANT"
+			platoon.leader.normal_role = "PlatoonLeader"
 	for squad in squads:
 		squad.terrain = OBSTACLE
 	operational_decide()
@@ -81,6 +91,68 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false, wit
 		battle = Battle.new(self)
 		if artillery != null:
 			artillery.battle_boundary = weakref(battle)
+	if not prefix.is_empty():
+		var preserved: Dictionary = {}
+		for person in supplied + [leader]:
+			preserved[person.id] = true
+		prefix_local_people(prefix, preserved)
+
+func all_people() -> Array:
+	var result: Array = []
+	for squad in squads:
+		result.append_array(squad.soldiers)
+	for platoon in platoons:
+		result.append(platoon.leader)
+	if combat != null:
+		result.append_array(combat.defenders.soldiers)
+	if vehicles != null:
+		result.append_array(vehicles.drivers)
+	if engineering != null:
+		result.append_array(engineering.people)
+	if medical != null:
+		result.append(medical.medic)
+	if artillery != null:
+		result.append(artillery.gunner)
+	return result
+
+func prefix_local_people(prefix: String, preserved: Dictionary) -> void:
+	var renames: Dictionary = {}
+	for person in all_people():
+		if preserved.has(person.id) or person.id.begins_with(prefix):
+			continue
+		renames[person.id] = prefix + person.id
+		person.id = prefix + person.id
+		if not person.squad_id.is_empty() and not person.squad_id.begins_with(prefix):
+			person.squad_id = prefix + person.squad_id
+	if combat != null:
+		combat.defenders.id = prefix + combat.defenders.id
+	supply.depot.id = prefix + supply.depot.id
+	supply.captured.id = prefix + supply.captured.id
+	if vehicles != null:
+		for vehicle in [vehicles.truck, vehicles.tracked]:
+			vehicle.id = prefix + vehicle.id
+			vehicle.driver.assigned_vehicle_id = vehicle.id
+	else:
+		supply.truck.id = prefix + supply.truck.id
+	if engineering != null:
+		var old_stock_id: String = engineering.stockpile.id
+		engineering.stockpile.id = prefix + old_stock_id
+		for item in engineering.tools:
+			item.id = prefix + item.id
+			item.holder = renames.get(item.holder, item.holder)
+		for job in engineering.jobs:
+			job.person = renames.get(job.person, job.person)
+		for entry in engineering.ledger:
+			if entry.source == old_stock_id:
+				entry.source = engineering.stockpile.id
+	if medical != null:
+		medical.evac.id = prefix + medical.evac.id
+	if artillery != null:
+		artillery.id = prefix + artillery.id
+		artillery.gunner.assigned_equipment_id = artillery.id
+	if integrated_rear:
+		rear.worker.id = prefix + rear.worker.id
+		rear.shipment.id = prefix + rear.shipment.id
 
 func blast_entities() -> Array:
 	var result: Array = []

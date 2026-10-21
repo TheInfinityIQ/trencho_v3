@@ -116,6 +116,7 @@ func kill(target, shooter, now: float) -> void:
 			squad.recognize_leader_loss(now)
 			squad.combat_casualty(target, now)
 	history.append({"event": "combat casualty", "person": target.id, "location": target.position, "time": now, "world_source": shooter.id, "body_inventory": target.inventory.duplicate(true)})
+	target.personal_history.append(history.back().duplicate(true))
 	print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
 
 func attempt_shot(shooter, target, now: float, roll: float) -> bool:

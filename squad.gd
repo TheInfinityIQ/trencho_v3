@@ -218,6 +218,7 @@ func update_leadership(now: float) -> void:
 	else:
 		acting_leader = candidates[0]
 		acting_leader.acting_appointment = "SquadLeader:" + id
+		acting_leader.appointment_history.append({"event": "acting command appointed", "time": now, "squad": id, "person": acting_leader.id, "formal_rank": acting_leader.formal_rank, "normal_role": acting_leader.normal_role})
 		leadership_state = "ACTING_COMMAND"
 	var replacement: String = acting_leader.id if acting_leader != null else ""
 	leader_reports.append({"kind": "LEADER_CASUALTY", "squad": id, "deceased_leader": deceased_leader_id if leader_loss_is_death else "", "unavailable_leader": deceased_leader_id, "unavailability": leader_unavailability, "observation_time": loss_time, "acting_replacement": replacement, "sent_at": now})
@@ -245,21 +246,28 @@ func resume_final_approach() -> void:
 		soldier.waypoint = 0
 		soldier.arrived = false
 
-func _init(identity: String, start: Vector2, with_leadership := true) -> void:
+func _init(identity: String, start: Vector2, with_leadership := true, supplied_members: Array = []) -> void:
 	id = identity
 	leadership_enabled = with_leadership
 	for index in range(4):
 		var offset := Vector2((index % 2) * 24, (index / 2) * 24)
-		soldiers.append(Soldier.new("%s.%d" % [id, index + 1], start + offset, 43.0 + index * 1.2))
+		if supplied_members.is_empty():
+			soldiers.append(Soldier.new("%s.%d" % [id, index + 1], start + offset, 43.0 + index * 1.2))
+		else:
+			soldiers.append(supplied_members[index])
+			soldiers[index].position = start + offset
+			soldiers[index].origin = start + offset
+			soldiers[index].route_origin = start + offset
 		soldiers[index].squad_id = id
 	if leadership_enabled:
 		formal_leader = soldiers[0]
-		formal_leader.formal_rank = "SERGEANT"
-		formal_leader.normal_role = "SquadLeader"
-		formal_leader.squad_command_qualified = true
-		soldiers[1].formal_rank = "CORPORAL"
-		soldiers[1].normal_role = "AssistantSquadLeader"
-		soldiers[1].squad_command_qualified = true
+		if supplied_members.is_empty():
+			formal_leader.formal_rank = "SERGEANT"
+			formal_leader.normal_role = "SquadLeader"
+			formal_leader.squad_command_qualified = true
+			soldiers[1].formal_rank = "CORPORAL"
+			soldiers[1].normal_role = "AssistantSquadLeader"
+			soldiers[1].squad_command_qualified = true
 
 func center() -> Vector2:
 	var result := Vector2.ZERO

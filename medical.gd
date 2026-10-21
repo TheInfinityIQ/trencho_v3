@@ -23,6 +23,7 @@ func _init(scenario) -> void:
 
 func record(person, event: String, now: float, source: String) -> void:
 	history.append({"person": person.id, "event": event, "time": now, "source": source, "position": person.position, "medical_state": person.medical_state, "on_battlefield": person.on_battlefield})
+	person.personal_history.append(history.back().duplicate(true))
 	print("MEDICAL WORLD EVENT: ", JSON.stringify(history.back()))
 
 func wound(person, shooter, now: float) -> void:

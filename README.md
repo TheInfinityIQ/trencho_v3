@@ -2,6 +2,47 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-CAM-017 — Separate campaign identity and battle worlds
+
+`campaign.gd` is a bounded Battle 1 to Battle 2 proof session. Its `data` tree
+contains detached campaign values: campaign ID/index/activity, person registry,
+organizational history, capabilities and completed battle records. Live and archived
+Scenario references stay outside that tree. No save/load system is implied.
+
+Battle 1 uses actual leadership loss, acting succession, rear production,
+construction and physical HQ destruction. Only terminal friendly victory permits
+the explicit NEXT BATTLE button or N input. PA-CAM-008 confirms victory-only scope;
+friendly defeat rejects with CAMPAIGN_DEFEAT_POLICY_DEFERRED. ACTIVE rejects too.
+The approved next roster must be FIT; unsupported wounded/stabilized/evacuated
+carryover rejects rather than silently healing or inventing a policy.
+
+Battle 2 independently instantiates Sergeant P1-B.1, Corporal P1-A.2, Privates
+P1-A.3/P1-A.4 and Platoon Leader P1-PL, preserving IDs, ranks, normal roles,
+qualifications and detached personal/appointment/permanent history. Dead P1-A.1
+remains historical only. The Sergeant is explicitly the new formal squad leader;
+the Corporal's real past acting appointment remains history, with no current
+acting appointment or promotion. Morale starts at 100 and suppression at zero.
+
+Each battle has separate HQs, time, people projections, equipment, stocks, vehicles,
+infrastructure, bodies, structures, knowledge, workbench, jobs and logistics.
+Fresh Battle 2 fixtures are explicit new resources, never inventory copied from
+Battle 1. BoltActionAmmoProduction persists as capability only: the empty new rear
+still requires workbench placement, Metal, local labor and four world seconds for
+one Metal to become eight rear-owned rounds. The archived old runtime is frozen.
+
+Run `--headless --path . --script check_campaign.gd --log-file artifacts/campaign.log`
+for 32 model checks. Omit headless and append `-- --visual` for 36 checks including
+actual N/Tab/place/manual-production input and seven renderer captures. Both pass;
+all 16 prior suites pass (37/127/24/33/21/38/20/30/25/64/39/36/33/33/38/31).
+Checks prove active/defeat/nonfit rejection, no simulation objects in campaign
+data, distinct runtime instances, fresh custody, historical death/acting continuity,
+and unchanged Battle 1 snapshots while Battle 2 advances beyond ten seconds,
+damages infrastructure, transfers ammunition and completes new production.
+Evidence is in `artifacts/campaign_checks.json`, `campaign_visual.log`, and
+`campaign_*.png`. Captures were visually inspected. Human experience evaluation,
+campaign defeat progression, injury carryover, longer campaigns, export and
+save/load remain unverified or deferred. This is a debug proof, not final UI.
+
 ## T3-WAR-016 — Physical HQ destruction and two-sided terminal battle
 
 The optional eighth Scenario fixture flag creates two persistent physical defeat

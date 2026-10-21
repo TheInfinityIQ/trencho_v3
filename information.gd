@@ -65,7 +65,7 @@ func advance(now: float, casualty) -> void:
 		# representation explicitly; never duplicate the omniscient event object.
 		knowledge.Squad.append({"soldier_id": casualty.id, "location": casualty.position,
 			"observation_time": EVENT_TIME, "received_at": EVENT_TIME,
-			"observer": "P2-B.1", "facts": ["explosion", "friendly casualty"]})
+			"observer": casualty.squad_id + ".1", "facts": ["explosion", "friendly casualty"]})
 		print("OMNISCIENT DEVELOPER FIXTURE: ", JSON.stringify(world_event))
 	while not world_event.is_empty() and next_hop < ECHELONS.size() and now + 0.000001 >= EVENT_TIME + next_hop * HOP_DELAY:
 		var sender: String = ECHELONS[next_hop - 1]
