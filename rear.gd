@@ -16,6 +16,7 @@ var metal := 4
 var ammunition := 0
 var produced := 0
 var job: Dictionary = {}
+var next_job_id := 1
 var production_history: Array[Dictionary] = []
 var policy := "LOCKED"
 var reserve := 8
@@ -69,7 +70,8 @@ func start_job(producer: String, now: float) -> bool:
 	if producer == worker.id and (not worker.assigned or worker.position.distance_to(workbench) > 35):
 		return false
 	metal -= 1
-	job = {"producer": producer, "started_at": now, "finishes_at": now + JOB_DURATION, "input_metal": 1}
+	job = {"id": "RearProduction-%02d" % next_job_id, "producer": producer, "started_at": now, "finishes_at": now + JOB_DURATION, "input_metal": 1}
+	next_job_id += 1
 	message = producer + " producing one eight-round batch."
 	return true
 

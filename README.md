@@ -2,6 +2,73 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-RSM-022 — Focused active checkpoint and transactional resume
+
+Open `resume_proof.tscn` and run F6. Explicit SAVE ACTIVE, DESTROY ORIGINAL + LOAD
+and RESUME BOTH controls prove one bounded active-state class, identified as
+RSM-022-six-actions-v1. This is a separate schema2 entry point; schema1 safe saves
+and their active-battle rejection remain unchanged. No general arbitrary-state
+save support or migration is claimed.
+
+The fixture starts from the accepted campaign's fresh Battle2 and preserves its
+detached progression/archive values. At authored T6.25 (stored exact authoritative
+double), six actual systems are unfinished: truck cargo8 still traveling; contact-1
+observed at5.5 has not reached Platoon/Company; one shell fired at5.5 is in flight
+until7.5; a WOUNDED casualty has original deadline13.5, treatment0.75/2 and Medkit2;
+ReinforcedPosition work is0.75/5 with4materials reserved,0consumed/0unreserved;
+rear production started5.5, Metal4->3 already charged, output0 and completion9.5.
+The local contact uses actual detection/LOS, and the wound uses a real charged
+rifle shot with explicit deterministic hit. The shell uses a static Company
+briefing at an empty site, not knowledge reconstructed from hidden world truth.
+
+`active_checkpoint.gd` captures a value graph of the supported authored runtime:
+logical script/person/squad/vehicle/weapon IDs, mutable script fields, typed vectors,
+paths/positions, inventories, jobs/reservations, reports/hop stages/history, weapon
+missions and medical state. Weak/shared associations become logical reference
+records. Only the fixed compiled fixture script set and matching property/object
+sets may reconstruct. A fresh Scenario builds immutable topology and actors with
+no simulation ticks; saved values reconnect fresh local objects/weak links. No
+saved Object/resource/node address is loaded. Temporary inspection maps release
+their object references. Existing Scenario update order and ordered event arrays
+preserve same-time execution; report/impact/treatment completions coincide at7.5.
+
+Active doubles use explicit8byte IEEE754 hex values: even full-precision decimal
+JSON parsing changed a historical timestamp by one ULP during development. Exact
+binary values solve that difference without relaxing logical/time comparisons.
+Integers preserve signed64bit text; vector/rectangle historical types retain the
+existing value codec. Both RNG seed and stream state reconstruct into new RNGs;
+the authored post-checkpoint fixture avoids additional random combat outcomes.
+Rear production, artillery mission/shell and wound episode now have stable IDs,
+alongside existing report/engineering/vehicle identities.
+
+At T16.25 both branches match the entire encoded mutable graph exactly, including
+positions, clock, RNG, all histories and independent progression, with no position
+or time tolerance. Truck delivers its8rounds once at about6.467; report receipts
+occur6.5/7.5; shell impacts7.5 with one remaining shell; treatment consumes one
+Medkit then evacuation completes; engineering finishes10.5 consuming4once; rear
+finishes9.5 with Metal3/ammo8. Global ammo27initial-1woundshot+8manufactured=34.
+A second save/load at6.75 reaches the same exact result. Untreated reload dies
+at original13.5, without resetting its bleed interval. Original resumed-branch
+world/casualty are actually destroyed before reconstruction.
+
+Validation bounds active text at4MB and checks schema/fixture/checkpoint,
+progression structure, known object/property sets, field types, logical references
+and authoritative clock consistency before replacement. Missing state, malformed
+text, wrong field types and time mismatch reject without replacing/mutating the
+current session. No hostile-file, cryptographic or crash-recovery claim is made.
+Cross-property container aliasing in other unproven state classes, new/procedural
+actor sets, arbitrary interrupted orders, HELD consumables and schema migration
+remain future work. Terminal HQ resume was optional and is not specifically proved.
+
+Verification: `--headless --path . --script check_resume.gd --log-file artifacts/resume.log`
+runs33checks; omit headless and append `-- --visual` for36 including actual
+save/file-load/resume controls and six inspected captures. All pass; all21 earlier
+suites pass (37/127/24/33/21/38/20/30/25/64/39/36/33/33/38/31/32/42/42/34/31).
+Evidence: `artifacts/resume_checks.json`, `active_checkpoint_v2.json`,
+`active_renderer_v2.json`, `resume_final_semantics_v2.json`, `resume_visual.log`,
+`resume_*.png` and `resume_regression_*.log`. PA-RSM-001 through005 are provisional.
+Human/player evaluation remains pending; no general active-save or export claim.
+
 ## T3-SAV-021 — Explicit safe-checkpoint persistence
 
 Open `save_proof.tscn` and run F6. `checkpoint.gd` serializes only progression at

@@ -35,7 +35,8 @@ func create_mission(company_report: Dictionary, now: float) -> bool:
 	if str(company_report.get("report_id", "")).is_empty() or str(company_report.get("observer", "")).is_empty():
 		return false
 	# Whitelist copied values. This object contains no target entity or live pointer.
-	missions.append({"weapon": id, "target": company_report.observed_position, "report_id": company_report.report_id, "observer": company_report.observer, "observation_time": company_report.observation_time, "company_receipt": company_report.received_at, "created_at": now, "ready_at": now + PREPARATION, "state": "PREPARING"})
+	var mission_id := id + ":mission:" + str(missions.size() + 1)
+	missions.append({"id": mission_id, "shell_id": mission_id + ":shell", "weapon": id, "target": company_report.observed_position, "report_id": company_report.report_id, "observer": company_report.observer, "observation_time": company_report.observation_time, "company_receipt": company_report.received_at, "created_at": now, "ready_at": now + PREPARATION, "state": "PREPARING"})
 	state = "Preparing from Company report"
 	print("COMPANY FIRE MISSION: ", JSON.stringify(missions.back()))
 	return true

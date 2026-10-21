@@ -29,6 +29,7 @@ var medical_state := "FIT"
 var on_battlefield := true
 var bleed_out_at := -1.0
 var wound_source := ""
+var wound_episode_id := ""
 var personal_history: Array[Dictionary] = []
 var appointment_history: Array[Dictionary] = []
 var permanent_history: Array[Dictionary] = []

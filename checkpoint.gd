@@ -48,6 +48,8 @@ func unpack(value):
 		return value.map(unpack)
 	if value is Dictionary:
 		if value.has("$value"):
+			if value["$value"] == "float64" and value.get("hex") is String and value.hex.length() == 16 and value.hex.is_valid_hex_number():
+				return value.hex.hex_decode().decode_double(0)
 			if value["$value"] == "int" and value.get("text") is String and value.text.is_valid_int():
 				return int(value.text)
 			if value["$value"] == "Vector2" and value.get("x") is float and value.get("y") is float:

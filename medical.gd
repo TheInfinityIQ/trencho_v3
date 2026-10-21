@@ -34,6 +34,7 @@ func wound(person, shooter, now: float) -> void:
 	person.body_present = false
 	person.bleed_out_at = now + BLEED_OUT
 	person.wound_source = shooter.id
+	person.wound_episode_id = "wound:" + person.id + ":" + str(history.filter(func(event): return event.person == person.id and event.event == "wounded").size() + 1)
 	casualty = person
 	wound_target_ids.erase(person.id)
 	for squad in model.get_ref().squads:
