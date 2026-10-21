@@ -86,6 +86,7 @@ func run() -> void:
 	expect(info.deliveries.size() == 3, "Exactly three delayed reports")
 	if "--visual" in OS.get_cmdline_user_args():
 		var view = load("res://main.tscn").instantiate()
+		view.view_mode = "battlefield"
 		root.add_child(view)
 		await create_timer(5.2).timeout
 		key(KEY_B)

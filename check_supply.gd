@@ -104,6 +104,9 @@ func run() -> void:
 	expect(capture_count == 1 and ledger_net["enemy-ammo-container"] == 0, "Capture cannot double spend enemy cargo")
 	if "--visual" in OS.get_cmdline_user_args():
 		var view = load("res://main.tscn").instantiate()
+		# Keep the accepted already-military-owned supply fixture as regression.
+		view.model = Scenario.new(false)
+		view.view_mode = "battlefield"
 		root.add_child(view)
 		await capture(view, "initial")
 		await create_timer(1.2).timeout

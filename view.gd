@@ -1,7 +1,7 @@
 extends Node2D
 
 const Scenario = preload("res://scenario.gd")
-var model = Scenario.new()
+var model = Scenario.new(true)
 var font := ThemeDB.fallback_font
 var colors := [Color("85d9b0"), Color("7ebcda"), Color("d7b981"), Color("e0d3a5")]
 var inquiry_mode := false
@@ -11,6 +11,10 @@ var query_result: Array[Dictionary] = []
 var inquiry_button: Button
 var reconstruction_button: Button
 var exit_button: Button
+var view_mode := "rear"
+var placing := false
+var rear_buttons: Array[Button] = []
+var map_button: Button
 
 func _ready() -> void:
 	for entry in model.trace:
@@ -18,6 +22,35 @@ func _ready() -> void:
 	inquiry_button = add_button("BINOCULAR INQUIRY [B]", Vector2(945, 625), toggle_inquiry)
 	reconstruction_button = add_button("RECONSTRUCT [R]", Vector2(945, 667), reconstruct)
 	exit_button = add_button("EXIT RECONSTRUCTION [Esc]", Vector2(945, 709), exit_reconstruction)
+	map_button = add_button("SWITCH MAP [Tab]", Vector2(945, 45), switch_map)
+	rear_buttons.append(add_button("AVAILABLE [1]", Vector2(945, 370), func(): model.rear.set_policy("AVAILABLE")))
+	rear_buttons.append(add_button("RESERVE 8 [2]", Vector2(945, 412), func(): model.rear.set_policy("RESERVE", 8)))
+	rear_buttons.append(add_button("LOCKED [3]", Vector2(945, 454), func(): model.rear.set_policy("LOCKED")))
+	rear_buttons.append(add_button("PLACE WORKBENCH [P]", Vector2(945, 583), func(): placing = true))
+	rear_buttons.append(add_button("MANUAL BATCH [E]", Vector2(945, 625), manual_work))
+	rear_buttons.append(add_button("ASSIGN WORKER / 1 BATCH [F]", Vector2(945, 667), assign_worker))
+	refresh_controls()
+
+func switch_map() -> void:
+	if model.integrated_rear and not model.information.reconstructing:
+		view_mode = "battlefield" if view_mode == "rear" else "rear"
+		placing = false
+		refresh_controls()
+
+func manual_work() -> void:
+	model.rear.start_job("Avatar", model.elapsed)
+
+func assign_worker() -> void:
+	model.rear.assign_worker()
+
+func refresh_controls() -> void:
+	var is_rear: bool = view_mode == "rear" and model.integrated_rear
+	for button in rear_buttons:
+		button.visible = is_rear
+	inquiry_button.visible = not is_rear
+	reconstruction_button.visible = not is_rear
+	exit_button.visible = not is_rear
+	map_button.visible = model.integrated_rear
 
 func add_button(text: String, location: Vector2, action: Callable) -> Button:
 	var button := Button.new()
@@ -45,19 +78,47 @@ func reconstruct() -> void:
 func exit_reconstruction() -> void:
 	model.information.end_reconstruction()
 
+func _input(event: InputEvent) -> void:
+	# Tab is also a UI focus key; handle map switching before GUI focus consumes it.
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_TAB:
+		switch_map()
+		get_viewport().set_input_as_handled()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_B:
+		if event.keycode == KEY_TAB:
+			switch_map()
+		elif view_mode == "rear" and model.integrated_rear:
+			if event.keycode == KEY_P:
+				placing = not placing
+			elif event.keycode == KEY_E:
+				manual_work()
+			elif event.keycode == KEY_F:
+				assign_worker()
+			elif event.keycode == KEY_1:
+				model.rear.set_policy("AVAILABLE")
+			elif event.keycode == KEY_2:
+				model.rear.set_policy("RESERVE", 8)
+			elif event.keycode == KEY_3:
+				model.rear.set_policy("LOCKED")
+		elif event.keycode == KEY_B:
 			toggle_inquiry()
 		elif event.keycode == KEY_R:
 			reconstruct()
 		elif event.keycode == KEY_ESCAPE:
 			exit_reconstruction()
 			inquiry_mode = false
-	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and inquiry_mode:
-		inquire(event.position)
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if view_mode == "rear" and placing:
+			if model.rear.place_workbench(event.position):
+				placing = false
+		elif view_mode == "battlefield" and inquiry_mode:
+			inquire(event.position)
 
 func _physics_process(delta: float) -> void:
+	if view_mode == "rear" and model.integrated_rear:
+		var direction := Vector2(float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)), float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W)))
+		model.rear.move_avatar(direction, delta)
 	model.advance(delta)
 	reconstruction_button.disabled = query_result.is_empty() or model.information.reconstructing
 	exit_button.disabled = not model.information.reconstructing
@@ -67,6 +128,9 @@ func label_at(point: Vector2, text: String, size := 16, color := Color("dce7df")
 	draw_string(font, point, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, color)
 
 func _draw() -> void:
+	if view_mode == "rear" and model.integrated_rear:
+		draw_rear()
+		return
 	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
 	for x in range(40, 910, 40):
 		draw_line(Vector2(x, 105), Vector2(x, 750), Color(0.6, 0.8, 0.6, 0.045))
@@ -113,8 +177,9 @@ func _draw() -> void:
 		draw_rect(Rect2(truck_position - Vector2(13, 8), Vector2(26, 16)), Color("b9c9aa"))
 		draw_circle(truck_position + Vector2(-7, 9), 3, Color("17211e"))
 		draw_circle(truck_position + Vector2(7, 9), 3, Color("17211e"))
-		draw_rect(Rect2(supply.CAPTURE_POSITION - Vector2(10, 8), Vector2(20, 16)), Color("c18969"))
-		label_at(supply.CAPTURE_POSITION + Vector2(-55, 27), "Captured +4" if supply.captured_at >= 0 else "Enemy ammo: 4", 14)
+		if not supply.requires_rear:
+			draw_rect(Rect2(supply.CAPTURE_POSITION - Vector2(10, 8), Vector2(20, 16)), Color("c18969"))
+			label_at(supply.CAPTURE_POSITION + Vector2(-55, 27), "Captured +4" if supply.captured_at >= 0 else "Enemy ammo: 4", 14)
 		draw_rect(Rect2(625, 112, 270, 124), Color("112025"))
 		label_at(Vector2(638, 135), "P1-A / PHYSICAL AMMUNITION", 16)
 		var counts: Array = []
@@ -125,7 +190,12 @@ func _draw() -> void:
 		label_at(Vector2(638, 213), supply.phase, 16, Color("e0c998"))
 		label_at(Vector2(425, 520), "SUPPLY / CUSTODY DIAGNOSTICS", 16)
 		label_at(Vector2(425, 546), "Depot %d · Truck %d · Carried %d · Enemy %d" % [supply.depot.inventory[supply.CATEGORY], supply.truck.inventory[supply.CATEGORY], supply.carried(), supply.captured.inventory[supply.CATEGORY]], 14)
-		label_at(Vector2(425, 570), "Total conserved: %d rounds · %s" % [supply.total_accounted(), supply.truck.state], 14)
+		if model.integrated_rear:
+			var total: int = supply.total_accounted() + model.rear.ammunition + model.rear.shipment.cargo
+			label_at(Vector2(425, 570), "Battlefield %d · Rear %d · Boundary %d · Total %d" % [supply.total_accounted(), model.rear.ammunition, model.rear.shipment.cargo, total], 14)
+			label_at(Vector2(425, 676), "Truck: " + supply.truck.state, 14)
+		else:
+			label_at(Vector2(425, 570), "Total conserved: %d rounds · %s" % [supply.total_accounted(), supply.truck.state], 14)
 		var recent: Array = supply.events.slice(maxi(0, supply.events.size() - 3))
 		for index in range(recent.size()):
 			label_at(Vector2(425, 602 + index * 23), "T=%.1f  %s" % [recent[index].time, recent[index].choice], 14)
@@ -172,3 +242,53 @@ func _draw() -> void:
 			label_at(Vector2(948, 558), "Source: not established", 14)
 			label_at(Vector2(948, 581), "Observed by " + report.observer, 14)
 	label_at(Vector2(28, 781), "Elapsed %.1fs   |   %s" % [model.elapsed, "Objective reached; support and reserve hold" if model.secured else "Watch P1-A navigate around the outcrop"], 16)
+
+func draw_rear() -> void:
+	var rear = model.rear
+	draw_rect(rear.MAP, Color("213433"))
+	label_at(Vector2(28, 40), "TRENCHO / PROTECTED REAR BASE", 25)
+	label_at(Vector2(28, 73), "WASD move · P place · E manual batch · F worker batch · Tab switch view", 16)
+	draw_rect(rear.RAW_STORE, Color("586965"))
+	label_at(Vector2(94, 184), "RAW STORAGE", 17)
+	label_at(Vector2(94, 217), "Metal: %d" % rear.metal, 18)
+	draw_rect(rear.DISPATCH, Color("64664f"))
+	label_at(Vector2(705, 185), "DISPATCH BOUNDARY", 15)
+	label_at(Vector2(690, 330), "Shipment: %d rounds" % rear.shipment.cargo, 14)
+	label_at(Vector2(690, 355), "Owner: " + rear.shipment.owner, 14)
+	if rear.shipment.state == "Inter-map transit":
+		label_at(Vector2(660, 390), "Arrival at world T=%.1f" % rear.shipment.arrives_at, 15)
+	if rear.committed > 0:
+		draw_rect(Rect2(745, 225, 35, 28), Color("d5b37f"))
+		label_at(Vector2(688, 420), "8 earmarked / still rear-owned", 14)
+	if rear.placed:
+		draw_rect(Rect2(rear.workbench - Vector2(27, 17), Vector2(54, 34)), Color("b5a17c"))
+		label_at(rear.workbench + Vector2(-80, -30), "Ammunition workbench", 16)
+		if not rear.job.is_empty():
+			var progress: float = clampf((model.elapsed - rear.job.started_at) / rear.JOB_DURATION, 0, 1)
+			draw_rect(Rect2(rear.workbench + Vector2(-35, 28), Vector2(70, 7)), Color("101d20"))
+			draw_rect(Rect2(rear.workbench + Vector2(-35, 28), Vector2(70 * progress, 7)), Color("9ed3b5"))
+			label_at(rear.workbench + Vector2(-80, 65), "%s / %.1f of 4s" % [rear.job.producer, model.elapsed - rear.job.started_at], 15)
+	elif placing:
+		label_at(Vector2(300, 300), "Click a free position for the workbench", 20, Color("d6d2ac"))
+	draw_circle(rear.worker.position, 9, Color("e0bc83"))
+	label_at(rear.worker.position + Vector2(-30, -18), "Worker-01", 14)
+	draw_circle(rear.avatar, 10, Color("8ed4df"))
+	label_at(rear.avatar + Vector2(-20, -20), "YOU", 14)
+	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
+	label_at(Vector2(945, 135), "REAR STOCK / AUTHORIZATION", 17)
+	var request_status := "not yet issued"
+	if model.supply.delivered_at >= 0:
+		request_status = "delivered to soldiers"
+	elif rear.shipment.state != "None":
+		request_status = "in military supply chain"
+	elif rear.committed > 0:
+		request_status = "eight committed"
+	elif model.supply.requested_at >= 0:
+		request_status = "pending eight rounds"
+	var lines := ["Metal: %d   Produced rounds: %d" % [rear.metal, rear.produced], "Ammo on hand: %d (rear-owned)" % rear.ammunition, "Committed subset: %d" % rear.committed, "Eligible new draw: %d" % rear.eligible(), "Policy: %s %s" % [rear.policy, str(rear.reserve) if rear.policy == "RESERVE" else ""], "Worker: " + ("assigned / one batch" if rear.worker.assigned else "unassigned"), "Request: " + request_status]
+	for index in range(lines.size()):
+		label_at(Vector2(945, 172 + index * 25), lines[index], 14)
+	label_at(Vector2(945, 520), "1 Metal → 8 rounds / 4 world s", 15)
+	label_at(Vector2(945, 548), "Capability unlocked (fixture)", 14)
+	label_at(Vector2(50, 700), rear.message, 15)
+	label_at(Vector2(28, 781), "World T=%.1f · Both maps advance continuously · Protected rear" % model.elapsed, 16)

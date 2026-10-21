@@ -20,9 +20,14 @@ var delivered_at := -1.0
 var resumed_at := -1.0
 var captured_at := -1.0
 var now := 0.0
+var requires_rear := false
 
-func _init(advancing_squad) -> void:
+func _init(advancing_squad, rear_required := false) -> void:
 	squad = advancing_squad
+	requires_rear = rear_required
+	if requires_rear:
+		depot.inventory[CATEGORY] = 0
+		captured.inventory[CATEGORY] = 0
 	var initial := [0, 6, 1, 1]
 	for index in range(4):
 		squad.soldiers[index].inventory[CATEGORY] = initial[index]
@@ -49,7 +54,7 @@ func transfer(source_id: String, source: Dictionary, recipient_id: String, recip
 		return 0
 	source[CATEGORY] -= quantity
 	recipient[CATEGORY] = int(recipient.get(CATEGORY, 0)) + quantity
-	transactions.append({"source": source_id, "quantity": quantity, "destination": recipient_id, "time": now, "category": CATEGORY, "reason": reason})
+	transactions.append({"source": source_id, "quantity": quantity, "destination": recipient_id, "time": now, "category": CATEGORY, "ownership_before": "enemy" if source_id == captured.id else "military", "ownership_after": "military", "reason": reason})
 	print("SUPPLY TRANSFER: ", JSON.stringify(transactions.back()))
 	return quantity
 
@@ -82,7 +87,10 @@ func advance(delta: float, time: float) -> void:
 		elif requested_at < 0:
 			requested_at = now
 			record("Request eight rounds", "After local sharing, only eight rounds physically carried")
-			record("Company approves allocation", "Finite military depot can supply eight; approval does not transfer custody")
+			if requires_rear:
+				record("Forward request to rear", "Receiving point empty; player authorization and physical export required")
+			else:
+				record("Company approves allocation", "Finite military depot can supply eight; approval does not transfer custody")
 	if requested_at >= 0 and now >= requested_at + 1 and truck.state == "At depot":
 		if transfer(depot.id, depot.inventory, truck.id, truck.inventory, 8, "Load approved military shipment") == 8:
 			truck.state = "In transit"

@@ -62,6 +62,8 @@ func run() -> void:
 	print("HIERARCHY CHECKS: ", checks, " failures: ", failures)
 	if "--visual" in OS.get_cmdline_user_args():
 		var view = load("res://main.tscn").instantiate()
+		view.model = Scenario.new(false)
+		view.view_mode = "battlefield"
 		root.add_child(view)
 		for delay in [0.3, 6.0, 7.0, 12.0]:
 			await create_timer(delay).timeout

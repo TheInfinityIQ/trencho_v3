@@ -2,6 +2,56 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-REA-004 — Integrated protected rear
+
+The normal project now starts in a separate protected rear map. WASD moves the
+avatar. Press P then click a valid free position to place one workbench (clear
+of people, storage and edges). Walk within60units and press E for one manual
+batch. The avatar remains occupied for four world-seconds. Press F to assign
+the single persistent Worker-01 to one automatic batch; the worker walks to
+the bench and uses the identical recipe/duration. Tab switches maps. Both maps,
+the worker, reports, shipments and battlefield movement advance on the one
+Scenario clock, regardless of which map is drawn.
+
+Start: Metal4, rear ammo0, Worker-01 unassigned, production capability unlocked.
+Recipe: Metal1 -> ammo8 in4s. First manual batch leaves Metal3/ammo8; worker
+batch leaves Metal2/ammo16. This explicit one-batch worker work order avoids
+silently consuming all available inputs. One producer/job is exclusive; no
+worker duplication, cancellation, reassignment or recruitment is implemented.
+
+Policy keys/buttons: 1 AVAILABLE, 2 RESERVE8, 3 LOCKED. Default LOCKED blocks
+new military commitments. Under RESERVE8, sixteen on-hand rounds permit exactly
+eight committed outbound. Committed ammo remains a subset of rear-owned on-hand
+and cannot satisfy another allocation. Later LOCKED or a higher reserve does
+not revoke it. A two-world-second loading step precedes departure. At departure:
+rear on-hand -8, committed -8, military shipment +8. Three further world-seconds
+in an explicit military shipment precede receiving-point arrival. Only then
+does the existing physical battlefield truck chain load, travel and deliver to
+individuals. Soldiers remain held until actual member inventory reaches16.
+
+The integrated receiving point and enemy capture container start empty; prior
+stocked supply/capture behavior remains an explicit legacy regression fixture
+(`Scenario.new(false)`). Integrated initial carried8 + produced16 = final rear8
++ carried16 =24. Metal4 becomes Metal2 plus two completed recipes. Commitments
+are not added again to the ammo total. All resource histories include ownership
+and cause. No unexplained receiving stock or rear-to-soldier teleport exists.
+
+PA-REA-001..009 remain provisional: free placement, proof recipe/duration,
+exclusive job, rear ownership until departure, honored commitments,3s transit,
+starting resources/person, unlocked capability and battlefield receiving custody.
+Additional bounded choices: one explicit automatic worker batch per assignment,
+2s loading,60-unit manual interaction, worker approach at90units/s, no cancellation,
+and one outbound shipment. These do not settle final automation quotas, logistics
+priorities, recruitment, costs or broader D-01/D-06 semantics.
+
+`check_rear.gd` checks placement, exclusive labor, inputs/capability, exact job
+timing, locked/reserve/available policies, commitment/post-policy accounting,
+departure, transit deadlines, receiving custody and the complete physical chain.
+The renderer mode dispatches WASD/P/click/E/F/Tab/2/3 input, verifies worker clock
+continuity across views, checks all major export stages and waits for autonomous
+objective completion. Evidence is in `artifacts/rear_checks.json`, `rear_visual.log`
+and nine `rear_*.png` frames. Human experience evaluation remains pending.
+
 ## T3-SUP-003 — Physical ammunition custody
 
 The advancing squad starts with separate inventories of 0 / 6 / 1 / 1 abstract
