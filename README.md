@@ -5,6 +5,73 @@ Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/proje
 For the playable logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
+## T3-TRI-027 — Alert priority, coalescing and unread protection
+
+The same six alert categories now have a presentation class: Worker blockage and
+stock authorization ACTION_REQUIRED; completion/delivery/Company contact INFORMATION;
+terminal battle RESULT. Priority view is RESULT > ACTION_REQUIRED > INFORMATION,
+then descending event time/stable sequence. Storage/simulation event order is not
+reordered. Primary selects unread result/open action before information; resolved
+actions no longer demand intervention and are fallback history, not action headlines.
+The latched terminal result remains the end-of-battle context even after ACK; its
+unread badge clears and frozen work cannot supersede it.
+
+Action state OPEN/RESOLVED is separate from acknowledgement. Actual same-order
+resume/stop/completion resolves Worker attention; actual eligible policy/request/
+stock clearing resolves authorization. A changed reason within continuous blockage
+(missing Metal to capability, or LOCKED to still-protecting RESERVE FLOOR) refreshes
+the same row's current explanation/updated_at, without fake resolution/new alert or
+resetting ACK. Only true clear/reoccur earns a new alert. Original time/sequence
+are retained; resolved_at/reason records the real resolution separately. A newly
+resolved old row enters recent history at resolution time, so full history cannot
+erase its evidence immediately. It remains unacknowledged if the player has not ACKed.
+
+All OPEN actions (including ACKed, so the open/unread badges stay honest) and the
+latched result are protected. Up to8 other INFORMATION/history rows rotate by last
+report/resolution recency; no permanent archive is added. This scope has at most
+one open Worker action, one authorization action and one result, so at most11 rows.
+The expanded panel fits those11; H toggles, K/ACK PRIMARY or row click acknowledges.
+Badges separately show open/unread actions, unread information and unread results.
+History is ranked by class/time/sequence; merely viewing/ranking never mutates world.
+
+Unread Company information coalesces per delivered stable contact ID. Each row keeps
+first_time, latest authoritative receipt-processing time, latest legitimate copied
+report/provenance and update_count. Different contacts stay separate; ACK allows a
+later genuinely newer report to create a new row. No live actor coordinates/death
+or local/Platoon/pending reports are consulted. Exact-once completion/delivery is
+unchanged. Reconstruction does not create/coalesce/resolve/reorder the live inbox.
+No tactical advice, forced map/camera, auto policy/work, sound/settings/snooze or
+general event-bus changes. PA-TRI-001..005 replace ATT's simple global8/newest policy.
+
+Verification: `--headless --path . --script check_triage.gd --log-file artifacts/triage_model.log`
+runs73 checks; omit headless and append `-- --visual` for84. Eleven inspected captures
+show real Worker block on field, newer Company updates coalesced x4 while action
+remains primary, ACK still blocked/no spam, actual stop resolution, explicit later
+order, finite receipt/resumption retaining resolved unread evidence, same-order
+input exhaustion/reblock and real terminal result overriding open action. The
+focused stress variant has finite zero rifle ammo to keep a contact observable,
+initial rawMetal1 plus the existing finite crateMetal2 at T18, and an authored T30
+release of the existing Company strategic director. Real shells/flight/impacts/HQ
+damage produce its result. Normal operations scenario/balance is unchanged.
+
+More than8 actual delivered/acknowledged Company events cannot evict an open action;
+separate-contact/latency/hidden movement-death negatives, exact graph ACK/rank
+isolation, true reason/clear/reoccur, cap/resolution retention and deterministic
+same-time ordering are checked. All26 prior model suites pass. ATT40/57 expectations
+were explicitly updated only where TRI replaces global8, per-contact unread rows
+and continuous policy-block dedup. SAV/RSM remain unchanged. Evidence:
+`artifacts/triage_checks.json`, `triage_final_visual_*.log`, `triage_*.png`,
+`triage_regression_*.log`, `triage_import.log`.
+
+Observed experience: the older actionable headline survived continuous new reports;
+coalescing made information feel updated without row flood. Open/unread badges
+make ACK-without-repair visible, but the player could still forget a silent ACKed
+condition. Resolved action rows retain their classification above information in
+expanded history, while the primary only demands real open intervention. Text is
+denser at11 diagnostic rows; no human comprehension/agency/fun acceptance is claimed.
+Human evaluation remains nonblocking; final priorities, reminders/sound/animations
+and permanent alert persistence/migration remain outside this proof.
+
 ## T3-ATT-026 — Operational alerts and attention switching
 
 Operations owns a separate presentation-only `operational_alerts.gd` inbox. Each

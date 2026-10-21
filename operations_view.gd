@@ -60,7 +60,7 @@ func _ready() -> void:
 	inquiry_button = button("BINOCULAR INQUIRY [B]", Vector2(945, 575), toggle_inquiry)
 	reconstruct_button = button("RECONSTRUCT REPORT [R]", Vector2(945, 615), reconstruct)
 	exit_button = button("RETURN TO LIVE VIEW [Esc]", Vector2(945, 655), exit_reconstruction)
-	acknowledge_button = button("ACK NEWEST [K]", Vector2(945, 760), acknowledge_newest, 140)
+	acknowledge_button = button("ACK PRIMARY [K]", Vector2(945, 760), acknowledge_newest, 140)
 	alerts_button = button("ALERT HISTORY [H]", Vector2(1095, 760), toggle_alert_history, 140)
 	alert_panel = Panel.new()
 	alert_panel.position = Vector2(250, 115)
@@ -74,12 +74,12 @@ func _ready() -> void:
 	alert_title.position = Vector2(15, 12)
 	alert_title.add_theme_font_size_override("font_size", 15)
 	alert_panel.add_child(alert_title)
-	for index in range(8):
+	for index in range(11):
 		var row := Button.new()
-		row.position = Vector2(15, 48 + index * 61)
-		row.size = Vector2(640, 57)
+		row.position = Vector2(15, 48 + index * 44)
+		row.size = Vector2(640, 42)
 		row.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		row.add_theme_font_size_override("font_size", 13)
+		row.add_theme_font_size_override("font_size", 12)
 		row.pressed.connect(acknowledge_row.bind(index))
 		alert_panel.add_child(row)
 		alert_rows.append(row)
@@ -90,14 +90,13 @@ func toggle_alert_history() -> void:
 	refresh()
 
 func acknowledge_newest() -> void:
-	var newest: Dictionary = operations.alerts.newest_unread()
+	var newest: Dictionary = operations.alerts.primary()
 	if not newest.is_empty():
 		operations.alerts.acknowledge(newest.id)
 	refresh()
 
 func acknowledge_row(index: int) -> void:
-	var entries: Array = operations.alerts.recent()
-	entries.reverse()
+	var entries: Array = operations.alerts.ranked()
 	if index < entries.size():
 		operations.alerts.acknowledge(entries[index].id)
 	refresh()
@@ -167,15 +166,16 @@ func refresh() -> void:
 	reconstruct_button.disabled = not model.battle_active() or query_result.is_empty() or model.information.reconstructing
 	map_button.disabled = model.information.reconstructing
 	map_button.text = "BATTLEFIELD [Tab]" if is_rear else "PROTECTED REAR [Tab]"
-	acknowledge_button.disabled = operations.alerts.unread_count() == 0
-	alert_title.text = "RECENT ALERTS — click to acknowledge / " + ("world frozen" if not model.battle_active() else ("history paused" if model.information.reconstructing else "world continues"))
-	var entries: Array = operations.alerts.recent()
-	entries.reverse()
+	var primary_alert: Dictionary = operations.alerts.primary()
+	acknowledge_button.disabled = primary_alert.is_empty() or primary_alert.acknowledged
+	alert_title.text = "ALERT PRIORITY — click to acknowledge / " + ("world frozen" if not model.battle_active() else ("history paused" if model.information.reconstructing else "world continues"))
+	var entries: Array = operations.alerts.ranked()
 	for index in range(alert_rows.size()):
 		alert_rows[index].visible = index < entries.size()
 		if index < entries.size():
 			var entry: Dictionary = entries[index]
-			alert_rows[index].text = "%s T%.1f  %s\n%s / %s" % ["ACK" if entry.acknowledged else "NEW", entry.time, entry.text, attention_text(entry.area), entry.source]
+			var state: String = entry.resolution if entry.state == "RESOLVED" else attention_text(entry.area)
+			alert_rows[index].text = "%s %s T%.1f  %s\n%s / %s" % ["ACK" if entry.acknowledged else "NEW", entry["class"], entry.time, entry.text, state, entry.source]
 			alert_rows[index].tooltip_text = JSON.stringify(entry.provenance)
 
 func _input(event: InputEvent) -> void:
@@ -403,9 +403,15 @@ func _draw() -> void:
 		label_at(Vector2(280, 389), "Battle ended / world frozen", 23)
 		label_at(Vector2(250, 421), "Primary HQ destroyed by autonomous artillery", 17)
 	draw_rect(Rect2(24, 750, 1231, 50), Color("102522"))
-	var newest: Dictionary = operations.alerts.newest_unread()
+	var newest: Dictionary = operations.alerts.primary()
+	var counts: Dictionary = operations.alerts.counts()
 	if newest.is_empty():
-		label_at(Vector2(38, 770), "ALERTS: none unread / H: recent history", 14)
+		label_at(Vector2(38, 770), "ALERTS: none unread / H: priority history", 14)
 	else:
-		label_at(Vector2(38, 770), "ALERTS %d unread / T%.1f  %s" % [operations.alerts.unread_count(), newest.time, newest.text], 14, Color("e4d29b"))
-		label_at(Vector2(38, 792), attention_text(newest.area) + " / " + newest.source, 12)
+		var prefix: String = {"RESULT": "RESULT", "ACTION_REQUIRED": "ACTION NEEDED", "INFORMATION": "INFO"}[newest["class"]]
+		if newest.state == "RESOLVED":
+			prefix = "RESOLVED"
+		if newest.acknowledged:
+			prefix += " ACK"
+		label_at(Vector2(38, 770), "%s / T%.1f  %s" % [prefix, newest.time, newest.text], 14, Color("e4d29b"))
+	label_at(Vector2(38, 792), "ACTION open %d / unread %d | INFO unread %d | RESULT unread %d%s" % [counts.action_open, counts.action_unread, counts.information_unread, counts.result_unread, " / " + attention_text(newest.area) if not newest.is_empty() else ""], 12)

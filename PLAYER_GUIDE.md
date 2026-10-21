@@ -47,11 +47,19 @@ batches are scheduled. A completed or stopped order never repeats by itself.
 Victory or defeat ends and freezes the battle. You can still switch maps to
 inspect the aftermath. There are no Soldier movement, targeting or attack orders.
 
-The bottom **ALERTS** strip shows the newest unread operational alert and unread
-count in either map. **H / ALERT HISTORY** expands the most recent eight alerts;
-click a row to acknowledge it, or **K / ACK NEWEST** for the newest unread alert.
-Acknowledgement only clears its unread state. Opening the list does not pause live
-play. Older alerts can drop out of this small history.
+The bottom **ALERTS** strip prioritizes **RESULT**, then **ACTION NEEDED**, then
+**INFO** in either map. Separate counts show open/unread actions, unread information
+and unread results. **H / ALERT HISTORY** expands priority rows; click a row to
+acknowledge it, or **K / ACK PRIMARY** for the current headline. Opening the list
+does not pause live play.
+
+An acknowledged action can still be open: acknowledgement does not fix a shortage
+or authorize stock. The row stays available until the real condition clears, then
+shows **RESOLVED** separately. A continuing block stays silent after acknowledgement;
+a later real clear and reoccurrence can notify again. Unread updates for the same
+Company contact combine into one row with a count and latest report times. Open
+actions and the battle result are protected; up to eight other history rows rotate.
+After battle end, the result remains the headline, marked ACK after acknowledgement.
 
 Alerts cover blocked/completed Worker orders, stock awaiting military authorization,
 completed physical delivery, new reports received by Company, and the battle result.
