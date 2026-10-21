@@ -3,17 +3,21 @@ extends RefCounted
 var id: String
 var position: Vector2
 var origin: Vector2
+var route_origin: Vector2
 var path: Array[Vector2] = []
 var speed: float
 var travelled := 0.0
 var arrived := false
 var waypoint := 0
 var active := true
+var inventory := {"BoltActionRifleAmmo": 0}
+var weapon_category := "BoltActionRifle"
 
 func _init(identity: String, start: Vector2, pace: float) -> void:
 	id = identity
 	position = start
 	origin = start
+	route_origin = start
 	speed = pace
 
 func advance(delta: float) -> void:

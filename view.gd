@@ -72,7 +72,7 @@ func _draw() -> void:
 		draw_line(Vector2(x, 105), Vector2(x, 750), Color(0.6, 0.8, 0.6, 0.045))
 	for y in range(110, 750, 40):
 		draw_line(Vector2(24, y), Vector2(912, y), Color(0.6, 0.8, 0.6, 0.045))
-	label_at(Vector2(28, 40), "TRENCHO / INFORMATION & HIERARCHY PROOF", 25)
+	label_at(Vector2(28, 40), "TRENCHO / PHYSICAL SUPPLY PROOF", 25)
 	label_at(Vector2(28, 73), "[B] Binoculars: click any map location  •  [R] Reconstruct known history  •  [Esc] Exit", 16, Color("93aaa8"))
 	draw_rect(Scenario.OBSTACLE, Color("59625d"))
 	draw_rect(Scenario.OBSTACLE.grow(-8), Color("424e4b"))
@@ -92,7 +92,7 @@ func _draw() -> void:
 		var color: Color = colors[index]
 		for soldier in squad.soldiers:
 			if not soldier.path.is_empty():
-				var points := PackedVector2Array([soldier.origin])
+				var points := PackedVector2Array([soldier.route_origin])
 				points.append_array(PackedVector2Array(soldier.path))
 				draw_polyline(points, Color(color, 0.12), 1)
 			draw_circle(soldier.position, 6, color if soldier.active else Color("72716d"))
@@ -103,6 +103,34 @@ func _draw() -> void:
 			label_at(soldier.position + Vector2(9, 4), soldier.id.get_slice(".", 1), 11, color)
 		label_at(squad.center() + Vector2(-20, -26), squad.id, 16, color)
 	label_at(Vector2(273, 565), "P1-B / SUPPORT", 16, colors[1])
+	if not model.information.reconstructing:
+		var supply = model.supply
+		draw_line(supply.DEPOT_POSITION, supply.RESUPPLY_POSITION, Color("52605a"), 13)
+		draw_line(supply.DEPOT_POSITION, supply.RESUPPLY_POSITION, Color("9b9b77"), 1)
+		draw_rect(Rect2(supply.DEPOT_POSITION - Vector2(17, 12), Vector2(34, 24)), Color("b6a47a"))
+		label_at(Vector2(50, 102), "Depot: %d rounds" % supply.depot.inventory[supply.CATEGORY], 15)
+		var truck_position: Vector2 = supply.truck.position
+		draw_rect(Rect2(truck_position - Vector2(13, 8), Vector2(26, 16)), Color("b9c9aa"))
+		draw_circle(truck_position + Vector2(-7, 9), 3, Color("17211e"))
+		draw_circle(truck_position + Vector2(7, 9), 3, Color("17211e"))
+		draw_rect(Rect2(supply.CAPTURE_POSITION - Vector2(10, 8), Vector2(20, 16)), Color("c18969"))
+		label_at(supply.CAPTURE_POSITION + Vector2(-55, 27), "Captured +4" if supply.captured_at >= 0 else "Enemy ammo: 4", 14)
+		draw_rect(Rect2(625, 112, 270, 124), Color("112025"))
+		label_at(Vector2(638, 135), "P1-A / PHYSICAL AMMUNITION", 16)
+		var counts: Array = []
+		for soldier in model.squads[0].soldiers:
+			counts.append(str(soldier.inventory[supply.CATEGORY]))
+		label_at(Vector2(638, 160), "Individuals: " + " / ".join(counts), 15)
+		label_at(Vector2(638, 185), "Carried %d / ready %d" % [supply.carried(), supply.READY_THRESHOLD], 15)
+		label_at(Vector2(638, 213), supply.phase, 16, Color("e0c998"))
+		label_at(Vector2(425, 520), "SUPPLY / CUSTODY DIAGNOSTICS", 16)
+		label_at(Vector2(425, 546), "Depot %d · Truck %d · Carried %d · Enemy %d" % [supply.depot.inventory[supply.CATEGORY], supply.truck.inventory[supply.CATEGORY], supply.carried(), supply.captured.inventory[supply.CATEGORY]], 14)
+		label_at(Vector2(425, 570), "Total conserved: %d rounds · %s" % [supply.total_accounted(), supply.truck.state], 14)
+		var recent: Array = supply.events.slice(maxi(0, supply.events.size() - 3))
+		for index in range(recent.size()):
+			label_at(Vector2(425, 602 + index * 23), "T=%.1f  %s" % [recent[index].time, recent[index].choice], 14)
+		if supply.shared:
+			label_at(Vector2(425, 700), "Local sharing: P1-A.2 → P1-A.1 / 2 rounds", 14)
 	var observation: Dictionary = model.information.player_observation()
 	if not observation.is_empty():
 		var age: float = model.elapsed - observation.time

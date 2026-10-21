@@ -2,6 +2,7 @@ extends RefCounted
 
 const Squad = preload("res://squad.gd")
 const Information = preload("res://information.gd")
+const Supply = preload("res://supply.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -10,6 +11,7 @@ var squads: Array = []
 var platoons: Array[Dictionary] = []
 var secured := false
 var information = Information.new()
+var supply
 
 func _init() -> void:
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
@@ -17,6 +19,7 @@ func _init() -> void:
 	platoons = [{"id": "P1", "squads": [squads[0], squads[1]], "assignment": "Unassigned"},
 		{"id": "P2", "squads": [squads[2], squads[3]], "assignment": "Unassigned"}]
 	operational_decide()
+	supply = Supply.new(squads[0])
 
 func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:
 	trace.append({"echelon": echelon, "actor": actor, "intent": intent, "choice": choice, "reason": reason})
@@ -59,6 +62,7 @@ func advance(delta: float) -> void:
 	for squad in squads:
 		squad.advance(delta)
 	information.advance(elapsed, squads[3].soldiers[3])
-	if not secured and squads[0].complete():
+	supply.advance(delta, elapsed)
+	if not secured and supply.phase == "Final approach" and squads[0].complete():
 		secured = true
 		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by all four soldiers", "Each individual completed its own route")

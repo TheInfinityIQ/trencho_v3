@@ -8,6 +8,19 @@ var destination: Vector2
 var route_side := "direct"
 var decision: Dictionary = {}
 var terrain: Rect2
+var final_paths: Dictionary = {}
+
+func stage_for_supply() -> void:
+	for soldier in soldiers:
+		final_paths[soldier.id] = soldier.path.slice(1)
+		soldier.path.resize(1)
+
+func resume_final_approach() -> void:
+	for soldier in soldiers:
+		soldier.route_origin = soldier.position
+		soldier.path.assign(final_paths[soldier.id])
+		soldier.waypoint = 0
+		soldier.arrived = false
 
 func _init(identity: String, start: Vector2) -> void:
 	id = identity
