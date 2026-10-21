@@ -34,11 +34,7 @@ func _init(advancing_squad, rear_required := false) -> void:
 	squad.stage_for_supply()
 
 func carried() -> int:
-	var total := 0
-	for soldier in squad.soldiers:
-		if soldier.active:
-			total += int(soldier.inventory.get(CATEGORY, 0))
-	return total
+	return squad.carried_ammunition(CATEGORY)
 
 func total_accounted() -> int:
 	var total: int = depot.inventory[CATEGORY] + truck.inventory[CATEGORY] + captured.inventory[CATEGORY]

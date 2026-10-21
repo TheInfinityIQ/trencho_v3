@@ -10,6 +10,7 @@ var travelled := 0.0
 var arrived := false
 var waypoint := 0
 var active := true
+var body_present := false
 var inventory := {"BoltActionRifleAmmo": 0}
 var weapon_category := "BoltActionRifle"
 

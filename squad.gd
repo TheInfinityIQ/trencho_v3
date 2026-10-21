@@ -10,6 +10,13 @@ var decision: Dictionary = {}
 var terrain: Rect2
 var final_paths: Dictionary = {}
 
+func carried_ammunition(category: String) -> int:
+	var total := 0
+	for soldier in soldiers:
+		if soldier.active:
+			total += int(soldier.inventory.get(category, 0))
+	return total
+
 func stage_for_supply() -> void:
 	for soldier in soldiers:
 		final_paths[soldier.id] = soldier.path.slice(1)
@@ -70,6 +77,8 @@ func advance(delta: float) -> void:
 	# from which positions are regenerated. Clearance protects the outcrop boundary.
 	for a in range(soldiers.size()):
 		for b in range(a + 1, soldiers.size()):
+			if not soldiers[a].active or not soldiers[b].active:
+				continue
 			var difference: Vector2 = soldiers[b].position - soldiers[a].position
 			var distance := difference.length()
 			if distance < 14:

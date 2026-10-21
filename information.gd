@@ -16,6 +16,7 @@ var reconstruction: Array[Dictionary] = []
 func advance(now: float, casualty) -> void:
 	if world_event.is_empty() and now + 0.000001 >= EVENT_TIME:
 		casualty.active = false
+		casualty.body_present = true
 		world_event = {"event_id": "fixture-incident-1", "soldier_id": casualty.id,
 			"location": casualty.position, "event_time": EVENT_TIME,
 			"cause": "explosion", "hidden_source_id": "enemy-indirect-source-7"}

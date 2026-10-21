@@ -155,6 +155,8 @@ func _draw() -> void:
 		var squad = model.squads[index]
 		var color: Color = colors[index]
 		for soldier in squad.soldiers:
+			if not soldier.active and not soldier.body_present:
+				continue
 			if not soldier.path.is_empty():
 				var points := PackedVector2Array([soldier.route_origin])
 				points.append_array(PackedVector2Array(soldier.path))
@@ -191,8 +193,7 @@ func _draw() -> void:
 		label_at(Vector2(425, 520), "SUPPLY / CUSTODY DIAGNOSTICS", 16)
 		label_at(Vector2(425, 546), "Depot %d · Truck %d · Carried %d · Enemy %d" % [supply.depot.inventory[supply.CATEGORY], supply.truck.inventory[supply.CATEGORY], supply.carried(), supply.captured.inventory[supply.CATEGORY]], 14)
 		if model.integrated_rear:
-			var total: int = supply.total_accounted() + model.rear.ammunition + model.rear.shipment.cargo
-			label_at(Vector2(425, 570), "Battlefield %d · Rear %d · Boundary %d · Total %d" % [supply.total_accounted(), model.rear.ammunition, model.rear.shipment.cargo, total], 14)
+			label_at(Vector2(425, 570), "Supply %d · Rear %d · Body/team 3 · Total %d" % [supply.total_accounted(), model.rear.ammunition, model.total_ammunition()], 14)
 			label_at(Vector2(425, 676), "Truck: " + supply.truck.state, 14)
 		else:
 			label_at(Vector2(425, 570), "Total conserved: %d rounds · %s" % [supply.total_accounted(), supply.truck.state], 14)
@@ -209,6 +210,12 @@ func _draw() -> void:
 		label_at(observation.location + Vector2(-80, 42), "Casualty / explosion site", 14, Color("d6a89b"))
 	if queried:
 		draw_arc(query_point, model.information.QUERY_RADIUS, 0, TAU, 48, Color("99dfe9"), 1.5)
+	if not model.information.reconstructing:
+		var recovery = model.recovery
+		draw_circle(recovery.position, 9, Color("b4addd"))
+		label_at(recovery.position + Vector2(12, 20), "Recovery Team", 14, Color("c8c3e5"))
+		label_at(Vector2(40, 760), "Body present: %s · Body ammo: %d · Team ammo: %d · History: %s" % [str(recovery.casualty.body_present), recovery.casualty.inventory[recovery.CATEGORY], recovery.inventory[recovery.CATEGORY], str(not model.information.world_event.is_empty())], 14)
+		label_at(Vector2(580, 730), recovery.state, 14)
 	if model.information.reconstructing:
 		draw_rect(Rect2(24, 105, 888, 645), Color(0.04, 0.08, 0.12, 1))
 		for record in model.information.reconstruction:

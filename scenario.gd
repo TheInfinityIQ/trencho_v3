@@ -4,6 +4,7 @@ const Squad = preload("res://squad.gd")
 const Information = preload("res://information.gd")
 const Supply = preload("res://supply.gd")
 const Rear = preload("res://rear.gd")
+const Recovery = preload("res://recovery.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -15,6 +16,7 @@ var information = Information.new()
 var supply
 var rear
 var integrated_rear := false
+var recovery
 
 func _init(with_rear := false) -> void:
 	integrated_rear = with_rear
@@ -26,6 +28,16 @@ func _init(with_rear := false) -> void:
 	supply = Supply.new(squads[0], with_rear)
 	if with_rear:
 		rear = Rear.new()
+	recovery = Recovery.new(squads[3].soldiers[3])
+
+func total_ammunition() -> int:
+	var total: int = supply.depot.inventory[Supply.CATEGORY] + supply.truck.inventory[Supply.CATEGORY] + supply.captured.inventory[Supply.CATEGORY] + recovery.inventory[Supply.CATEGORY]
+	for squad in squads:
+		for soldier in squad.soldiers:
+			total += int(soldier.inventory.get(Supply.CATEGORY, 0))
+	if integrated_rear:
+		total += rear.ammunition + rear.shipment.cargo
+	return total
 
 func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:
 	trace.append({"echelon": echelon, "actor": actor, "intent": intent, "choice": choice, "reason": reason})
@@ -71,6 +83,7 @@ func advance(delta: float) -> void:
 	supply.advance(delta, elapsed)
 	if integrated_rear:
 		rear.advance(delta, elapsed, supply)
+	recovery.advance(delta, elapsed)
 	if not secured and supply.phase == "Final approach" and squads[0].complete():
 		secured = true
 		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by all four soldiers", "Each individual completed its own route")

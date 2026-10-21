@@ -2,6 +2,47 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-PER-005 — Aftermath and historical continuity
+
+P2-B.4 begins with three additional explicit fixture rounds. At the existing
+T=5 casualty event the same person becomes inactive, with a physical-body flag
+and its existing inventory; no duplicate body or equipment pile is created.
+The inactive person cannot move or contribute to living readiness. Its body
+and three rounds persist through elapsed time, map changes, production and
+report propagation. This is in-run persistence, not save/load persistence.
+
+The Recovery Team starts at(650,650). AtT15 (ten seconds after the quiet reserve
+site casualty), it dispatches automatically and physically travels at80units/s.
+Within24units it starts a two-world-second action; only completion clears the
+current body and moves the three rounds to the team's independent inventory.
+The inactive person identity remains. The team keeps the items; there is no
+automatic rear/global/squad loot. Recovery logs a single custody transaction.
+
+Neither the authoritative historical event nor HQ-established incident is
+rewritten. An after-cleanup location query still reports the originalT5event.
+Historical reconstruction remains available from that restricted HQ record;
+it does not set the current body flag or recreate equipment. Exiting leaves
+the location cleaned. No hidden firing source is learned through recovery.
+
+The new global ammunition count includes all people, body/team custody, depot,
+truck, enemy container, rear stock and inter-map shipment. Legacy military
+supply-chain accounting remains24 plus the separate3-round casualty fixture
+=27 globally. Integrated initial8main+3casualty=11; after two rear batches,
+global27=rear8+livingmain16+RecoveryTeam3. Commitment remains a subset, not an
+extra inventory. Earlier24-round figures refer to the earlier main supply flow.
+
+PA-PER-001..006 remain provisional: three carried rounds, deterministic quiet-site
+dispatch,24-unit/2s recovery, items retained by the team, one fixture actor, and
+historical reconstruction independent from current remains. No full casualty,
+medical, burial, civilian cleanup, salvage economy or item-return system exists.
+
+`check_recovery.gd` verifies persistence, no auto-loot, physical arrival and
+duration, exact custody, retained history/timestamps, hidden-source boundaries,
+and post-cleanup reconstruction without corpse respawn. Renderer mode adds
+actual view switches, rear work, queries and reconstruction; evidence is in
+`artifacts/recovery_checks.json`, `recovery_visual.log` and seven recovery PNGs.
+Human/player experience evaluation remains pending.
+
 ## T3-REA-004 — Integrated protected rear
 
 The normal project now starts in a separate protected rear map. WASD moves the
