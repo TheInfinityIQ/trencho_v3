@@ -16,6 +16,7 @@ var reconstruct_button: Button
 var exit_button: Button
 var map_button: Button
 var reserve_amount: SpinBox
+var batch_count: SpinBox
 
 func button(text: String, point: Vector2, action: Callable, width := 292.0) -> Button:
 	var item := Button.new()
@@ -40,7 +41,17 @@ func _ready() -> void:
 	add_child(reserve_amount)
 	rear_buttons.append(button("PLACE WORKBENCH [P]", Vector2(945, 585), begin_placement))
 	rear_buttons.append(button("WORK: ONE BATCH [E]", Vector2(945, 625), manual_work))
-	rear_buttons.append(button("WORKER: ONE BATCH [F]", Vector2(945, 665), assign_worker))
+	rear_buttons.append(button("WORKER ORDER [F]", Vector2(945, 665), assign_worker, 185))
+	batch_count = SpinBox.new()
+	batch_count.position = Vector2(1140, 665)
+	batch_count.size = Vector2(95, 32)
+	batch_count.min_value = 1
+	batch_count.max_value = 3
+	batch_count.step = 1
+	batch_count.value = 1
+	batch_count.tooltip_text = "Batches in the next finite Worker order (1–3)"
+	add_child(batch_count)
+	rear_buttons.append(button("STOP FUTURE BATCHES [X]", Vector2(945, 705), stop_worker))
 	inquiry_button = button("BINOCULAR INQUIRY [B]", Vector2(945, 575), toggle_inquiry)
 	reconstruct_button = button("RECONSTRUCT REPORT [R]", Vector2(945, 615), reconstruct)
 	exit_button = button("RETURN TO LIVE VIEW [Esc]", Vector2(945, 655), exit_reconstruction)
@@ -64,7 +75,11 @@ func manual_work() -> void:
 
 func assign_worker() -> void:
 	if model.battle_active() and view_mode == "rear":
-		model.rear.assign_worker()
+		model.rear.assign_worker(int(batch_count.value), model.elapsed)
+
+func stop_worker() -> void:
+	if model.battle_active() and view_mode == "rear":
+		model.rear.stop_worker(model.elapsed)
 
 func authorize(policy: String) -> void:
 	if model.battle_active() and view_mode == "rear":
@@ -95,6 +110,8 @@ func refresh() -> void:
 		item.disabled = not model.battle_active()
 	reserve_amount.visible = is_rear
 	reserve_amount.editable = is_rear and model.battle_active()
+	batch_count.visible = is_rear
+	batch_count.editable = is_rear and model.battle_active()
 	inquiry_button.visible = not is_rear
 	reconstruct_button.visible = not is_rear
 	exit_button.visible = not is_rear and model.information.reconstructing
@@ -121,6 +138,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				manual_work()
 			elif event.keycode == KEY_F:
 				assign_worker()
+			elif event.keycode == KEY_X:
+				stop_worker()
 			elif event.keycode in [KEY_1, KEY_2, KEY_3]:
 				authorize({KEY_1: "AVAILABLE", KEY_2: "RESERVE", KEY_3: "LOCKED"}[event.keycode])
 		elif event.keycode == KEY_B:
@@ -215,7 +234,7 @@ func draw_rear() -> void:
 	label_at(worker_label, "WORKER", 15)
 	draw_circle(rear.avatar, 10, Color("8ed4df"))
 	label_at(rear.avatar + Vector2(-20, -20), "YOU", 15)
-	label_at(Vector2(50, 620), "Move with WASD. Place a workbench [P], stand nearby and work [E].", 17)
+	label_at(Vector2(50, 620), "WASD: move / P: bench / E: manual / F: Worker order / X: stop future batches", 16)
 	label_at(Vector2(50, 650), "Stock starts LOCKED. Choose AVAILABLE [1] when you want the military to draw it.", 16)
 	var status: String = rear.message
 	if rear.job.is_empty():

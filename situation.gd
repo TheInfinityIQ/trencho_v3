@@ -50,7 +50,7 @@ static func build(world) -> Dictionary:
 	if rear.placed:
 		prompt = "Start one ammunition batch in the rear."
 	if rear.worker.assigned and rear.worker.batches_remaining > 0:
-		prompt = "Worker assigned one batch — no player action required."
+		prompt = "Worker assigned %d batch(es) — no player action required." % rear.production_order.requested
 	if not rear.job.is_empty():
 		prompt = "Production working — no player action required."
 	if rear.metal < 1 and rear.job.is_empty() and rear.ammunition == 0:
@@ -107,6 +107,31 @@ static func build(world) -> Dictionary:
 			worker = "ONE BATCH ACTIVE"
 		else:
 			worker = "ONE BATCH ASSIGNED — approaching/waiting"
+	var order: Dictionary = rear.production_order.duplicate(true)
+	var future := 0
+	if not order.is_empty():
+		var active: bool = not rear.job.is_empty() and rear.job.producer == rear.worker.id
+		future = 0 if order.stop_requested or order.status in ["STOPPED", "COMPLETED"] else maxi(0, order.requested - order.completed - (1 if active else 0))
+		if order.requested == 1 and order.status == "COMPLETED":
+			worker = "ONE BATCH COMPLETE — none scheduled"
+		elif order.status == "ACTIVE" and order.requested == 1:
+			worker = "ONE BATCH ACTIVE"
+		elif order.status == "QUEUED" and order.requested == 1:
+			worker = "ONE BATCH ASSIGNED — approaching/waiting"
+		else:
+			worker = "%d/%d %s / next %d" % [order.completed, order.requested, order.status, future]
+		if order.status.begins_with("BLOCKED"):
+			work = order.reason + " — awaiting requirement"
+			if world.battle_active():
+				prompt = "Worker blocked: %s. Order retained; resumes when available." % order.reason
+		elif order.status == "STOPPING":
+			work += " / STOP AFTER THIS"
+		elif order.status == "STOPPED":
+			work = "STOPPED — no further work scheduled"
+		if not world.battle_active() and order.status not in ["COMPLETED", "STOPPED"]:
+			future = 0
+			work = "FROZEN — battle ended"
+			worker = "%d/%d complete / unfinished work frozen" % [order.completed, order.requested]
 	var reports := contacts(world)
 	var receipt_time := -1.0
 	for report in world.information.company_contact_snapshot():
@@ -116,5 +141,5 @@ static func build(world) -> Dictionary:
 		report_activity = "Company knowledge updated T%.1f" % receipt_time if world.elapsed - receipt_time <= 1 else "Company: last receipt T%.1f; no newer report received" % receipt_time
 	return {"need": {"requested": requested, "delivered": delivered, "remaining": maxi(0, requested - delivered), "state": request_state, "carried": supply.carried(), "readiness": supply.phase},
 		"stock": {"finished": rear.ammunition, "uncommitted": uncommitted, "eligible": eligible, "committed": rear.committed, "policy": rear.policy, "reserve": rear.reserve, "explanation": policy_text},
-		"chain": {"stage": stage, "explanation": waiting}, "work": {"bench": rear.placed, "state": work, "progress": progress, "worker": worker},
+		"chain": {"stage": stage, "explanation": waiting}, "work": {"bench": rear.placed, "state": work, "progress": progress, "worker": worker, "order": order, "future_batches": future},
 		"contacts": reports, "report_activity": report_activity, "prompt": prompt}

@@ -17,8 +17,14 @@ rear. Soldiers, vehicles and commanders act autonomously.
    supplied rounds are used in combat; Company assigns the final HQ fire task
    after the infantry reaches its objective.
 
-**F** assigns the nearby worker one batch instead of working manually. It is an
-explicit one-batch order, not continuous production.
+In the rear, choose **1–3 batches** beside **WORKER ORDER [F]**, then click the
+button or press **F**. The worker walks to the bench and completes that finite
+order while you observe either map. Each batch consumes one Metal when it starts
+and produces eight rounds after four world seconds. Future inputs are not reserved.
+If input or a requirement is missing, the order waits and resumes when available.
+**STOP FUTURE BATCHES [X]** lets an active batch finish, then stops; a waiting order
+stops immediately. There is no refund. Another order requires another explicit
+assignment. Worker production leaves your military stock policy unchanged.
 
 On the battlefield, press **B** and click a map location for an HQ inquiry. Reports
 arrive with delay; an empty result means no established information. **R** shows
@@ -35,7 +41,8 @@ Contact labels are **LAST KNOWN**, with age, observation/receipt time and Compan
 provenance. **RECENT** is up to 5 world seconds, **AGING** is more than 5 through
 15, and **STALE** is older than 15. Old evidence stays visible until a newer locally observed report reaches
 Company. A stale marker does not prove the enemy is still there. Worker status
-explicitly says when its one batch is complete and no more work is scheduled.
+shows completed/requested batches, blocking or stop state, and how many later
+batches are scheduled. A completed or stopped order never repeats by itself.
 
 Victory or defeat ends and freezes the battle. You can still switch maps to
 inspect the aftermath. There are no Soldier movement, targeting or attack orders.

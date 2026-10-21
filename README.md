@@ -5,6 +5,54 @@ Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/proje
 For the playable logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
+## T3-WRK-025 — Finite Worker production orders
+
+In operations.tscn, the Rear count selector chooses1/2/3 batches; WORKER ORDER [F]
+assigns the sole Worker to the existing ammunition bench. STOP FUTURE BATCHES [X]
+finishes the current batch before stopping, or stops immediately if none is active.
+No refunds, infinite repeat, target-stock automation, new military orders or policy
+changes are implied. Default assignment remains1 for existing proof scenes.
+
+Rear owns a plain-value order record: unique ID, recipe, requested/completed count,
+status/reason, Worker/workstation identity, creation time and stop request. A value
+history records state changes and completion boundaries without blocked-tick spam.
+Every batch independently checks capability, bench, Worker eligibility/assignment
+and Metal. Only its own1Metal is charged at start, with8rounds after4worldseconds.
+Completion leaves a one-world-tick boundary before another batch can start. A
+blocked order retains completed work and automatically resumes the same identity
+after legitimate requirements/input return. COMPLETED/STOPPED orders do not repeat;
+explicit new assignment is required and releases the previous exclusive bench.
+
+The read-only situation panel shows actual job time, completed/requested batches,
+order state/reason and future batches (excluding the current batch). A stop request
+shows no future work. Field observation/inquiry uses the same running clock;
+historical reconstruction still pauses it. WAR terminal freezes unfinished work
+without finishing it; the panel identifies frozen work. LOCKED output accumulates
+as rear stock and does not secretly authorize/commit/export or satisfy requests.
+Normal operations still starts with Metal4 and has only count/assign/stop additions.
+
+PA-WRK-001..004: finite1–3 counts, per-batch charging, automatic blocked resumption,
+stop at the batch boundary. PA-WRK-005: a focused validation variant starts with
+rawMetal1 and a separate rear-owned crateMetal2 physically at raw storage. At T10
+an authored finite receipt transfers exactly2 into raw stock, with custody ledger.
+Nearby cargo alone is ineligible. Depleted cargo cannot be received twice. Total
+Metal3 becomes24rounds through the ordinary recipe; no resource is created, no
+recurring income/resource shop or final raw-material transport doctrine is added.
+
+Verification: `--headless --path . --script check_worker.gd --log-file artifacts/worker_model.log`
+runs99 checks; omit headless and append `-- --visual` for113 using actual operations
+count/assign/stop/map/inquiry controls and finite-crate blocked/resumed variant.
+Ten inspected captures cover setup, active first batch, field attention, second
+batch, normal completion, stopping/stopped, finite-input block, receipt/resume and
+completion with policy still LOCKED. All checks pass without script errors.
+Evidence: `artifacts/worker_checks.json`, `worker_visual.log`, `worker_*.png` and
+`worker_regression_*.log`. All24 earlier model suites, including safe-save and
+focused active-resume, pass. Order values roundtrip through the existing codec;
+this does not claim arbitrary multi-order active-save equivalence or migration.
+No multiple Workers/benches, recipe queue, priorities, shifts, cancellation refunds,
+worker health subsystem, capacity model or final HUD is added. Human evaluation
+of attention release, pacing and dense diagnostic UI remains pending.
+
 ## T3-SIT-024 — Operational situation and logistics feedback
 
 The same operations scene now has a read-only `situation.gd` projection of actual
@@ -67,7 +115,7 @@ Remaining UX risks: dense diagnostic text and contact labels need human evaluati
 report-age confidence is not a guarantee that an enemy still exists; normal
 logistics waiting remains passive despite legible stages. Only Company receipt
 activity is exposed, so a not-yet-received update is intentionally uncertain.
-Worker remains one batch with no unassign flow. No tactical control, live tracking,
+At this milestone Worker was one batch; WRK-025 above extends finite orders. No tactical control, live tracking,
 minimap, automatic policy, route ETA, notification framework, final HUD/tutorial/
 sound or campaign UI was added. Prototype active-save object/property manifests
 remain build-coupled; no backward migration promise is introduced by these report
@@ -129,8 +177,8 @@ Observed UX risks: a several-stage delivery creates a noticeable passive wait;
 the UI exposes custody stages and lets the player observe while waiting. Reserve8
 protects the whole first batch, which may initially look like a stalled request.
 Stale contact markers intentionally outlive the real guard; their time labels
-matter. Worker assignment currently orders one batch and has no player unassign
-flow. The one-cycle objective is sufficient here, but these limits need human
+matter. Worker assignment at this milestone ordered one batch; WRK-025 above
+extends finite production orders. The one-cycle objective still needs human
 evaluation before a broader economy/UI. Engineering completion does not establish
 that the logistics agency is fun or clear. Human experience evaluation is pending.
 No campaign cards/meta/save-slot UI/new weapons/final art/tutorial/balance/audio
