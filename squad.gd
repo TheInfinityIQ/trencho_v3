@@ -19,7 +19,146 @@ var loss_time := -1.0
 var deceased_leader_id := ""
 var leader_reports: Array[Dictionary] = []
 var leadership_log: Array[Dictionary] = []
+var morale := 100
+var morale_state := "STEADY"
+var morale_log: Array[Dictionary] = []
+var morale_reports: Array[Dictionary] = []
+var casualty_morale_ids: Dictionary = {}
+var suppression_episode_penalized := false
+var last_incoming_at := -1.0
+var routing_state := "NONE"
+var routing_trigger: Dictionary = {}
+var rally_destination := Vector2.ZERO
+var rally_arrived_at := -1.0
+var recovery_due_at := -1.0
 const RANK := {"PRIVATE": 0, "CORPORAL": 1, "SERGEANT": 2, "LIEUTENANT": 3}
+
+func mission_execution_available() -> bool:
+	return command_available() and routing_state == "NONE"
+
+func change_morale(amount: int, cause: String, now: float, person_id := "") -> void:
+	var before := morale
+	morale = clampi(morale + amount, 0, 100)
+	morale_state = "STEADY" if morale >= 61 else ("SHAKEN" if morale >= 31 else "ROUTING")
+	# Routing is latched until safe recovery reaches50, even above the entry band.
+	if routing_state in ["RETREATING", "AT_RALLY"]:
+		morale_state = "ROUTING"
+	morale_log.append({"time": now, "cause": cause, "person": person_id, "before": before, "change": morale - before, "after": morale, "state": morale_state, "suppression": suppression})
+	if morale <= 30 and routing_state == "NONE":
+		routing_state = "PENDING_COMMAND"
+		morale_state = "ROUTING"
+		routing_trigger = morale_log.back().duplicate(true)
+
+func combat_casualty(person, now: float) -> void:
+	if person not in soldiers or casualty_morale_ids.has(person.id):
+		return
+	casualty_morale_ids[person.id] = true
+	change_morale(-20, "Combat casualty", now, person.id)
+	if person == formal_leader:
+		change_morale(-20, "Formal Squad Leader death", now, person.id)
+
+func receive_suppression(amount: int, now: float) -> void:
+	suppression += amount
+	if amount > 0:
+		last_incoming_at = now
+		suppression_decay_at = now + 2
+	if suppression >= 4 and not suppression_episode_penalized:
+		suppression_episode_penalized = true
+		change_morale(-15, "Sustained suppression episode", now)
+
+func decay_suppression(now: float) -> void:
+	while suppression > 0 and suppression_decay_at >= 0 and now + 0.000001 >= suppression_decay_at:
+		suppression -= 1
+		suppression_decay_at += 2
+	if suppression <= 1:
+		suppression_episode_penalized = false
+
+func morale_report(kind: String, now: float) -> void:
+	morale_reports.append({"kind": kind, "squad": id, "observation_time": now, "sent_at": now,
+		"morale": morale, "morale_state": morale_state, "routing_state": routing_state,
+		"formal_leader": formal_leader.id if formal_leader != null else "",
+		"acting_leader": acting_leader.id if acting_leader != null else "",
+		"commander": current_leader().id if current_leader() != null else ""})
+
+func retreat_path(start: Vector2, target: Vector2, clearance: float) -> Array[Vector2]:
+	# Small visibility graph around the one known solid outcrop. Unlike the forward
+	# fixture route, this supports a retreat from either side without crossing rock.
+	var bounds := terrain.grow(clearance)
+	var points: Array[Vector2] = [start, target, bounds.position,
+		Vector2(bounds.end.x, bounds.position.y), bounds.end, Vector2(bounds.position.x, bounds.end.y)]
+	var distance := [0.0, INF, INF, INF, INF, INF]
+	var previous := [-1, -1, -1, -1, -1, -1]
+	var visited := [false, false, false, false, false, false]
+	for iteration in range(points.size()):
+		var best := -1
+		for index in range(points.size()):
+			if not visited[index] and (best < 0 or distance[index] < distance[best]):
+				best = index
+		if best < 0 or is_inf(distance[best]):
+			break
+		visited[best] = true
+		for index in range(points.size()):
+			# Test against a slightly inset rectangle so travel along a corner/edge
+			# is legal while every accepted segment retains the chosen clearance.
+			if visited[index]:
+				continue
+			var inner := bounds.grow(-0.01)
+			var corners := [inner.position, Vector2(inner.end.x, inner.position.y), inner.end, Vector2(inner.position.x, inner.end.y)]
+			var blocked := inner.has_point(points[best]) or inner.has_point(points[index])
+			for edge in range(4):
+				blocked = blocked or Geometry2D.segment_intersects_segment(points[best], points[index], corners[edge], corners[(edge + 1) % 4]) != null
+			var cost: float = distance[best] + points[best].distance_to(points[index])
+			if not blocked and cost < distance[index]:
+				distance[index] = cost
+				previous[index] = best
+	var result: Array[Vector2] = []
+	var cursor := 1
+	while cursor > 0 and previous[cursor] >= 0:
+		result.push_front(points[cursor])
+		cursor = previous[cursor]
+	return result
+
+func begin_routing(now: float) -> void:
+	# The accepted contact is east of this outcrop. Its west face is the local
+	# rearward rally cover, independent of the Platoon's existing objective.
+	rally_destination = Vector2(terrain.position.x - 65, clampf(center().y, terrain.position.y + 65, terrain.end.y - 65))
+	for index in range(soldiers.size()):
+		var person = soldiers[index]
+		if not person.active:
+			continue
+		person.route_origin = person.position
+		var target := rally_destination + Vector2((index % 2) * 23 - 12, (index / 2) * 23 - 12)
+		person.path = retreat_path(person.position, target, 10)
+		person.waypoint = 0
+		person.arrived = false
+	routing_state = "RETREATING"
+	morale_state = "ROUTING"
+	morale_log.append({"time": now, "cause": "Local autonomous routing", "morale": morale, "rally": rally_destination, "intent": task, "commander": current_leader().id})
+	morale_report("SQUAD_ROUTING", now)
+
+func update_morale(now: float) -> void:
+	if routing_state == "PENDING_COMMAND" and command_available():
+		begin_routing(now)
+	if routing_state == "RETREATING" and complete():
+		routing_state = "AT_RALLY"
+		rally_arrived_at = now
+		morale_log.append({"time": now, "cause": "Rally cover reached", "morale": morale, "rally": rally_destination})
+	if routing_state != "AT_RALLY":
+		return
+	if suppression > 1 or now + 0.000001 < last_incoming_at + 4:
+		recovery_due_at = -1
+		return
+	if recovery_due_at < 0:
+		recovery_due_at = now + 2
+	if now + 0.000001 < recovery_due_at:
+		return
+	change_morale(mini(5, 50 - morale), "Safe rally recovery", now)
+	# No unbounded catch-up, and unsafe time never earns recovery credit.
+	recovery_due_at = now + 2
+	if morale >= 50:
+		routing_state = "RALLIED_HOLD"
+		morale_state = "SHAKEN"
+		morale_report("SQUAD_RALLIED", now)
 
 func current_leader():
 	if acting_leader != null and acting_leader.active:
@@ -94,7 +233,7 @@ func stage_for_supply() -> void:
 		soldier.path.resize(1)
 
 func resume_final_approach() -> void:
-	if not command_available():
+	if not mission_execution_available():
 		return
 	for soldier in soldiers:
 		soldier.route_origin = soldier.position
@@ -128,7 +267,7 @@ func center() -> Vector2:
 	return result / living if living > 0 else soldiers[0].position
 
 func assign(local_task: String, target: Vector2, obstacle: Rect2) -> Dictionary:
-	if not command_available():
+	if not mission_execution_available():
 		return {}
 	task = local_task
 	terrain = obstacle
@@ -170,7 +309,7 @@ func assign(local_task: String, target: Vector2, obstacle: Rect2) -> Dictionary:
 	return decision
 
 func advance(delta: float) -> void:
-	if not command_available():
+	if not command_available() or routing_state in ["PENDING_COMMAND", "AT_RALLY", "RALLIED_HOLD"]:
 		return
 	for soldier in soldiers:
 		soldier.advance(delta)

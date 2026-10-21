@@ -76,7 +76,7 @@ func advance(delta: float, time: float) -> void:
 		phase = "Hold: ammunition shortage"
 		record("Hold final approach", "Carried ammunition below sixteen-round fixture threshold")
 	if phase == "Hold: ammunition shortage":
-		if carried() >= READY_THRESHOLD and squad.command_available():
+		if carried() >= READY_THRESHOLD and squad.mission_execution_available():
 			phase = "Final approach"
 			resumed_at = now
 			squad.resume_final_approach()

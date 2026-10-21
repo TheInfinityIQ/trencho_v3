@@ -17,6 +17,15 @@ var contact_deliveries: Array[Dictionary] = []
 var contact_next_hop := 1
 var leader_knowledge := {"Squad": [], "Platoon": [], "Company": []}
 var leader_relays: Array[Dictionary] = []
+var morale_knowledge := {"Squad": [], "Platoon": [], "Company": []}
+var morale_relays: Array[Dictionary] = []
+var morale_deliveries: Array[Dictionary] = []
+
+func queue_morale_report(report: Dictionary) -> void:
+	var local: Dictionary = report.duplicate(true)
+	local.received_at = report.sent_at
+	morale_knowledge.Squad.append(local)
+	morale_relays.append({"report": local.duplicate(true), "hop": 1})
 
 func queue_leader_report(report: Dictionary) -> void:
 	var local: Dictionary = report.duplicate(true)
@@ -37,6 +46,14 @@ func company_contact_snapshot() -> Array[Dictionary]:
 	return result
 
 func advance(now: float, casualty) -> void:
+	for relay in morale_relays:
+		while relay.hop < 3 and now + 0.000001 >= relay.report.sent_at + relay.hop * HOP_DELAY:
+			var received: Dictionary = relay.report.duplicate(true)
+			received.received_at = relay.report.sent_at + relay.hop * HOP_DELAY
+			morale_knowledge[ECHELONS[relay.hop]].append(received)
+			morale_deliveries.append({"kind": received.kind, "squad": received.squad, "sender": ECHELONS[relay.hop - 1], "recipient": ECHELONS[relay.hop], "sent_at": received.received_at - HOP_DELAY, "received_at": received.received_at, "observation_time": received.observation_time})
+			print("MORALE REPORT RELAY: ", JSON.stringify(morale_deliveries.back()))
+			relay.hop += 1
 	if world_event.is_empty() and now + 0.000001 >= EVENT_TIME:
 		casualty.active = false
 		casualty.body_present = true

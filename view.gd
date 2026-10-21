@@ -16,6 +16,7 @@ var placing := false
 var rear_buttons: Array[Button] = []
 var map_button: Button
 var leadership_diagnostics := false
+var morale_diagnostics := false
 
 func _ready() -> void:
 	for entry in model.trace:
@@ -282,6 +283,20 @@ func _draw() -> void:
 				draw_arc(impact.impact, artillery.RADIUS, 0, TAU, 64, Color("efbc7d"), 2)
 				for effect in impact.effects:
 					draw_line(impact.impact, effect.position, Color("9edfe4") if effect.solid_obstruction else Color("ef987b"), 2)
+	if morale_diagnostics and not model.information.reconstructing:
+		var squad = model.squads[0]
+		draw_rect(Rect2(40, 250, 295, 230), Color("112025"))
+		label_at(Vector2(54, 276), "DEVELOPER / SQUAD MORALE", 17)
+		label_at(Vector2(54, 302), "%d / %s / %s" % [squad.morale, squad.morale_state, squad.routing_state], 14)
+		label_at(Vector2(54, 328), "Suppression %d / episode %s" % [squad.suppression, str(squad.suppression_episode_penalized)], 14)
+		label_at(Vector2(54, 354), "Formal: %s (%s)" % [squad.formal_leader.id, "alive" if squad.formal_leader.active else "dead"], 14)
+		label_at(Vector2(54, 380), "Acting: " + (squad.acting_leader.id if squad.acting_leader != null else "none"), 14)
+		label_at(Vector2(54, 406), "Intent: " + squad.task, 14)
+		label_at(Vector2(54, 432), "Last: " + (str(squad.morale_log.back().cause) if not squad.morale_log.is_empty() else "No morale events"), 13)
+		label_at(Vector2(54, 458), "Rally: " + str(squad.rally_destination), 14)
+		if squad.routing_state != "NONE":
+			draw_arc(squad.rally_destination, 28, 0, TAU, 40, Color("aad7b8"), 2)
+			label_at(squad.rally_destination + Vector2(-50, 55), "Local rally cover", 14)
 	if leadership_diagnostics and not model.information.reconstructing:
 		var squad = model.squads[0]
 		draw_rect(Rect2(40, 250, 285, 185), Color("112025"))
@@ -319,6 +334,8 @@ func _draw() -> void:
 		lines[5] = "CONTACT REPORT → COMPANY"
 	if leadership_diagnostics:
 		lines[5] = "LEADER LOSS → COMPANY"
+	if morale_diagnostics:
+		lines[5] = "MORALE REPORT → COMPANY"
 	for index in range(lines.size()):
 		label_at(Vector2(948, 171 + index * 22), lines[index], 14)
 	for index in range(4):
@@ -328,8 +345,10 @@ func _draw() -> void:
 			records = model.information.contact_knowledge[echelon] if index < 3 else []
 		if leadership_diagnostics:
 			records = model.information.leader_knowledge[echelon] if index < 3 else []
+		if morale_diagnostics:
+			records = model.information.morale_knowledge[echelon].slice(-1) if index < 3 else []
 		var observation_time: float = records[0].get("observation_time", 5.0) if not records.is_empty() else 0.0
-		label_at(Vector2(948, 325 + index * 22), "%s: %s" % [echelon, ("not in report route" if index == 3 and (contact_report or leadership_diagnostics) else "not received") if records.is_empty() else "T=%.1f (observed %.1f)" % [records[0].received_at, observation_time]], 14)
+		label_at(Vector2(948, 325 + index * 22), "%s: %s" % [echelon, ("not in report route" if index == 3 and (contact_report or leadership_diagnostics or morale_diagnostics) else "not received") if records.is_empty() else "T=%.1f (observed %.1f)" % [records[0].received_at, observation_time]], 14)
 	if model.artillery != null:
 		var artillery = model.artillery
 		label_at(Vector2(948, 260), "Mortar: %d shells · %s" % [artillery.inventory.MortarShell, "WAITING" if artillery.missions.is_empty() else artillery.missions.back().state], 13)

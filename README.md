@@ -2,6 +2,50 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-MOR-010 — Squad morale, autonomous routing and rally hold
+
+Every friendly Squad owns morale independently of suppression: initial100,
+clamped0–100; STEADY61–100, SHAKEN31–60. A real combat member casualty costs20;
+formal Squad Leader death costs an additional20. Acting succession changes neither
+penalty nor rank. Repeated casualty calls are idempotent. Suppression crossing4
+costs15 once per continuous episode, rearmed only after suppression reaches<=1.
+The earlier scripted reserve information incident remains an information fixture,
+not a new combat casualty path. Rifle and artillery combat share the casualty path.
+
+At morale<=30, routing latches until safe recovery reaches50, so it stays ROUTING
+while recovering through31–49. Available local formal/acting authority selects
+west-face outcrop cover (x345, center-y clamped310–405), preserving existing intent.
+Individual survivors physically retreat using a small visibility graph around the
+single known solid rectangle with10-unit clearance. This also handles retreat from
+east of the outcrop; the original forward path remains unchanged. This fixed west
+rally is provisional for the accepted eastern contact, not general tactical cover
+selection. No authority means the existing leaderless hold; no leader is invented.
+Routing blocks forward assignment, supply resumption and attacks. Bodies and their
+inventories persist. Higher task records, people and appointments remain unchanged.
+
+Only after physical rally arrival,4world-seconds without incoming fire and
+suppression<=1 does the2second recovery interval start. Each interval adds5 up to50;
+unsafe time earns no credit. Recovery runs after current-frame combat/artillery,
+preventing a gain on a frame that receives fire. At50 the Squad is SHAKEN and
+RALLIED_HOLD: no automatic Objective A resumption, perfect restoration or new order.
+
+SQUAD_ROUTING/SQUAD_RALLIED snapshots carry Squad, observation/send time, morale,
+state and local formal/acting identities. Existing1second-hop semantics propagate
+Squad->Platoon->Company only. Exact morale diagnostics require the explicit developer
+fixture flag; HQ/binocular inquiry/reconstruction do not receive these records.
+PA-MOR-001..006 remain provisional. Recovery begins with a full2second eligible
+interval; no surrender, career judgment, post-rout reassignment or final UI is added.
+
+`check_morale.gd` checks real-shot casualty/episode inputs, ordinary suppression85
+and resume, deterministic rout25, acting authority, reverse terrain clearance,
+physical retreat and cover LOS, inventory/body persistence, blocked attacks/orders,
+unsafe recovery (including fire exactly on the recovery deadline), timed recovery,
+stable hold and delayed reports. `-- --visual` captures steady, ordinary suppression,
+leader death, acting appointment, second casualty, local rout, delayed report,
+retreat, arrival and hold. Evidence: `artifacts/morale_checks.json`, `morale.log`,
+`morale_visual.log`, `morale_*.png`; prior focused suites remain available.
+Human/player experience evaluation remains pending; no export verification claimed.
+
 ## T3-CMD-009 — Embodied leaders and acting command
 
 Every friendly squad references its existing .1 person as formal SERGEANT/SquadLeader
@@ -172,7 +216,7 @@ They reach/hold behind the solid rock. Without incoming fire, suppression loses
 one point per2seconds; after reaching at most1 and holding at least1second,
 the squad replans its own route toward the unchanged Objective A. No new
 Operational/Company/Platoon/player tactical destination is required. This is
-suppression behavior, not a morale model.
+immediate suppression behavior, distinct from the later T3-MOR-010 morale model.
 
 Successful hits use the explicitly temporary alive->dead subset. The same person
 holds the body flag and remaining inventory, and a detached combat-world historical

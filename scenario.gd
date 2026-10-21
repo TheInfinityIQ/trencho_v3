@@ -34,6 +34,8 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false, wit
 	for platoon in platoons:
 		platoon.leader.formal_rank = "LIEUTENANT"
 		platoon.leader.normal_role = "PlatoonLeader"
+	for squad in squads:
+		squad.terrain = OBSTACLE
 	operational_decide()
 	supply = Supply.new(squads[0], with_rear)
 	if with_rear:
@@ -132,6 +134,8 @@ func advance(delta: float) -> void:
 	elapsed += delta
 	for squad in squads:
 		squad.update_leadership(elapsed)
+		if squad.routing_state == "PENDING_COMMAND" and squad.command_available():
+			squad.begin_routing(elapsed)
 		while not squad.leader_reports.is_empty():
 			information.queue_leader_report(squad.leader_reports.pop_front())
 		squad.advance(delta)
@@ -146,8 +150,13 @@ func advance(delta: float) -> void:
 	if artillery != null:
 		artillery.advance_fire_control(elapsed, information.company_contact_snapshot())
 		artillery.resolve_impacts(elapsed, blast_entities(), combat.solid_cover, combat)
+	for squad in squads:
+		squad.decay_suppression(elapsed)
+		squad.update_morale(elapsed)
+		while not squad.morale_reports.is_empty():
+			information.queue_morale_report(squad.morale_reports.pop_front())
 	var objective_reached: bool = squads[0].complete() and squads[0].center().distance_to(OBJECTIVE) < 50
-	if not secured and supply.phase == "Final approach" and objective_reached:
+	if not secured and supply.phase == "Final approach" and objective_reached and squads[0].mission_execution_available():
 		secured = true
 		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by surviving soldiers", "Each active individual completed its own route")
 

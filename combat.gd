@@ -58,10 +58,9 @@ func visible(start: Vector2, end: Vector2) -> bool:
 	return true
 
 func add_suppression(amount: int, now: float, reason: String) -> void:
-	suppression += amount
-	if amount > 0:
-		decay_at = now + 2
-	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"] and model.get_ref().squads[0].command_available():
+	var squad = model.get_ref().squads[0]
+	squad.receive_suppression(amount, now)
+	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"] and squad.mission_execution_available():
 		tactical_state = "SUPPRESSED"
 		var living := 0
 		for soldier in model.get_ref().squads[0].soldiers:
@@ -88,15 +87,21 @@ func covered(shooter: Vector2, target: Vector2) -> bool:
 	return near_cover and crosses_rect(shooter, target, LOW_COVER)
 
 func kill(target, shooter, now: float) -> void:
+	if not target.active:
+		return
 	target.active = false
 	target.body_present = true
 	for squad in model.get_ref().squads:
 		if target in squad.soldiers:
 			squad.recognize_leader_loss(now)
+			squad.combat_casualty(target, now)
 	history.append({"event": "combat casualty", "person": target.id, "location": target.position, "time": now, "world_source": shooter.id, "body_inventory": target.inventory.duplicate(true)})
 	print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
 
 func attempt_shot(shooter, target, now: float, roll: float) -> bool:
+	for squad in model.get_ref().squads:
+		if shooter in squad.soldiers and squad.routing_state != "NONE":
+			return false
 	if not shooter.active or shooter.inventory.get(AMMO, 0) <= 0 or shooter.weapon_category != "BoltActionRifle":
 		return false
 	if target.id not in shooter.detected or not can_detect(shooter, target) or now + 0.000001 < float(next_fire.get(shooter.id, -1)):
@@ -110,7 +115,12 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 	if first_contact < 0:
 		first_contact = now
 	if shooter.faction == "enemy":
-		add_suppression(1, now, "Incoming effective fire prohibits exposed advance")
+		for squad in model.get_ref().squads:
+			if target in squad.soldiers:
+				if squad == model.get_ref().squads[0]:
+					add_suppression(1, now, "Incoming effective fire prohibits exposed advance")
+				else:
+					squad.receive_suppression(1, now)
 	if hit:
 		kill(target, shooter, now)
 	print("SHOT: ", JSON.stringify(shots.back()))
@@ -118,7 +128,7 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 
 func move_to_cover(now: float) -> void:
 	var squad = model.get_ref().squads[0]
-	if not squad.command_available():
+	if not squad.mission_execution_available():
 		return
 	for index in range(squad.soldiers.size()):
 		var soldier = squad.soldiers[index]
@@ -159,9 +169,10 @@ func advance(now: float) -> void:
 				capable += 1
 		encounter_over = capable == 0
 	for squad in scenario.squads + [defenders]:
-		while squad.suppression > 0 and squad.suppression_decay_at >= 0 and now + 0.000001 >= squad.suppression_decay_at:
-			squad.suppression -= 1
-			squad.suppression_decay_at += 2
+		squad.decay_suppression(now)
+	if scenario.squads[0].routing_state != "NONE":
+		tactical_state = scenario.squads[0].routing_state
+		return
 	if tactical_state == "COVERING" and scenario.squads[0].complete():
 		tactical_state = "SUPPRESSED_HOLD"
 		cover_arrived_at = now

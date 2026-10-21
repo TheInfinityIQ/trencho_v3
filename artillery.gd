@@ -78,8 +78,7 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 			if entry.squad == combat.model.get_ref().squads[0]:
 				combat.add_suppression(added_suppression, now, "Spatial blast against a living member")
 			else:
-				entry.squad.suppression += added_suppression
-				entry.squad.suppression_decay_at = now + 2
+				entry.squad.receive_suppression(added_suppression, now)
 		effects.append({"person": soldier.id, "position": soldier.position, "distance": distance, "solid_obstruction": blocked, "effect": effect, "suppression_added": added_suppression})
 	return effects
 
