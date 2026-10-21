@@ -6,6 +6,7 @@ const Supply = preload("res://supply.gd")
 const Rear = preload("res://rear.gd")
 const Recovery = preload("res://recovery.gd")
 const Combat = preload("res://combat.gd")
+const VehicleRoutes = preload("res://vehicle_routes.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -19,8 +20,9 @@ var rear
 var integrated_rear := false
 var recovery
 var combat
+var vehicles
 
-func _init(with_rear := false, with_combat := false) -> void:
+func _init(with_rear := false, with_combat := false, with_vehicles := false) -> void:
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
@@ -33,6 +35,8 @@ func _init(with_rear := false, with_combat := false) -> void:
 	recovery = Recovery.new(squads[3].soldiers[3])
 	if with_combat:
 		combat = Combat.new(self)
+	if with_vehicles:
+		vehicles = VehicleRoutes.new(supply)
 
 func total_ammunition() -> int:
 	var total: int = supply.depot.inventory[Supply.CATEGORY] + supply.truck.inventory[Supply.CATEGORY] + supply.captured.inventory[Supply.CATEGORY] + recovery.inventory[Supply.CATEGORY]
@@ -44,6 +48,10 @@ func total_ammunition() -> int:
 	if combat != null:
 		for soldier in combat.defenders.soldiers:
 			total += int(soldier.inventory[Supply.CATEGORY])
+	if vehicles != null:
+		total += int(vehicles.tracked.inventory[Supply.CATEGORY])
+		for driver in vehicles.drivers:
+			total += int(driver.inventory[Supply.CATEGORY])
 	return total
 
 func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:

@@ -15,6 +15,7 @@ var inventory := {"BoltActionRifleAmmo": 0}
 var weapon_category := "BoltActionRifle"
 var faction := "friendly"
 var detected: Array[String] = []
+var assigned_vehicle_id := ""
 
 func _init(identity: String, start: Vector2, pace: float) -> void:
 	id = identity

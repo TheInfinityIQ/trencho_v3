@@ -1,7 +1,7 @@
 extends Node2D
 
 const Scenario = preload("res://scenario.gd")
-var model = Scenario.new(true, true)
+var model = Scenario.new(true, true, true)
 var font := ThemeDB.fallback_font
 var colors := [Color("85d9b0"), Color("7ebcda"), Color("d7b981"), Color("e0d3a5")]
 var inquiry_mode := false
@@ -136,6 +136,19 @@ func _draw() -> void:
 		draw_line(Vector2(x, 105), Vector2(x, 750), Color(0.6, 0.8, 0.6, 0.045))
 	for y in range(110, 750, 40):
 		draw_line(Vector2(24, y), Vector2(912, y), Color(0.6, 0.8, 0.6, 0.045))
+	if model.vehicles != null:
+		var network = model.vehicles
+		for edge in network.edges:
+			var is_road: bool = edge.terrain == "ROAD"
+			draw_line(network.points[edge.a], network.points[edge.b], Color("4c5953") if is_road else Color("537c67"), network.ROAD_HALF_WIDTH * 2 if is_road else 3)
+		for vehicle in [network.truck, network.tracked]:
+			for segment in range(vehicle.route.size() - 1):
+				draw_line(network.points[vehicle.route[segment]], network.points[vehicle.route[segment + 1]], Color("b6a36e") if vehicle.mobility_class == "ROAD_ONLY" else Color("76cbd5"), 1.5)
+		draw_rect(network.BLOCKAGE, Color("b36755"))
+		draw_line(network.BLOCKAGE.position, network.BLOCKAGE.end, Color("f0b59b"), 3)
+		draw_line(Vector2(network.BLOCKAGE.position.x, network.BLOCKAGE.end.y), Vector2(network.BLOCKAGE.end.x, network.BLOCKAGE.position.y), Color("f0b59b"), 3)
+		label_at(Vector2(240, 136), "Blocked crossing", 13)
+		label_at(Vector2(244, 235), "Tracked bypass", 13, Color("8fbca4"))
 	label_at(Vector2(28, 40), "TRENCHO / PHYSICAL SUPPLY PROOF", 25)
 	label_at(Vector2(28, 73), "[B] Binoculars: click any map location  •  [R] Reconstruct known history  •  [Esc] Exit", 16, Color("93aaa8"))
 	draw_rect(Scenario.OBSTACLE, Color("59625d"))
@@ -171,14 +184,20 @@ func _draw() -> void:
 	label_at(Vector2(273, 565), "P1-B / SUPPORT", 16, colors[1])
 	if not model.information.reconstructing:
 		var supply = model.supply
-		draw_line(supply.DEPOT_POSITION, supply.RESUPPLY_POSITION, Color("52605a"), 13)
-		draw_line(supply.DEPOT_POSITION, supply.RESUPPLY_POSITION, Color("9b9b77"), 1)
+		if model.vehicles == null:
+			draw_line(supply.DEPOT_POSITION, supply.RESUPPLY_POSITION, Color("52605a"), 13)
+			draw_line(supply.DEPOT_POSITION, supply.RESUPPLY_POSITION, Color("9b9b77"), 1)
 		draw_rect(Rect2(supply.DEPOT_POSITION - Vector2(17, 12), Vector2(34, 24)), Color("b6a47a"))
 		label_at(Vector2(50, 102), "Depot: %d rounds" % supply.depot.inventory[supply.CATEGORY], 15)
 		var truck_position: Vector2 = supply.truck.position
 		draw_rect(Rect2(truck_position - Vector2(13, 8), Vector2(26, 16)), Color("b9c9aa"))
 		draw_circle(truck_position + Vector2(-7, 9), 3, Color("17211e"))
 		draw_circle(truck_position + Vector2(7, 9), 3, Color("17211e"))
+		if model.vehicles != null:
+			var tracked_position: Vector2 = model.vehicles.tracked.position
+			draw_rect(Rect2(tracked_position - Vector2(11, 6), Vector2(22, 12)), Color("76bfce"))
+			draw_line(tracked_position + Vector2(-11, -8), tracked_position + Vector2(11, -8), Color("abcdd0"), 2)
+			draw_line(tracked_position + Vector2(-11, 8), tracked_position + Vector2(11, 8), Color("abcdd0"), 2)
 		if not supply.requires_rear:
 			draw_rect(Rect2(supply.CAPTURE_POSITION - Vector2(10, 8), Vector2(20, 16)), Color("c18969"))
 			label_at(supply.CAPTURE_POSITION + Vector2(-55, 27), "Captured +4" if supply.captured_at >= 0 else "Enemy ammo: 4", 14)
@@ -253,6 +272,10 @@ func _draw() -> void:
 	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
 	label_at(Vector2(948, 137), "HIERARCHY / DIAGNOSTICS", 18)
 	var lines := ["HQ: Secure A · Company: P1 main", "P1: A seizes / B supports", "P1-A: local north bypass", "P2: reserve holds", "", "REPORT RECEIPTS (1s / hop)"]
+	if model.vehicles != null:
+		var truck = model.vehicles.truck
+		var tracked = model.vehicles.tracked
+		lines = ["Truck / Driver-01 / ROAD_ONLY", "%s · cargo%d · driver %s" % [truck.route_state, truck.inventory.BoltActionRifleAmmo, "ready" if truck.driver.active and truck.driver.assigned_vehicle_id == truck.id else "unavailable"], "Carrier / Driver-02 / TRACKED", "%s · cargo%d · driver %s" % [tracked.route_state, tracked.inventory.BoltActionRifleAmmo, "ready" if tracked.driver.active and tracked.driver.assigned_vehicle_id == tracked.id else "unavailable"], "", "REPORT RECEIPTS (1s / hop)"]
 	for index in range(lines.size()):
 		label_at(Vector2(948, 171 + index * 22), lines[index], 14)
 	for index in range(4):

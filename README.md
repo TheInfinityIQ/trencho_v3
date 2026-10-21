@@ -2,6 +2,49 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-VEH-007 — Vehicle identity, drivers and legal routes
+
+The actual main scenario enables `Scenario.new(true,true,true)`; the third option
+promotes the existing military supply truck into a persistent Vehicle with ID,
+position, cargo, mobility, route state and a reference to persistent Driver-01.
+TrackedCarrier-01 has separate state/cargo and Driver-02. Drivers occupy their
+vehicles; they are not duplicated as walking squad members. Movement requires
+an active driver assigned to that exact vehicle. Cargo remains on a driverless
+vehicle and no arrival/delivery is reported.
+
+An explicit small weighted graph describes ROAD and OFFROAD edges. Road corridors
+have16-unit half-width (32 total). Both vehicles first evaluate the short road;
+at the junction they encounter the static blocked crossing and stop. One second
+BLOCKED, then one second REPLANNING makes failure/recovery visible. Only then is
+the blocked edge excluded. ROAD_ONLY replans via the longer south/west road;
+TRACKED can choose the designated passable off-road bypass. No route teleport
+or faction exception exists. With no alternate road, the truck remains failed
+with its cargo instead of borrowing tracked permissions.
+
+The truck moves at48units/s, tracked carrier at56. In the military-stocked proof,
+both dispatch when the eight-round shipment loads at~T6.77. The crossing blocks
+them aroundT9.3; tracked reaches(350,200) at~T15.57, truck at~T19.28. Only physical
+truck arrival plus ARRIVED route state permits the existing70-unit soldier transfer.
+The tracked cargo remains independent and empty. Infantry is not road-restricted.
+
+PA-VEH-001..006 remain provisional: occupied-driver embodiment, waypoint graph,
+explicit road tolerance, one static blockage, unarmed tracked comparator and
+one automatic legal replan. Added fixture choices are1s blocked +1s replanning,
+48/56 speeds, shared departure and this compact authored network. No traffic,
+vehicle combat/fuel/damage, driver replacement, road construction or dynamic
+bridge destruction is implemented. Vehicle cargo workflow and route states remain
+distinct; developer logs expose driver, classification, position, path, destination,
+world-diagnostic route legality, failure and cargo.
+
+`check_vehicles.gd` checks independent entities/inventories, driver identity and
+availability, continuous legal-position sampling, primary failure, distinct legal
+replans, no early arrival/cargo use, unavailable-driver/unassigned-driver cases,
+no-road failure, faction independence, infantry movement and full rear/combat
+integration. Renderer mode isolates the accepted military-stocked shipment to
+inspect primary travel, blockage, replanning, road versus off-road and delivery.
+Evidence: `artifacts/vehicle_checks.json`, `vehicle_visual.log`, five vehicle PNGs
+and six `vehicle_regression_*.log` files. Human evaluation remains pending.
+
 ## T3-COM-006 — Local infantry contact
 
 The normal integrated rear-production scenario now includes a four-person enemy

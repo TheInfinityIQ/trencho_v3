@@ -9,7 +9,7 @@ const RESUPPLY_POSITION := Vector2(350, 200)
 const CAPTURE_POSITION := Vector2(735, 290)
 var squad
 var depot := {"id": "military-depot", "inventory": {CATEGORY: 12}}
-var truck := {"id": "military-truck", "inventory": {CATEGORY: 0}, "position": DEPOT_POSITION, "state": "At depot"}
+var truck = {"id": "military-truck", "inventory": {CATEGORY: 0}, "position": DEPOT_POSITION, "state": "At depot"}
 var captured := {"id": "enemy-ammo-container", "owner": "enemy", "inventory": {CATEGORY: 4}}
 var phase := "Approach staging"
 var transactions: Array[Dictionary] = []
@@ -21,6 +21,7 @@ var resumed_at := -1.0
 var captured_at := -1.0
 var now := 0.0
 var requires_rear := false
+var vehicle_controller
 
 func _init(advancing_squad, rear_required := false) -> void:
 	squad = advancing_squad
@@ -91,8 +92,14 @@ func advance(delta: float, time: float) -> void:
 		if transfer(depot.id, depot.inventory, truck.id, truck.inventory, 8, "Load approved military shipment") == 8:
 			truck.state = "In transit"
 	if truck.state == "In transit":
-		truck.position = truck.position.move_toward(RESUPPLY_POSITION, 48 * delta)
-		if truck.position == RESUPPLY_POSITION:
+		if vehicle_controller != null:
+			vehicle_controller.get_ref().advance(delta, now)
+		else:
+			truck.position = truck.position.move_toward(RESUPPLY_POSITION, 48 * delta)
+		var physical_arrival: bool = truck.position == RESUPPLY_POSITION
+		if vehicle_controller != null:
+			physical_arrival = physical_arrival and truck.route_state == "ARRIVED"
+		if physical_arrival:
 			truck.state = "At staging"
 	if truck.state == "At staging":
 		for unit in range(truck.inventory[CATEGORY]):
