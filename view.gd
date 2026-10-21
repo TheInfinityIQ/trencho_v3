@@ -141,12 +141,18 @@ func draw_engineering() -> void:
 		draw_arc(point, engineering.WORK_RADIUS, 0, TAU, 40, Color("8aa9a0"), 1.5)
 		label_at(point + Vector2(-58, -42), site, 16)
 	for structure in engineering.structures:
-		draw_rect(structure.protection, Color(0.4, 0.8, 0.6, 0.12))
-		if structure.solid_blast:
+		if engineering.provides_small_arms_cover(structure):
+			draw_rect(structure.protection, Color(0.4, 0.8, 0.6, 0.12))
+		if structure.state == "DESTROYED":
+			draw_line(structure.geometry.position, structure.geometry.end, Color("b4927a"), 4)
+			draw_line(structure.geometry.position + Vector2(12, 18), structure.geometry.end + Vector2(-12, -18), Color("b4927a"), 4)
+		elif engineering.provides_blast_obstruction(structure):
 			draw_rect(structure.geometry, Color("9bbf8f"))
 		else:
-			draw_rect(structure.geometry, Color("9bbf8f"), false, 2)
-		label_at(structure.position + Vector2(-45, 55), structure.type, 14)
+			draw_rect(structure.geometry, Color("d8bd86") if structure.state == "DAMAGED" else Color("9bbf8f"), false, 2)
+		label_at(structure.position + Vector2(-45, 55), structure.type + " / " + structure.state, 12)
+		if structure.type == "ReinforcedPosition":
+			label_at(structure.position + Vector2(-100, 74), "Integrity%d / rifle:%s blast:%s" % [structure.integrity, str(engineering.provides_small_arms_cover(structure)), str(engineering.provides_blast_obstruction(structure))], 12)
 	for effect in engineering.proof_effects:
 		draw_line(engineering.proof_blast_point, effect.position, Color("cda88b"), 1.5)
 		draw_circle(effect.position, 8, Color("9dd6be") if effect.solid_obstruction else Color("de9e8a"))
@@ -166,8 +172,9 @@ func draw_engineering() -> void:
 	label_at(Vector2(50, 716), engineering.proof_comparison, 16)
 	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
 	label_at(Vector2(946, 135), "CONSTRUCTION DIAGNOSTICS", 18)
-	for index in range(engineering.jobs.size()):
-		var job: Dictionary = engineering.jobs[index]
+	var shown_jobs: Array = engineering.jobs.slice(maxi(0, engineering.jobs.size() - 2))
+	for index in range(shown_jobs.size()):
+		var job: Dictionary = shown_jobs[index]
 		var person = engineering.people.filter(func(actor): return actor.id == job.person)[0]
 		var y := 166 + index * 240
 		var lines := [job.person + " / " + job.activity, "Engineer qualified: " + str(person.engineer_qualified),
@@ -178,6 +185,9 @@ func draw_engineering() -> void:
 			job.structure if not job.structure.is_empty() else "No completed structure"]
 		for line in range(lines.size()):
 			label_at(Vector2(946, y + line * 25), lines[line], 13)
+	var recent: Array = engineering.lifecycle_history.slice(-4)
+	for index in range(recent.size()):
+		label_at(Vector2(946, 640 + index * 24), "T%.1f %s / %s" % [recent[index].time, recent[index].event, recent[index].source], 12)
 	label_at(Vector2(28, 781), "World T=%.2f / same authoritative clock / no battlefield construction controls" % model.elapsed, 16)
 
 func _draw() -> void:

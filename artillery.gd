@@ -82,6 +82,11 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 			else:
 				entry.squad.receive_suppression(added_suppression, now)
 		effects.append({"person": soldier.id, "position": soldier.position, "distance": distance, "solid_obstruction": blocked, "effect": effect, "suppression_added": added_suppression})
+	# Each impact freezes its protection geometry above, resolves occupants first,
+	# then changes structures. The next impact sees the resulting lifecycle state.
+	var engineering = combat.model.get_ref().engineering
+	if engineering != null:
+		engineering.apply_blast_damage(point, now, id)
 	return effects
 
 func resolve_impacts(now: float, actors: Array, solids: Array[Rect2], combat) -> void:

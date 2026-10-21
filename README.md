@@ -2,6 +2,50 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-DMG-012 — Fortification lifecycle and repair
+
+ReinforcedPosition now retains its identity, position, geometry and history through
+INTACT(integrity2), DAMAGED(1), DESTROYED(0). An explicit spatial blast within24units
+of its damage point removes one integrity step, once per impact, not per occupant.
+No passive degradation/regeneration exists. Foxhole destruction is not included.
+
+Every blast first snapshots current solid obstruction, resolves all occupant
+outcomes, then damages structures. Thus an intact wall protects the same impact
+that damages it. Later queries derive cover from the current lifecycle: INTACT
+provides rifle cover and blast obstruction; DAMAGED provides rifle cover only;
+DESTROYED provides neither. Diagnostic flags update with transitions, while actual
+combat queries use current state. Rubble remains a persistent identifiable record
+and visible debug shape, with no invisible protective geometry.
+
+RepairReinforced targets an existing DAMAGED wall only. It independently requires
+an active Engineer-qualified person, actual EngineerToolkit custody,2reserved
+BuildingMaterial,24unit physical work range and4eligible world-seconds. It reuses
+construction pause/clock semantics, consumes2only on completion, retains the tool,
+restores integrity2/INTACT and the same structure's cover. INTACT repair is rejected
+as unnecessary; DESTROYED returns REQUIRES_REBUILD. If destruction interrupts a
+pending repair, work pauses and its reservation remains held; cancellation/refund
+and rebuilding doctrine are outside this task.
+
+The original8material fixture spends4on construction, leaving4for repair. Repair
+reservation yields free2+reserved2; completion leaves free2+reserved0 and total
+consumed6 (4construction+2repair). No new currency or rear grant is introduced.
+Constructed/damaged/repaired/destroyed history records retain structure ID, position,
+world time and source/cause. This developer history is not HQ inquiry evidence.
+PA-DMG-001..006 remain provisional, including post-occupant damage ordering.
+
+`check_damage.gd` verifies both protections in all states, multi-occupant same-impact
+ordering,24unit damage boundary, explicit transitions, no passive changes, repeated
+queries, repair eligibility/range/tool/qualification/reservation pauses, full4second
+labor, exact consumption, persistent ID/history/rubble, interrupted repair and no HQ
+knowledge shortcut. Renderer captures intact cover, first protected impact, damaged
+wall's later failed protection, repair travel/reservation/labor, restoration and
+destruction aftermath. The intermediate failed-protection impact is30units from the
+damage point (outside24) so it can demonstrate lethal exposure while retaining the
+damaged target for repair; a separate identical-impact sequence verifies destruction.
+Evidence: `artifacts/damage_checks.json`, `damage.log`, `damage_visual.log`,
+`damage_*.png` and `damage_regression_*.log`. Human evaluation, save/load and export
+verification remain pending; general destruction, debris physics and rebuild are open.
+
 ## T3-ENG-011 — Field engineering, tools and Building Material
 
 The optional fifth Scenario fixture flag creates two persistent military people:
