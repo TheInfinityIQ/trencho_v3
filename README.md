@@ -2,6 +2,60 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-SAV-021 — Explicit safe-checkpoint persistence
+
+Open `save_proof.tscn` and run F6. `checkpoint.gd` serializes only progression at
+BETWEEN_BATTLES, CAMPAIGN_ENDED or OUT_OF_CAMPAIGN_META. An ACTIVE battlefield
+rejects MID_BATTLE_SAVE_DEFERRED even if a caller supplies a safe label. A HELD
+consumable blocks saving with UNSPENT_CONSUMABLE_PERSISTENCE_DEFERRED. No autosave,
+mid-battle transfers/orders/timers or physical world persistence is supported.
+
+The explicit schema1 JSON text contains save identity/revision/checkpoint,
+meta currency/pool/reward/unlock/results/active-ID/next-ID, campaign identity/status/
+index/registry/history/cards/consumed records/capabilities/organization, campaign
+eligibility snapshot and completed battle metadata. Archive projection preserves
+index/outcome/terminal time/world time/HQ event history; old physical snapshots
+(inventory, bodies, vehicles, maps, structures, jobs, rear stock and shipments)
+are omitted. Tagged integer/vector/rectangle historical values and full-precision
+JSON preserve exact historical types/values, never runtime Object references.
+
+The between-battles fixture prepares the accepted B1 victory transition, commits
+survivor/dead/acting records and archive, then discards all runtime projections
+before any B2 advancement. After a real file write/read and original-session
+destruction, load restores progression only; explicit START FRESH BATTLE 2 creates
+a new runtime/local0 from the loaded FIT registry, no dead-leader respawn and no
+old physical resources. Archive metadata stays unchanged through advancement.
+
+Successful load validates first and then replaces the session reference, never
+merging arrays. Bounded validation checks a2MB text limit, JSON/top-level fields,
+schema/checkpoint/progression shapes, known unlock IDs, persistent-person fields,
+consumable state and checkpoint/active-campaign consistency. Malformed/missing/
+unsupported/invalid structures or unknown type tags reject without session
+mutation. This is bounded validation of local proof files, not a migration or
+hostile-file security system. Explicit proof files live in ignored `artifacts/`.
+
+Ended loads have no live battle world. Stored completed status, unique source
+campaign identity and existing successful-completion reward history prevent
+resettlement; saved unlock history/pool/currency preserve the already-spent token.
+Repeated loads replace exact values rather than duplicate events/persons/cards.
+The saved next-campaign counter generates a distinct later ID. Consumed-card
+history survives without physical grant stock or reusable consumables. Loading a
+checkpoint replaces progression with that checkpoint; cross-save anti-rollback
+economy or external side effects are not implemented.
+
+Verification: `--headless --path . --script check_save.gd --log-file artifacts/save.log`
+runs31checks; omit headless and append `-- --visual` for37 including explicit
+file/load/start/unlock/invalid-version input and seven inspected captures. All pass;
+all20 prior suites37/127/24/33/21/38/20/30/25/64/39/36/33/33/38/31/32/42/42/34 pass.
+Evidence: `artifacts/save_checks.json`, `save_between_v1.json`,
+`save_completed_v1.json`, `save_unlocked_v1.json`, `save_renderer_v1.json`,
+`save_visual.log`, `save_*.png` and `save_regression_*.log`.
+PA-SAV-001 through005 remain provisional D-13 decisions. Human evaluation pending.
+No active-world resume, save migration, multiple-slot UI, cloud, injury/unspent
+consumable persistence, compression/encryption or export verification is claimed.
+Later active-battle persistence must define every subsystem's in-progress state
+and physical ownership rather than adding runtime references to this format.
+
 ## T3-META-020 — Completed campaign reward and persistent unlock eligibility
 
 Open `meta_proof.tscn` and run F6. `meta_session.gd` keeps a value-only `meta`

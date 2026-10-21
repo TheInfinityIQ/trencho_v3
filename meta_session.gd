@@ -13,7 +13,12 @@ var cards
 var archived_campaigns: Array = []
 var reason := ""
 
-func _init(defeat_fixture := false) -> void:
+func _init(defeat_fixture := false, restored_meta: Dictionary = {}, restored_campaign: Dictionary = {}, pause_between := false) -> void:
+	if not restored_meta.is_empty():
+		meta = restored_meta.duplicate(true)
+		campaign = Campaign.new(false, "", restored_campaign)
+		cards = Cards.new(campaign.data, true, meta.unlocked_card_ids, true)
+		return
 	start_campaign()
 	# Accepted real Battle1 terminal -> explicit transition; no Battle3 in this
 	# focused two-battle campaign. Only final Battle2 victory earns completion.
@@ -21,6 +26,8 @@ func _init(defeat_fixture := false) -> void:
 		campaign.advance(1.0 / 60.0)
 		if not campaign.world.battle_active():
 			break
+	if pause_between:
+		return
 	var transitioned: bool = campaign.transition()
 	assert(transitioned)
 	campaign.world.battle.auto_strike = true
@@ -88,7 +95,7 @@ func finish(status: String, end_reason: String) -> bool:
 	campaign.data.campaign_active = false
 	meta.active_campaign_id = ""
 	meta.campaign_results.append({"campaign": campaign.data.campaign_id, "status": status, "reason": end_reason, "reward": reward,
-		"final_battle": campaign.data.battle_index, "battle_result": campaign.world.battle_state})
+		"final_battle": campaign.data.battle_index, "battle_result": campaign.world.battle_state if campaign.world != null else "BETWEEN_BATTLES"})
 	if reward > 0:
 		meta.currency += reward
 		meta.reward_history.append({"event": "successful campaign completion reward", "campaign": campaign.data.campaign_id, "quantity": reward, "currency": "MetaToken"})
@@ -96,7 +103,7 @@ func finish(status: String, end_reason: String) -> bool:
 	return true
 
 func process_result() -> bool:
-	if campaign.data.status != "ACTIVE":
+	if campaign.data.status != "ACTIVE" or campaign.world == null:
 		return false
 	if campaign.world.battle_state == "ENDED_FRIENDLY_DEFEAT":
 		return finish("ENDED_DEFEAT", "DEFEAT_REWARD_POLICY_DEFERRED")

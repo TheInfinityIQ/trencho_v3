@@ -14,7 +14,11 @@ var archived_worlds: Array = []
 var transition_reason := ""
 var fixture_events := {"second_batch": false, "leader_loss": false, "hq_strike": false, "third_batch": false, "late_fire": false}
 
-func _init(with_ammo_capability := true, campaign_id := "Campaign-Proof-01") -> void:
+func _init(with_ammo_capability := true, campaign_id := "Campaign-Proof-01", restored_values: Dictionary = {}) -> void:
+	if not restored_values.is_empty():
+		data = restored_values.duplicate(true)
+		world = null
+		return
 	data.campaign_id = campaign_id
 	data.capabilities.BoltActionAmmoProduction = with_ammo_capability
 	world = Scenario.new(true, true, true, true, true, true, true, true)
@@ -92,6 +96,9 @@ func archive_snapshot(battle_world, battle_index := 1) -> Dictionary:
 		"combat_history": battle_world.combat.history.duplicate(true), "trace": battle_world.trace.duplicate(true)}
 
 func transition() -> bool:
+	if world == null:
+		transition_reason = "NO_ACTIVE_BATTLE_TO_TRANSITION"
+		return false
 	if world.battle_active():
 		transition_reason = "ACTIVE_BATTLE_CANNOT_TRANSITION"
 		return false
@@ -143,7 +150,7 @@ func transition() -> bool:
 	return true
 
 func advance(delta: float) -> void:
-	if not data.campaign_active:
+	if not data.campaign_active or world == null:
 		return
 	world.advance(delta)
 	if data.battle_index != 1 or not world.battle_active():
