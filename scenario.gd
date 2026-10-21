@@ -7,6 +7,7 @@ const Rear = preload("res://rear.gd")
 const Recovery = preload("res://recovery.gd")
 const Combat = preload("res://combat.gd")
 const VehicleRoutes = preload("res://vehicle_routes.gd")
+const Artillery = preload("res://artillery.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -21,8 +22,9 @@ var integrated_rear := false
 var recovery
 var combat
 var vehicles
+var artillery
 
-func _init(with_rear := false, with_combat := false, with_vehicles := false) -> void:
+func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false) -> void:
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
@@ -37,6 +39,28 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false) -> 
 		combat = Combat.new(self)
 	if with_vehicles:
 		vehicles = VehicleRoutes.new(supply)
+	if with_artillery and combat != null:
+		artillery = Artillery.new()
+		# This explicit artillery fixture seed keeps the exposed comparison actors
+		# alive until the blast; the independently accepted rifle fixture stays13.
+		combat.friendly_random.seed = 4
+		combat.solid_cover.append(Artillery.BLAST_WALL)
+		var positions := [Vector2(790, 420), Vector2(825, 440), Vector2(790, 445), Vector2(855, 440)]
+		for index in range(4):
+			combat.defenders.soldiers[index].position = positions[index]
+			combat.defenders.soldiers[index].origin = positions[index]
+
+func blast_entities() -> Array:
+	var result: Array = []
+	for squad in squads + ([combat.defenders] if combat != null else []):
+		for person in squad.soldiers:
+			result.append({"person": person, "squad": squad})
+	if vehicles != null:
+		for person in vehicles.drivers:
+			result.append({"person": person, "squad": null})
+	if artillery != null:
+		result.append({"person": artillery.gunner, "squad": null})
+	return result
 
 func total_ammunition() -> int:
 	var total: int = supply.depot.inventory[Supply.CATEGORY] + supply.truck.inventory[Supply.CATEGORY] + supply.captured.inventory[Supply.CATEGORY] + recovery.inventory[Supply.CATEGORY]
@@ -52,6 +76,8 @@ func total_ammunition() -> int:
 		total += int(vehicles.tracked.inventory[Supply.CATEGORY])
 		for driver in vehicles.drivers:
 			total += int(driver.inventory[Supply.CATEGORY])
+	if artillery != null:
+		total += int(artillery.gunner.inventory[Supply.CATEGORY])
 	return total
 
 func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:
@@ -101,6 +127,9 @@ func advance(delta: float) -> void:
 	recovery.advance(delta, elapsed)
 	if combat != null:
 		combat.advance(elapsed)
+	if artillery != null:
+		artillery.advance_fire_control(elapsed, information.company_contact_snapshot())
+		artillery.resolve_impacts(elapsed, blast_entities(), combat.solid_cover, combat)
 	var objective_reached: bool = squads[0].complete() and squads[0].center().distance_to(OBJECTIVE) < 50
 	if not secured and supply.phase == "Final approach" and objective_reached:
 		secured = true

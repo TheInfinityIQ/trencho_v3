@@ -16,8 +16,17 @@ var next_fire: Dictionary = {}
 var shots: Array[Dictionary] = []
 var history: Array[Dictionary] = []
 var decisions: Array[Dictionary] = []
-var suppression := 0
-var decay_at := -1.0
+var solid_cover: Array[Rect2] = []
+var suppression: int:
+	get:
+		return model.get_ref().squads[0].suppression
+	set(value):
+		model.get_ref().squads[0].suppression = value
+var decay_at: float:
+	get:
+		return model.get_ref().squads[0].suppression_decay_at
+	set(value):
+		model.get_ref().squads[0].suppression_decay_at = value
 var tactical_state := "ADVANCING"
 var cover_arrived_at := -1.0
 var first_contact := -1.0
@@ -25,6 +34,7 @@ var encounter_over := false
 
 func _init(scenario) -> void:
 	model = weakref(scenario)
+	solid_cover.assign([scenario.OBSTACLE, BUNKER])
 	enemy_random.seed = 6
 	friendly_random.seed = 13
 	defenders.task = "Defend approach"
@@ -42,7 +52,22 @@ func crosses_rect(start: Vector2, end: Vector2, rectangle: Rect2) -> bool:
 	return false
 
 func visible(start: Vector2, end: Vector2) -> bool:
-	return not crosses_rect(start, end, model.get_ref().OBSTACLE) and not crosses_rect(start, end, BUNKER)
+	for solid in solid_cover:
+		if crosses_rect(start, end, solid):
+			return false
+	return true
+
+func add_suppression(amount: int, now: float, reason: String) -> void:
+	suppression += amount
+	decay_at = now + 2
+	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"]:
+		tactical_state = "SUPPRESSED"
+		var living := 0
+		for soldier in model.get_ref().squads[0].soldiers:
+			if soldier.active:
+				living += 1
+		decisions.append({"time": now, "state": tactical_state, "reason": reason, "living_friendly": living})
+		move_to_cover(now)
 
 func can_detect(shooter, target) -> bool:
 	return shooter.active and target.active and shooter.faction != target.faction and shooter.position.distance_to(target.position) <= RANGE and visible(shooter.position, target.position)
@@ -81,16 +106,7 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 	if first_contact < 0:
 		first_contact = now
 	if shooter.faction == "enemy":
-		suppression += 1
-		decay_at = now + 2
-		if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"]:
-			tactical_state = "SUPPRESSED"
-			var living := 0
-			for soldier in model.get_ref().squads[0].soldiers:
-				if soldier.active:
-					living += 1
-			decisions.append({"time": now, "state": tactical_state, "reason": "Four incoming effective shots prohibit exposed advance", "living_friendly": living})
-			move_to_cover(now)
+		add_suppression(1, now, "Incoming effective fire prohibits exposed advance")
 	if hit:
 		kill(target, shooter, now)
 	print("SHOT: ", JSON.stringify(shots.back()))
@@ -124,6 +140,8 @@ func advance(now: float) -> void:
 				attempt_shot(enemy, targets[0], now, enemy_random.randf())
 		for friendly in friends:
 			var targets := detect(friendly, defenders.soldiers)
+			if not targets.is_empty() and scenario.artillery != null:
+				scenario.information.observe_enemy(friendly.id, targets[0].position, now)
 			if not targets.is_empty() and now + 0.000001 >= float(next_fire.get(friendly.id, -1)) and friendly.inventory[AMMO] > 0:
 				attempt_shot(friendly, targets[0], now, friendly_random.randf())
 		var capable := 0
@@ -131,10 +149,10 @@ func advance(now: float) -> void:
 			if enemy.active and enemy.inventory[AMMO] > 0:
 				capable += 1
 		encounter_over = capable == 0
-	if suppression > 0 and decay_at >= 0:
-		while suppression > 0 and now + 0.000001 >= decay_at:
-			suppression -= 1
-			decay_at += 2
+	for squad in scenario.squads + [defenders]:
+		while squad.suppression > 0 and squad.suppression_decay_at >= 0 and now + 0.000001 >= squad.suppression_decay_at:
+			squad.suppression -= 1
+			squad.suppression_decay_at += 2
 	if tactical_state == "COVERING" and scenario.squads[0].complete():
 		tactical_state = "SUPPRESSED_HOLD"
 		cover_arrived_at = now

@@ -2,6 +2,55 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-ART-008 — Knowledge-bound indirect fire
+
+The actual main scenario now also enables the fourth Scenario option, artillery.
+Mortar-01 is static at(850,650), owns two military MortarShell units, and references
+persistent Gunner-01. The active gunner must be assigned to that exact equipment.
+No shell production/resupply, targeting control or physical projectile is added.
+
+The first valid local P1-A detection creates one ENEMY_POSITION_OBSERVED record
+with observer, coordinate and time. The existing Information layer relays it
+Squad->Platoon->Company with1s hops; this contact route stops before HQ. Company
+snapshot data is a whitelist. Fire control receives only that delivered snapshot,
+stores the reported coordinate without any live enemy reference, prepares1s,
+spends one shell and schedules impact2s after actual firing. One autonomous mission
+is issued. Gunner unavailability or zero shells prevents fire/expenditure.
+
+Impact resolution is a separate geometry call using current individual actors.
+Within45units, an exposed soldier dies. Within90 but outside45, an exposed survivor
+adds2 squad suppression. Intervening solid rock/bunker/wall prevents lethal effect
+and adds at most1. Outside90 is unaffected. Corpses retain their own inventory and
+get the existing persistent casualty history. No organizational blanket damage,
+cover destruction, HQ history injection or live aim correction occurs. Impact
+history retains weapon, coordinate, time, source report and individual effects.
+
+The artillery fixture adds a small solid wall and separates defender positions:
+an exposed target at the reported(790,420), exposed squadmate25units away, protected
+squadmate40.31units away, and outer squadmate68.01units away. The artillery-enabled
+friendly rifle RNG seed is explicitly4 to keep comparison actors alive until the
+blast; the independently accepted rifle fixture stays13. This is a reproducible
+proof fixture, not accuracy balancing. Main impact produces two exposed deaths and
+two protected survivors, followed by ordinary infantry continuation. Squads now own
+suppression/decay fields; friendly blast inputs use the same local tactical response
+as rifle suppression. Stationary defender suppression is recorded and decays.
+
+PA-ART-001..007 remain provisional: Company control,1s preparation,2s abstract
+flight,45/90 geometry, first suitable report, two starting shells and one gunner.
+Added choices are one contact observation, the comparison positions/wall and the
+scoped RNG seed. No complete artillery organization, spotting doctrine, dispersion,
+friendly-fire doctrine, ballistics, resupply or wound model is implied.
+
+`check_artillery.gd` verifies relay deadlines, no pre-Company mission, copied report
+provenance, an enemy moved to(900,600) while aim/impact stay(790,420), operator
+dependency, separate shell custody, preparation/flight deadlines, exact radius
+boundaries, same-Squad geometry, suppression, body/equipment persistence and hidden
+HQ truth. World-time comparisons use1e-6 tolerance around accumulated floating
+clock deadlines. Renderer mode runs actual rear production, road vehicles, rifle
+contact, delayed report, Company mission, firing, blast and autonomous continuation.
+Evidence: `artifacts/artillery_checks.json`, `artillery_visual.log`, five artillery
+PNGs and seven regression logs. Human experience evaluation remains pending.
+
 ## T3-VEH-007 — Vehicle identity, drivers and legal routes
 
 The actual main scenario enables `Scenario.new(true,true,true)`; the third option

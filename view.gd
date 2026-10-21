@@ -1,7 +1,7 @@
 extends Node2D
 
 const Scenario = preload("res://scenario.gd")
-var model = Scenario.new(true, true, true)
+var model = Scenario.new(true, true, true, true)
 var font := ThemeDB.fallback_font
 var colors := [Color("85d9b0"), Color("7ebcda"), Color("d7b981"), Color("e0d3a5")]
 var inquiry_mode := false
@@ -253,6 +253,23 @@ func _draw() -> void:
 			label_at(Vector2(54, 362), "Rounds fired: %d" % combat.shots.size(), 15)
 			label_at(Vector2(54, 388), "Combat casualties: %d" % combat.history.size(), 15)
 			label_at(Vector2(54, 415), "Local cover choice; HQ intent retained", 14)
+	if model.artillery != null and not model.information.reconstructing:
+		var artillery = model.artillery
+		draw_rect(artillery.BLAST_WALL, Color("9ba49a"))
+		draw_circle(artillery.position, 13, Color("788a80"))
+		draw_line(artillery.position, artillery.position + Vector2(-14, -25), Color("c9d2c4"), 6)
+		label_at(artillery.position + Vector2(-55, 35), "Mortar-01", 14)
+		label_at(artillery.position + Vector2(-90, 55), "Gunner-01: " + ("ready" if artillery.gunner.active and artillery.gunner.assigned_equipment_id == artillery.id else "unavailable"), 13)
+		for mission in artillery.missions:
+			if mission.has("fired_at") and model.elapsed - mission.fired_at < 0.3:
+				draw_circle(artillery.position + Vector2(-14, -25), 10, Color(1, 0.8, 0.3, 0.7))
+		for impact in artillery.history:
+			var age: float = model.elapsed - impact.impact_time
+			if age >= 0 and age < 2:
+				draw_circle(impact.impact, artillery.RADIUS, Color(1, 0.65, 0.2, 0.1))
+				draw_arc(impact.impact, artillery.RADIUS, 0, TAU, 64, Color("efbc7d"), 2)
+				for effect in impact.effects:
+					draw_line(impact.impact, effect.position, Color("9edfe4") if effect.solid_obstruction else Color("ef987b"), 2)
 	if not model.information.reconstructing:
 		var recovery = model.recovery
 		draw_circle(recovery.position, 9, Color("b4addd"))
@@ -276,12 +293,23 @@ func _draw() -> void:
 		var truck = model.vehicles.truck
 		var tracked = model.vehicles.tracked
 		lines = ["Truck / Driver-01 / ROAD_ONLY", "%s · cargo%d · driver %s" % [truck.route_state, truck.inventory.BoltActionRifleAmmo, "ready" if truck.driver.active and truck.driver.assigned_vehicle_id == truck.id else "unavailable"], "Carrier / Driver-02 / TRACKED", "%s · cargo%d · driver %s" % [tracked.route_state, tracked.inventory.BoltActionRifleAmmo, "ready" if tracked.driver.active and tracked.driver.assigned_vehicle_id == tracked.id else "unavailable"], "", "REPORT RECEIPTS (1s / hop)"]
+	var contact_report: bool = model.artillery != null and not model.information.contact_knowledge.Squad.is_empty()
+	if contact_report:
+		lines[5] = "CONTACT REPORT → COMPANY"
 	for index in range(lines.size()):
 		label_at(Vector2(948, 171 + index * 22), lines[index], 14)
 	for index in range(4):
 		var echelon: String = model.information.ECHELONS[index]
 		var records: Array = model.information.knowledge[echelon]
-		label_at(Vector2(948, 325 + index * 22), "%s: %s" % [echelon, "not received" if records.is_empty() else "T=%.1f (observed 5.0)" % records[0].received_at], 14)
+		if contact_report:
+			records = model.information.contact_knowledge[echelon] if index < 3 else []
+		var observation_time: float = records[0].get("observation_time", 5.0) if not records.is_empty() else 0.0
+		label_at(Vector2(948, 325 + index * 22), "%s: %s" % [echelon, ("not in contact route" if index == 3 and contact_report else "not received") if records.is_empty() else "T=%.1f (observed %.1f)" % [records[0].received_at, observation_time]], 14)
+	if model.artillery != null:
+		var artillery = model.artillery
+		label_at(Vector2(948, 260), "Mortar: %d shells · %s" % [artillery.inventory.MortarShell, "WAITING" if artillery.missions.is_empty() else artillery.missions.back().state], 13)
+		if not artillery.missions.is_empty():
+			label_at(Vector2(948, 414), "Company aim: " + str(artillery.missions[0].target), 13)
 	label_at(Vector2(948, 435), "HQ LOCATION INQUIRY", 18)
 	label_at(Vector2(948, 459), "Radius 54 · " + ("Click any map location" if inquiry_mode else "Enter binocular mode [B]"), 14)
 	if queried:

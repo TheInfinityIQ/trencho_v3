@@ -12,6 +12,21 @@ var deliveries: Array[Dictionary] = []
 var next_hop := 1
 var reconstructing := false
 var reconstruction: Array[Dictionary] = []
+var contact_knowledge := {"Squad": [], "Platoon": [], "Company": []}
+var contact_deliveries: Array[Dictionary] = []
+var contact_next_hop := 1
+
+func observe_enemy(observer: String, point: Vector2, now: float) -> void:
+	if not contact_knowledge.Squad.is_empty():
+		return
+	contact_knowledge.Squad.append({"kind": "ENEMY_POSITION_OBSERVED", "report_id": "contact-1", "observer": observer, "observation_time": now, "observed_position": point, "received_at": now})
+	print("LOCAL CONTACT OBSERVATION: ", JSON.stringify(contact_knowledge.Squad[0]))
+
+func company_contact_snapshot() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for record in contact_knowledge.Company:
+		result.append({"kind": record.kind, "report_id": record.report_id, "observer": record.observer, "observation_time": record.observation_time, "observed_position": record.observed_position, "received_at": record.received_at, "source_echelon": "Company"})
+	return result
 
 func advance(now: float, casualty) -> void:
 	if world_event.is_empty() and now + 0.000001 >= EVENT_TIME:
@@ -38,6 +53,21 @@ func advance(now: float, casualty) -> void:
 			"observation_time": EVENT_TIME, "observer": report.observer})
 		print("REPORT DELIVERY: ", JSON.stringify(deliveries.back()))
 		next_hop += 1
+	# The contact proof uses the same one-second upward relay semantics, stopping
+	# at Company rather than granting automatic Operational/HQ knowledge.
+	while not contact_knowledge.Squad.is_empty() and contact_next_hop < 3:
+		var observation: Dictionary = contact_knowledge.Squad[0]
+		var receipt_time: float = observation.observation_time + contact_next_hop * HOP_DELAY
+		if now + 0.000001 < receipt_time:
+			break
+		var sender: String = ECHELONS[contact_next_hop - 1]
+		var recipient: String = ECHELONS[contact_next_hop]
+		var delivered: Dictionary = contact_knowledge[sender][0].duplicate(true)
+		delivered.received_at = receipt_time
+		contact_knowledge[recipient].append(delivered)
+		contact_deliveries.append({"sender": sender, "recipient": recipient, "sent_at": receipt_time - HOP_DELAY, "received_at": receipt_time, "report_id": delivered.report_id})
+		print("CONTACT RELAY: ", JSON.stringify(contact_deliveries.back()))
+		contact_next_hop += 1
 
 func player_observation() -> Dictionary:
 	if world_event.is_empty():

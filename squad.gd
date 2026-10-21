@@ -9,6 +9,8 @@ var route_side := "direct"
 var decision: Dictionary = {}
 var terrain: Rect2
 var final_paths: Dictionary = {}
+var suppression := 0
+var suppression_decay_at := -1.0
 
 func carried_ammunition(category: String) -> int:
 	var total := 0
