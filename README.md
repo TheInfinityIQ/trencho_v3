@@ -2,6 +2,53 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-CON-019 — One-time consumable rear-owned windfall
+
+Open `consumable_proof.tscn` and run F6 for the focused five-card pool. The default
+four-card CAR proof and its deterministic technology offer remain stable. The
+expanded fixture prepends Tier 1 Logistics CONSUMABLE
+`cons.ammo_emergency_shipment`, whose explicit RESOURCE_GRANT payload is
+BoltActionRifleAmmo8. No display-name parsing drives behavior. Definitions and
+fixture pool remain independent of this campaign's acquisition/spending history.
+
+Existing purchase machinery offers shipment/bolt-ammo/engineering, all Tier1.
+Selection closes the drop and records one HELD instance, acquired=true,
+consumed=false, grant_delivered=false. No ammunition or capability is granted.
+Explicit USE validates known/type/acquisition/held state and the canonical payload.
+It creates exactly8 ordinary rear-finished-stock rounds, marks CONSUMED/delivered,
+removes the usable held instance and records one campaign resolution plus a unique
+physical receipt/ledger entry with campaign-consumable source and rear ownership.
+Repeated use rejects without stock or history changes; rear receipt identity also
+guards duplicate physical delivery. Technology/unknown/unacquired/invalid-payload
+uses reject. Acquired IDs/history remain after consumption, excluding reacquisition
+even when spent. PA-CON-001 through005 remain provisional proof rules.
+
+The fixture has Metal0, no bench/job/labor and no ammo-production capability.
+The windfall needs none of them and changes no production counter/history, stock
+authorization policy, commitment or military custody. LOCKED blocks draw over
+world time; RESERVE protects its floor. After explicit AVAILABLE authorization,
+ordinary commitment,2second loading and3second transit deliver the same physical
+rounds to battlefield receiving stock. Grant and production provenance differ;
+with a separate active technology/manufacturing fixture, grant8 plus real timed
+manufacture8 produce16 without altering the existing job or its Metal input.
+
+No unused-consumable cross-battle policy is invented: the detached reconstruction
+probe rejects while a consumable is HELD. Once spent, it preserves historical
+consumption, no usable instance and no old physical ammunition. It remains a
+detached proof, not an authoritative active-battle transition or save/load.
+
+Verification: `--headless --path . --script check_consumable.gd --log-file artifacts/consumable.log`
+runs42 checks; omit headless and append `-- --visual` for49 including actual
+purchase/select/use/repeat-use/manufacturing-rejection/reconstruction buttons and
+six inspected renderer captures. Both pass. All18 prior suites pass (37/127/24/33/
+21/38/20/30/25/64/39/36/33/33/38/31/32/42). Evidence is in
+`artifacts/consumable_checks.json`, `consumable_visual.log`, `consumable_*.png` and
+`consumable_regression_*.log`. Human experience evaluation remains pending.
+Unspent persistence, stacking, multiple copies, personnel/equipment effects,
+refunds/discard, meta shop/currency/rewards and final UI/art remain out of scope.
+Future save/reward integration must preserve atomic consumption/physical receipt
+identity and avoid treating the two provenance records as two stock grants.
+
 ## T3-CAR-018 — Campaign card acquisition and physical production
 
 Open `card_proof.tscn` and run that scene (F6) for the protected progression proof.

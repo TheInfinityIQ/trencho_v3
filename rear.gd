@@ -23,6 +23,7 @@ var committed := 0
 var commitment_time := -1.0
 var shipment := {"id": "rear-export-1", "cargo": 0, "owner": "none", "state": "None", "departed_at": -1.0, "arrives_at": -1.0}
 var ledger: Array[Dictionary] = []
+var consumable_receipts: Dictionary = {}
 var message := "Press P, then click to place a workbench."
 
 func place_workbench(point: Vector2) -> bool:
@@ -35,6 +36,16 @@ func place_workbench(point: Vector2) -> bool:
 	workbench = point
 	placed = true
 	message = "Walk near the bench. E: manual batch; F: assign Worker-01."
+	return true
+
+func receive_consumable_grant(instance_id: String, card_id: String, quantity: int, now: float) -> bool:
+	if instance_id.is_empty() or card_id.is_empty() or quantity <= 0 or consumable_receipts.has(instance_id):
+		return false
+	ammunition += quantity
+	consumable_receipts[instance_id] = {"card": card_id, "quantity": quantity, "time": now}
+	ledger.append({"time": now, "source": "campaign-consumable:" + card_id, "instance": instance_id,
+		"destination": "rear-finished-stock", "quantity": quantity, "resource": CATEGORY,
+		"ownership_before": "campaign-consumable", "ownership_after": "rear", "reason": "One-time consumable resource windfall"})
 	return true
 
 func start_job(producer: String, now: float) -> bool:

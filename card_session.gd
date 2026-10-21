@@ -8,8 +8,11 @@ var cards
 var probe_data: Dictionary = {}
 var probe_world
 var probe_cards
+var with_consumable := false
+var probe_reason := ""
 
-func _init() -> void:
+func _init(include_consumable := false) -> void:
+	with_consumable = include_consumable
 	# Explicit CAR-018 campaign fixture starts without ammo capability. Default
 	# CAM-017 remains unchanged. Reach its real terminal boundary before Battle 2.
 	campaign = Campaign.new(false)
@@ -19,7 +22,7 @@ func _init() -> void:
 			break
 	var transitioned: bool = campaign.transition()
 	assert(transitioned)
-	cards = Cards.new(campaign.data)
+	cards = Cards.new(campaign.data, with_consumable)
 
 func advance(delta: float) -> void:
 	campaign.advance(delta)
@@ -33,9 +36,19 @@ func select_card(drop_id: String, identity: String) -> bool:
 	campaign.bind_capabilities(campaign.world)
 	return true
 
-func build_reconstruction_probe() -> void:
+func use_consumable(identity: String) -> bool:
+	if not campaign.world.battle_active():
+		cards.reason = "BATTLE_ENDED"
+		return false
+	return cards.use_consumable(identity, campaign.world.rear, campaign.world.elapsed)
+
+func build_reconstruction_probe() -> bool:
 	# Permitted detached-state reconstruction proof, NOT a Battle 2 outcome or
 	# an active-battle transition. Source campaign/world remain authoritative.
+	if not cards.held_consumables().is_empty():
+		probe_reason = "UNSPENT_CONSUMABLE_PERSISTENCE_DEFERRED"
+		return false
+	probe_reason = ""
 	probe_data = campaign.data.duplicate(true)
 	probe_data.battle_index = 3
 	var members: Array = []
@@ -51,5 +64,6 @@ func build_reconstruction_probe() -> void:
 		{"main_members": members, "platoon_leader": leader, "fresh_prefix": "B3-"})
 	probe_world.battle.auto_strike = false
 	probe_world.combat.encounter_over = true
-	probe_cards = Cards.new(probe_data)
+	probe_cards = Cards.new(probe_data, with_consumable)
 	probe_world.rear.capability_unlocked = bool(probe_data.capabilities.get("BoltActionAmmoProduction", false))
+	return true

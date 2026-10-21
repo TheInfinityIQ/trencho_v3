@@ -92,8 +92,9 @@ func _draw() -> void:
 	label_at(Vector2(28, 75), "Protected progression view / fixture availability, acquisition, capability and physical stock", 16)
 	label_at(Vector2(45, 130), "PRE-UNLOCKED FIXTURE POOL / NO META SHOP", 20)
 	var definitions: Dictionary = cards.definitions()
-	for index in range(cards.UNLOCKED.size()):
-		var identity: String = cards.UNLOCKED[index]
+	var unlocked: Array = cards.unlocked_pool()
+	for index in range(unlocked.size()):
+		var identity: String = unlocked[index]
 		var definition: Dictionary = definitions[identity]
 		label_at(Vector2(45, 161 + index * 29), "%s / T%d / %s / %s" % [identity, definition.tier, definition.category, definition.type], 16)
 	label_at(Vector2(45, 300), "Drop Tokens: %d / Tier 1 purchase costs 1" % cards.state.currency.DropToken, 19)
