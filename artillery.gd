@@ -62,7 +62,7 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 	obstructions.append_array(combat.constructed_blast_solids())
 	for entry in actors:
 		var soldier = entry.person
-		if not soldier.active:
+		if not soldier.is_physical_target():
 			continue
 		var distance := point.distance_to(soldier.position)
 		if distance > RADIUS:

@@ -10,6 +10,7 @@ const VehicleRoutes = preload("res://vehicle_routes.gd")
 const Artillery = preload("res://artillery.gd")
 const Person = preload("res://soldier.gd")
 const Engineering = preload("res://engineering.gd")
+const Medical = preload("res://medical.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -26,8 +27,9 @@ var combat
 var vehicles
 var artillery
 var engineering
+var medical
 
-func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false) -> void:
+func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false) -> void:
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
@@ -47,6 +49,8 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false, wit
 		combat = Combat.new(self)
 	if with_vehicles:
 		vehicles = VehicleRoutes.new(supply)
+	if with_medical and combat != null:
+		medical = Medical.new(self)
 	if with_engineering:
 		engineering = Engineering.new(not with_infrastructure)
 	if with_infrastructure and vehicles != null and engineering != null:
@@ -81,6 +85,8 @@ func blast_entities() -> Array:
 	if engineering != null:
 		for person in engineering.people:
 			result.append({"person": person, "squad": null})
+	if medical != null:
+		result.append({"person": medical.medic, "squad": null})
 	return result
 
 func total_ammunition() -> int:
@@ -104,6 +110,8 @@ func total_ammunition() -> int:
 	if engineering != null:
 		for person in engineering.people:
 			total += int(person.inventory[Supply.CATEGORY])
+	if medical != null:
+		total += int(medical.medic.inventory[Supply.CATEGORY])
 	return total
 
 func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:
@@ -168,6 +176,8 @@ func advance(delta: float) -> void:
 	if artillery != null:
 		artillery.advance_fire_control(elapsed, information.company_contact_snapshot())
 		artillery.resolve_impacts(elapsed, blast_entities(), combat.solid_cover, combat)
+	if medical != null:
+		medical.advance(delta, elapsed)
 	for squad in squads:
 		squad.decay_suppression(elapsed)
 		squad.update_morale(elapsed)

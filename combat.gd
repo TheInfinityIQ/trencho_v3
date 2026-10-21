@@ -70,7 +70,7 @@ func add_suppression(amount: int, now: float, reason: String) -> void:
 		move_to_cover(now)
 
 func can_detect(shooter, target) -> bool:
-	return shooter.active and target.active and shooter.faction != target.faction and shooter.position.distance_to(target.position) <= RANGE and visible(shooter.position, target.position)
+	return shooter.active and shooter.medical_state == "FIT" and target.is_physical_target() and shooter.faction != target.faction and shooter.position.distance_to(target.position) <= RANGE and visible(shooter.position, target.position)
 
 func detect(shooter, candidates: Array) -> Array:
 	shooter.detected.clear()
@@ -101,9 +101,11 @@ func constructed_blast_solids() -> Array[Rect2]:
 	return result
 
 func kill(target, shooter, now: float) -> void:
-	if not target.active:
+	if target.medical_state in ["DEAD", "EVACUATED"] or (not target.active and target.medical_state not in ["WOUNDED", "STABILIZED"]):
 		return
 	target.active = false
+	target.medical_state = "DEAD"
+	target.bleed_out_at = -1
 	target.body_present = true
 	for squad in model.get_ref().squads:
 		if target in squad.soldiers:
@@ -116,7 +118,7 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 	for squad in model.get_ref().squads:
 		if shooter in squad.soldiers and squad.routing_state != "NONE":
 			return false
-	if not shooter.active or shooter.inventory.get(AMMO, 0) <= 0 or shooter.weapon_category != "BoltActionRifle":
+	if not shooter.active or shooter.medical_state != "FIT" or not shooter.on_battlefield or shooter.inventory.get(AMMO, 0) <= 0 or shooter.weapon_category != "BoltActionRifle":
 		return false
 	if target.id not in shooter.detected or not can_detect(shooter, target) or now + 0.000001 < float(next_fire.get(shooter.id, -1)):
 		return false
@@ -136,7 +138,11 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 				else:
 					squad.receive_suppression(1, now)
 	if hit:
-		kill(target, shooter, now)
+		var medical = model.get_ref().medical
+		if medical != null and medical.wound_target_ids.has(target.id):
+			medical.wound(target, shooter, now)
+		else:
+			kill(target, shooter, now)
 	print("SHOT: ", JSON.stringify(shots.back()))
 	return true
 

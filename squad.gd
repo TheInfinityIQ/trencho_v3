@@ -17,6 +17,8 @@ var acting_leader
 var leadership_state := "FORMAL_COMMAND"
 var loss_time := -1.0
 var deceased_leader_id := ""
+var leader_loss_is_death := true
+var leader_unavailability := "unavailable"
 var leader_reports: Array[Dictionary] = []
 var leadership_log: Array[Dictionary] = []
 var morale := 100
@@ -55,7 +57,7 @@ func combat_casualty(person, now: float) -> void:
 	casualty_morale_ids[person.id] = true
 	change_morale(-20, "Combat casualty", now, person.id)
 	if person == formal_leader:
-		change_morale(-20, "Formal Squad Leader death", now, person.id)
+		change_morale(-20, "Formal Squad Leader unavailable" if person.medical_state == "WOUNDED" else "Formal Squad Leader death", now, person.id)
 
 func receive_suppression(amount: int, now: float) -> void:
 	suppression += amount
@@ -191,9 +193,11 @@ func recognize_leader_loss(now: float) -> void:
 	if current_leader() != null:
 		return
 	deceased_leader_id = acting_leader.id if acting_leader != null else formal_leader.id
+	leader_loss_is_death = (acting_leader if acting_leader != null else formal_leader).medical_state == "DEAD"
+	leader_unavailability = "dead" if leader_loss_is_death else ("wounded" if (acting_leader if acting_leader != null else formal_leader).medical_state == "WOUNDED" else "unavailable")
 	loss_time = now
 	leadership_state = "DISRUPTION"
-	leadership_log.append({"time": now, "squad": id, "deceased_leader": deceased_leader_id, "state": leadership_state, "intent": task, "reason": "Locally recognized real leader casualty"})
+	leadership_log.append({"time": now, "squad": id, "deceased_leader": deceased_leader_id if leader_loss_is_death else "", "unavailable_leader": deceased_leader_id, "unavailability": leader_unavailability, "state": leadership_state, "intent": task, "reason": "Locally recognized real leader casualty"})
 
 func update_leadership(now: float) -> void:
 	if not leadership_enabled:
@@ -216,7 +220,7 @@ func update_leadership(now: float) -> void:
 		acting_leader.acting_appointment = "SquadLeader:" + id
 		leadership_state = "ACTING_COMMAND"
 	var replacement: String = acting_leader.id if acting_leader != null else ""
-	leader_reports.append({"kind": "LEADER_CASUALTY", "squad": id, "deceased_leader": deceased_leader_id, "observation_time": loss_time, "acting_replacement": replacement, "sent_at": now})
+	leader_reports.append({"kind": "LEADER_CASUALTY", "squad": id, "deceased_leader": deceased_leader_id if leader_loss_is_death else "", "unavailable_leader": deceased_leader_id, "unavailability": leader_unavailability, "observation_time": loss_time, "acting_replacement": replacement, "sent_at": now})
 	leadership_log.append({"time": now, "squad": id, "state": leadership_state, "acting": replacement, "intent": task, "candidate_reasons": reasons, "rank_unchanged": acting_leader.formal_rank if acting_leader != null else "no appointment"})
 	print("LOCAL FIELD SUCCESSION: ", JSON.stringify(leadership_log.back()))
 

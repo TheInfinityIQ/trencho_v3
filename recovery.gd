@@ -37,6 +37,7 @@ func advance(delta: float, now: float) -> void:
 		casualty.inventory[CATEGORY] = 0
 		inventory[CATEGORY] += quantity
 		casualty.body_present = false
+		casualty.on_battlefield = false
 		completed_at = started_at + DURATION
 		state = "Recovered / items held by team"
 		ledger.append({"source": "body:" + casualty.id, "quantity": quantity, "destination": "Recovery Team", "time": completed_at, "ownership_before": "enemy" if casualty.faction == "enemy" else "military", "ownership_after": "military", "reason": "Physical recovery completed; historical event unchanged"})

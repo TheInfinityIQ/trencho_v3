@@ -24,6 +24,17 @@ var acting_appointment := ""
 var squad_id := ""
 var rifle_proficiency := 0.5
 var engineer_qualified := false
+var medic_qualified := false
+var medical_state := "FIT"
+var on_battlefield := true
+var bleed_out_at := -1.0
+var wound_source := ""
+
+func is_alive() -> bool:
+	return medical_state != "DEAD"
+
+func is_physical_target() -> bool:
+	return on_battlefield and medical_state not in ["DEAD", "EVACUATED"] and (active or medical_state in ["WOUNDED", "STABILIZED"])
 
 func _init(identity: String, start: Vector2, pace: float) -> void:
 	id = identity
@@ -33,7 +44,7 @@ func _init(identity: String, start: Vector2, pace: float) -> void:
 	speed = pace
 
 func advance(delta: float) -> void:
-	if not active:
+	if not active or medical_state != "FIT" or not on_battlefield:
 		return
 	var budget := speed * delta
 	while budget > 0.0 and waypoint < path.size():

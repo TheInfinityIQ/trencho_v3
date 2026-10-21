@@ -248,9 +248,60 @@ func draw_infrastructure() -> void:
 	label_at(Vector2(50, 736), network.truck.blocked_reason, 13)
 	label_at(Vector2(28, 781), "World T=%.2f / infrastructure revision%d / same authoritative clock" % [model.elapsed, network.revision], 16)
 
+func draw_medical() -> void:
+	var medical = model.medical
+	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
+	draw_rect(model.OBSTACLE, Color("59625b"))
+	label_at(Vector2(28, 40), "TRENCHO / MEDICAL STATE PROOF", 26)
+	label_at(Vector2(28, 76), "Developer fixture / one persistent person / physical treatment and evacuation", 17)
+	for person in model.squads[0].soldiers:
+		if not person.on_battlefield:
+			continue
+		if person.medical_state == "DEAD":
+			if person.body_present:
+				draw_line(person.position - Vector2(8, 8), person.position + Vector2(8, 8), Color("dfab98"), 3)
+				draw_line(person.position + Vector2(-8, 8), person.position + Vector2(8, -8), Color("dfab98"), 3)
+		else:
+			draw_circle(person.position, 8, Color("e3bc83") if person.medical_state != "FIT" else Color("9cc9ae"))
+		label_at(person.position + Vector2(-30, -18), person.id, 13)
+	var medic_position: Vector2 = medical.medic.position
+	draw_circle(medic_position, 8, Color("9bc9de"))
+	draw_line(medic_position - Vector2(5, 0), medic_position + Vector2(5, 0), Color("f0f5ec"), 2)
+	draw_line(medic_position - Vector2(0, 5), medic_position + Vector2(0, 5), Color("f0f5ec"), 2)
+	label_at(medic_position + Vector2(-32, 28), "Medic-01", 14)
+	var evac_position: Vector2 = medical.evac.position
+	draw_rect(Rect2(evac_position - Vector2(10, 6), Vector2(20, 12)), Color("bcabda"), false, 2)
+	label_at(evac_position + Vector2(-40, -25), "EvacTeam-01", 14)
+	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
+	label_at(Vector2(946, 136), "MEDICAL / DEVELOPER", 18)
+	var lines: Array[String] = ["Medic qualified: " + str(medical.medic.medic_qualified),
+		"Medkits held: %d" % medical.medic.inventory.Medkit,
+		"Treatment %.2f / 2s" % medical.treatment_progress,
+		medical.treatment_reason,
+		"Evac: " + medical.evac.state,
+		"Pickup %.2f / 2s" % medical.evac.pickup_progress]
+	if medical.casualty != null:
+		var person = medical.casualty
+		lines.append("Person: " + person.id + " / " + person.medical_state)
+		lines.append("Alive: %s / ready: %s" % [str(person.is_alive()), str(person.active)])
+		lines.append("Present: %s / corpse: %s" % [str(person.on_battlefield), str(person.body_present)])
+		lines.append("Person ammo: %d (custody retained)" % person.inventory.BoltActionRifleAmmo)
+		lines.append("Bleed deadline: %.2f" % person.bleed_out_at)
+		lines.append("Squad morale: %d" % model.squads[0].morale)
+	for index in range(lines.size()):
+		label_at(Vector2(946, 172 + index * 27), lines[index], 13)
+	var recent: Array = medical.history.slice(-4)
+	for index in range(recent.size()):
+		label_at(Vector2(946, 540 + index * 27), "T%.1f %s" % [recent[index].time, recent[index].event], 13)
+	label_at(Vector2(50, 700), "WOUNDED/STABILIZED cannot fight. Evacuation retains person inventory; no corpse or loot transfer.", 15)
+	label_at(Vector2(28, 781), "World T=%.2f / bleed8s / treat2s and pickup2s / physical range24" % model.elapsed, 16)
+
 func _draw() -> void:
 	if view_mode == "rear" and model.integrated_rear:
 		draw_rear()
+		return
+	if model.medical != null:
+		draw_medical()
 		return
 	if model.vehicles != null and not model.vehicles.infrastructure.is_empty():
 		draw_infrastructure()

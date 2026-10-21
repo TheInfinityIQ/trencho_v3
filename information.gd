@@ -56,6 +56,7 @@ func advance(now: float, casualty) -> void:
 			relay.hop += 1
 	if world_event.is_empty() and now + 0.000001 >= EVENT_TIME:
 		casualty.active = false
+		casualty.medical_state = "DEAD"
 		casualty.body_present = true
 		world_event = {"event_id": "fixture-incident-1", "soldier_id": casualty.id,
 			"location": casualty.position, "event_time": EVENT_TIME,

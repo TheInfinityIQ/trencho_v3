@@ -2,6 +2,58 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-MED-015 — Wounding, stabilization and physical evacuation
+
+Persistent people now have FIT/WOUNDED/STABILIZED/DEAD/EVACUATED medical state,
+independent of combat-ready `active` and physical battlefield presence. A designated
+valid rifle hit in the optional medical fixture creates WOUNDED; all ordinary
+non-designated hits retain lethal resolution. Wounded/stabilized people stay alive
+and present with their inventories but cannot fire, move normally, command a Squad
+or count toward living ammunition readiness. They remain physical rifle/blast
+targets; becoming noncombat does not grant invulnerability. DEAD uses the existing
+same-person corpse/history/inventory path. EVACUATED remains alive as the same
+record with inventory but leaves battlefield representation and creates no corpse.
+
+An unstabilized wound expires after8authoritative world-seconds. A persistent
+Medic-01 (MedicQualified true) carries2physical Medkits in personal custody. The
+focused wound assigns a direct clear approach to the casualty; the Medic walks at
+65units/s and stops within24units. Treatment credits only whole in-range steps and
+requires active FIT Medic, qualification and carried Medkit. Missing requirements
+pause progress. After2eligible seconds,1Medkit is consumed, casualty becomes
+STABILIZED and bleed-out stops. Assignment itself never stabilizes. At the exact
+bleed deadline, a still-WOUNDED casualty expires before treatment can reverse death.
+
+Distinct persistent EvacTeam-01 uses the existing recovery-style physical approach
+and timed action pattern without corpse looting. It accepts only STABILIZED, walks
+at80units/s to24unit pickup range and spends2eligible pickup seconds. Only then does
+the same casualty become EVACUATED and leave the map. Team inventory receives no
+copy of casualty equipment; no Squad/rear grant occurs. This asset may stop after
+one pickup. No hospital transport, triage queue, return-to-duty or ambulance exists.
+
+FIT->WOUNDED applies the existing casualty morale penalty once. Formal-leader wound
+adds one leader-unavailability penalty immediately and existing0.5second succession
+reacts. Later bleed-out/ordinary lethal hit cannot repeat either morale penalty.
+Delayed leadership casualty reports distinguish wounded unavailability from death
+instead of calling a living leader deceased. Wound/stabilized/died-from-wounds/
+evacuated history is World State evidence, not automatic HQ/binocular knowledge.
+Existing scripted death and corpse recovery now also set explicit medical/presence
+fields; old inventory/body behavior is retained. Reconstruction pauses the world
+and medical clocks together; map switching does not reset deadlines.
+
+`check_medical.gd` proves actual shot wounding, medical/physical/combat distinctions,
+personal Medkit consumption, physical treatment/pickup, pause/qualification/supply
+failures,8second bleed boundary, stable survival beyond original deadline, preserved
+inventory/identity, no corpse for evacuation, corpse for untreated death, leader
+succession/morale idempotence, subsequent rifle/blast vulnerability and hidden HQ
+knowledge. Renderer captures real wound, Medic approach, treatment, Evac approach,
+removal without corpse and separate untreated death/body persistence, with actual
+map switches. Evidence: `artifacts/medical_checks.json`, `medical.log`,
+`medical_visual.log`, `medical_*.png`, `medical_regression_*.log`.
+PA-MED-001..007 remain provisional D-11 choices. Default main does not globally
+convert hits to wounds. Human experience evaluation, detailed injuries, enemy care,
+medical logistics, field hospitals, return-to-duty, campaign/save-load and export
+verification remain outside this focused single-casualty proof.
+
 ## T3-BRG-014 — Same-identity bridge reconstruction and route restoration
 
 Bridge-A now supports DESTROYED -> UNDER_RECONSTRUCTION -> INTACT on its existing
