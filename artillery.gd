@@ -89,7 +89,10 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 		engineering.apply_blast_damage(point, now, id)
 	var vehicles = combat.model.get_ref().vehicles
 	if vehicles != null:
-		vehicles.apply_blast_damage(point, now, id)
+		var interrupted: Array[String] = vehicles.apply_blast_damage(point, now, id)
+		if engineering != null:
+			for identity in interrupted:
+				engineering.interrupt_bridge_rebuild(identity, now)
 	return effects
 
 func resolve_impacts(now: float, actors: Array, solids: Array[Rect2], combat) -> void:

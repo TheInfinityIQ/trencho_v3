@@ -2,6 +2,47 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-BRG-014 — Same-identity bridge reconstruction and route restoration
+
+Bridge-A now supports DESTROYED -> UNDER_RECONSTRUCTION -> INTACT on its existing
+infrastructure record and graph edge. Both ROAD_ONLY/TRACKED crossing legality stay
+false for any non-INTACT state. Reconstruction requires an active Engineer-qualified
+person, actual EngineerToolkit custody,6BuildingMaterial,24unit physical work range
+and8eligible world-seconds. Qualification/tool/range/reservation loss pauses labor;
+there is no partial connectivity. A dedicated fixture starts8material: free2 plus
+reserved6 during work; successful completion leaves free2/reserved0/consumed6.
+Toolkit and original Bridge-A identity/geometry remain. Intact or duplicate rebuild
+assignments are rejected. No arbitrary bridge placement or hauling is implemented.
+
+A qualifying blast during UNDER_RECONSTRUCTION returns Bridge-A to DESTROYED,
+sets its original job to INTERRUPTED and resets progress0. The original6remain
+reserved; there is no automatic restart, refund, consumption or duplicate job.
+Designer-confirmed PA-BRG-007 permits explicit local fixture resume of the same
+job/held reservation. Resume revalidates eligibility, sets UNDER_RECONSTRUCTION
+and requires a fresh full8seconds. This is a prototype recovery action, not a
+player battlefield control or final rebuilding/cancellation doctrine.
+
+Completion restores original intact route cost and increments infrastructure
+revision. Vehicles waiting NO_LEGAL_ROUTE at a safe graph node observe revisions
+and retry planning; partial/re-interrupted work still yields no legal crossing.
+The focused network retains the tracked bypass while removing the road detour to
+prove that the same loaded truck genuinely waits, then plans and physically crosses
+the rebuilt bridge before delivery. No fixture path is injected. A vehicle stranded
+on destroyed crossing geometry remains outside this safe-node retry rule; rescue
+and fall doctrine remain unresolved. Destruction/started/interrupted/resumed/completed
+history coexist on Bridge-A without becoming HQ inquiry evidence.
+
+`check_bridge.gd` checks independent requirements, exclusive reservation, physical
+approach/pause,7.99vs8second boundary, persistent identity/no duplicate edge, original
+cost restoration, waiting-truck revision retry/physical crossing, interrupted labor,
+explicit same-job resume and exact material use. Renderer captures waiting truck,
+approach/reservation, closed partial work, destructive interruption, explicit resume,
+restored crossing, truck physically on Bridge-A and genuine arrival/history.
+Evidence: `artifacts/bridge_checks.json`, `bridge.log`, `bridge_visual.log`,
+`bridge_*.png`, `bridge_regression_*.log`. PA-BRG-001..007 remain provisional.
+Human evaluation, cancellation/refunds, material hauling, arbitrary construction,
+bridge weight limits, infantry collapse, final art and save/load remain outside proof.
+
 ## T3-ROD-013 — Dynamic road cost, crossing legality and road repair
 
 The optional sixth Scenario fixture flag promotes two existing graph edges into

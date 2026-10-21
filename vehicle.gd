@@ -52,6 +52,13 @@ func advance(delta: float, now: float, network) -> void:
 		return
 	if route_state == "NOT_STARTED":
 		start(network, now)
+	if route_state == "NO_LEGAL_ROUTE" and observed_revision != network.revision:
+		observed_revision = network.revision
+		if position == network.points[current_node]:
+			route_state = "REPLANNING"
+			replanning_at = now
+			network.record(self, now, "Infrastructure revision changed; retry waiting route from safe node", route_state)
+		return
 	if route_state == "MOVING" and observed_revision != network.revision:
 		observed_revision = network.revision
 		var updated: Array[String] = network.plan(current_node, destination, mobility_class, known_blocked)
@@ -93,6 +100,7 @@ func advance(delta: float, now: float, network) -> void:
 	if route_state == "REPLANNING":
 		if now >= replanning_at + 1:
 			route.assign(network.plan(current_node, destination, mobility_class, known_blocked))
+			observed_revision = network.revision
 			route_index = 0
 			route_state = "MOVING" if route.size() > 1 else "NO_LEGAL_ROUTE"
 			network.record(self, now, "Follow legal alternate route", route_state)

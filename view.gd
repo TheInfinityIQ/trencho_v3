@@ -203,11 +203,11 @@ func draw_infrastructure() -> void:
 		var item: Dictionary = network.edge_infrastructure(edge)
 		var color := Color("8f9c8e") if edge.terrain == "ROAD" else Color("56836c")
 		if not item.is_empty():
-			color = Color("d3a96a") if item.state == "DAMAGED" else (Color("a56d62") if item.state == "DESTROYED" else Color("b5ceb2"))
+			color = Color("d3a96a") if item.state in ["DAMAGED", "UNDER_RECONSTRUCTION"] else (Color("a56d62") if item.state == "DESTROYED" else Color("b5ceb2"))
 		draw_line(road_screen(network.points[edge.a]), road_screen(network.points[edge.b]), color, 9 if edge.terrain == "ROAD" else 3)
 	for item in network.infrastructure.values():
 		label_at(road_screen(item.position) + Vector2(-65, -20), item.id + " / " + item.state, 14)
-		if item.state == "DESTROYED":
+		if item.state in ["DESTROYED", "UNDER_RECONSTRUCTION"]:
 			var point := road_screen(item.position)
 			draw_line(point - Vector2(12, 12), point + Vector2(12, 12), Color("f0b09b"), 4)
 			draw_line(point + Vector2(-12, 12), point + Vector2(12, -12), Color("f0b09b"), 4)
@@ -233,11 +233,14 @@ func draw_infrastructure() -> void:
 	lines.append("Road cost: %.1f" % network.edge_cost(network.edges[0], "ROAD_ONLY"))
 	if not engineering.jobs.is_empty():
 		var job: Dictionary = engineering.jobs.back()
-		lines.append("Repair %.2f / 4s / %s" % [job.progress, job.state])
-		lines.append(job.failure_reason)
+		if job.activity == "RebuildBridge":
+			var crossing: Dictionary = network.edge_between("junction", "crossing_exit")
+			lines[lines.size() - 1] = "Bridge cost: " + ("%.1f" % network.edge_cost(crossing, "ROAD_ONLY") if network.edge_allowed(crossing, "ROAD_ONLY") else "IMPASSABLE")
+		lines.append("Labor %.2f / %.0fs / %s" % [job.progress, job.duration, job.state])
+		lines.append("Interrupted: explicit resume required" if job.state == "INTERRUPTED" else job.failure_reason)
 	for index in range(lines.size()):
 		label_at(Vector2(946, 172 + index * 27), lines[index], 13)
-	var history: Array = network.infrastructure_history.slice(-3)
+	var history: Array = network.infrastructure_history.slice(-5)
 	for index in range(history.size()):
 		label_at(Vector2(946, 520 + index * 24), "T%.1f %s" % [history[index].time, history[index].event], 13)
 	label_at(Vector2(50, 680), "Truck route: " + " → ".join(network.truck.route), 14)

@@ -45,12 +45,21 @@ func infrastructure_event(item: Dictionary, event: String, now: float, source: S
 	infrastructure_history.append({"infrastructure": item.id, "event": event, "time": now, "source": source, "cause": cause, "state": item.state, "position": item.position, "revision": revision})
 	print("INFRASTRUCTURE: ", JSON.stringify(infrastructure_history.back()))
 
-func apply_blast_damage(point: Vector2, now: float, source: String) -> void:
+func apply_blast_damage(point: Vector2, now: float, source: String) -> Array[String]:
+	var interrupted: Array[String] = []
 	for item in infrastructure.values():
-		if item.state != "INTACT" or item.position.distance_to(point) > INFRASTRUCTURE_HIT_RADIUS:
+		if item.position.distance_to(point) > INFRASTRUCTURE_HIT_RADIUS:
+			continue
+		if item.type == "Bridge" and item.state == "UNDER_RECONSTRUCTION":
+			item.state = "DESTROYED"
+			infrastructure_event(item, "reconstruction interrupted", now, source, "Spatial infrastructure impact")
+			interrupted.append(item.id)
+			continue
+		if item.state != "INTACT":
 			continue
 		item.state = "DAMAGED" if item.type == "RoadSegment" else "DESTROYED"
 		infrastructure_event(item, "road damaged" if item.type == "RoadSegment" else "bridge destroyed", now, source, "Spatial infrastructure impact")
+	return interrupted
 
 func repair_road(identity: String, now: float, source: String, job: String) -> void:
 	var item: Dictionary = infrastructure[identity]
@@ -58,6 +67,21 @@ func repair_road(identity: String, now: float, source: String, job: String) -> v
 		return
 	item.state = "INTACT"
 	infrastructure_event(item, "road repaired", now, source, job)
+
+func start_bridge_reconstruction(identity: String, now: float, source: String, job: String, resumed := false) -> void:
+	var item: Dictionary = infrastructure[identity]
+	if item.type != "Bridge" or item.state != "DESTROYED":
+		return
+	item.state = "UNDER_RECONSTRUCTION"
+	item.reconstruction_job = job
+	infrastructure_event(item, "reconstruction resumed" if resumed else "reconstruction started", now, source, job)
+
+func complete_bridge_reconstruction(identity: String, now: float, source: String, job: String) -> void:
+	var item: Dictionary = infrastructure[identity]
+	if item.type != "Bridge" or item.state != "UNDER_RECONSTRUCTION" or item.get("reconstruction_job", "") != job:
+		return
+	item.state = "INTACT"
+	infrastructure_event(item, "reconstruction completed", now, source, job)
 
 func _init(supply) -> void:
 	add_edge("depot-junction", "depot", "junction", "ROAD")
@@ -83,7 +107,7 @@ func add_edge(identity: String, start: String, end: String, terrain: String, blo
 
 func edge_allowed(edge: Dictionary, mobility: String) -> bool:
 	var item := edge_infrastructure(edge)
-	if not item.is_empty() and item.type == "Bridge" and item.state == "DESTROYED":
+	if not item.is_empty() and item.type == "Bridge" and item.state != "INTACT":
 		return false
 	return edge.terrain == "ROAD" or (edge.terrain == "OFFROAD" and mobility == "TRACKED")
 

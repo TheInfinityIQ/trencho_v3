@@ -7,7 +7,8 @@ const ACTIVITIES := {
 	"BasicFoxhole": {"tool": "BasicShovel", "qualified": false, "material": 0, "labor": 3.0, "result": "Foxhole"},
 	"ReinforcedPosition": {"tool": "EngineerToolkit", "qualified": true, "material": 4, "labor": 5.0, "result": "ReinforcedPosition"},
 	"RepairReinforced": {"tool": "EngineerToolkit", "qualified": true, "material": 2, "labor": 4.0, "result": ""},
-	"RepairRoad": {"tool": "EngineerToolkit", "qualified": true, "material": 2, "labor": 4.0, "result": ""}}
+	"RepairRoad": {"tool": "EngineerToolkit", "qualified": true, "material": 2, "labor": 4.0, "result": ""},
+	"RebuildBridge": {"tool": "EngineerToolkit", "qualified": true, "material": 6, "labor": 8.0, "result": ""}}
 var people: Array = []
 var tools: Array[Dictionary] = []
 var stockpile := {"id": "MilitaryConstructionStock-01", "owner": "military", "position": Vector2(200, 550), "inventory": {"BuildingMaterial": 8}}
@@ -72,7 +73,7 @@ func eligibility(activity: String, person) -> String:
 
 func assign(activity: String, person, site: String, now: float) -> Dictionary:
 	var reason := eligibility(activity, person)
-	if activity in ["RepairReinforced", "RepairRoad"]:
+	if activity in ["RepairReinforced", "RepairRoad", "RebuildBridge"]:
 		reason = "Use damaged-structure repair assignment"
 	if reason.is_empty() and not sites.has(site):
 		reason = "Authored work site required"
@@ -135,15 +136,72 @@ func create_job(activity: String, person, site: String, position: Vector2, now: 
 	person.arrived = false
 	return job
 
+func bridge_rebuild_reason(person, target: Dictionary, required_state: String) -> String:
+	if target.is_empty() or target.type != "Bridge":
+		return "Authored Bridge target required"
+	if target.state != required_state:
+		return "Bridge state must be " + required_state + "; actual " + target.state
+	return eligibility("RebuildBridge", person)
+
+func assign_bridge_rebuild(person, identity: String, now: float) -> Dictionary:
+	var target := repair_target(identity)
+	var reason := bridge_rebuild_reason(person, target, "DESTROYED")
+	if reason.is_empty() and jobs.any(func(job): return job.state != "COMPLETE" and (job.person == person.id or job.target_structure == identity)):
+		reason = "Person or bridge already assigned"
+	if reason.is_empty() and stockpile.inventory.BuildingMaterial < 6:
+		reason = "Insufficient uncommitted BuildingMaterial"
+	if not reason.is_empty():
+		failures.append({"time": now, "person": person.id, "activity": "RebuildBridge", "structure": identity, "reason": reason})
+		return {}
+	var job := create_job("RebuildBridge", person, target.id, target.position, now, identity)
+	if not job.is_empty():
+		infrastructure_owner.get_ref().start_bridge_reconstruction(identity, now, person.id, job.id)
+	return job
+
+func interrupt_bridge_rebuild(identity: String, now: float) -> void:
+	for job in jobs:
+		if job.activity == "RebuildBridge" and job.target_structure == identity and job.state != "COMPLETE":
+			job.progress = 0.0
+			job.labor_started_at = -1.0
+			job.state = "INTERRUPTED"
+			job.interrupted_at = now
+			job.failure_reason = "Reconstruction interrupted; explicit fixture resume required"
+
+func resume_bridge_rebuild(identity: String, now: float) -> bool:
+	for job in jobs:
+		if job.id != identity or job.activity != "RebuildBridge" or job.state != "INTERRUPTED":
+			continue
+		var person = people.filter(func(actor): return actor.id == job.person)[0]
+		var target := repair_target(job.target_structure)
+		var reason := bridge_rebuild_reason(person, target, "DESTROYED")
+		if reason.is_empty() and int(reservations.get(job.id, 0)) != 6:
+			reason = "Original6unit reservation required"
+		if not reason.is_empty():
+			job.failure_reason = reason
+			return false
+		job.progress = 0.0
+		job.labor_started_at = -1.0
+		job.state = "TRAVELING"
+		job.failure_reason = ""
+		person.route_origin = person.position
+		person.path.assign([target.position])
+		person.waypoint = 0
+		person.arrived = false
+		infrastructure_owner.get_ref().start_bridge_reconstruction(target.id, now, person.id, job.id, true)
+		return true
+	return false
+
 func complete(job: Dictionary, now: float) -> void:
 	if job.required_material > 0:
 		var amount := int(reservations[job.id])
 		reservations.erase(job.id)
 		consumed += amount
 		ledger.append({"source": "reservation:" + job.id, "amount": amount, "destination": job.target_structure if not job.target_structure.is_empty() else "Structure-" + job.id, "action": "consume", "time": now, "job": job.id, "resource": "BuildingMaterial"})
-	if job.activity in ["RepairReinforced", "RepairRoad"]:
+	if job.activity in ["RepairReinforced", "RepairRoad", "RebuildBridge"]:
 		var repaired := repair_target(job.target_structure)
-		if job.activity == "RepairRoad":
+		if job.activity == "RebuildBridge":
+			infrastructure_owner.get_ref().complete_bridge_reconstruction(repaired.id, now, job.person, job.id)
+		elif job.activity == "RepairRoad":
 			infrastructure_owner.get_ref().repair_road(repaired.id, now, job.person, job.id)
 		else:
 			set_integrity(repaired, 2)
@@ -199,11 +257,13 @@ func advance(delta: float, now: float) -> void:
 		var before: Vector2 = person.position
 		person.advance(delta)
 		for job in jobs:
-			if job.person != person.id or job.state == "COMPLETE":
+			if job.person != person.id or job.state in ["COMPLETE", "INTERRUPTED"]:
 				continue
 			var reason := eligibility(job.activity, person)
 			if reason.is_empty() and job.activity in ["RepairReinforced", "RepairRoad"]:
 				reason = repair_reason(person, repair_target(job.target_structure))
+			if reason.is_empty() and job.activity == "RebuildBridge":
+				reason = bridge_rebuild_reason(person, repair_target(job.target_structure), "UNDER_RECONSTRUCTION")
 			if reason.is_empty() and (before.distance_to(job.position) > WORK_RADIUS or person.position.distance_to(job.position) > WORK_RADIUS):
 				reason = "Outside work radius"
 			if reason.is_empty() and job.required_material > 0 and int(reservations.get(job.id, 0)) != job.required_material:
