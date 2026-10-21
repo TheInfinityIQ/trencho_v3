@@ -32,6 +32,7 @@ var cover_arrived_at := -1.0
 var first_contact := -1.0
 var encounter_over := false
 var hold_contact_enabled := false
+var contact_refresh_interval := 0.0
 
 func _init(scenario) -> void:
 	model = weakref(scenario)
@@ -188,7 +189,10 @@ func advance(now: float) -> void:
 		for friendly in friends:
 			var targets := detect(friendly, defenders.soldiers)
 			if not targets.is_empty() and scenario.artillery != null:
-				scenario.information.observe_enemy(friendly.id, targets[0].position, now)
+				if contact_refresh_interval > 0:
+					scenario.information.observe_contact(friendly.id, targets[0].id, targets[0].position, now, contact_refresh_interval)
+				else:
+					scenario.information.observe_enemy(friendly.id, targets[0].position, now)
 			if not targets.is_empty() and now + 0.000001 >= float(next_fire.get(friendly.id, -1)) and friendly.inventory[AMMO] > 0:
 				attempt_shot(friendly, targets[0], now, friendly_random.randf())
 		var capable := 0
@@ -196,6 +200,13 @@ func advance(now: float) -> void:
 			if enemy.active and enemy.inventory[AMMO] > 0:
 				capable += 1
 		encounter_over = capable == 0
+	# Empty enemy weapons end the firing exchange, not physical observation.
+	# Opt-in reports still require accepted local range/LOS/active detection.
+	if encounter_over and contact_refresh_interval > 0 and scenario.artillery != null:
+		for friendly in friends:
+			var targets := detect(friendly, defenders.soldiers)
+			if not targets.is_empty():
+				scenario.information.observe_contact(friendly.id, targets[0].id, targets[0].position, now, contact_refresh_interval)
 	for squad in scenario.squads + [defenders]:
 		squad.decay_suppression(now)
 	if scenario.squads[0].routing_state != "NONE":

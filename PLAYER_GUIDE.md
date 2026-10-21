@@ -25,5 +25,17 @@ arrive with delay; an empty result means no established information. **R** shows
 known historical evidence and pauses the world; **Esc** returns to live play.
 Reported enemy contacts show their last known position and observation time.
 
+The operations panel separates **Military Need**, **Rear Stock**, **Supply Stage**
+and **Rear Work**. "Uncommitted" is your unused finished stock; "eligible" is what
+the current policy permits the military to draw. Loading, shipment transit and
+truck custody are not Soldier delivery. The lower prompt explains the current
+useful logistics/observation action, or that no player action is required.
+
+Contact labels are **LAST KNOWN**, with age, observation/receipt time and Company
+provenance. **RECENT** is up to 5 world seconds, **AGING** is more than 5 through
+15, and **STALE** is older than 15. Old evidence stays visible until a newer locally observed report reaches
+Company. A stale marker does not prove the enemy is still there. Worker status
+explicitly says when its one batch is complete and no more work is scheduled.
+
 Victory or defeat ends and freezes the battle. You can still switch maps to
 inspect the aftermath. There are no Soldier movement, targeting or attack orders.

@@ -1,6 +1,7 @@
 extends RefCounted
 
 const Scenario = preload("res://scenario.gd")
+const Situation = preload("res://situation.gd")
 var world = Scenario.new(true, true, true, true, false, true, false, true)
 var campaign_capabilities := {"BoltActionAmmoProduction": true}
 var initial_ammo := 0
@@ -15,6 +16,7 @@ func _init() -> void:
 	world.squads[0].soldiers[0].inventory.BoltActionRifleAmmo = 9
 	world.combat.friendly_random.seed = 1
 	world.combat.hold_contact_enabled = true
+	world.combat.contact_refresh_interval = 3.0
 	world.artillery.auto_contact_enabled = false
 	for person in world.combat.defenders.soldiers:
 		person.inventory.BoltActionRifleAmmo = 1
@@ -42,4 +44,7 @@ func friendly_shots() -> Array:
 
 func visible_contacts() -> Array:
 	# Deliberately copied delivered Company records; never enemy live positions.
-	return world.information.company_contact_snapshot()
+	return Situation.latest_contacts(world)
+
+func situation() -> Dictionary:
+	return Situation.build(world)

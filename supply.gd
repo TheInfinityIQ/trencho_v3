@@ -3,6 +3,7 @@ extends RefCounted
 const CATEGORY := "BoltActionRifleAmmo"
 const SHARE_RADIUS := 42.0
 const READY_THRESHOLD := 16
+const REQUEST_QUANTITY := 8
 const DELIVERY_RADIUS := 70.0
 const DEPOT_POSITION := Vector2(100, 125)
 const RESUPPLY_POSITION := Vector2(350, 200)
@@ -89,7 +90,7 @@ func advance(delta: float, time: float) -> void:
 			else:
 				record("Company approves allocation", "Finite military depot can supply eight; approval does not transfer custody")
 	if requested_at >= 0 and now >= requested_at + 1 and truck.state == "At depot":
-		if transfer(depot.id, depot.inventory, truck.id, truck.inventory, 8, "Load approved military shipment") == 8:
+		if transfer(depot.id, depot.inventory, truck.id, truck.inventory, REQUEST_QUANTITY, "Load approved military shipment") == REQUEST_QUANTITY:
 			truck.state = "In transit"
 	if truck.state == "In transit":
 		if vehicle_controller != null:

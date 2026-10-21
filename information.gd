@@ -15,6 +15,9 @@ var reconstruction: Array[Dictionary] = []
 var contact_knowledge := {"Squad": [], "Platoon": [], "Company": []}
 var contact_deliveries: Array[Dictionary] = []
 var contact_next_hop := 1
+var contact_updates: Array[Dictionary] = []
+var contact_observed_at: Dictionary = {}
+var next_contact_report := 1
 var leader_knowledge := {"Squad": [], "Platoon": [], "Company": []}
 var leader_relays: Array[Dictionary] = []
 var morale_knowledge := {"Squad": [], "Platoon": [], "Company": []}
@@ -39,13 +42,38 @@ func observe_enemy(observer: String, point: Vector2, now: float) -> void:
 	contact_knowledge.Squad.append({"kind": "ENEMY_POSITION_OBSERVED", "report_id": "contact-1", "observer": observer, "observation_time": now, "observed_position": point, "received_at": now})
 	print("LOCAL CONTACT OBSERVATION: ", JSON.stringify(contact_knowledge.Squad[0]))
 
+func observe_contact(observer: String, contact_id: String, point: Vector2, now: float, interval := 3.0) -> bool:
+	if observer.is_empty() or contact_id.is_empty() or now < 0 or interval <= 0:
+		return false
+	if contact_observed_at.has(contact_id) and now + 0.000001 < float(contact_observed_at[contact_id]) + interval:
+		return false
+	# This opt-in stream reuses the accepted local->Platoon->Company hops.
+	# Disable only the legacy single-report relay when this stream is selected.
+	contact_next_hop = 3
+	var report := {"kind": "ENEMY_POSITION_OBSERVED", "contact_id": contact_id, "report_id": "contact-" + str(next_contact_report), "observer": observer, "observation_time": now, "observed_position": point, "received_at": now}
+	next_contact_report += 1
+	contact_observed_at[contact_id] = now
+	contact_knowledge.Squad.append(report)
+	contact_updates.append({"report": report.duplicate(true), "hop": 1})
+	return true
+
 func company_contact_snapshot() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for record in contact_knowledge.Company:
-		result.append({"kind": record.kind, "report_id": record.report_id, "observer": record.observer, "observation_time": record.observation_time, "observed_position": record.observed_position, "received_at": record.received_at, "source_echelon": "Company"})
+		var delivered := {"kind": record.kind, "report_id": record.report_id, "observer": record.observer, "observation_time": record.observation_time, "observed_position": record.observed_position, "received_at": record.received_at, "source_echelon": "Company"}
+		if record.has("contact_id"):
+			delivered.contact_id = record.contact_id
+		result.append(delivered)
 	return result
 
 func advance(now: float, casualty) -> void:
+	for relay in contact_updates:
+		while relay.hop < 3 and now + 0.000001 >= relay.report.observation_time + relay.hop * HOP_DELAY:
+			var delivered: Dictionary = relay.report.duplicate(true)
+			delivered.received_at = relay.report.observation_time + relay.hop * HOP_DELAY
+			contact_knowledge[ECHELONS[relay.hop]].append(delivered)
+			contact_deliveries.append({"sender": ECHELONS[relay.hop - 1], "recipient": ECHELONS[relay.hop], "sent_at": delivered.received_at - HOP_DELAY, "received_at": delivered.received_at, "report_id": delivered.report_id})
+			relay.hop += 1
 	for relay in morale_relays:
 		while relay.hop < 3 and now + 0.000001 >= relay.report.sent_at + relay.hop * HOP_DELAY:
 			var received: Dictionary = relay.report.duplicate(true)

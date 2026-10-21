@@ -5,6 +5,74 @@ Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/proje
 For the playable logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
+## T3-SIT-024 — Operational situation and logistics feedback
+
+The same operations scene now has a read-only `situation.gd` projection of actual
+request/readiness, physical transfers, finished/uncommitted/committed/eligible stock,
+policy, job progress and one-batch Worker state. No request/custody/UI fulfillment
+counter is maintained separately. Request quantity is exposed by Supply's existing
+fixed8round contract; normal truck loading uses that same constant. Historical
+delivery stays satisfied even when later combat spends the delivered rounds.
+
+The panel separates Military Need, Rear Stock, Supply Stage and Rear Work.
+Stages derive from ordinary ownership/process state: NO STOCK, WITHHELD—LOCKED,
+WITHHELD—RESERVE FLOOR, AVAILABLE FOR COMMITMENT, COMMITTED, LOADING, IN TRANSIT,
+AT RECEIVING DEPOT, ON TRUCK and DELIVERED. Commitment is still included in rear
+on-hand stock; only uncommitted policy-eligible stock is available for new draw.
+Explicit text explains military draw disabled or Reserve8protecting8/eligible0.
+Loading shows real elapsed work and rear ownership; later stages identify current
+custody without route ETA or predicted battlefield outcomes. A single context
+prompt recommends only rear/logistics/observation actions or says no player action
+is required. It never changes policy or issues military orders.
+
+Bench/manual progress/Worker assignment, active batch and completed-one-batch/no
+future-work states are distinct. Existing one-batch behavior is unchanged; no
+continuous production, cancellation or unassign doctrine is added. Normal controls
+remain the same; the panel and PLAYER_GUIDE explain their consequences.
+
+For this scene only, ordinary local combat detection re-observes visible contacts
+at most once per contact every3worldseconds. Empty weapons stop shooting, not
+observation; fresh reports still require active FIT local range/LOS detection.
+The Information system copies each accepted observation into the existing1second
+Platoon/Company hops with stable contact/report IDs. The prior single-contact mode
+remains the default for accepted proof fixtures. This is an opt-in extension of
+the accepted report pipeline, not a UI read of live enemy state.
+
+Player markers reduce only delivered Company reports to the latest observation
+per contact. Each is labeled LAST KNOWN with observation/receipt times, Company/
+observer provenance, age and RECENT<=5 / AGING>5..15 / STALE>15 bands. Stale evidence
+is neither deleted nor corrected from live enemy movement/death. New position/time
+replaces it only after a newer report reaches Company. Labels are offset to avoid
+contact-label overlap. Report activity uses only Company receipt metadata; local
+or in-transit contents/existence are not exposed as knowledge. "No report received"
+and "Company knowledge updated" avoid inventing omniscient pending indicators.
+
+Inquiry distinguishes UNKNOWN, PARTIAL/LAST KNOWN and CONFIRMED HISTORY with
+source still unknown. Reconstruction is explicitly HISTORICAL, established
+evidence rather than live truth. All age/progress uses the authoritative world
+clock across map changes and freezes during reconstruction/terminal state.
+
+Verification: `--headless --path . --script check_situation.gd --log-file artifacts/situation.log`
+runs30 checks. Omit headless and append `-- --visual` for45 using ordinary
+placement/Worker/policy/map/inquiry/reconstruction controls. Fourteen inspected
+captures show need, assigned/active/completed Worker, LOCKED, Reserve8, stale
+evidence, unknown inquiry/history, loading, shipment/truck, delivered need, genuine
+newer Company update and terminal aftermath. All pass. All23 prior model suites
+pass (37/127/24/33/21/38/20/30/25/64/39/36/33/33/38/31/32/42/42/34/31/33/23).
+Read-only/copy-isolation checks prove projection cannot alter world/policy/custody/
+knowledge. Evidence: `artifacts/situation_checks.json`, `situation_visual.log`,
+`situation_*.png`, `situation_regression_*.log`. PA-SIT-001 through004 provisional.
+
+Remaining UX risks: dense diagnostic text and contact labels need human evaluation;
+report-age confidence is not a guarantee that an enemy still exists; normal
+logistics waiting remains passive despite legible stages. Only Company receipt
+activity is exposed, so a not-yet-received update is intentionally uncertain.
+Worker remains one batch with no unassign flow. No tactical control, live tracking,
+minimap, automatic policy, route ETA, notification framework, final HUD/tutorial/
+sound or campaign UI was added. Prototype active-save object/property manifests
+remain build-coupled; no backward migration promise is introduced by these report
+fields. Human experience evaluation and export verification remain pending.
+
 ## T3-OPS-023 — Playable rear logistics and autonomous battle
 
 The separate operations entry assembles ordinary Scenario/Supply/Rear/Vehicle/
