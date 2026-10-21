@@ -14,6 +14,7 @@ var state := "Awaiting Company contact knowledge"
 var missions: Array[Dictionary] = []
 var history: Array[Dictionary] = []
 var auto_mission_created := false
+var auto_contact_enabled := true
 var fired_count := 0
 var battle_boundary
 
@@ -46,7 +47,7 @@ func advance_fire_control(now: float, company_records: Array[Dictionary]) -> voi
 		return
 	# Fire control receives only restricted delivered records, never battlefield
 	# entities or actual current enemy positions. Impact physics is a separate call.
-	if not auto_mission_created and missions.is_empty() and not company_records.is_empty():
+	if auto_contact_enabled and not auto_mission_created and missions.is_empty() and not company_records.is_empty():
 		auto_mission_created = create_mission(company_records[0], now)
 	for mission in missions:
 		if mission.state != "PREPARING" or now + 0.000001 < mission.ready_at:

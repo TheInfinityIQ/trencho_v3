@@ -31,6 +31,7 @@ var tactical_state := "ADVANCING"
 var cover_arrived_at := -1.0
 var first_contact := -1.0
 var encounter_over := false
+var hold_contact_enabled := false
 
 func _init(scenario) -> void:
 	model = weakref(scenario)
@@ -173,7 +174,7 @@ func move_to_cover(now: float) -> void:
 
 func advance(now: float) -> void:
 	var scenario = model.get_ref()
-	if scenario.supply.phase != "Final approach":
+	if scenario.supply.phase != "Final approach" and not hold_contact_enabled:
 		return
 	if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"] and scenario.squads[0].command_available():
 		add_suppression(0, now, "Field command restored; pending suppression requires local cover")

@@ -2,6 +2,72 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+For the playable logistics battle, open **operations.tscn** and press **F6**.
+See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
+
+## T3-OPS-023 — Playable rear logistics and autonomous battle
+
+The separate operations entry assembles ordinary Scenario/Supply/Rear/Vehicle/
+Combat/Information/Artillery/Battle implementations. `operations.gd` authors a
+finite scenario and releases Company's existing strategic fire task only after
+infantry physically secures Objective A. No player move/fire/target/objective/HQ
+command exists in `operations_view.gd`. The default main/proof scenes stay intact.
+
+Starting campaign capability BoltActionAmmoProduction is explicit. Rear starts
+Metal4, no bench/stock/job/worker assignment and LOCKED. Main infantry carries9;
+one real early contact shot leaves8, then ordinary staging requests8against the
+unchanged16round readiness threshold. The scenario opts into contact combat while
+holding (default false elsewhere), uses explicit deterministic seed1 and finite
+enemy ammunition, and retains actual hit/cadence/LOS rules. Autonomous contact
+artillery is disabled for this fixture so the two existing physical mortar shells
+remain for the later strategic HQ task. Default artillery behavior is unchanged.
+
+Actual player placement, proximity and labor consume Metal1 and4worldseconds for
+8rounds. LOCKED/RESERVE8 keep the sole batch rear-owned; AVAILABLE permits normal
+commitment,2second loading,3second inter-map transit, military receiving, truck
+loading, legal blockage discovery/replan/detour and physical soldier delivery.
+Only carried ammo reaches readiness. Empty-before-delivery recipients then spend
+their delivered rounds in ordinary combat. A stalled-member counterexample proves
+delivery cannot directly win: infantry must actually complete its mission before
+Company releases two normal prep/fire/flight impacts against the primary HQ.
+HQ destruction alone ends the battle and freezes world/input mutation.
+
+UI reads the same underlying stock/policy/commitment/shipment/vehicle/readiness
+state. Enemy markers come only from copied delivered Company contact records,
+explicitly labeled last-known with observation time. No live enemy positions or
+hidden sources are displayed. Static HQ locations are the accepted strategic
+briefing; enemy integrity is not shown live. Friendly fire-task/projectile feedback
+uses friendly mission records. Binocular inquiry retains54radius, delayed HQ
+knowledge, provenance and restricted historical reconstruction; reconstruction
+pauses the single authoritative clock. Terminal display explains result/freeze.
+
+Inaction for120worldseconds creates no stock/export or readiness shortcut. A full
+actual-input run takes about49worldseconds with prompt actions; manual pacing can
+extend this into a several-minute evaluation. No global simulation constants were
+changed. PA-OPS-001 through003 remain provisional experience assumptions.
+
+Verification: `--headless --path . --script check_operations.gd --log-file artifacts/operations.log`
+runs23 checks. Omit headless and append `-- --visual` for37, using actual player
+WASD/place/work/authorization/map/inquiry/reconstruction controls. Twelve captures
+cover request, early unknown inquiry, empty rear, labor, LOCKED8, authorization,
+shipment, truck, reconstruction, delivered readiness, combat and frozen HQ victory.
+All pass; all22 prior suites pass (37/127/24/33/21/38/20/30/25/64/39/36/33/33/38/
+31/32/42/42/34/31/33). Ammo conservation is checked every simulation tick, including
+manufacturing and all friendly/enemy shots. Negative battlefield clicks/hotkeys
+leave tactical state untouched. Evidence is in `artifacts/operations_checks.json`,
+`operations_visual.log`, `operations_*.png` and `operations_regression_*.log`.
+
+Observed UX risks: a several-stage delivery creates a noticeable passive wait;
+the UI exposes custody stages and lets the player observe while waiting. Reserve8
+protects the whole first batch, which may initially look like a stalled request.
+Stale contact markers intentionally outlive the real guard; their time labels
+matter. Worker assignment currently orders one batch and has no player unassign
+flow. The one-cycle objective is sufficient here, but these limits need human
+evaluation before a broader economy/UI. Engineering completion does not establish
+that the logistics agency is fun or clear. Human experience evaluation is pending.
+No campaign cards/meta/save-slot UI/new weapons/final art/tutorial/balance/audio
+or export verification is claimed.
+
 ## T3-RSM-022 — Focused active checkpoint and transactional resume
 
 Open `resume_proof.tscn` and run F6. Explicit SAVE ACTIVE, DESTROY ORIGINAL + LOAD
