@@ -2,6 +2,56 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-META-020 — Completed campaign reward and persistent unlock eligibility
+
+Open `meta_proof.tscn` and run F6. `meta_session.gd` keeps a value-only `meta`
+tree outside campaign data: MetaToken currency0, four initial unlocked IDs
+(bolt-ammo/engineering/medical/emergency-shipment), unlock/reward/result histories,
+active campaign ID and monotonically distinct campaign IDs. Mortar starts locked.
+Runtime campaign/cards/old-campaign references stay outside meta values. Persistence
+means across campaign lifecycles in this session; no disk save/load is implemented.
+
+The focused first campaign reaches the accepted real Battle1 victory/transition,
+then runs autonomous physical HQ destruction in Battle2. Only final Battle2
+friendly victory marks COMPLETED_SUCCESS, campaign_active=false and grants1MetaToken
+with one reward event. Result processing is idempotent. ACTIVE blocks meta unlock
+and replacement campaigns. Explicit abandon marks ABANDONED, freezes campaign
+controller advancement, grants0 and clears shop blocking. Genuine defeat similarly
+ends with0 and DEFEAT_REWARD_POLICY_DEFERRED; no defeated continuation is introduced.
+A terminal victory already present takes precedence over a stale abandon action.
+
+After the campaign ends, a valid unlock spends1MetaToken and deterministically
+unlocks the sole eligible catalog card tech.mortar. No campaign data/world,
+capability, shell, mortar or stock is mutated. Insufficient balance and exhausted
+eligible pool reject without spending, duplicate IDs or history. The completed
+campaign and its Battle1 archive remain unchanged through unlock/new-run actions.
+
+Starting the new campaign creates an independent ID/runtime/progression snapshot
+of persistent unlocked eligibility; acquired cards remain empty and MortarSupport
+inactive. PA-META-006 explicitly gives this availability fixture one DropToken
+and enables a one-candidate Tier2 proof offer for that token. This is not final
+Tier2 pricing/offer-count design. Its tech.mortar offer grants no acquisition,
+capability or physical output. Existing default CAR/CON fixtures retain their
+own deterministic pools and Tier1 behavior; only the meta fixture opts into a
+pool override and Tier2 proof access. No third battle is added to the first
+campaign. The new run is an availability proof, not a new full campaign UI flow.
+
+PA-META-001 through006 remain provisional. Exact campaign length, defeat rewards,
+pricing/weighting and broader progression remain deferred. No performance scoring,
+Legendary Soldier meta system, real-money purchase, final shop art/audio,
+blacklists, branching, higher-tier economy or cloud/disk persistence is implied.
+Future persistence must preserve unique campaign identity, terminal result/reward
+idempotence, unlock transaction atomicity and independent campaign pool snapshots.
+
+Verification: `--headless --path . --script check_meta.gd --log-file artifacts/meta.log`
+runs34 checks. Omit headless and append `-- --visual` for40 checks, including
+actual blocked-unlock, final victory/reward, unlock, new-campaign and Tier2-offer
+controls and five inspected screenshots. All pass; all19 prior suites pass
+(37/127/24/33/21/38/20/30/25/64/39/36/33/33/38/31/32/42/42). Evidence:
+`artifacts/meta_checks.json`, `meta_visual.log`, `meta_*.png` and
+`meta_regression_*.log`. Human experience evaluation remains pending; no export
+verification is claimed.
+
 ## T3-CON-019 — One-time consumable rear-owned windfall
 
 Open `consumable_proof.tscn` and run F6 for the focused five-card pool. The default

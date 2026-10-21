@@ -13,12 +13,16 @@ var campaign: Dictionary
 var state: Dictionary
 var reason := ""
 var fixture_unlocked: Array
+var proof_tier2_access := false
 
-func _init(campaign_data: Dictionary, with_consumable := false) -> void:
+func _init(campaign_data: Dictionary, with_consumable := false, unlocked_override = null, allow_proof_tier2 := false) -> void:
 	campaign = campaign_data
 	fixture_unlocked = UNLOCKED.duplicate()
 	if with_consumable:
 		fixture_unlocked.push_front("cons.ammo_emergency_shipment")
+	if unlocked_override != null:
+		fixture_unlocked = unlocked_override.duplicate(true)
+	proof_tier2_access = allow_proof_tier2
 	if not campaign.has("card_progression"):
 		campaign.card_progression = {"currency": {"DropToken": 1}, "acquired_cards": [], "drops": [], "next_drop": 1, "history": []}
 	state = campaign.card_progression
@@ -46,7 +50,7 @@ func open_drop() -> Dictionary:
 
 func purchase(tier := 1) -> bool:
 	reason = ""
-	if tier != 1:
+	if tier != 1 and not (tier == 2 and proof_tier2_access):
 		reason = "ONLY_TIER1_PROOF_DEFINED"
 		return false
 	if state.currency.DropToken < 1:
@@ -57,10 +61,11 @@ func purchase(tier := 1) -> bool:
 		return false
 	var candidates := eligible(tier)
 	# Never fill a three-card offer with a duplicate, acquired card or wrong tier.
-	if candidates.size() < OFFER_COUNT:
+	var count := OFFER_COUNT if tier == 1 else 1
+	if candidates.size() < count:
 		reason = "INSUFFICIENT_ELIGIBLE_CARDS"
 		return false
-	var drop := {"id": "tier1-drop-" + str(state.next_drop), "tier": tier, "state": "OFFERED", "candidates": candidates.slice(0, OFFER_COUNT), "selected_card": ""}
+	var drop := {"id": "tier%d-drop-%d" % [tier, state.next_drop], "tier": tier, "state": "OFFERED", "candidates": candidates.slice(0, count), "selected_card": ""}
 	state.currency.DropToken -= 1
 	state.next_drop += 1
 	state.drops.append(drop)

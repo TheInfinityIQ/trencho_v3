@@ -14,7 +14,8 @@ var archived_worlds: Array = []
 var transition_reason := ""
 var fixture_events := {"second_batch": false, "leader_loss": false, "hq_strike": false, "third_batch": false, "late_fire": false}
 
-func _init(with_ammo_capability := true) -> void:
+func _init(with_ammo_capability := true, campaign_id := "Campaign-Proof-01") -> void:
+	data.campaign_id = campaign_id
 	data.capabilities.BoltActionAmmoProduction = with_ammo_capability
 	world = Scenario.new(true, true, true, true, true, true, true, true)
 	world.battle.auto_strike = false
@@ -142,6 +143,8 @@ func transition() -> bool:
 	return true
 
 func advance(delta: float) -> void:
+	if not data.campaign_active:
+		return
 	world.advance(delta)
 	if data.battle_index != 1 or not world.battle_active():
 		return
