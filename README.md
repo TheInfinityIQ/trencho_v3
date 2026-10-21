@@ -2,6 +2,50 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-WAR-016 — Physical HQ destruction and two-sided terminal battle
+
+The optional eighth Scenario fixture flag creates two persistent physical defeat
+objects: Friendly-HQ (friendly,100/700) and Enemy-HQ (enemy,850/200), each with stable
+ID/ownership/position,56x44geometry, integrity2 and INTACT/DAMAGED/DESTROYED lifecycle.
+These are structures, not new immortal commanders or HQ staff people. A qualifying
+spatial artillery impact within30units removes one integrity after current occupant
+effects and ordinary infrastructure effects resolve. Only a primary HQ reaching0
+sets ENDED_FRIENDLY_VICTORY/DEFEAT. Commander loss, Objective A, normal Squad loss,
+empty ammunition, rout and ordinary fortification/bridge destruction are nonterminal.
+
+The focused autonomous director receives an explicit static opposing-HQ briefing
+(STATIC_HQ_LOCATION), passed through Company fire-mission provenance validation.
+No player targeting or binocular truth injection exists. Two accepted mortar
+missions use real assigned/active gunner,2physical shells,1second preparation and
+2second flight. First impact at aboutT3.017leaves HQ DAMAGED/ACTIVE; after a2second
+interval the second mission produces destruction and victory at aboutT8.017.
+Mirrored EnemyMortar fixture destroys Friendly-HQ for defeat. Gunner unavailability
+prevents fire and result until restored. Empty shells never substitute for defeat.
+
+The destroying impact finishes all person effects, HQ damage/result and its current
+mission/impact history before Scenario returns. Later impacts/ticks are blocked.
+Terminal result/time are latched once; destroyed HQ identity/geometry/history persist.
+Scenario's authoritative entry point freezes movement, firing, suppression/morale,
+medicine, vehicles, engineering, rear production/export, recovery and reports.
+Direct shot/kill/mission/impact boundaries reject post-terminal mutation; rear avatar
+input/production controls also stop. Static rendering/map inspection may continue.
+No post-battle results screen, campaign transition or HQ rebuilding is implemented.
+
+`check_battle.gd` verifies actual shell-caused2->1->0, first-hit continuation,
+victory/mirrored defeat, gunner requirements, six real nonterminal alternatives,
+30unit damage boundary, current-impact occupant ordering, persistent aftermath,
+latched result and post-terminal armed-shooter/nonlethal-blast rejection. A busy
+fixture terminates with genuine movement, pending vehicle transport, incomplete
+production/engineering/treatment, suppression, bleed deadline, recovery and superior
+report still in progress; a full detached snapshot stays identical through100later
+requested world-seconds. Renderer captures both HQs, first hit/ACTIVE, second shell
+in flight, destroyed Enemy-HQ/victory and identical frozen aftermath.
+Evidence: `artifacts/battle_checks.json`, `battle.log`, `battle_visual.log`,
+`battle_*.png`, `battle_regression_*.log`. PA-WAR001..006 remain provisional.
+Only the two-primary-belligerent D-07 subset is resolved. Simultaneous HQ destruction,
+multi-sided outcomes/survivor conversion, HQ staff fate and campaign transition are
+unresolved. Human evaluation and export verification remain pending.
+
 ## T3-MED-015 — Wounding, stabilization and physical evacuation
 
 Persistent people now have FIT/WOUNDED/STABILIZED/DEAD/EVACUATED medical state,

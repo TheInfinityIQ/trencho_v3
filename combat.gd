@@ -73,6 +73,8 @@ func can_detect(shooter, target) -> bool:
 	return shooter.active and shooter.medical_state == "FIT" and target.is_physical_target() and shooter.faction != target.faction and shooter.position.distance_to(target.position) <= RANGE and visible(shooter.position, target.position)
 
 func detect(shooter, candidates: Array) -> Array:
+	if not model.get_ref().battle_active():
+		return []
 	shooter.detected.clear()
 	var result: Array = []
 	for target in candidates:
@@ -101,6 +103,8 @@ func constructed_blast_solids() -> Array[Rect2]:
 	return result
 
 func kill(target, shooter, now: float) -> void:
+	if not model.get_ref().battle_active():
+		return
 	if target.medical_state in ["DEAD", "EVACUATED"] or (not target.active and target.medical_state not in ["WOUNDED", "STABILIZED"]):
 		return
 	target.active = false
@@ -115,6 +119,8 @@ func kill(target, shooter, now: float) -> void:
 	print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
 
 func attempt_shot(shooter, target, now: float, roll: float) -> bool:
+	if not model.get_ref().battle_active():
+		return false
 	for squad in model.get_ref().squads:
 		if shooter in squad.soldiers and squad.routing_state != "NONE":
 			return false

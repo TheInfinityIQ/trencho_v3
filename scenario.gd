@@ -11,6 +11,7 @@ const Artillery = preload("res://artillery.gd")
 const Person = preload("res://soldier.gd")
 const Engineering = preload("res://engineering.gd")
 const Medical = preload("res://medical.gd")
+const Battle = preload("res://battle.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -28,8 +29,15 @@ var vehicles
 var artillery
 var engineering
 var medical
+var battle
+var battle_state: String:
+	get:
+		return battle.state if battle != null else "ACTIVE"
 
-func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false) -> void:
+func battle_active() -> bool:
+	return battle_state == "ACTIVE"
+
+func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false, with_battle := false) -> void:
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
@@ -69,6 +77,10 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false, wit
 		for index in range(4):
 			combat.defenders.soldiers[index].position = positions[index]
 			combat.defenders.soldiers[index].origin = positions[index]
+	if with_battle:
+		battle = Battle.new(self)
+		if artillery != null:
+			artillery.battle_boundary = weakref(battle)
 
 func blast_entities() -> Array:
 	var result: Array = []
@@ -153,7 +165,7 @@ func platoon_receive(platoon: Dictionary, target: Vector2) -> void:
 			record("Soldier", soldier.id, jobs[index], "Execute own %d-point path" % soldier.path.size(), "Own position, speed and waypoint progress under squad intent")
 
 func advance(delta: float) -> void:
-	if information.reconstructing:
+	if information.reconstructing or not battle_active():
 		return
 	elapsed += delta
 	for squad in squads:
@@ -174,8 +186,12 @@ func advance(delta: float) -> void:
 	if engineering != null:
 		engineering.advance(delta, elapsed)
 	if artillery != null:
+		if battle != null:
+			battle.advance(elapsed)
 		artillery.advance_fire_control(elapsed, information.company_contact_snapshot())
 		artillery.resolve_impacts(elapsed, blast_entities(), combat.solid_cover, combat)
+	if not battle_active():
+		return
 	if medical != null:
 		medical.advance(delta, elapsed)
 	for squad in squads:

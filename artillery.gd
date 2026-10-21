@@ -15,12 +15,18 @@ var missions: Array[Dictionary] = []
 var history: Array[Dictionary] = []
 var auto_mission_created := false
 var fired_count := 0
+var battle_boundary
+
+func terminal() -> bool:
+	return battle_boundary != null and battle_boundary.get_ref() != null and not battle_boundary.get_ref().is_active()
 
 func _init() -> void:
 	gunner.assigned_equipment_id = id
 
 func create_mission(company_report: Dictionary, now: float) -> bool:
-	if company_report.get("kind", "") != "ENEMY_POSITION_OBSERVED" or company_report.get("source_echelon", "") != "Company":
+	if terminal():
+		return false
+	if company_report.get("kind", "") not in ["ENEMY_POSITION_OBSERVED", "STATIC_HQ_LOCATION"] or company_report.get("source_echelon", "") != "Company":
 		return false
 	if not company_report.get("observed_position") is Vector2 or float(company_report.get("received_at", INF)) > now + 0.000001:
 		return false
@@ -35,6 +41,8 @@ func create_mission(company_report: Dictionary, now: float) -> bool:
 	return true
 
 func advance_fire_control(now: float, company_records: Array[Dictionary]) -> void:
+	if terminal():
+		return
 	# Fire control receives only restricted delivered records, never battlefield
 	# entities or actual current enemy positions. Impact physics is a separate call.
 	if not auto_mission_created and missions.is_empty() and not company_records.is_empty():
@@ -58,6 +66,8 @@ func advance_fire_control(now: float, company_records: Array[Dictionary]) -> voi
 
 func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], combat) -> Array[Dictionary]:
 	var effects: Array[Dictionary] = []
+	if not combat.model.get_ref().battle_active():
+		return effects
 	var obstructions: Array[Rect2] = solids.duplicate()
 	obstructions.append_array(combat.constructed_blast_solids())
 	for entry in actors:
@@ -93,9 +103,14 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 		if engineering != null:
 			for identity in interrupted:
 				engineering.interrupt_bridge_rebuild(identity, now)
+	var battle = combat.model.get_ref().battle
+	if battle != null:
+		battle.apply_blast_damage(point, now, id)
 	return effects
 
 func resolve_impacts(now: float, actors: Array, solids: Array[Rect2], combat) -> void:
+	if terminal():
+		return
 	for mission in missions:
 		if mission.state != "IN_FLIGHT" or now + 0.000001 < mission.impact_at:
 			continue
@@ -104,3 +119,5 @@ func resolve_impacts(now: float, actors: Array, solids: Array[Rect2], combat) ->
 		history.append({"weapon": id, "impact": mission.target, "impact_time": mission.impact_at, "source_report": mission.report_id, "report_observation_time": mission.observation_time, "effects": effects})
 		state = "Impact recorded / one mission complete"
 		print("ARTILLERY WORLD IMPACT: ", JSON.stringify(history.back()))
+		if terminal():
+			break

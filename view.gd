@@ -40,15 +40,20 @@ func switch_map() -> void:
 		refresh_controls()
 
 func manual_work() -> void:
+	if not model.battle_active():
+		return
 	model.rear.start_job("Avatar", model.elapsed)
 
 func assign_worker() -> void:
+	if not model.battle_active():
+		return
 	model.rear.assign_worker()
 
 func refresh_controls() -> void:
 	var is_rear: bool = view_mode == "rear" and model.integrated_rear
 	for button in rear_buttons:
 		button.visible = is_rear
+		button.disabled = not model.battle_active()
 	inquiry_button.visible = not is_rear and model.engineering == null
 	reconstruction_button.visible = not is_rear and model.engineering == null
 	exit_button.visible = not is_rear and model.engineering == null
@@ -87,6 +92,8 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not model.battle_active():
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_TAB:
 			switch_map()
@@ -118,10 +125,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			inquire(event.position)
 
 func _physics_process(delta: float) -> void:
-	if view_mode == "rear" and model.integrated_rear:
+	if view_mode == "rear" and model.integrated_rear and model.battle_active():
 		var direction := Vector2(float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)), float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W)))
 		model.rear.move_avatar(direction, delta)
 	model.advance(delta)
+	if not model.battle_active():
+		refresh_controls()
 	reconstruction_button.disabled = query_result.is_empty() or model.information.reconstructing
 	exit_button.disabled = not model.information.reconstructing
 	queue_redraw()
@@ -296,9 +305,61 @@ func draw_medical() -> void:
 	label_at(Vector2(50, 700), "WOUNDED/STABILIZED cannot fight. Evacuation retains person inventory; no corpse or loot transfer.", 15)
 	label_at(Vector2(28, 781), "World T=%.2f / bleed8s / treat2s and pickup2s / physical range24" % model.elapsed, 16)
 
+func draw_battle() -> void:
+	var battle = model.battle
+	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
+	draw_rect(model.OBSTACLE, Color("59625b"))
+	label_at(Vector2(28, 40), "TRENCHO / PHYSICAL HQ TERMINATION PROOF", 25)
+	label_at(Vector2(28, 76), "Two primary belligerents / autonomous static-briefing strike / no player targeting", 16)
+	for hq in battle.hqs.values():
+		var color := Color("a7cdb3") if hq.owner == "friendly" else Color("dcaa94")
+		draw_rect(hq.geometry, color if hq.state == "INTACT" else Color("aa8e6a"), false, 3)
+		if hq.state == "DESTROYED":
+			draw_line(hq.geometry.position, hq.geometry.end, color, 4)
+			draw_line(Vector2(hq.geometry.position.x, hq.geometry.end.y), Vector2(hq.geometry.end.x, hq.geometry.position.y), color, 4)
+		label_at(hq.position + Vector2(-48, -38), hq.id, 16, color)
+		label_at(hq.position + Vector2(-48, 44), "%s / %d" % [hq.state, hq.integrity], 13, color)
+	for squad in model.squads:
+		for person in squad.soldiers:
+			if person.active:
+				draw_circle(person.position, 5, Color("88bca6"))
+	if model.artillery != null:
+		var mortar = model.artillery
+		draw_circle(mortar.position, 13, Color("a8b7a6"))
+		label_at(mortar.position + Vector2(-50, 35), mortar.id, 14)
+		for mission in mortar.missions:
+			if mission.state == "IN_FLIGHT":
+				draw_line(mortar.position, mission.target, Color("d5bd85"), 1.5)
+				label_at(Vector2(590, 540), "Shell in flight / impact pending", 15)
+		for impact in mortar.history:
+			if model.elapsed - impact.impact_time < 1:
+				draw_arc(impact.impact, 45, 0, TAU, 48, Color("e7bb92"), 2)
+	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
+	label_at(Vector2(946, 135), "BATTLE / WORLD STATE", 18)
+	var lines: Array[String] = [battle.state.replace("ENDED_FRIENDLY_", ""), "World T=%.3f" % model.elapsed,
+		"Terminal T=%.3f" % battle.terminal_time,
+		"Friendly-HQ: " + battle.hqs["Friendly-HQ"].state,
+		"Enemy-HQ: " + battle.hqs["Enemy-HQ"].state,
+		("Shells left: %d / fired: %d" % [model.artillery.inventory.MortarShell, model.artillery.fired_count] if model.artillery != null else "No artillery fixture"),
+		("Gunner active: " + str(model.artillery.gunner.active) if model.artillery != null else "No gunner fixture"),
+		"Static opposing HQ briefing",
+		"No HQ staff/personnel fixture"]
+	for index in range(lines.size()):
+		label_at(Vector2(946, 172 + index * 28), lines[index], 14)
+	var recent: Array = battle.history.slice(-4)
+	for index in range(recent.size()):
+		label_at(Vector2(946, 470 + index * 28), "T%.2f %s" % [recent[index].time, recent[index].event], 13)
+	label_at(Vector2(50, 620), "Only physical primary HQ destruction ends this battle.", 18)
+	if not model.battle_active():
+		label_at(Vector2(330, 570), "TERMINAL — WORLD FROZEN", 25, Color("e1c994"))
+	label_at(Vector2(28, 781), "Destroyed HQ identity and history persist / static inspection only after result", 16)
+
 func _draw() -> void:
 	if view_mode == "rear" and model.integrated_rear:
 		draw_rear()
+		return
+	if model.battle != null:
+		draw_battle()
 		return
 	if model.medical != null:
 		draw_medical()
