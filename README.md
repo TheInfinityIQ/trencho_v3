@@ -2,6 +2,56 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-ENG-011 — Field engineering, tools and Building Material
+
+The optional fifth Scenario fixture flag creates two persistent military people:
+Engineer-01 is Engineer-qualified; Rifleman-01 is not. Shovel-01 (BasicShovel)
+starts with Rifleman; Toolkit-01 (EngineerToolkit) starts with Engineer. Tool
+records have stable identity/category/custodian and derive physical position from
+that person (or construction stock). Qualification is a separate person field.
+These proof items have no durability/crafting/shared-use/custody-transfer UI.
+
+Autonomous authored assignments send Rifleman to Dig Site A (320,250) for a
+BasicFoxhole, and Engineer to Reinforced Site B (650,580) for a reinforced position.
+Both walk their own paths at65units/s. Labor requires presence within24units for
+the whole credited step, an active constructor, actual required tool custody and
+any specialist qualification/reservation. Losing a requirement pauses retained
+progress. Labor shares Scenario time and continues across map switches; existing
+reconstruction pause freezes it with the rest of the world. Basic digging takes3
+eligible seconds, requires a shovel, needs no Engineer qualification/material and
+keeps the shovel. Reinforced work requires Engineer qualification plus Toolkit,
+4 BuildingMaterial and5 eligible labor seconds, and keeps the reusable Toolkit.
+
+The explicit military construction stock at(200,550) starts with8 BuildingMaterial,
+the only construction material currency. Assignment reserves4: free4 + reserved4
+=8. Completion consumes the reservation: free4 + reserved0 + consumed4 =8. Ledger
+records identify stock/reservation/consumption, amount, world time and job. Reserved
+units cannot fund another allocation. There is no cancellation/refund or material
+transport system; the task authorizes a stock reservation at assignment.
+
+Completed structures are persistent world records, independent of constructors
+and job lifetime. Foxhole has a48x48 protection area and non-solid36x36 geometry;
+occupants use existing covered rifle treatment (10% versus40% exposed), with no
+LOS or solid-blast obstruction. Reinforced position has an8x56 wall and a36x48
+protection area on its east side. It supplies the same rifle cover treatment and
+joins the existing artillery blast's solid-obstruction geometry. It does not block
+rifle LOS in this low-wall proof. Destruction, repair, general engineering routing,
+rear material manufacture and final battlefield construction doctrine remain open.
+PA-ENG-001..006 remain provisional. The default integrated battle is unchanged;
+the dedicated engineering renderer uses the existing view with the optional fixture.
+
+`check_engineering.gd` verifies each independent requirement, tool loss/inactivity/
+range/qualification/reservation pauses, exact labor and material accounting, two
+disjoint job reservations, reusable tools, physical departure and persistent world
+geometry. Real-shot same-position roll0.2 comparisons kill exposed targets and miss
+Foxhole occupants. Equal40unit spatial blasts kill exposed soldiers while a completed
+reinforced wall protects another; Foxholes do not stop that blast. Renderer mode
+captures travel/reservation, each labor stage, both structures, map-switch continuity,
+actual blast comparison and constructors100units away. Evidence is in
+`artifacts/engineering_checks.json`, `engineering.log`, `engineering_visual.log`,
+`engineering_*.png` and `engineering_regression_*.log`.
+Human experience evaluation remains pending; no save/load or export proof is claimed.
+
 ## T3-MOR-010 — Squad morale, autonomous routing and rally hold
 
 Every friendly Squad owns morale independently of suppression: initial100,

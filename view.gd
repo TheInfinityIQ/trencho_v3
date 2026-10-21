@@ -49,9 +49,9 @@ func refresh_controls() -> void:
 	var is_rear: bool = view_mode == "rear" and model.integrated_rear
 	for button in rear_buttons:
 		button.visible = is_rear
-	inquiry_button.visible = not is_rear
-	reconstruction_button.visible = not is_rear
-	exit_button.visible = not is_rear
+	inquiry_button.visible = not is_rear and model.engineering == null
+	reconstruction_button.visible = not is_rear and model.engineering == null
+	exit_button.visible = not is_rear and model.engineering == null
 	map_button.visible = model.integrated_rear
 
 func add_button(text: String, location: Vector2, action: Callable) -> Button:
@@ -129,9 +129,63 @@ func _physics_process(delta: float) -> void:
 func label_at(point: Vector2, text: String, size := 16, color := Color("dce7df")) -> void:
 	draw_string(font, point, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, color)
 
+func draw_engineering() -> void:
+	var engineering = model.engineering
+	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
+	draw_rect(model.OBSTACLE, Color("59625b"))
+	label_at(model.OBSTACLE.position + Vector2(20, 90), "Solid outcrop", 16)
+	label_at(Vector2(28, 40), "TRENCHO / FIELD ENGINEERING PROOF", 26)
+	label_at(Vector2(28, 76), "Autonomous fixture work / tools, qualification, material and labor are independent", 17)
+	for site in engineering.sites:
+		var point: Vector2 = engineering.sites[site]
+		draw_arc(point, engineering.WORK_RADIUS, 0, TAU, 40, Color("8aa9a0"), 1.5)
+		label_at(point + Vector2(-58, -42), site, 16)
+	for structure in engineering.structures:
+		draw_rect(structure.protection, Color(0.4, 0.8, 0.6, 0.12))
+		if structure.solid_blast:
+			draw_rect(structure.geometry, Color("9bbf8f"))
+		else:
+			draw_rect(structure.geometry, Color("9bbf8f"), false, 2)
+		label_at(structure.position + Vector2(-45, 55), structure.type, 14)
+	for effect in engineering.proof_effects:
+		draw_line(engineering.proof_blast_point, effect.position, Color("cda88b"), 1.5)
+		draw_circle(effect.position, 8, Color("9dd6be") if effect.solid_obstruction else Color("de9e8a"))
+		label_at(effect.position + Vector2(12, 0), "SURVIVES / solid cover" if effect.solid_obstruction else "CASUALTY / exposed", 12)
+	for person in engineering.people:
+		if not person.path.is_empty():
+			draw_line(person.position, person.path.back(), Color("556e67"), 1)
+		draw_circle(person.position, 7, Color("a6d9bb") if person.active else Color("a87f77"))
+		label_at(person.position + Vector2(-45, -15), person.id, 14)
+	for item in engineering.tools:
+		var point: Vector2 = engineering.tool_position(item)
+		draw_line(point + Vector2(9, -5), point + Vector2(9, 8), Color("ead197"), 3)
+		label_at(point + Vector2(13, 20), item.id, 12)
+	draw_rect(Rect2(engineering.stockpile.position - Vector2(15, 15), Vector2(30, 30)), Color("ac9b75"))
+	label_at(engineering.stockpile.position + Vector2(-130, -30), "Military construction stockpile", 15)
+	label_at(Vector2(50, 680), "Building Material: free %d / reserved %d / consumed %d (initial 8)" % [engineering.stockpile.inventory.BuildingMaterial, engineering.reserved_material(), engineering.consumed], 18)
+	label_at(Vector2(50, 716), engineering.proof_comparison, 16)
+	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
+	label_at(Vector2(946, 135), "CONSTRUCTION DIAGNOSTICS", 18)
+	for index in range(engineering.jobs.size()):
+		var job: Dictionary = engineering.jobs[index]
+		var person = engineering.people.filter(func(actor): return actor.id == job.person)[0]
+		var y := 166 + index * 240
+		var lines := [job.person + " / " + job.activity, "Engineer qualified: " + str(person.engineer_qualified),
+			"Tool: " + job.required_tool, "Material %d / reserved %d" % [job.required_material, engineering.reservations.get(job.id, 0)],
+			"Range %.1f / %.0f" % [person.position.distance_to(job.position), engineering.WORK_RADIUS],
+			"Labor %.2f / %.0fs / %s" % [job.progress, job.duration, job.state],
+			job.failure_reason if not job.failure_reason.is_empty() else "Requirements satisfied",
+			job.structure if not job.structure.is_empty() else "No completed structure"]
+		for line in range(lines.size()):
+			label_at(Vector2(946, y + line * 25), lines[line], 13)
+	label_at(Vector2(28, 781), "World T=%.2f / same authoritative clock / no battlefield construction controls" % model.elapsed, 16)
+
 func _draw() -> void:
 	if view_mode == "rear" and model.integrated_rear:
 		draw_rear()
+		return
+	if model.engineering != null:
+		draw_engineering()
 		return
 	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
 	for x in range(40, 910, 40):

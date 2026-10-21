@@ -58,6 +58,8 @@ func advance_fire_control(now: float, company_records: Array[Dictionary]) -> voi
 
 func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], combat) -> Array[Dictionary]:
 	var effects: Array[Dictionary] = []
+	var obstructions: Array[Rect2] = solids.duplicate()
+	obstructions.append_array(combat.constructed_blast_solids())
 	for entry in actors:
 		var soldier = entry.person
 		if not soldier.active:
@@ -66,7 +68,7 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 		if distance > RADIUS:
 			continue
 		var blocked := false
-		for solid in solids:
+		for solid in obstructions:
 			blocked = blocked or combat.crosses_rect(point, soldier.position, solid)
 		var effect := "suppressed"
 		var added_suppression := 1 if blocked else 2

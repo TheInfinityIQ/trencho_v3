@@ -83,8 +83,22 @@ func detect(shooter, candidates: Array) -> Array:
 	return result
 
 func covered(shooter: Vector2, target: Vector2) -> bool:
+	var engineering = model.get_ref().engineering
+	if engineering != null:
+		for structure in engineering.structures:
+			if structure.small_arms_cover and structure.protection.has_point(target):
+				return true
 	var near_cover := target.distance_to(target.clamp(LOW_COVER.position, LOW_COVER.end)) <= 80
 	return near_cover and crosses_rect(shooter, target, LOW_COVER)
+
+func constructed_blast_solids() -> Array[Rect2]:
+	var result: Array[Rect2] = []
+	var engineering = model.get_ref().engineering
+	if engineering != null:
+		for structure in engineering.structures:
+			if structure.solid_blast:
+				result.append(structure.geometry)
+	return result
 
 func kill(target, shooter, now: float) -> void:
 	if not target.active:

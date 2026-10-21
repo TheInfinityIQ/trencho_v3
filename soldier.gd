@@ -23,6 +23,7 @@ var squad_command_qualified := false
 var acting_appointment := ""
 var squad_id := ""
 var rifle_proficiency := 0.5
+var engineer_qualified := false
 
 func _init(identity: String, start: Vector2, pace: float) -> void:
 	id = identity
