@@ -9,7 +9,10 @@ var initial_ammo := 0
 var objective_release_at := -1.0
 var alerts
 
-func _init() -> void:
+func _init(battle_world = null) -> void:
+	if battle_world != null:
+		world = battle_world
+		world.combat.encounter_over = false
 	world.battle.auto_strike = false
 	# One real contact shot leaves8; the accepted16round readiness threshold
 	# then needs exactly one manufactured/exported8round batch. No free grant.

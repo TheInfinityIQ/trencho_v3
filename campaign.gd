@@ -14,7 +14,7 @@ var archived_worlds: Array = []
 var transition_reason := ""
 var fixture_events := {"second_batch": false, "leader_loss": false, "hq_strike": false, "third_batch": false, "late_fire": false}
 
-func _init(with_ammo_capability := true, campaign_id := "Campaign-Proof-01", restored_values: Dictionary = {}) -> void:
+func _init(with_ammo_capability := true, campaign_id := "Campaign-Proof-01", restored_values: Dictionary = {}, playable := false) -> void:
 	if not restored_values.is_empty():
 		data = restored_values.duplicate(true)
 		world = null
@@ -25,11 +25,16 @@ func _init(with_ammo_capability := true, campaign_id := "Campaign-Proof-01", res
 	world.battle.auto_strike = false
 	world.combat.encounter_over = true
 	bind_capabilities(world)
-	for identity in ROSTER:
+	var enrolled: Array = ROSTER.duplicate()
+	if playable:
+		enrolled.append("P2-B.4")
+	for identity in enrolled:
 		var person = find_person(world, identity)
 		person.personal_history.append({"event": "campaign enrolled", "campaign": data.campaign_id, "battle": 1, "time": 0.0})
 		person.permanent_history.append({"event": "initial formal assignment", "battle": 1, "time": 0.0, "rank": person.formal_rank, "normal_role": person.normal_role})
 		data.person_registry[identity] = profile(person, 1)
+	if playable:
+		return
 	world.rear.place_workbench(Vector2(380, 480))
 	world.rear.start_job("Avatar", 0)
 	world.rear.set_policy("RESERVE", 8)
@@ -109,7 +114,7 @@ func transition() -> bool:
 		transition_reason = "Only the Battle1-to-Battle2 proof is defined"
 		return false
 	var registry: Dictionary = data.person_registry.duplicate(true)
-	for identity in ROSTER:
+	for identity in registry:
 		var person = find_person(world, identity)
 		if person != null:
 			registry[identity] = profile(person, 1)
@@ -129,7 +134,7 @@ func transition() -> bool:
 	var archive := archive_snapshot(world)
 	var survivors: Array[String] = []
 	var dead: Array[String] = []
-	for identity in ROSTER:
+	for identity in registry:
 		if registry[identity].fit_survivor:
 			survivors.append(identity)
 		elif registry[identity].medical_state == "DEAD":

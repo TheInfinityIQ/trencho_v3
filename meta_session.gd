@@ -13,13 +13,15 @@ var cards
 var archived_campaigns: Array = []
 var reason := ""
 
-func _init(defeat_fixture := false, restored_meta: Dictionary = {}, restored_campaign: Dictionary = {}, pause_between := false) -> void:
+func _init(defeat_fixture := false, restored_meta: Dictionary = {}, restored_campaign: Dictionary = {}, pause_between := false, playable := false) -> void:
 	if not restored_meta.is_empty():
 		meta = restored_meta.duplicate(true)
 		campaign = Campaign.new(false, "", restored_campaign)
 		cards = Cards.new(campaign.data, true, meta.unlocked_card_ids, true)
 		return
-	start_campaign()
+	start_campaign(playable)
+	if playable:
+		return
 	# Accepted real Battle1 terminal -> explicit transition; no Battle3 in this
 	# focused two-battle campaign. Only final Battle2 victory earns completion.
 	for tick in range(1500):
@@ -34,7 +36,7 @@ func _init(defeat_fixture := false, restored_meta: Dictionary = {}, restored_cam
 	if defeat_fixture:
 		campaign.world.battle.target_hq_id = "Friendly-HQ"
 
-func start_campaign() -> bool:
+func start_campaign(playable := false) -> bool:
 	reason = ""
 	if not str(meta.active_campaign_id).is_empty():
 		reason = "ACTIVE_CAMPAIGN_MUST_END"
@@ -43,7 +45,7 @@ func start_campaign() -> bool:
 		archived_campaigns.append(campaign)
 	var identity := "MetaCampaign-" + str(meta.next_campaign)
 	meta.next_campaign += 1
-	campaign = Campaign.new(false, identity)
+	campaign = Campaign.new(false, identity, {}, playable)
 	campaign.data.status = "ACTIVE"
 	campaign.data.end_reason = ""
 	meta.active_campaign_id = identity

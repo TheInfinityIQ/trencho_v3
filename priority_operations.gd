@@ -4,8 +4,8 @@ const Supply = preload("res://supply.gd")
 const VehicleRoutes = preload("res://vehicle_routes.gd")
 const RequestContext = preload("res://request_context.gd")
 
-func _init() -> void:
-	super._init()
+func _init(battle_world = null) -> void:
+	super._init(battle_world)
 	world.rear.multi_enabled = true
 	world.supply.request_id = "Request-A"
 	world.rear.register_request("Request-A", world.squads[0].id)
@@ -17,6 +17,10 @@ func _init() -> void:
 	second.captured.id = "captured-cache-B"
 	second.truck.id = "military-truck-B"
 	var routes = VehicleRoutes.new(second)
+	if not world.vehicles.infrastructure.is_empty():
+		# Both physical truck chains use the same fresh campaign road/bridge state.
+		routes.configure_infrastructure()
+		routes.infrastructure = world.vehicles.infrastructure
 	for driver in routes.drivers:
 		driver.id = "B-" + driver.id
 	routes.tracked.id = "B-" + routes.tracked.id
