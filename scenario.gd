@@ -1,6 +1,7 @@
 extends RefCounted
 
 const Squad = preload("res://squad.gd")
+const Information = preload("res://information.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -8,6 +9,7 @@ var trace: Array[Dictionary] = []
 var squads: Array = []
 var platoons: Array[Dictionary] = []
 var secured := false
+var information = Information.new()
 
 func _init() -> void:
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
@@ -51,9 +53,12 @@ func platoon_receive(platoon: Dictionary, target: Vector2) -> void:
 			record("Soldier", soldier.id, jobs[index], "Execute own %d-point path" % soldier.path.size(), "Own position, speed and waypoint progress under squad intent")
 
 func advance(delta: float) -> void:
+	if information.reconstructing:
+		return
 	elapsed += delta
 	for squad in squads:
 		squad.advance(delta)
+	information.advance(elapsed, squads[3].soldiers[3])
 	if not secured and squads[0].complete():
 		secured = true
 		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by all four soldiers", "Each individual completed its own route")

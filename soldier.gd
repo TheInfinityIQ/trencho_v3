@@ -8,6 +8,7 @@ var speed: float
 var travelled := 0.0
 var arrived := false
 var waypoint := 0
+var active := true
 
 func _init(identity: String, start: Vector2, pace: float) -> void:
 	id = identity
@@ -16,6 +17,8 @@ func _init(identity: String, start: Vector2, pace: float) -> void:
 	speed = pace
 
 func advance(delta: float) -> void:
+	if not active:
+		return
 	var budget := speed * delta
 	while budget > 0.0 and waypoint < path.size():
 		var distance := position.distance_to(path[waypoint])
