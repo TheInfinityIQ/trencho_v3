@@ -37,9 +37,12 @@ func _init(identity: String, start: Vector2) -> void:
 
 func center() -> Vector2:
 	var result := Vector2.ZERO
+	var living := 0
 	for soldier in soldiers:
-		result += soldier.position
-	return result / soldiers.size()
+		if soldier.active:
+			result += soldier.position
+			living += 1
+	return result / living if living > 0 else soldiers[0].position
 
 func assign(local_task: String, target: Vector2, obstacle: Rect2) -> Dictionary:
 	task = local_task
@@ -47,7 +50,12 @@ func assign(local_task: String, target: Vector2, obstacle: Rect2) -> Dictionary:
 	destination = target
 	var start := center()
 	var clearance := obstacle.grow(46)
-	var blocked := Geometry2D.segment_intersects_segment(start, target, clearance.position, clearance.position + Vector2(0, clearance.size.y)) != null
+	route_side = "direct"
+	var blocking_bounds := obstacle.grow(8)
+	var corners := [blocking_bounds.position, Vector2(blocking_bounds.end.x, blocking_bounds.position.y), blocking_bounds.end, Vector2(blocking_bounds.position.x, blocking_bounds.end.y)]
+	var blocked := blocking_bounds.has_point(start) or blocking_bounds.has_point(target)
+	for edge in range(4):
+		blocked = blocked or Geometry2D.segment_intersects_segment(start, target, corners[edge], corners[(edge + 1) % 4]) != null
 	# This fixture's approaches start west of the obstacle. Squad leadership, not
 	# a higher command or the presentation, chooses the bypass and soldier paths.
 	if blocked:
@@ -58,6 +66,11 @@ func assign(local_task: String, target: Vector2, obstacle: Rect2) -> Dictionary:
 		route_side = "north" if top <= bottom else "south"
 	for index in range(soldiers.size()):
 		var soldier = soldiers[index]
+		if not soldier.active:
+			continue
+		soldier.route_origin = soldier.position
+		soldier.waypoint = 0
+		soldier.arrived = false
 		var final_position := target + Vector2((index % 2) * 23 - 12, (index / 2) * 23 - 12)
 		if blocked:
 			var bounds := obstacle.grow(22 + index * 8)
@@ -90,7 +103,11 @@ func advance(delta: float) -> void:
 					soldiers[b].position += adjustment
 
 func complete() -> bool:
+	var living := 0
 	for soldier in soldiers:
+		if not soldier.active:
+			continue
+		living += 1
 		if not soldier.arrived:
 			return false
-	return true
+	return living > 0

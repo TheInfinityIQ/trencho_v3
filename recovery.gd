@@ -12,17 +12,20 @@ var dispatched_at := -1.0
 var started_at := -1.0
 var completed_at := -1.0
 var ledger: Array[Dictionary] = []
+var dispatch_time := DISPATCH_TIME
 
-func _init(person) -> void:
+func _init(person, initialize_fixture_inventory := true, dispatch_at := DISPATCH_TIME) -> void:
 	casualty = person
+	dispatch_time = dispatch_at
 	# Explicit starting inventory: death creates no new ammunition or duplicate pile.
-	casualty.inventory[CATEGORY] = 3
+	if initialize_fixture_inventory:
+		casualty.inventory[CATEGORY] = 3
 
 func advance(delta: float, now: float) -> void:
 	if not casualty.body_present or completed_at >= 0:
 		return
-	if dispatched_at < 0 and now + 0.000001 >= DISPATCH_TIME:
-		dispatched_at = DISPATCH_TIME
+	if dispatched_at < 0 and now + 0.000001 >= dispatch_time:
+		dispatched_at = dispatch_time
 		state = "Approaching body"
 	if state == "Approaching body":
 		position = position.move_toward(casualty.position, 80 * delta)
@@ -36,5 +39,5 @@ func advance(delta: float, now: float) -> void:
 		casualty.body_present = false
 		completed_at = started_at + DURATION
 		state = "Recovered / items held by team"
-		ledger.append({"source": "body:" + casualty.id, "quantity": quantity, "destination": "Recovery Team", "time": completed_at, "ownership_before": "military", "ownership_after": "military", "reason": "Physical recovery completed; historical event unchanged"})
+		ledger.append({"source": "body:" + casualty.id, "quantity": quantity, "destination": "Recovery Team", "time": completed_at, "ownership_before": "enemy" if casualty.faction == "enemy" else "military", "ownership_after": "military", "reason": "Physical recovery completed; historical event unchanged"})
 		print("RECOVERY: ", JSON.stringify(ledger.back()))

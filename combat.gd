@@ -1,0 +1,145 @@
+extends RefCounted
+
+const Squad = preload("res://squad.gd")
+const AMMO := "BoltActionRifleAmmo"
+const RANGE := 260.0
+const CADENCE := 1.0
+const LOW_COVER := Rect2(750, 330, 12, 160)
+const BUNKER := Rect2(820, 470, 70, 35)
+const EXPOSED_HIT := 0.4
+const COVERED_HIT := 0.1
+var model
+var defenders = Squad.new("E1", Vector2(790, 420))
+var enemy_random := RandomNumberGenerator.new()
+var friendly_random := RandomNumberGenerator.new()
+var next_fire: Dictionary = {}
+var shots: Array[Dictionary] = []
+var history: Array[Dictionary] = []
+var decisions: Array[Dictionary] = []
+var suppression := 0
+var decay_at := -1.0
+var tactical_state := "ADVANCING"
+var cover_arrived_at := -1.0
+var first_contact := -1.0
+var encounter_over := false
+
+func _init(scenario) -> void:
+	model = weakref(scenario)
+	enemy_random.seed = 6
+	friendly_random.seed = 13
+	defenders.task = "Defend approach"
+	for soldier in defenders.soldiers:
+		soldier.faction = "enemy"
+		soldier.inventory[AMMO] = 2
+
+func crosses_rect(start: Vector2, end: Vector2, rectangle: Rect2) -> bool:
+	if rectangle.has_point(start) or rectangle.has_point(end):
+		return true
+	var corners := [rectangle.position, Vector2(rectangle.end.x, rectangle.position.y), rectangle.end, Vector2(rectangle.position.x, rectangle.end.y)]
+	for index in range(4):
+		if Geometry2D.segment_intersects_segment(start, end, corners[index], corners[(index + 1) % 4]) != null:
+			return true
+	return false
+
+func visible(start: Vector2, end: Vector2) -> bool:
+	return not crosses_rect(start, end, model.get_ref().OBSTACLE) and not crosses_rect(start, end, BUNKER)
+
+func can_detect(shooter, target) -> bool:
+	return shooter.active and target.active and shooter.faction != target.faction and shooter.position.distance_to(target.position) <= RANGE and visible(shooter.position, target.position)
+
+func detect(shooter, candidates: Array) -> Array:
+	shooter.detected.clear()
+	var result: Array = []
+	for target in candidates:
+		if can_detect(shooter, target):
+			shooter.detected.append(target.id)
+			result.append(target)
+	result.sort_custom(func(a, b): return shooter.position.distance_squared_to(a.position) < shooter.position.distance_squared_to(b.position))
+	return result
+
+func covered(shooter: Vector2, target: Vector2) -> bool:
+	var near_cover := target.distance_to(target.clamp(LOW_COVER.position, LOW_COVER.end)) <= 80
+	return near_cover and crosses_rect(shooter, target, LOW_COVER)
+
+func kill(target, shooter, now: float) -> void:
+	target.active = false
+	target.body_present = true
+	history.append({"event": "combat casualty", "person": target.id, "location": target.position, "time": now, "world_source": shooter.id, "body_inventory": target.inventory.duplicate(true)})
+	print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
+
+func attempt_shot(shooter, target, now: float, roll: float) -> bool:
+	if not shooter.active or shooter.inventory.get(AMMO, 0) <= 0 or shooter.weapon_category != "BoltActionRifle":
+		return false
+	if target.id not in shooter.detected or not can_detect(shooter, target) or now + 0.000001 < float(next_fire.get(shooter.id, -1)):
+		return false
+	var before: int = shooter.inventory[AMMO]
+	shooter.inventory[AMMO] -= 1
+	next_fire[shooter.id] = now + CADENCE
+	var protected := covered(shooter.position, target.position)
+	var hit := roll < (COVERED_HIT if protected else EXPOSED_HIT)
+	shots.append({"shooter": shooter.id, "target": target.id, "time": now, "shooter_position": shooter.position, "target_position": target.position, "los": true, "locally_detected": true, "ammo_before": before, "ammo_after": before - 1, "covered": protected, "roll": roll, "hit": hit})
+	if first_contact < 0:
+		first_contact = now
+	if shooter.faction == "enemy":
+		suppression += 1
+		decay_at = now + 2
+		if suppression >= 4 and tactical_state in ["ADVANCING", "RESUMING"]:
+			tactical_state = "SUPPRESSED"
+			var living := 0
+			for soldier in model.get_ref().squads[0].soldiers:
+				if soldier.active:
+					living += 1
+			decisions.append({"time": now, "state": tactical_state, "reason": "Four incoming effective shots prohibit exposed advance", "living_friendly": living})
+			move_to_cover(now)
+	if hit:
+		kill(target, shooter, now)
+	print("SHOT: ", JSON.stringify(shots.back()))
+	return true
+
+func move_to_cover(now: float) -> void:
+	var squad = model.get_ref().squads[0]
+	for index in range(squad.soldiers.size()):
+		var soldier = squad.soldiers[index]
+		if not soldier.active:
+			continue
+		# Local withdrawal stays north of, then west of, the solid rock. The
+		# platoon/company/operational destination is never replaced by this path.
+		soldier.route_origin = soldier.position
+		soldier.path.assign([Vector2(soldier.position.x, 180 - index * 8), Vector2(370 - index * 8, 180 - index * 8), Vector2(375 + (index % 2) * 23, 310 + (index / 2) * 23)])
+		soldier.waypoint = 0
+		soldier.arrived = false
+	tactical_state = "COVERING"
+	decisions.append({"time": now, "state": tactical_state, "reason": "Squad chooses west face of solid outcrop to break enemy line of sight"})
+	model.get_ref().record("Squad", squad.id, "Seize Objective A", "Withdraw locally behind rock", "Incoming fire suppresses exposed advance; intent retained")
+
+func advance(now: float) -> void:
+	var scenario = model.get_ref()
+	if scenario.supply.phase != "Final approach":
+		return
+	var friends: Array = scenario.squads[0].soldiers
+	if not encounter_over:
+		for enemy in defenders.soldiers:
+			var targets := detect(enemy, friends)
+			if not targets.is_empty() and now + 0.000001 >= float(next_fire.get(enemy.id, -1)) and enemy.inventory[AMMO] > 0:
+				attempt_shot(enemy, targets[0], now, enemy_random.randf())
+		for friendly in friends:
+			var targets := detect(friendly, defenders.soldiers)
+			if not targets.is_empty() and now + 0.000001 >= float(next_fire.get(friendly.id, -1)) and friendly.inventory[AMMO] > 0:
+				attempt_shot(friendly, targets[0], now, friendly_random.randf())
+		var capable := 0
+		for enemy in defenders.soldiers:
+			if enemy.active and enemy.inventory[AMMO] > 0:
+				capable += 1
+		encounter_over = capable == 0
+	if suppression > 0 and decay_at >= 0:
+		while suppression > 0 and now + 0.000001 >= decay_at:
+			suppression -= 1
+			decay_at += 2
+	if tactical_state == "COVERING" and scenario.squads[0].complete():
+		tactical_state = "SUPPRESSED_HOLD"
+		cover_arrived_at = now
+		decisions.append({"time": now, "state": tactical_state, "reason": "Members reached LOS-blocking cover; await safe suppression threshold"})
+	if tactical_state == "SUPPRESSED_HOLD" and suppression <= 1 and now >= cover_arrived_at + 1:
+		tactical_state = "RESUMING"
+		scenario.squads[0].assign("Seize Objective A", scenario.OBJECTIVE, scenario.OBSTACLE)
+		decisions.append({"time": now, "state": tactical_state, "reason": "Suppression at most one; resume original objective by local route"})

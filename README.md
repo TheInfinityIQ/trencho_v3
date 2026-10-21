@@ -2,6 +2,68 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-COM-006 — Local infantry contact
+
+The normal integrated rear-production scenario now includes a four-person enemy
+rifle defense. `Scenario.new(with_rear, with_combat)` keeps prior proofs explicitly
+selectable with combat disabled. The actual main view enables both. Enemy members
+start with two rounds each (eight explicit fixture rounds), behind spatial low
+sandbag cover with a solid bunker nearby. The outcrop and bunker block LOS;
+low sandbags reduce hit chance but do not provide complete visual occlusion.
+
+Each individual detects opposing living targets within260units and unobstructed
+LOS, keeps its own detected IDs and selects the nearest visible target. Shot-time
+LOS is revalidated. A compatible rifle shot consumes one round from that shooter,
+at most once per world-second. There are no projectile entities. Hit resolution
+uses40% exposed/10% covered probability; low cover must intersect the line to a
+target within80units of it. Separate fixed RNG seeds6(enemy) and13(friendly)
+make this proof reproducible, including four initial enemy misses.
+
+Each valid incoming shot adds one squad suppression, even on a miss. At4,
+P1-A locally abandons exposed forward movement and selects a route north then
+west around the outcrop. All four friendly soldiers are alive at this transition.
+They reach/hold behind the solid rock. Without incoming fire, suppression loses
+one point per2seconds; after reaching at most1 and holding at least1second,
+the squad replans its own route toward the unchanged Objective A. No new
+Operational/Company/Platoon/player tactical destination is required. This is
+suppression behavior, not a morale model.
+
+Successful hits use the explicitly temporary alive->dead subset. The same person
+holds the body flag and remaining inventory, and a detached combat-world historical
+event records the outcome. Nothing is automatically looted. Existing recovery can
+accept a combat body without initializing new fixture ammo. Main-script combat
+bodies persist; generalized body collection is not implemented. Combat truth and
+local detections do not enter the existing HQ inquiry without reporting; no broader
+combat-report vocabulary is introduced in this proof.
+
+The bounded encounter ends when defenders have no living riflemen with ammunition;
+empty rifles count as not combat-capable for this proof. Surviving unarmed enemies
+are not deleted, surrendered or routed. No melee is modeled. Firing then stops and
+surviving P1-A personnel continue the original objective when suppression allows.
+The proof requires no second in-fight supply request. The16-round threshold is
+initial supply readiness, not a perpetual requirement while actually firing.
+
+Global inventory + actual shot count reconciles initialization + production.
+Legacy combat fixture: initial35=prior27+enemy8; final22physical +13expended=35.
+Normal integrated flow: initial19=main8+casualty3+enemy8, plus16produced=35.
+All casualty inventories remain included until explicitly recovered.
+
+PA-COM-001..007 remain provisional: detection/cadence/hit fixtures, suppression,
+safe threshold, death-only subset and limited ending. Additional bounded choices
+are the finite2rounds/enemy, nearest-visible target selection, explicit seeds,
+80unit cover relevance, west-outcrop local response and1s cover hold. They do not
+define final tactics, balance, surrender, wounds, doctrine or difficulty.
+
+`check_combat.gd` validates range/LOS rejection, stale-target revalidation, cadence,
+individual expenditure, empty rifle, covered/exposed outcomes, casualty custody,
+generic recovery, suppression from misses, local adaptation, decay, reproducible
+full encounter, continuous obstacle clearance, unchanged higher intent and hidden
+HQ combat truth. Renderer mode performs actual manual/worker production controls,
+export, supply and contact, then captures first fire, suppression, unknown inquiry,
+cover hold, resumption and objective completion. Evidence: `artifacts/combat_checks.json`,
+`combat_visual.log`, `combat_*.png`; prior proof regressions remain available.
+Human experience evaluation and final combat tuning remain pending.
+
 ## T3-PER-005 — Aftermath and historical continuity
 
 P2-B.4 begins with three additional explicit fixture rounds. At the existing

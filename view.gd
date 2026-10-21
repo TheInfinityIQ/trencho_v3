@@ -1,7 +1,7 @@
 extends Node2D
 
 const Scenario = preload("res://scenario.gd")
-var model = Scenario.new(true)
+var model = Scenario.new(true, true)
 var font := ThemeDB.fallback_font
 var colors := [Color("85d9b0"), Color("7ebcda"), Color("d7b981"), Color("e0d3a5")]
 var inquiry_mode := false
@@ -145,7 +145,7 @@ func _draw() -> void:
 	draw_circle(Scenario.OBJECTIVE, 40, Color(0.8, 0.72, 0.3, 0.14))
 	draw_arc(Scenario.OBJECTIVE, 40, 0, TAU, 50, Color("ddce76"), 2)
 	label_at(Vector2(745, 280), "OBJECTIVE A", 19, Color("e2d58b"))
-	label_at(Vector2(754, 415), "SECURED" if model.secured else "Approach", 16)
+	label_at(Vector2(754, 395 if model.combat != null else 415), "SECURED" if model.secured else "Approach", 16)
 	draw_rect(Rect2(80, 160, 115, 55), Color("344e4e"))
 	label_at(Vector2(95, 182), "Operational", 15)
 	label_at(Vector2(95, 202), "+ Company HQ", 13)
@@ -182,14 +182,15 @@ func _draw() -> void:
 		if not supply.requires_rear:
 			draw_rect(Rect2(supply.CAPTURE_POSITION - Vector2(10, 8), Vector2(20, 16)), Color("c18969"))
 			label_at(supply.CAPTURE_POSITION + Vector2(-55, 27), "Captured +4" if supply.captured_at >= 0 else "Enemy ammo: 4", 14)
-		draw_rect(Rect2(625, 112, 270, 124), Color("112025"))
-		label_at(Vector2(638, 135), "P1-A / PHYSICAL AMMUNITION", 16)
+		var ammo_panel := Vector2(40, 450) if model.combat != null and model.combat.first_contact >= 0 else Vector2(625, 112)
+		draw_rect(Rect2(ammo_panel, Vector2(270, 124)), Color("112025"))
+		label_at(ammo_panel + Vector2(13, 23), "P1-A / PHYSICAL AMMUNITION", 16)
 		var counts: Array = []
 		for soldier in model.squads[0].soldiers:
 			counts.append(str(soldier.inventory[supply.CATEGORY]))
-		label_at(Vector2(638, 160), "Individuals: " + " / ".join(counts), 15)
-		label_at(Vector2(638, 185), "Carried %d / ready %d" % [supply.carried(), supply.READY_THRESHOLD], 15)
-		label_at(Vector2(638, 213), supply.phase, 16, Color("e0c998"))
+		label_at(ammo_panel + Vector2(13, 48), "Individuals: " + " / ".join(counts), 15)
+		label_at(ammo_panel + Vector2(13, 73), "Carried %d / initial readiness %d" % [supply.carried(), supply.READY_THRESHOLD], 14)
+		label_at(ammo_panel + Vector2(13, 101), supply.phase, 16, Color("e0c998"))
 		label_at(Vector2(425, 520), "SUPPLY / CUSTODY DIAGNOSTICS", 16)
 		label_at(Vector2(425, 546), "Depot %d · Truck %d · Carried %d · Enemy %d" % [supply.depot.inventory[supply.CATEGORY], supply.truck.inventory[supply.CATEGORY], supply.carried(), supply.captured.inventory[supply.CATEGORY]], 14)
 		if model.integrated_rear:
@@ -210,6 +211,29 @@ func _draw() -> void:
 		label_at(observation.location + Vector2(-80, 42), "Casualty / explosion site", 14, Color("d6a89b"))
 	if queried:
 		draw_arc(query_point, model.information.QUERY_RADIUS, 0, TAU, 48, Color("99dfe9"), 1.5)
+	if model.combat != null and not model.information.reconstructing:
+		var combat = model.combat
+		draw_rect(combat.LOW_COVER, Color("9b8964"))
+		draw_rect(combat.BUNKER, Color("7b8179"))
+		for enemy in combat.defenders.soldiers:
+			if enemy.active:
+				draw_circle(enemy.position, 6, Color("e49b85"))
+			elif enemy.body_present:
+				draw_line(enemy.position - Vector2(6, 6), enemy.position + Vector2(6, 6), Color("c78f7b"), 2)
+				draw_line(enemy.position + Vector2(-6, 6), enemy.position + Vector2(6, -6), Color("c78f7b"), 2)
+			label_at(enemy.position + Vector2(8, 5), "%s:%d" % [enemy.id.get_slice(".", 1), enemy.inventory[combat.AMMO]], 11, Color("eab5a6"))
+		label_at(Vector2(715, 520), "Enemy defense / sandbags", 13)
+		for shot in combat.shots:
+			if model.elapsed - shot.time < 0.15:
+				draw_line(shot.shooter_position, shot.target_position, Color(1, 0.8, 0.4, 0.6), 1)
+		if combat.first_contact >= 0:
+			draw_rect(Rect2(40, 250, 285, 185), Color("112025"))
+			label_at(Vector2(54, 278), "INFANTRY CONTACT", 19)
+			label_at(Vector2(54, 309), "Squad: " + combat.tactical_state, 16)
+			label_at(Vector2(54, 336), "Suppression: %d (threshold 4)" % combat.suppression, 15)
+			label_at(Vector2(54, 362), "Rounds fired: %d" % combat.shots.size(), 15)
+			label_at(Vector2(54, 388), "Combat casualties: %d" % combat.history.size(), 15)
+			label_at(Vector2(54, 415), "Local cover choice; HQ intent retained", 14)
 	if not model.information.reconstructing:
 		var recovery = model.recovery
 		draw_circle(recovery.position, 9, Color("b4addd"))

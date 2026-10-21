@@ -127,6 +127,7 @@ func visual_run() -> void:
 	if view.get_script() == null:
 		view.free()
 		return
+	view.model = Scenario.new(true, false)
 	root.add_child(view)
 	await create_timer(0.2).timeout
 	var initial: Vector2 = view.model.rear.avatar

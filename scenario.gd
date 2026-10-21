@@ -5,6 +5,7 @@ const Information = preload("res://information.gd")
 const Supply = preload("res://supply.gd")
 const Rear = preload("res://rear.gd")
 const Recovery = preload("res://recovery.gd")
+const Combat = preload("res://combat.gd")
 const OBSTACLE := Rect2(410, 245, 155, 225)
 const OBJECTIVE := Vector2(815, 345)
 var elapsed := 0.0
@@ -17,8 +18,9 @@ var supply
 var rear
 var integrated_rear := false
 var recovery
+var combat
 
-func _init(with_rear := false) -> void:
+func _init(with_rear := false, with_combat := false) -> void:
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
@@ -29,6 +31,8 @@ func _init(with_rear := false) -> void:
 	if with_rear:
 		rear = Rear.new()
 	recovery = Recovery.new(squads[3].soldiers[3])
+	if with_combat:
+		combat = Combat.new(self)
 
 func total_ammunition() -> int:
 	var total: int = supply.depot.inventory[Supply.CATEGORY] + supply.truck.inventory[Supply.CATEGORY] + supply.captured.inventory[Supply.CATEGORY] + recovery.inventory[Supply.CATEGORY]
@@ -37,6 +41,9 @@ func total_ammunition() -> int:
 			total += int(soldier.inventory.get(Supply.CATEGORY, 0))
 	if integrated_rear:
 		total += rear.ammunition + rear.shipment.cargo
+	if combat != null:
+		for soldier in combat.defenders.soldiers:
+			total += int(soldier.inventory[Supply.CATEGORY])
 	return total
 
 func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:
@@ -84,6 +91,9 @@ func advance(delta: float) -> void:
 	if integrated_rear:
 		rear.advance(delta, elapsed, supply)
 	recovery.advance(delta, elapsed)
-	if not secured and supply.phase == "Final approach" and squads[0].complete():
+	if combat != null:
+		combat.advance(elapsed)
+	var objective_reached: bool = squads[0].complete() and squads[0].center().distance_to(OBJECTIVE) < 50
+	if not secured and supply.phase == "Final approach" and objective_reached:
 		secured = true
 		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by all four soldiers", "Each individual completed its own route")
