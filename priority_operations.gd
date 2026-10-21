@@ -2,6 +2,7 @@ extends "res://operations.gd"
 
 const Supply = preload("res://supply.gd")
 const VehicleRoutes = preload("res://vehicle_routes.gd")
+const RequestContext = preload("res://request_context.gd")
 
 func _init() -> void:
 	super._init()
@@ -30,7 +31,14 @@ func _init() -> void:
 	guard.position = Vector2(790, 420)
 	guard.origin = guard.position
 	initial_ammo = world.total_ammunition()
+	world.rear.sync_requests([world.supply] + world.additional_supplies)
+	RequestContext.capture_assignments(world)
 	alerts = Alerts.new(world)
+
+func advance(delta: float) -> void:
+	super.advance(delta)
+	if not world.information.reconstructing:
+		RequestContext.capture_assignments(world)
 
 func set_priority(identity: String, value := "PRIORITY") -> bool:
 	return world.battle_active() and world.rear.set_request_priority(identity, value)

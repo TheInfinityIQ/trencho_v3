@@ -15,6 +15,15 @@ delivery. Changing A to PRIORITY afterward cannot take B's stock. Produce anothe
 real batch for A; only its own later delivery restores A's readiness. Both formations
 continue their existing missions autonomously. A two-batch Worker order also works.
 
+Press **C / REQUEST CONTEXT** in either map to compare established friendly
+assignments: A is **MAIN EFFORT**, with its existing objective task; B is **SUPPORT**,
+with its existing support task. The comparison also shows the shared mission ID,
+real ammunition/readiness reason, request age, delivered amount and information
+sources. Assignment time describes an established command record; the separate
+own-Supply time describes direct friendly logistics. Neither is an enemy forecast.
+The panel offers facts, not a recommended winner. Priority remains your Rear choice;
+opening context does not move the camera, switch maps or issue formation orders.
+
 Your formation has a mission, but not enough ammunition. You operate its protected
 rear. Soldiers, vehicles and commanders act autonomously.
 

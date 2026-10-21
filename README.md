@@ -5,6 +5,78 @@ Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/proje
 For the playable logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
+## T3-CTX-029 — Knowledge-bound request context and informed allocation
+
+The priority operations scene now exposes C/REQUEST CONTEXT: a read-only comparison
+of both real demand IDs, formation, requested/remaining/delivered, current priority/
+commitment state, established MAIN EFFORT/SUPPORT role and existing friendly task.
+A keeps Seize Objective A; B keeps Stage in support. The authored stable mission ID
+HQ-Objective-A identifies the already established HQ mission, not a new task layer.
+Sidebar role labels cross-reference friendly formation IDs; the comparison opens
+on the current map without camera movement, pauses or automatic priority selection.
+The only allocation controls remain the existing Rear A/B/ALL NORMAL buttons.
+
+`request_context.gd` captures established friendly Platoon assignment records from
+the existing HQ/Company/Platoon trace. Each cached plain packet links request and
+formation ID, mission, command role/task, source sequence/provenance and command
+record time. It is presentation information and is never read by the allocator.
+Ordinary time passage does not re-stamp an assignment or invent a new task. A
+genuine later friendly hierarchy record updates it (including the existing RESERVE
+assignment); an unestablished direct task edit does not masquerade as new command
+knowledge. Record time is when the known assignment record was captured, explicitly
+not a continuously refreshed battlefield observation.
+
+Situation adds detached context with real request creation time/age, amounts,
+actual carried ammunition/readiness requirement, direct own-Supply reason/source,
+effective Supply record time and age. These friendly transaction facts may update
+directly under PA-CTX-004. Dynamic direct-Supply timing is displayed separately from
+the retained established assignment. No actor enemy position/health/ammunition/
+targets/future behavior or predicted outcome is read into the packet. Existing
+Company contacts remain in their separate legitimate information pipeline. No
+threat score, best-choice/recommendation, mission reassignment or tactical controls.
+The packet is a whitelist of serializable values, not a command/control object.
+
+PA-CTX-001..006 remain provisional: A MAIN EFFORT/B SUPPORT, own established command
+assignments known, facts without recommendation, direct friendly logistics refresh,
+different autonomous timing sufficient, no forced navigation. All PRI allocation
+mechanics remain unchanged: policy first, one priority, whole8, stable oldest NORMAL,
+commitment ownership cannot be stolen. Existing protected action still says choose
+logistics priority without recommending MAIN EFFORT; context never assigns it.
+
+Verification: `--headless --path . --script check_context.gd --log-file artifacts/context_model.log`
+runs21 checks; omit headless and append `-- --visual` for32 using normal C/comparison,
+count2/Worker, either priority button, authorization and map controls. Nine inspected
+captures show both role/task/provenance packets, A or B explicitly selected, each
+first physical delivery/autonomous action and direct readiness update, plus an
+isolated unreported enemy-change negative with identical request packets. The
+negative graphical fixture temporarily freezes only its harness clock to compare
+identical-time values; context UI itself never pauses play.
+
+Two model branches compare identical initial relevant actor/path/stock/request/
+command/vehicle and RNG seed/state snapshots. A-first: A readiness T34.52, B39.53;
+B-first reverses those times. In the following2worldseconds, chosen A advances
+84.88units toward its existing objective and chosen B89.60toward its existing
+support destination, while the still-short formation holds. A real second finite
+batch later supplies the other formation; every step conserves initial+production
+minus actual shots. Different final victory/defeat is neither required nor scripted.
+Graphical runs reset the same authored fixture, with ordinary input/frame timing;
+exact initial-state equivalence is established by the paired model proof.
+
+All28 prior model suites pass, including PRI31/TRI73/ATT40/SAV31/RSM33; import/diff
+clean. Context values roundtrip through the existing codec; arbitrary multi-chain
+active-save/migration remains outside the named active-save proof. Evidence:
+`artifacts/context_checks.json`, `context_visual.log`, `context_*.png`,
+`context_regression_*.log`, `context_import.log`.
+
+Observed UX limits: known role and task provide an intelligible reason for a
+choice, but MAIN EFFORT may suggest a default even without any recommendation code.
+Both remain selectable. Five seconds of earlier readiness produces visible movement
+yet may be subtle without comparison; both branches need not have different outcomes.
+Request age/provenance add diagnostic text, and direct own-Supply freshness must not
+be confused with enemy knowledge. No human comprehension/meaningfulness/fun result
+is claimed. Human experience evaluation remains nonblocking; richer own-command
+contexts and final presentation remain future work, not hidden threat prediction.
+
 ## T3-PRI-028 — Competing requests and player logistics priority
 
 Open `priority_operations.tscn` and run F6. It extends the accepted Operations view

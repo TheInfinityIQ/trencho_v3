@@ -1,5 +1,7 @@
 extends RefCounted
 
+const RequestContext = preload("res://request_context.gd")
+
 static func freshness(age: float) -> String:
 	return "RECENT" if age <= 5 else ("AGING" if age <= 15 else "STALE")
 
@@ -157,6 +159,7 @@ static func multi_request_projection(world, result: Dictionary) -> Dictionary:
 	var waiting := 0
 	var stages: Array[String] = []
 	for request in requests:
+		request["context"] = RequestContext.project(world, request)
 		requested += request.requested
 		delivered += request.delivered
 		carried += request.carried

@@ -24,6 +24,7 @@ var next_order_id := 1
 var world_time := 0.0
 var multi_enabled := false
 var requests: Array[Dictionary] = []
+var request_context: Dictionary = {}
 var priority_history: Array[Dictionary] = []
 var commitment_request_id := ""
 var next_shipment_id := 1
@@ -190,6 +191,7 @@ func sync_requests(supplies: Array) -> void:
 			request.delivered = mini(request.requested, delivered)
 			request.remaining = maxi(0, request.requested - request.delivered)
 			request.carried = chain.carried()
+			request["supply_record_time"] = world_time
 			request.readiness = chain.phase
 			request.ready = chain.carried() >= chain.READY_THRESHOLD and chain.squad.mission_execution_available()
 			if request.requested == 0:
