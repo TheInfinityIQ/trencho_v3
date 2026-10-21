@@ -14,7 +14,8 @@ var archived_worlds: Array = []
 var transition_reason := ""
 var fixture_events := {"second_batch": false, "leader_loss": false, "hq_strike": false, "third_batch": false, "late_fire": false}
 
-func _init() -> void:
+func _init(with_ammo_capability := true) -> void:
+	data.capabilities.BoltActionAmmoProduction = with_ammo_capability
 	world = Scenario.new(true, true, true, true, true, true, true, true)
 	world.battle.auto_strike = false
 	world.combat.encounter_over = true
@@ -59,14 +60,14 @@ func profile(person, battle_index: int) -> Dictionary:
 		"appointment_history": clean_history(person.appointment_history, battle_index),
 		"permanent_history": clean_history(person.permanent_history, battle_index)}
 
-func fresh_person(record: Dictionary, position: Vector2, speed: float):
+func fresh_person(record: Dictionary, position: Vector2, speed: float, battle_index := 2):
 	var person = Person.new(record.id, position, speed)
 	for field in ["formal_rank", "normal_role", "squad_command_qualified", "engineer_qualified", "medic_qualified", "rifle_proficiency"]:
 		person.set(field, record[field])
 	person.personal_history.assign(record.personal_history.duplicate(true))
 	person.appointment_history.assign(record.appointment_history.duplicate(true))
 	person.permanent_history.assign(record.permanent_history.duplicate(true))
-	person.personal_history.append({"event": "battle entered", "battle": 2, "time": 0.0})
+	person.personal_history.append({"event": "battle entered", "battle": battle_index, "time": 0.0})
 	# Medical eligibility was checked before construction; all physical/tactical
 	# state is deliberately fresh rather than copied from the archived actor.
 	person.acting_appointment = ""

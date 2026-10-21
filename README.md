@@ -2,6 +2,54 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-CAR-018 — Campaign card acquisition and physical production
+
+Open `card_proof.tscn` and run that scene (F6) for the protected progression proof.
+The default main scene and accepted CAM-017 default fixture remain unchanged.
+CAR-018 explicitly starts its campaign without ammo technology, reaches the actual
+Battle 1 terminal boundary, and enters fresh Battle 2 with one Drop Token.
+
+`card_progression.gd` defines four stable-ID technology cards and a separate
+pre-unlocked availability pool: Tier 1 ammo production/engineering/medical and
+Tier 2 mortar. Definitions include tier/category/type/capability. These are fixture
+unlocks, not meta-shop purchases. Campaign currency, acquired IDs, closed/open
+drops and ordered purchase/acquisition/activation history live as detached values
+inside campaign data; pool definitions remain separate and immutable.
+
+Buy spends one token for exactly three deterministic distinct Tier 1 candidates.
+Offering grants nothing. Explicitly selecting one offered ID acquires only that
+technology, closes the drop and immediately activates its campaign capability.
+Unknown/unoffered/closed choices and unfunded purchases reject without mutation.
+Owned technologies are excluded from later eligible offers. If fewer than three
+eligible Tier 1 cards remain, purchase rejects without spending rather than
+inventing duplicate/wrong-tier choices or partial offers. There is no recurring
+income or reward flow. PA-CAR-001 through 006 are provisional fixture rules.
+
+Ammo technology binds to the existing rear production gate. Even with an actual
+workbench, Metal and nearby Avatar, a pre-card batch rejects MISSING_CAPABILITY.
+Acquisition adds no ammunition, workstation, Metal or job. A new valid action
+consumes one Metal, performs four world seconds of labor and creates eight rounds.
+The other cards carry capability metadata; this slice does not redesign the
+existing engineering/medical/mortar fixture mechanics around those capabilities.
+
+The labeled DETACHED NEXT-BATTLE PROBE constructs an independent fresh Battle 3
+runtime from a deep campaign-value copy, as permitted by CAR-018. It preserves the
+selected card, spent token, capability and drop history while rear stock starts
+zero, Metal4 and no workbench/job. It does not transition the authoritative active
+Battle 2 or invent another outcome; source campaign/world continue independently.
+This is reconstruction evidence, not save/load or an implemented Battle2 victory
+transition. Pool and definition accessors return detached diagnostic copies.
+
+Verification: `--headless --path . --script check_cards.gd --log-file artifacts/cards.log`
+runs 42 checks. Omit headless and append `-- --visual` for 49 checks, including
+actual buy/select/bench/manual-job/reconstruction button input and seven captures.
+All pass; all 17 prior focused model suites pass (37/127/24/33/21/38/20/30/25/64/
+39/36/33/33/38/31/32). Captures were visually inspected. Evidence:
+`artifacts/cards_checks.json`, `cards_visual.log`, `cards_*.png` and
+`cards_regression_*.log`. Human experience evaluation is pending. No meta shop,
+consumables, rewards, rarity, higher-tier economy, card combinations, final art/UI,
+save/load or export verification is implied.
+
 ## T3-CAM-017 — Separate campaign identity and battle worlds
 
 `campaign.gd` is a bounded Battle 1 to Battle 2 proof session. Its `data` tree

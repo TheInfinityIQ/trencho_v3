@@ -38,7 +38,17 @@ func place_workbench(point: Vector2) -> bool:
 	return true
 
 func start_job(producer: String, now: float) -> bool:
-	if not placed or not capability_unlocked or metal < 1 or not job.is_empty():
+	if not capability_unlocked:
+		message = "MISSING_CAPABILITY: BoltActionAmmoProduction"
+		return false
+	if not placed:
+		message = "MISSING_WORKBENCH"
+		return false
+	if metal < 1:
+		message = "MISSING_METAL"
+		return false
+	if not job.is_empty():
+		message = "PRODUCTION_ALREADY_ACTIVE"
 		return false
 	if producer == "Avatar" and (avatar.distance_to(workbench) > 60 or worker.assigned):
 		message = "Manual work needs proximity and an unassigned bench."
