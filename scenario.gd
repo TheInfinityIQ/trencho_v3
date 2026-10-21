@@ -27,7 +27,7 @@ var vehicles
 var artillery
 var engineering
 
-func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false) -> void:
+func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false) -> void:
 	integrated_rear = with_rear
 	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
 		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
@@ -48,7 +48,13 @@ func _init(with_rear := false, with_combat := false, with_vehicles := false, wit
 	if with_vehicles:
 		vehicles = VehicleRoutes.new(supply)
 	if with_engineering:
-		engineering = Engineering.new()
+		engineering = Engineering.new(not with_infrastructure)
+	if with_infrastructure and vehicles != null and engineering != null:
+		vehicles.configure_infrastructure()
+		engineering.infrastructure_owner = weakref(vehicles)
+		engineering.stockpile.inventory.BuildingMaterial = 4
+		engineering.people[0].position = Vector2(130, 330)
+		engineering.people[0].origin = engineering.people[0].position
 	if with_artillery and combat != null:
 		artillery = Artillery.new()
 		# This explicit artillery fixture seed keeps the exposed comparison actors

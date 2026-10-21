@@ -2,6 +2,54 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
+## T3-ROD-013 — Dynamic road cost, crossing legality and road repair
+
+The optional sixth Scenario fixture flag promotes two existing graph edges into
+persistent infrastructure: RoadSegment-A(depot–junction) and Bridge-A(junction–
+crossing_exit). Both begin INTACT. One spatial blast within24units of the authored
+damage point changes the road to DAMAGED or bridge to DESTROYED, after Soldier
+effects, using the existing artillery spatial-impact boundary. No vehicle damage,
+general road-tile HP or bridge repair is added. Destroyed bridge geometry/history
+remains visible and identifiable, with crossing legality false for both classes.
+
+Current road speed is1.0intact/0.30damaged: the existing truck physically travels
+48versus14.4units/s. Tracked vehicles get the same penalty when using that road.
+Planner cost is edge length/current speed multiplier (vehicle speed is constant
+within each plan). The shared damaged approach remains legal and optimal in this
+fixture; the crossing's destruction selects the existing intact-road detour for
+ROAD_ONLY and shorter permitted off-road bypass for TRACKED. Faction changes grant
+no mobility permissions. Edge diagnostics expose current legality, cost and speed.
+
+Every infrastructure transition increments a revision. An active vehicle compares
+its remaining route with current legal/cost-based planning before moving. A stale
+route invalidates visibly. From the middle of a still-legal edge, REPLAN_RETURN
+physically backtracks to its last safe graph node before the existing BLOCKED /
+REPLANNING intervals and new plan; cargo stays onboard. No route array is replaced
+by scripted fixture paths, no teleport cuts corners and no early arrival/delivery
+is reported. At crossing entry, destruction prevents entry. A vehicle already beyond
+the crossing continues legally. If a crossing is destroyed under a vehicle, it
+holds NO_LEGAL_ROUTE in place; rescue/fall/vehicle-damage doctrine is deferred.
+
+Engineer road repair uses shared physical-tool/qualification/material/labor checks:
+active Engineer qualification, actual EngineerToolkit,2reserved BuildingMaterial,
+24unit range and4eligible world-seconds. The dedicated repair stock explicitly
+starts4; reservation is free2+reserved2; completion leaves free2/reserved0/consumed2.
+Toolkit remains. Restoring the same road to INTACT updates revision and live cost /
+speed; the same persistent truck resumes48units/s. Intact road repair is rejected;
+destroyed crossing returns REQUIRES_REBUILD. Road/bridge events retain ID, world
+time, source/cause and position; no HQ/binocular knowledge is injected.
+
+`check_roads.gd` checks actual same-truck speed before/during/after damage, live plan
+costs, route invalidation/backtracking, road-only legality, physical tracked bypass,
+per-step displacement, cargo conservation and arrival gating, road repair failures
+and exact accounting, intact/entry/mid-crossing/after-crossing destruction behavior,
+genuine no-detour failure and persistent history. Renderer mode captures all phases
+including actual off-road carrier position. The default integrated battle retains
+its previous static-blockage fixture; dynamic infrastructure is opt-in proof state.
+Evidence: `artifacts/road_checks.json`, `road.log`, `road_visual.log`, `road_*.png`,
+`road_regression_*.log`. PA-ROD001..006 remain provisional. No bridge rebuilding,
+stuck randomness, road construction, traffic, vehicle damage or export proof is added.
+
 ## T3-DMG-012 — Fortification lifecycle and repair
 
 ReinforcedPosition now retains its identity, position, geometry and history through

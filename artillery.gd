@@ -87,6 +87,9 @@ func blast(point: Vector2, now: float, actors: Array, solids: Array[Rect2], comb
 	var engineering = combat.model.get_ref().engineering
 	if engineering != null:
 		engineering.apply_blast_damage(point, now, id)
+	var vehicles = combat.model.get_ref().vehicles
+	if vehicles != null:
+		vehicles.apply_blast_damage(point, now, id)
 	return effects
 
 func resolve_impacts(now: float, actors: Array, solids: Array[Rect2], combat) -> void:

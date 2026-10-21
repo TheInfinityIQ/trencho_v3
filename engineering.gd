@@ -6,7 +6,8 @@ const STRUCTURE_HIT_RADIUS := 24.0
 const ACTIVITIES := {
 	"BasicFoxhole": {"tool": "BasicShovel", "qualified": false, "material": 0, "labor": 3.0, "result": "Foxhole"},
 	"ReinforcedPosition": {"tool": "EngineerToolkit", "qualified": true, "material": 4, "labor": 5.0, "result": "ReinforcedPosition"},
-	"RepairReinforced": {"tool": "EngineerToolkit", "qualified": true, "material": 2, "labor": 4.0, "result": ""}}
+	"RepairReinforced": {"tool": "EngineerToolkit", "qualified": true, "material": 2, "labor": 4.0, "result": ""},
+	"RepairRoad": {"tool": "EngineerToolkit", "qualified": true, "material": 2, "labor": 4.0, "result": ""}}
 var people: Array = []
 var tools: Array[Dictionary] = []
 var stockpile := {"id": "MilitaryConstructionStock-01", "owner": "military", "position": Vector2(200, 550), "inventory": {"BuildingMaterial": 8}}
@@ -21,6 +22,7 @@ var failures: Array[Dictionary] = []
 var proof_comparison := "Combat comparison not run"
 var proof_effects: Array[Dictionary] = []
 var proof_blast_point := Vector2.ZERO
+var infrastructure_owner
 
 func _init(assign_work := true) -> void:
 	var engineer = Person.new("Engineer-01", Vector2(170, 610), 65)
@@ -70,7 +72,7 @@ func eligibility(activity: String, person) -> String:
 
 func assign(activity: String, person, site: String, now: float) -> Dictionary:
 	var reason := eligibility(activity, person)
-	if activity == "RepairReinforced":
+	if activity in ["RepairReinforced", "RepairRoad"]:
 		reason = "Use damaged-structure repair assignment"
 	if reason.is_empty() and not sites.has(site):
 		reason = "Authored work site required"
@@ -90,25 +92,33 @@ func structure_by_id(identity: String) -> Dictionary:
 	return {}
 
 func repair_reason(person, structure: Dictionary) -> String:
-	if structure.is_empty() or structure.type != "ReinforcedPosition":
-		return "Reinforced structure required"
+	if not structure.is_empty() and structure.type == "Bridge":
+		return "REQUIRES_REBUILD"
+	if structure.is_empty() or structure.type not in ["ReinforcedPosition", "RoadSegment"]:
+		return "Road or reinforced structure required"
 	if structure.state == "DESTROYED":
 		return "REQUIRES_REBUILD"
 	if structure.state != "DAMAGED":
 		return "Repair unnecessary: structure is INTACT"
-	return eligibility("RepairReinforced", person)
+	return eligibility("RepairRoad" if structure.type == "RoadSegment" else "RepairReinforced", person)
+
+func repair_target(identity: String) -> Dictionary:
+	var target := structure_by_id(identity)
+	if target.is_empty() and infrastructure_owner != null and infrastructure_owner.get_ref() != null:
+		target = infrastructure_owner.get_ref().infrastructure.get(identity, {})
+	return target
 
 func assign_repair(person, identity: String, now: float) -> Dictionary:
-	var structure := structure_by_id(identity)
+	var structure := repair_target(identity)
 	var reason := repair_reason(person, structure)
 	if reason.is_empty() and jobs.any(func(job): return job.state != "COMPLETE" and (job.person == person.id or job.get("target_structure", "") == identity)):
 		reason = "Person or repair target already assigned"
 	if reason.is_empty() and stockpile.inventory.BuildingMaterial < 2:
 		reason = "Insufficient uncommitted BuildingMaterial"
 	if not reason.is_empty():
-		failures.append({"time": now, "person": person.id, "activity": "RepairReinforced", "structure": identity, "reason": reason})
+		failures.append({"time": now, "person": person.id, "activity": "RepairRoad" if structure.get("type", "") == "RoadSegment" else "RepairReinforced", "structure": identity, "reason": reason})
 		return {}
-	return create_job("RepairReinforced", person, structure.id, structure.position, now, identity)
+	return create_job("RepairRoad" if structure.type == "RoadSegment" else "RepairReinforced", person, structure.id, structure.position, now, identity)
 
 func create_job(activity: String, person, site: String, position: Vector2, now: float, target_structure := "") -> Dictionary:
 	var rule: Dictionary = ACTIVITIES[activity]
@@ -131,10 +141,13 @@ func complete(job: Dictionary, now: float) -> void:
 		reservations.erase(job.id)
 		consumed += amount
 		ledger.append({"source": "reservation:" + job.id, "amount": amount, "destination": job.target_structure if not job.target_structure.is_empty() else "Structure-" + job.id, "action": "consume", "time": now, "job": job.id, "resource": "BuildingMaterial"})
-	if job.activity == "RepairReinforced":
-		var repaired := structure_by_id(job.target_structure)
-		set_integrity(repaired, 2)
-		lifecycle_event(repaired, "repaired", now, job.person, job.id)
+	if job.activity in ["RepairReinforced", "RepairRoad"]:
+		var repaired := repair_target(job.target_structure)
+		if job.activity == "RepairRoad":
+			infrastructure_owner.get_ref().repair_road(repaired.id, now, job.person, job.id)
+		else:
+			set_integrity(repaired, 2)
+			lifecycle_event(repaired, "repaired", now, job.person, job.id)
 		job.structure = repaired.id
 		job.progress = job.duration
 		job.completed_at = now
@@ -189,8 +202,8 @@ func advance(delta: float, now: float) -> void:
 			if job.person != person.id or job.state == "COMPLETE":
 				continue
 			var reason := eligibility(job.activity, person)
-			if reason.is_empty() and job.activity == "RepairReinforced":
-				reason = repair_reason(person, structure_by_id(job.target_structure))
+			if reason.is_empty() and job.activity in ["RepairReinforced", "RepairRoad"]:
+				reason = repair_reason(person, repair_target(job.target_structure))
 			if reason.is_empty() and (before.distance_to(job.position) > WORK_RADIUS or person.position.distance_to(job.position) > WORK_RADIUS):
 				reason = "Outside work radius"
 			if reason.is_empty() and job.required_material > 0 and int(reservations.get(job.id, 0)) != job.required_material:

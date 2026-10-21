@@ -18,9 +18,11 @@ var blocked_location := Vector2.ZERO
 var blocked_at := -1.0
 var replanning_at := -1.0
 var speed := 48.0
+var observed_revision := 0
+var return_edge: Dictionary = {}
 
 func route_is_legal(network) -> bool:
-	for index in range(route.size() - 1):
+	for index in range(route_index, route.size() - 1):
 		var edge: Dictionary = network.edge_between(route[index], route[index + 1])
 		if edge.is_empty() or not network.edge_allowed(edge, mobility_class) or edge.blocked:
 			return false
@@ -38,6 +40,7 @@ func _init(identity: String, mobility: String, start_node: String, location: Vec
 func start(network, now: float) -> void:
 	route.assign(network.plan(current_node, destination, mobility_class, known_blocked))
 	route_index = 0
+	observed_revision = network.revision
 	route_state = "MOVING" if route.size() > 1 else "NO_LEGAL_ROUTE"
 	network.record(self, now, "Evaluate primary route", route_state)
 
@@ -49,6 +52,38 @@ func advance(delta: float, now: float, network) -> void:
 		return
 	if route_state == "NOT_STARTED":
 		start(network, now)
+	if route_state == "MOVING" and observed_revision != network.revision:
+		observed_revision = network.revision
+		var updated: Array[String] = network.plan(current_node, destination, mobility_class, known_blocked)
+		if not route_is_legal(network) or updated != route.slice(route_index):
+			blocked_reason = "Infrastructure changed; active route invalidated"
+			blocked_location = position
+			blocked_at = now
+			return_edge = network.edge_between(current_node, route[route_index + 1])
+			if position == network.points[current_node]:
+				route_state = "BLOCKED"
+			elif network.edge_allowed(return_edge, mobility_class) and not return_edge.blocked:
+				route_state = "REPLAN_RETURN"
+			else:
+				# A crossing destroyed underneath an actor has no authorized safe
+				# traversal/fall policy. Hold visibly; never teleport or cross onward.
+				route_state = "NO_LEGAL_ROUTE"
+			network.record(self, now, blocked_reason, route_state)
+			return
+		else:
+			network.record(self, now, "Infrastructure cost refreshed from current state", route_state)
+	if route_state == "REPLAN_RETURN":
+		if not network.edge_allowed(return_edge, mobility_class):
+			route_state = "NO_LEGAL_ROUTE"
+			network.record(self, now, "Return edge became unavailable; hold cargo", route_state)
+			return
+		position = position.move_toward(network.points[current_node], speed * network.edge_speed_multiplier(return_edge, mobility_class) * delta)
+		driver.position = position
+		if position == network.points[current_node]:
+			route_state = "BLOCKED"
+			blocked_at = now
+			network.record(self, now, "Returned physically to safe graph node for replanning", route_state)
+		return
 	if route_state == "BLOCKED":
 		if now >= blocked_at + 1:
 			route_state = "REPLANNING"
@@ -77,7 +112,7 @@ func advance(delta: float, now: float, network) -> void:
 	if not network.edge_allowed(edge, mobility_class):
 		route_state = "NO_LEGAL_ROUTE"
 		return
-	position = position.move_toward(network.points[next_node], speed * delta)
+	position = position.move_toward(network.points[next_node], speed * network.edge_speed_multiplier(edge, mobility_class) * delta)
 	driver.position = position
 	if position == network.points[next_node]:
 		current_node = next_node

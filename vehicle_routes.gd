@@ -10,6 +10,54 @@ var drivers: Array = []
 var truck
 var tracked
 var events: Array[Dictionary] = []
+var infrastructure: Dictionary = {}
+var infrastructure_history: Array[Dictionary] = []
+var revision := 0
+const DAMAGED_SPEED := 0.30
+const INFRASTRUCTURE_HIT_RADIUS := 24.0
+
+func configure_infrastructure() -> void:
+	edge_between("junction", "crossing_exit").blocked = false
+	infrastructure = {
+		"RoadSegment-A": {"id": "RoadSegment-A", "type": "RoadSegment", "state": "INTACT", "edge": "depot-junction", "position": (points.depot + points.junction) / 2, "start": points.depot, "end": points.junction},
+		"Bridge-A": {"id": "Bridge-A", "type": "Bridge", "state": "INTACT", "edge": "blocked-crossing", "position": (points.junction + points.crossing_exit) / 2, "start": points.junction, "end": points.crossing_exit}}
+	for edge in edges:
+		edge.infrastructure = "RoadSegment-A" if edge.id == "depot-junction" else ("Bridge-A" if edge.id == "blocked-crossing" else "")
+
+func edge_infrastructure(edge: Dictionary) -> Dictionary:
+	return infrastructure.get(edge.get("infrastructure", ""), {})
+
+func edge_speed_multiplier(edge: Dictionary, _mobility: String) -> float:
+	var item := edge_infrastructure(edge)
+	return DAMAGED_SPEED if not item.is_empty() and item.type == "RoadSegment" and item.state == "DAMAGED" else 1.0
+
+func edge_cost(edge: Dictionary, mobility: String) -> float:
+	return points[edge.a].distance_to(points[edge.b]) / edge_speed_multiplier(edge, mobility) if edge_allowed(edge, mobility) else INF
+
+func edge_diagnostics(mobility: String) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for edge in edges:
+		result.append({"edge": edge.id, "terrain": edge.terrain, "infrastructure": edge.get("infrastructure", ""), "legal": edge_allowed(edge, mobility) and not edge.blocked, "speed_multiplier": edge_speed_multiplier(edge, mobility), "cost": edge_cost(edge, mobility) if edge_allowed(edge, mobility) else "IMPASSABLE"})
+	return result
+
+func infrastructure_event(item: Dictionary, event: String, now: float, source: String, cause: String) -> void:
+	revision += 1
+	infrastructure_history.append({"infrastructure": item.id, "event": event, "time": now, "source": source, "cause": cause, "state": item.state, "position": item.position, "revision": revision})
+	print("INFRASTRUCTURE: ", JSON.stringify(infrastructure_history.back()))
+
+func apply_blast_damage(point: Vector2, now: float, source: String) -> void:
+	for item in infrastructure.values():
+		if item.state != "INTACT" or item.position.distance_to(point) > INFRASTRUCTURE_HIT_RADIUS:
+			continue
+		item.state = "DAMAGED" if item.type == "RoadSegment" else "DESTROYED"
+		infrastructure_event(item, "road damaged" if item.type == "RoadSegment" else "bridge destroyed", now, source, "Spatial infrastructure impact")
+
+func repair_road(identity: String, now: float, source: String, job: String) -> void:
+	var item: Dictionary = infrastructure[identity]
+	if item.type != "RoadSegment" or item.state != "DAMAGED":
+		return
+	item.state = "INTACT"
+	infrastructure_event(item, "road repaired", now, source, job)
 
 func _init(supply) -> void:
 	add_edge("depot-junction", "depot", "junction", "ROAD")
@@ -34,6 +82,9 @@ func add_edge(identity: String, start: String, end: String, terrain: String, blo
 	edges.append({"id": identity, "a": start, "b": end, "terrain": terrain, "blocked": blocked})
 
 func edge_allowed(edge: Dictionary, mobility: String) -> bool:
+	var item := edge_infrastructure(edge)
+	if not item.is_empty() and item.type == "Bridge" and item.state == "DESTROYED":
+		return false
 	return edge.terrain == "ROAD" or (edge.terrain == "OFFROAD" and mobility == "TRACKED")
 
 func edge_between(start: String, end: String) -> Dictionary:
@@ -61,7 +112,7 @@ func plan(start: String, goal: String, mobility: String, excluded: Dictionary) -
 				other = edge.a
 			else:
 				continue
-			var distance: float = costs[node] + points[node].distance_to(points[other])
+			var distance: float = costs[node] + edge_cost(edge, mobility)
 			if distance < float(costs.get(other, INF)):
 				costs[other] = distance
 				previous[other] = node
@@ -75,7 +126,7 @@ func plan(start: String, goal: String, mobility: String, excluded: Dictionary) -
 	return result
 
 func legal_position(point: Vector2, mobility: String) -> bool:
-	if BLOCKAGE.grow(3).has_point(point):
+	if infrastructure.is_empty() and BLOCKAGE.grow(3).has_point(point):
 		return false
 	for edge in edges:
 		if edge_allowed(edge, mobility):

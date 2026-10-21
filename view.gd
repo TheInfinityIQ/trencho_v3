@@ -190,9 +190,67 @@ func draw_engineering() -> void:
 		label_at(Vector2(946, 640 + index * 24), "T%.1f %s / %s" % [recent[index].time, recent[index].event, recent[index].source], 12)
 	label_at(Vector2(28, 781), "World T=%.2f / same authoritative clock / no battlefield construction controls" % model.elapsed, 16)
 
+func road_screen(point: Vector2) -> Vector2:
+	return Vector2(50, 145) + (point - Vector2(80, 100)) * Vector2(2.7, 2.2)
+
+func draw_infrastructure() -> void:
+	var network = model.vehicles
+	var engineering = model.engineering
+	draw_rect(Rect2(24, 105, 888, 645), Color("182b2b"))
+	label_at(Vector2(28, 40), "TRENCHO / DYNAMIC INFRASTRUCTURE PROOF", 25)
+	label_at(Vector2(28, 76), "Live costs and crossing legality / roads remain roads / no vehicle damage", 17)
+	for edge in network.edges:
+		var item: Dictionary = network.edge_infrastructure(edge)
+		var color := Color("8f9c8e") if edge.terrain == "ROAD" else Color("56836c")
+		if not item.is_empty():
+			color = Color("d3a96a") if item.state == "DAMAGED" else (Color("a56d62") if item.state == "DESTROYED" else Color("b5ceb2"))
+		draw_line(road_screen(network.points[edge.a]), road_screen(network.points[edge.b]), color, 9 if edge.terrain == "ROAD" else 3)
+	for item in network.infrastructure.values():
+		label_at(road_screen(item.position) + Vector2(-65, -20), item.id + " / " + item.state, 14)
+		if item.state == "DESTROYED":
+			var point := road_screen(item.position)
+			draw_line(point - Vector2(12, 12), point + Vector2(12, 12), Color("f0b09b"), 4)
+			draw_line(point + Vector2(-12, 12), point + Vector2(12, -12), Color("f0b09b"), 4)
+	for vehicle in [network.truck, network.tracked]:
+		var color := Color("c4c2a0") if vehicle.mobility_class == "ROAD_ONLY" else Color("96d8b3")
+		var point := road_screen(vehicle.position)
+		draw_circle(point, 9, color)
+		label_at(point + Vector2(14, 20 if vehicle.mobility_class == "ROAD_ONLY" else -22), vehicle.id, 12, color)
+	var engineer = engineering.people[0]
+	draw_circle(road_screen(engineer.position), 6, Color("a8cde3"))
+	label_at(road_screen(engineer.position) + Vector2(12, 20), "Engineer-01 / Toolkit-01", 13)
+	draw_rect(Rect2(930, 105, 325, 645), Color("112025"))
+	label_at(Vector2(946, 135), "INFRASTRUCTURE / ROUTES", 18)
+	var lines: Array[String] = ["Road: " + network.infrastructure["RoadSegment-A"].state,
+		"Current road speed: %.2f" % network.edge_speed_multiplier(network.edges[0], "ROAD_ONLY"),
+		"Bridge: " + network.infrastructure["Bridge-A"].state,
+		"Crossing legal: " + str(network.edge_allowed(network.edges[1], "ROAD_ONLY")),
+		"Truck: " + network.truck.route_state, "Tracked: " + network.tracked.route_state,
+		"Cargo: %d / delivered:%s" % [network.truck.inventory.BoltActionRifleAmmo, str(model.supply.delivered_at >= 0)],
+		"Material free%d reserved%d used%d" % [engineering.stockpile.inventory.BuildingMaterial, engineering.reserved_material(), engineering.consumed]]
+	lines.append("Engineer qualified: " + str(engineer.engineer_qualified))
+	lines.append("Toolkit held: " + str(engineering.has_tool(engineer, "EngineerToolkit")))
+	lines.append("Road cost: %.1f" % network.edge_cost(network.edges[0], "ROAD_ONLY"))
+	if not engineering.jobs.is_empty():
+		var job: Dictionary = engineering.jobs.back()
+		lines.append("Repair %.2f / 4s / %s" % [job.progress, job.state])
+		lines.append(job.failure_reason)
+	for index in range(lines.size()):
+		label_at(Vector2(946, 172 + index * 27), lines[index], 13)
+	var history: Array = network.infrastructure_history.slice(-3)
+	for index in range(history.size()):
+		label_at(Vector2(946, 520 + index * 24), "T%.1f %s" % [history[index].time, history[index].event], 13)
+	label_at(Vector2(50, 680), "Truck route: " + " → ".join(network.truck.route), 14)
+	label_at(Vector2(50, 708), "Tracked route: " + " → ".join(network.tracked.route), 14)
+	label_at(Vector2(50, 736), network.truck.blocked_reason, 13)
+	label_at(Vector2(28, 781), "World T=%.2f / infrastructure revision%d / same authoritative clock" % [model.elapsed, network.revision], 16)
+
 func _draw() -> void:
 	if view_mode == "rear" and model.integrated_rear:
 		draw_rear()
+		return
+	if model.vehicles != null and not model.vehicles.infrastructure.is_empty():
+		draw_infrastructure()
 		return
 	if model.engineering != null:
 		draw_engineering()
