@@ -8,6 +8,7 @@ var previous_block := ""
 var completed_order := ""
 var previous_authorization := ""
 var delivered := 0
+var delivered_requests: Dictionary = {}
 var contact_observations: Dictionary = {}
 var previous_result := "ACTIVE"
 const CLASSES := {"PRODUCTION_BLOCKED": "ACTION_REQUIRED", "STOCK_AUTHORIZATION": "ACTION_REQUIRED",
@@ -23,6 +24,8 @@ func _init(world) -> void:
 		completed_order = status.work.order.id
 	previous_authorization = authorization_key(status)
 	delivered = status.need.delivered
+	for request in status.get("requests", []):
+		delivered_requests[request.id] = request.delivered
 	previous_result = world.battle_state
 	for row in status.contacts:
 		contact_observations[row.report.get("contact_id", row.report.report_id)] = row.report.observation_time
@@ -122,12 +125,21 @@ func update(world) -> void:
 	resolve_condition("STOCK_AUTHORIZATION", "AUTHORIZATION_BLOCK" if not authorization.is_empty() else "", world.elapsed, "Request supplied" if status.need.remaining == 0 else ("Stock authorization eligible" if status.stock.eligible > 0 else "Previous stock/request block cleared"))
 	if not authorization.is_empty():
 		var text := "%d rounds ready, but military draw is %s" % [status.stock.uncommitted, authorization]
+		var competing: Array = status.get("requests", []).filter(func(request): return request.state == "WAITING")
+		if competing.size() > 1:
+			var chosen: Array = competing.filter(func(request): return request.priority == "PRIORITY")
+			text = "%d ammunition requests waiting — %s / draw %s" % [competing.size(), "choose logistics priority" if chosen.is_empty() else chosen[0].id + " PRIORITY", authorization]
 		if previous_authorization.is_empty():
 			emit_alert("STOCK_AUTHORIZATION", world.elapsed, text, "Rear stock policy / unresolved request", "REAR", [], "AUTHORIZATION_BLOCK")
 		else:
 			refresh_open("STOCK_AUTHORIZATION", "AUTHORIZATION_BLOCK", text, world.elapsed)
 	previous_authorization = authorization
-	if status.need.delivered >= world.supply.REQUEST_QUANTITY and delivered < world.supply.REQUEST_QUANTITY:
+	if not status.get("requests", []).is_empty():
+		for request in status.requests:
+			if request.requested > 0 and request.delivered >= request.requested and delivered_requests.get(request.id, 0) < request.requested:
+				emit_alert("SHIPMENT_DELIVERED", world.elapsed, "%s ammunition delivered — %s" % [request.id, "formation readiness restored" if request.ready else "request supplied; formation still constrained"], "Physical Soldier handoff / " + request.id, "BATTLEFIELD", [request])
+			delivered_requests[request.id] = request.delivered
+	elif status.need.delivered >= world.supply.REQUEST_QUANTITY and delivered < world.supply.REQUEST_QUANTITY:
 		var ready: bool = world.supply.carried() >= world.supply.READY_THRESHOLD and world.supply.squad.mission_execution_available()
 		emit_alert("SHIPMENT_DELIVERED", world.elapsed, "Ammunition delivered — " + ("formation readiness restored" if ready else "request supplied; formation still constrained"), "Physical Soldier handoff ledger", "BATTLEFIELD")
 	delivered = status.need.delivered

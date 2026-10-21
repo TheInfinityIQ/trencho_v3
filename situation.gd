@@ -139,7 +139,49 @@ static func build(world) -> Dictionary:
 	var report_activity := "Company: no contact report received yet"
 	if receipt_time >= 0:
 		report_activity = "Company knowledge updated T%.1f" % receipt_time if world.elapsed - receipt_time <= 1 else "Company: last receipt T%.1f; no newer report received" % receipt_time
-	return {"need": {"requested": requested, "delivered": delivered, "remaining": maxi(0, requested - delivered), "state": request_state, "carried": supply.carried(), "readiness": supply.phase},
+	var result := {"need": {"requested": requested, "delivered": delivered, "remaining": maxi(0, requested - delivered), "state": request_state, "carried": supply.carried(), "readiness": supply.phase},
 		"stock": {"finished": rear.ammunition, "uncommitted": uncommitted, "eligible": eligible, "committed": rear.committed, "policy": rear.policy, "reserve": rear.reserve, "explanation": policy_text},
 		"chain": {"stage": stage, "explanation": waiting}, "work": {"bench": rear.placed, "state": work, "progress": progress, "worker": worker, "order": order, "future_batches": future},
 		"contacts": reports, "report_activity": report_activity, "prompt": prompt}
+	if rear.multi_enabled:
+		return multi_request_projection(world, result)
+	return result
+
+static func multi_request_projection(world, result: Dictionary) -> Dictionary:
+	var rear = world.rear
+	var requests: Array = rear.requests.duplicate(true)
+	result["requests"] = requests
+	var requested := 0
+	var delivered := 0
+	var carried := 0
+	var waiting := 0
+	var stages: Array[String] = []
+	for request in requests:
+		requested += request.requested
+		delivered += request.delivered
+		carried += request.carried
+		if request.state == "WAITING":
+			waiting += 1
+		stages.append(request.id + ": " + request.state)
+	result.need = {"requested": requested, "delivered": delivered, "remaining": maxi(0, requested - delivered), "state": "SATISFIED" if requested > 0 and delivered == requested else "INDIVIDUAL REQUESTS", "carried": carried, "readiness": "See each formation"}
+	result.chain = {"stage": "MULTIPLE REQUESTS", "explanation": " / ".join(stages)}
+	if rear.ammunition > 0 and rear.committed == 0 and waiting > 0:
+		if rear.policy == "LOCKED":
+			result.chain.stage = "WITHHELD — LOCKED"
+		elif rear.policy == "RESERVE" and rear.eligible() < 8:
+			result.chain.stage = "WITHHELD — RESERVE FLOOR"
+	if rear.committed > 0:
+		result.chain.stage = "LOADING"
+		result.chain.explanation = "%s owns %d committed rounds; still rear-owned during loading." % [rear.commitment_request_id, rear.committed]
+	if waiting > 1:
+		result.prompt = "%d ammunition requests waiting — choose logistics priority in Rear." % waiting
+	elif waiting == 1:
+		result.prompt = "One request still waiting — production and authorization govern later stock."
+	else:
+		result.prompt = "Assigned supply follows physical delivery; observe individual request status."
+	if requested > 0 and delivered == requested:
+		result.chain.stage = "DELIVERED"
+		result.prompt = "Both requests supplied — formations continue autonomously."
+	if not world.battle_active():
+		result.prompt = "Battle ended — inspect the frozen aftermath."
+	return result

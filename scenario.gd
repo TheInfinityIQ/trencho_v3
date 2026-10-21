@@ -21,6 +21,8 @@ var platoons: Array[Dictionary] = []
 var secured := false
 var information = Information.new()
 var supply
+var additional_supplies: Array = []
+var additional_vehicle_routes: Array = []
 var rear
 var integrated_rear := false
 var recovery
@@ -107,6 +109,8 @@ func all_people() -> Array:
 		result.append_array(combat.defenders.soldiers)
 	if vehicles != null:
 		result.append_array(vehicles.drivers)
+	for routes in additional_vehicle_routes:
+		result.append_array(routes.drivers)
 	if engineering != null:
 		result.append_array(engineering.people)
 	if medical != null:
@@ -164,6 +168,9 @@ func blast_entities() -> Array:
 	if vehicles != null:
 		for person in vehicles.drivers:
 			result.append({"person": person, "squad": null})
+	for routes in additional_vehicle_routes:
+		for person in routes.drivers:
+			result.append({"person": person, "squad": null})
 	if artillery != null:
 		result.append({"person": artillery.gunner, "squad": null})
 	if engineering != null:
@@ -182,6 +189,12 @@ func total_ammunition() -> int:
 		total += int(platoon.leader.inventory[Supply.CATEGORY])
 	if integrated_rear:
 		total += rear.ammunition + rear.shipment.cargo
+	for other in additional_supplies:
+		total += int(other.depot.inventory[Supply.CATEGORY]) + int(other.truck.inventory[Supply.CATEGORY]) + int(other.captured.inventory[Supply.CATEGORY])
+	for routes in additional_vehicle_routes:
+		total += int(routes.tracked.inventory[Supply.CATEGORY])
+		for driver in routes.drivers:
+			total += int(driver.inventory[Supply.CATEGORY])
 	if combat != null:
 		for soldier in combat.defenders.soldiers:
 			total += int(soldier.inventory[Supply.CATEGORY])
@@ -250,8 +263,10 @@ func advance(delta: float) -> void:
 	advance_platoon_people(delta)
 	information.advance(elapsed, squads[3].soldiers[3])
 	supply.advance(delta, elapsed)
+	for other in additional_supplies:
+		other.advance(delta, elapsed)
 	if integrated_rear:
-		rear.advance(delta, elapsed, supply)
+		rear.advance(delta, elapsed, supply, [supply] + additional_supplies if not additional_supplies.is_empty() else [])
 	recovery.advance(delta, elapsed)
 	if combat != null:
 		combat.advance(elapsed)

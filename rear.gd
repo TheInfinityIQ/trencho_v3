@@ -22,6 +22,11 @@ var production_order: Dictionary = {}
 var order_history: Array[Dictionary] = []
 var next_order_id := 1
 var world_time := 0.0
+var multi_enabled := false
+var requests: Array[Dictionary] = []
+var priority_history: Array[Dictionary] = []
+var commitment_request_id := ""
+var next_shipment_id := 1
 var policy := "LOCKED"
 var reserve := 8
 var committed := 0
@@ -148,6 +153,78 @@ func move_avatar(direction: Vector2, delta: float) -> void:
 	avatar += direction.limit_length() * 150 * delta
 	avatar = avatar.clamp(MAP.position + Vector2(12, 12), MAP.end - Vector2(12, 12))
 
+func register_request(identity: String, formation: String) -> void:
+	if requests.any(func(request): return request.id == identity):
+		return
+	requests.append({"id": identity, "formation": formation, "created_at": -1.0, "sequence": requests.size(),
+		"requested": 0, "delivered": 0, "remaining": 0, "priority": "NORMAL", "state": "AWAITING REQUEST",
+		"allocated": 0, "allocated_priority": "", "committed_at": -1.0, "shipment_id": "", "carried": 0,
+		"readiness": "", "ready": false})
+
+func set_request_priority(identity: String, value := "PRIORITY") -> bool:
+	if not multi_enabled or value not in ["NORMAL", "PRIORITY"]:
+		return false
+	var matches: Array = requests.filter(func(request): return request.id == identity and request.requested > request.delivered)
+	if matches.is_empty() and not (identity.is_empty() and value == "NORMAL"):
+		return false
+	for request in requests:
+		if request.requested <= request.delivered:
+			continue
+		if value == "PRIORITY" or identity.is_empty() or request.id == identity:
+			request.priority = "PRIORITY" if value == "PRIORITY" and request.id == identity else "NORMAL"
+	priority_history.append({"time": world_time, "request": identity, "priority": value})
+	return true
+
+func sync_requests(supplies: Array) -> void:
+	for request in requests:
+		for chain in supplies:
+			if chain.request_id != request.id:
+				continue
+			if chain.requested_at >= 0 and request.created_at < 0:
+				request.created_at = chain.requested_at
+				request.requested = chain.REQUEST_QUANTITY
+			var delivered := 0
+			for event in chain.transactions:
+				if event.reason == "Physical delivery at staging":
+					delivered += int(event.quantity)
+			request.delivered = mini(request.requested, delivered)
+			request.remaining = maxi(0, request.requested - request.delivered)
+			request.carried = chain.carried()
+			request.readiness = chain.phase
+			request.ready = chain.carried() >= chain.READY_THRESHOLD and chain.squad.mission_execution_available()
+			if request.requested == 0:
+				request.state = "AWAITING REQUEST"
+			elif request.remaining == 0:
+				request.state = "SATISFIED"
+			elif request.allocated > 0:
+				request.state = "COMMITTED" if committed > 0 and commitment_request_id == request.id else "IN TRANSIT"
+			else:
+				request.state = "WAITING"
+
+func allocate_request(now: float) -> void:
+	if committed > 0 or shipment.state not in ["None", "Arrived at battlefield receiving point"] or eligible() < 8:
+		return
+	var waiting: Array = requests.filter(func(request): return request.requested == 8 and request.remaining > 0 and request.allocated == 0)
+	waiting.sort_custom(func(a, b):
+		if a.priority != b.priority:
+			return a.priority == "PRIORITY"
+		return a.created_at < b.created_at if a.created_at != b.created_at else a.sequence < b.sequence)
+	if waiting.is_empty():
+		return
+	var selected: Dictionary = waiting[0]
+	# A serial export slot can be reused only after its prior cargo physically
+	# reaches that request's receiving inventory. The request retains its allocation.
+	shipment = {"id": "rear-export-%d" % next_shipment_id, "cargo": 0, "owner": "none", "state": "None", "departed_at": -1.0, "arrives_at": -1.0, "request_id": selected.id}
+	next_shipment_id += 1
+	if commit(8, now):
+		commitment_request_id = selected.id
+		selected.allocated = 8
+		selected.allocated_priority = selected.priority
+		selected.committed_at = now
+		selected.shipment_id = shipment.id
+		selected.state = "COMMITTED"
+		ledger[-1]["request_id"] = selected.id
+
 func set_policy(next_policy: String, floor_value := 8) -> void:
 	if next_policy not in ["AVAILABLE", "RESERVE", "LOCKED"] or floor_value < 0:
 		return
@@ -160,6 +237,8 @@ func eligible() -> int:
 	return maxi(0, ammunition - committed - (reserve if policy == "RESERVE" else 0))
 
 func commit(quantity: int, now: float) -> bool:
+	if multi_enabled and not requests.any(func(request): return request.id == shipment.get("request_id", "") and request.requested == quantity and request.remaining > 0 and request.allocated == 0):
+		return false
 	if quantity <= 0 or eligible() < quantity or committed > 0 or shipment.state != "None":
 		return false
 	committed = quantity
@@ -167,7 +246,7 @@ func commit(quantity: int, now: float) -> bool:
 	ledger.append({"time": now, "source": "rear-uncommitted", "destination": "rear-committed", "quantity": quantity, "ownership_before": "rear", "ownership_after": "rear", "reason": "Eligible demand committed; remains subset of rear on-hand"})
 	return true
 
-func advance(delta: float, now: float, supply) -> void:
+func advance(delta: float, now: float, supply, supplies: Array = []) -> void:
 	world_time = now
 	var completed_worker_batch := false
 	if not job.is_empty() and now + 0.000001 >= job.finishes_at:
@@ -200,7 +279,13 @@ func advance(delta: float, now: float, supply) -> void:
 				order_status("ACTIVE", "Current batch running", now)
 			else:
 				order_status("QUEUED", "Approaching workbench", now)
-	if supply.requested_at >= 0 and committed == 0 and shipment.state == "None":
+	if multi_enabled:
+		sync_requests(supplies)
+		allocate_request(now)
+		for chain in supplies:
+			if chain.request_id == shipment.get("request_id", ""):
+				supply = chain
+	elif supply.requested_at >= 0 and committed == 0 and shipment.state == "None":
 		commit(8, now)
 	if committed > 0 and now + 0.000001 >= commitment_time + LOADING_DELAY:
 		var quantity := committed
@@ -212,9 +297,15 @@ func advance(delta: float, now: float, supply) -> void:
 		shipment.departed_at = commitment_time + LOADING_DELAY
 		shipment.arrives_at = shipment.departed_at + TRANSIT_DELAY
 		ledger.append({"time": shipment.departed_at, "source": "rear-finished-stock", "destination": shipment.id, "quantity": quantity, "ownership_before": "rear", "ownership_after": "military", "reason": "Departure across protected rear boundary"})
+		if multi_enabled:
+			ledger[-1]["request_id"] = shipment.request_id
 	if shipment.state == "Inter-map transit" and now + 0.000001 >= shipment.arrives_at:
 		var quantity: int = shipment.cargo
 		supply.depot.inventory[CATEGORY] += quantity
 		shipment.cargo = 0
 		shipment.state = "Arrived at battlefield receiving point"
 		ledger.append({"time": shipment.arrives_at, "source": shipment.id, "destination": supply.depot.id, "quantity": quantity, "ownership_before": "military", "ownership_after": "military", "reason": "Physical receiving after three-second map transit"})
+		if multi_enabled:
+			ledger[-1]["request_id"] = shipment.request_id
+	if multi_enabled:
+		sync_requests(supplies)

@@ -2,6 +2,19 @@
 
 Open **operations.tscn** in Godot and press **F6**.
 
+For competing requests, open **priority_operations.tscn** instead. Two formations
+physically stage and each requests eight rounds. The right panel keeps Request-A
+and Request-B separate, showing requested/delivered/remaining, priority and state.
+In the Rear, **PRIORITIZE REQUEST-A/B** selects one outstanding request; **ALL NORMAL**
+restores oldest-first ordering. Priority selects eligible, uncommitted stock only.
+LOCKED and the RESERVE floor still govern whether stock may be committed at all.
+
+To see scarcity matter, produce one Worker batch, mark B PRIORITY, then choose
+AVAILABLE. B owns those eight rounds through loading, shipment and physical truck
+delivery. Changing A to PRIORITY afterward cannot take B's stock. Produce another
+real batch for A; only its own later delivery restores A's readiness. Both formations
+continue their existing missions autonomously. A two-batch Worker order also works.
+
 Your formation has a mission, but not enough ammunition. You operate its protected
 rear. Soldiers, vehicles and commanders act autonomously.
 

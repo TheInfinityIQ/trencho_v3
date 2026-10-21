@@ -23,8 +23,9 @@ var captured_at := -1.0
 var now := 0.0
 var requires_rear := false
 var vehicle_controller
+var request_id := ""
 
-func _init(advancing_squad, rear_required := false) -> void:
+func _init(advancing_squad, rear_required := false, stage_at_receiving := false) -> void:
 	squad = advancing_squad
 	requires_rear = rear_required
 	if requires_rear:
@@ -33,6 +34,11 @@ func _init(advancing_squad, rear_required := false) -> void:
 	var initial := [0, 6, 1, 1]
 	for index in range(4):
 		squad.soldiers[index].inventory[CATEGORY] = initial[index]
+	if stage_at_receiving:
+		# A newly authored receiving formation stages at the actual truck handoff
+		# point, retaining its existing mission path for ordinary readiness release.
+		for index in range(squad.soldiers.size()):
+			squad.soldiers[index].path.push_front(RESUPPLY_POSITION + Vector2((index % 2) * 23 - 12, (index / 2) * 23 - 12))
 	squad.stage_for_supply()
 
 func carried() -> int:

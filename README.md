@@ -5,6 +5,86 @@ Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/proje
 For the playable logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
+## T3-PRI-028 — Competing requests and player logistics priority
+
+Open `priority_operations.tscn` and run F6. It extends the accepted Operations view
+and world with a second actual Supply/VehicleRoutes chain for the existing P1-B
+support formation. Request-A/P1-A and Request-B/P1-B each physically carry8 against
+the existing16round readiness threshold, stage and create their own real8round
+Supply request. The support formation's original mission path is retained while
+it stages at the actual receiving point, then resumes on real readiness. No UI
+request can fabricate shortage/fulfillment. Normal operations.tscn remains unchanged.
+
+Rear owns plain-value request records: stable ID, formation, real creation time,
+stable creation sequence, requested/delivered/remaining, NORMAL/PRIORITY, allocation
+quantity, allocated priority/time/shipment identity, state and actual carried/
+readiness facts. Priority history records player choices. Only one outstanding
+request may be PRIORITY; selecting B returns other outstanding A to NORMAL. A
+satisfied request no longer competes (its history may retain its earlier priority).
+Rear-only buttons set A/B priority or ALL NORMAL; they change no paths, missions,
+targets, command intent, inventories or fire. No tactical controls are added.
+
+Allocation order is global policy -> uncommitted eligible amount -> request priority
+-> oldest real creation time/stable sequence for NORMAL ties. A whole8commitment
+is required; eligible4 waits. LOCKED and RESERVE protection cannot be bypassed.
+One finite8round batch cannot allocate twice. Commitments remain a subset of rear
+on-hand stock, never extra stock. The multi-demand commitment path requires a named
+outstanding request; direct unnamed commit rejects. A later priority change affects
+only future uncommitted stock. allocated_priority/time/shipment preserve what was
+actually decided when B obtained its commitment, even if A becomes priority later.
+
+The existing rear2second loading/3second transit slot is serially reused only after
+the prior cargo physically enters that request's receiving inventory. Unique
+shipment IDs and request-tagged commitment/departure/arrival ledger establish
+ownership. Two separately identified authored finite trucks/controllers then use
+ordinary route legality/blockage/replan/movement/own-Soldier handoff, not abstract
+delivery counters or rerouting. Shared staging can contain both formations, but
+each assigned chain hands cargo only to its own eligible Soldiers. No road traffic
+coordination, replenishing fleet, return-trip/rerouting doctrine or convoy tactics
+is added. World advances both chains on the same clock and counts every cargo,
+receiving container, driver and tracked vehicle without counting persons twice.
+
+The panel displays both requests individually: identity/formation, priority,
+requested/delivered/remaining, WAITING/COMMITTED/IN TRANSIT/SATISFIED and owned
+commitment. Global stock/policy and real Worker job stay separate. Situation copies
+are read-only. An existing STOCK_AUTHORIZATION action explains two waiting requests
+and logistics priority plus LOCKED/RESERVE reason; no seventh category or automatic
+winner is introduced. Commitment resolves that action through real state. Delivery
+alerts now retain per-request completion identity and truthful readiness; neither
+the selected priority, commitment, transit nor another formation's delivery can
+mark A satisfied. No hidden enemy facts justify priority or appear in request rows.
+
+PA-PRI-001..005 remain provisional: PRIORITY before NORMAL; one explicit outstanding
+priority; commitments cannot be stolen; oldest-first NORMAL; whole8 commitments.
+Request ID/priority state roundtrips through the existing value codec. SAV/RSM
+focused regressions pass; arbitrary two-chain active saves are not claimed (the
+prototype active manifest remains build-coupled and only covers its named fixture).
+
+Verification: `--headless --path . --script check_priority.gd --log-file artifacts/priority_model.log`
+runs31 checks; omit headless and append `-- --visual` for42 via normal controls.
+Twelve inspected captures show simultaneous real demand, one LOCKED batch, B priority,
+AVAILABLE/B commitment, later A priority unable to steal it, B transit/truck/handoff
+while A waits, explicit second Worker batch, A commitment and later physical supply,
+and both fulfilled identities/conservation. Real B readiness/support movement occurs
+before A. Model proof checks global ammo every tick, one Metal->8 per batch, distinct
+request/shipment custody, priority tactical-state invariance, one explicit priority,
+Reserve8/eligible4 bounds, direct-commit rejection and stable NORMAL/time ties with
+reversed record storage. A finite2batch order also supplies both without repetition.
+All27 earlier model suites pass, including SAV31/RSM33/ATT40/TRI73; import/diff clean.
+Evidence: `artifacts/priority_checks.json`, `priority_visual.log`, `priority_*.png`,
+`priority_regression_*.log`, `priority_import.log`. The existing single-request
+entry and accepted fixtures keep their defaults.
+
+Observed UX limits: logistics priority produces a clear B-before-A consequence
+without changing either mission, but the authored scenario gives little strategic
+reason to prefer one. The player controls allocation timing rather than tactics.
+Policy vs priority and irrevocable commitment are labeled, yet deserve human
+comprehension evaluation. Two trucks and overlapping staging labels can be visually
+busy; simultaneous receiving is physical but traffic/space capacity is unmodeled.
+Serial rear loading adds another wait. Human experience/fun remains nonblocking;
+no request cancellation, partial filling, numeric/threat priorities, new ammunition
+types, final logistics table, automatic tactical advice or mid-shipment stealing.
+
 ## T3-TRI-027 — Alert priority, coalescing and unread protection
 
 The same six alert categories now have a presentation class: Worker blockage and

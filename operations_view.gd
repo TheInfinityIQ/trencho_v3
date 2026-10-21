@@ -300,6 +300,10 @@ func draw_rear() -> void:
 	label_at(rear.avatar + Vector2(-20, -20), "YOU", 15)
 	label_at(Vector2(50, 620), "WASD: move / P: bench / E: manual / F: Worker order / X: stop future batches", 16)
 	label_at(Vector2(50, 650), "Stock starts LOCKED. Choose AVAILABLE [1] when you want the military to draw it.", 16)
+	label_at(Vector2(50, 675), rear_status_text(), 15, Color("dec88f"))
+
+func rear_status_text() -> String:
+	var rear = model.rear
 	var status: String = rear.message
 	if rear.job.is_empty():
 		if model.supply.delivered_at >= 0:
@@ -310,7 +314,7 @@ func draw_rear() -> void:
 			status = "Military receiving has the shipment. Follow the truck on the battlefield."
 		elif rear.committed > 0:
 			status = "Eight rounds committed for loading; still included in rear stock."
-	label_at(Vector2(50, 675), status, 15, Color("dec88f"))
+	return status
 
 func draw_battlefield() -> void:
 	for edge in model.vehicles.edges:
