@@ -1,0 +1,59 @@
+extends RefCounted
+
+const Squad = preload("res://squad.gd")
+const OBSTACLE := Rect2(410, 245, 155, 225)
+const OBJECTIVE := Vector2(815, 345)
+var elapsed := 0.0
+var trace: Array[Dictionary] = []
+var squads: Array = []
+var platoons: Array[Dictionary] = []
+var secured := false
+
+func _init() -> void:
+	squads = [Squad.new("P1-A", Vector2(155, 300)), Squad.new("P1-B", Vector2(165, 420)),
+		Squad.new("P2-A", Vector2(140, 610)), Squad.new("P2-B", Vector2(240, 610))]
+	platoons = [{"id": "P1", "squads": [squads[0], squads[1]], "assignment": "Unassigned"},
+		{"id": "P2", "squads": [squads[2], squads[3]], "assignment": "Unassigned"}]
+	operational_decide()
+
+func record(echelon: String, actor: String, intent: String, choice: String, reason: String) -> void:
+	trace.append({"echelon": echelon, "actor": actor, "intent": intent, "choice": choice, "reason": reason})
+
+func operational_decide() -> void:
+	record("Operational", "HQ", "Scenario objective set", "Secure Objective A", "Only strategic site supplied in this proof")
+	company_receive("Secure Objective A", OBJECTIVE)
+
+func company_receive(intent: String, target: Vector2) -> void:
+	# Company chooses its closest platoon as main effort; preserves another force.
+	var main_index := 0
+	if platoons[1].squads[0].center().distance_to(target) < platoons[0].squads[0].center().distance_to(target):
+		main_index = 1
+	for index in range(platoons.size()):
+		var assignment := "Main effort" if index == main_index else "Reserve"
+		platoons[index].assignment = assignment
+		record("Company", "C1", intent, "%s: %s" % [platoons[index].id, assignment], "Nearest platoon advances; retain staged capacity")
+		platoon_receive(platoons[index], target)
+
+func platoon_receive(platoon: Dictionary, target: Vector2) -> void:
+	if platoon.assignment == "Reserve":
+		record("Platoon", platoon.id, "Remain staged", "Both squads hold current positions", "Company retained this platoon; no release received")
+		for squad in platoon.squads:
+			squad.task = "Hold reserve"
+		return
+	var support := Vector2(335, 520)
+	var jobs := ["Seize Objective A", "Stage in support"]
+	var targets := [target, support]
+	for index in range(2):
+		var squad = platoon.squads[index]
+		record("Platoon", platoon.id, "Main effort", "%s: %s" % [squad.id, jobs[index]], "Separate seizure and nearby support responsibilities")
+		trace.append(squad.assign(jobs[index], targets[index], OBSTACLE))
+		for soldier in squad.soldiers:
+			record("Soldier", soldier.id, jobs[index], "Execute own %d-point path" % soldier.path.size(), "Own position, speed and waypoint progress under squad intent")
+
+func advance(delta: float) -> void:
+	elapsed += delta
+	for squad in squads:
+		squad.advance(delta)
+	if not secured and squads[0].complete():
+		secured = true
+		record("Squad", squads[0].id, "Seize Objective A", "Objective reached by all four soldiers", "Each individual completed its own route")
