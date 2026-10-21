@@ -17,6 +17,11 @@ var exit_button: Button
 var map_button: Button
 var reserve_amount: SpinBox
 var batch_count: SpinBox
+var alerts_button: Button
+var acknowledge_button: Button
+var alert_panel: Panel
+var alert_title: Label
+var alert_rows: Array[Button] = []
 
 func button(text: String, point: Vector2, action: Callable, width := 292.0) -> Button:
 	var item := Button.new()
@@ -55,7 +60,50 @@ func _ready() -> void:
 	inquiry_button = button("BINOCULAR INQUIRY [B]", Vector2(945, 575), toggle_inquiry)
 	reconstruct_button = button("RECONSTRUCT REPORT [R]", Vector2(945, 615), reconstruct)
 	exit_button = button("RETURN TO LIVE VIEW [Esc]", Vector2(945, 655), exit_reconstruction)
+	acknowledge_button = button("ACK NEWEST [K]", Vector2(945, 760), acknowledge_newest, 140)
+	alerts_button = button("ALERT HISTORY [H]", Vector2(1095, 760), toggle_alert_history, 140)
+	alert_panel = Panel.new()
+	alert_panel.position = Vector2(250, 115)
+	alert_panel.size = Vector2(670, 550)
+	var background := StyleBoxFlat.new()
+	background.bg_color = Color("112025")
+	alert_panel.add_theme_stylebox_override("panel", background)
+	alert_panel.visible = false
+	add_child(alert_panel)
+	alert_title = Label.new()
+	alert_title.position = Vector2(15, 12)
+	alert_title.add_theme_font_size_override("font_size", 15)
+	alert_panel.add_child(alert_title)
+	for index in range(8):
+		var row := Button.new()
+		row.position = Vector2(15, 48 + index * 61)
+		row.size = Vector2(640, 57)
+		row.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		row.add_theme_font_size_override("font_size", 13)
+		row.pressed.connect(acknowledge_row.bind(index))
+		alert_panel.add_child(row)
+		alert_rows.append(row)
 	refresh()
+
+func toggle_alert_history() -> void:
+	alert_panel.visible = not alert_panel.visible
+	refresh()
+
+func acknowledge_newest() -> void:
+	var newest: Dictionary = operations.alerts.newest_unread()
+	if not newest.is_empty():
+		operations.alerts.acknowledge(newest.id)
+	refresh()
+
+func acknowledge_row(index: int) -> void:
+	var entries: Array = operations.alerts.recent()
+	entries.reverse()
+	if index < entries.size():
+		operations.alerts.acknowledge(entries[index].id)
+	refresh()
+
+func attention_text(area: String) -> String:
+	return "Rear attention useful" if area == "REAR" else ("Battlefield report available" if area == "BATTLEFIELD" else "No attention suggestion")
 
 func switch_map() -> void:
 	if model.information.reconstructing:
@@ -119,8 +167,24 @@ func refresh() -> void:
 	reconstruct_button.disabled = not model.battle_active() or query_result.is_empty() or model.information.reconstructing
 	map_button.disabled = model.information.reconstructing
 	map_button.text = "BATTLEFIELD [Tab]" if is_rear else "PROTECTED REAR [Tab]"
+	acknowledge_button.disabled = operations.alerts.unread_count() == 0
+	alert_title.text = "RECENT ALERTS — click to acknowledge / " + ("world frozen" if not model.battle_active() else ("history paused" if model.information.reconstructing else "world continues"))
+	var entries: Array = operations.alerts.recent()
+	entries.reverse()
+	for index in range(alert_rows.size()):
+		alert_rows[index].visible = index < entries.size()
+		if index < entries.size():
+			var entry: Dictionary = entries[index]
+			alert_rows[index].text = "%s T%.1f  %s\n%s / %s" % ["ACK" if entry.acknowledged else "NEW", entry.time, entry.text, attention_text(entry.area), entry.source]
+			alert_rows[index].tooltip_text = JSON.stringify(entry.provenance)
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_H, KEY_K]:
+		if event.keycode == KEY_H:
+			toggle_alert_history()
+		else:
+			acknowledge_newest()
+		get_viewport().set_input_as_handled()
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_TAB:
 		switch_map()
 		get_viewport().set_input_as_handled()
@@ -338,4 +402,10 @@ func _draw() -> void:
 		label_at(Vector2(350, 348), "VICTORY" if model.battle_state == "ENDED_FRIENDLY_VICTORY" else "DEFEAT", 35, Color("e4d29b"))
 		label_at(Vector2(280, 389), "Battle ended / world frozen", 23)
 		label_at(Vector2(250, 421), "Primary HQ destroyed by autonomous artillery", 17)
-	label_at(Vector2(28, 781), "Tab: switch maps  |  Rear: WASD move, P place, E work, F worker, 1/2/3 authorization  |  Battlefield: B inquiry, R history", 15)
+	draw_rect(Rect2(24, 750, 1231, 50), Color("102522"))
+	var newest: Dictionary = operations.alerts.newest_unread()
+	if newest.is_empty():
+		label_at(Vector2(38, 770), "ALERTS: none unread / H: recent history", 14)
+	else:
+		label_at(Vector2(38, 770), "ALERTS %d unread / T%.1f  %s" % [operations.alerts.unread_count(), newest.time, newest.text], 14, Color("e4d29b"))
+		label_at(Vector2(38, 792), attention_text(newest.area) + " / " + newest.source, 12)

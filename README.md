@@ -5,6 +5,63 @@ Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/proje
 For the playable logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
+## T3-ATT-026 — Operational alerts and attention switching
+
+Operations owns a separate presentation-only `operational_alerts.gd` inbox. Each
+plain-value alert has a stable sequential ID, type, authoritative world time,
+short text, acknowledgement, source/provenance and optional REAR/BATTLEFIELD/NONE
+attention suggestion. It retains the most recent8; older unread entries may drop.
+The simulation owns no alert/inbox state. The always-visible bottom strip shows
+newest unread/count; H/history opens recent rows, K/ACK NEWEST or a row click
+acknowledges. History does not pause live play. Alerts never switch maps or issue
+gameplay actions; terminal/history pause behavior remains owned by the world.
+
+Exactly six boundaries are sampled after ordinary world advance in a fixed type
+sequence (stable same-time ordering):
+
+- Worker newly blocked: order ID + requirement reason transition, no tick spam;
+  clear/resume permits a legitimate later reblock notification.
+- Finite order COMPLETED: one per order ID, actual completed batches x8 rounds.
+- Unresolved request + stock withheld by LOCKED/RESERVE FLOOR: reason transition,
+  not stock quantity increments; clearing then reoccurring may alert again.
+- Complete requested physical Soldier handoff: actual Supply transfer ledger,
+  not commitment/loading/departure/truck cargo or partial delivery. Readiness
+  wording also checks carried threshold and formation execution availability.
+- Newer delivered Company contact observations: copied authorized report metadata,
+  no local/pending/Platoon/hidden movement/death knowledge. Same-tick receipts
+  collapse into one information-available alert, existing3second observation cadence.
+- Established terminal victory/defeat: one result at latched terminal world time.
+
+No generic subscription framework, sound, preference system, tactical warnings,
+every-shot/death notifications, route ETA or automatic resolution is introduced.
+PA-ATT-001..004 remain provisional: these six categories, recent8, no forced map
+switch and transition-based creation. Acknowledgement never clears the underlying
+block/request; old alert text remains a timestamped event, not a live condition.
+
+Construction against an existing/loaded world primes current boundaries without
+replaying settled events. Reconstruction skips live alert updates; exiting does
+not replay history. Presentation values serialize through the existing codec, but
+Operations scene inbox persistence is not added to SAV/RSM schemas. Existing save
+and active-resume suites pass; arbitrary alert-history save migration is not claimed.
+
+Verification: `--headless --path . --script check_alerts.gd --log-file artifacts/alerts_model.log`
+runs40 focused checks; omit headless and append `-- --visual` for57 including actual
+count/assignment/map/policy/inquiry/history/ack controls. Twelve inspected captures
+show both attention directions, actual delivery, newer Company receipt, one terminal
+result, bounded acknowledged history and finite input block/receipt/resumption.
+All25 earlier model suites pass, including WRK99/SAV31/RSM33; import/diff clean.
+Evidence: `artifacts/alerts_checks.json`, `alerts_visual.log`, `alerts_*.png`,
+`alerts_regression_*.log`. Exact world graph checks isolate alert/ack read-only behavior.
+
+Observed experience limits: alerts expose useful moments without periodic map
+polling in the authored run, but this is engineering observation, not a human
+usability/fun result. Company receipts every3seconds can dominate the recent list
+late in contact; newest-only summary can put an information notice above an older
+unread rear action. History/count preserve visibility within8, not durable priority.
+No automatic switch preserves choice but requires Tab; passive transit still takes
+time. Distinguishing information available from intervention useful needs human
+evaluation; final salience/priority/audio/UI tuning remains outside this proof.
+
 ## T3-WRK-025 — Finite Worker production orders
 
 In operations.tscn, the Rear count selector chooses1/2/3 batches; WORKER ORDER [F]

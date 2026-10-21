@@ -2,10 +2,12 @@ extends RefCounted
 
 const Scenario = preload("res://scenario.gd")
 const Situation = preload("res://situation.gd")
+const Alerts = preload("res://operational_alerts.gd")
 var world = Scenario.new(true, true, true, true, false, true, false, true)
 var campaign_capabilities := {"BoltActionAmmoProduction": true}
 var initial_ammo := 0
 var objective_release_at := -1.0
+var alerts
 
 func _init() -> void:
 	world.battle.auto_strike = false
@@ -25,6 +27,7 @@ func _init() -> void:
 	forward_guard.origin = forward_guard.position
 	world.rear.capability_unlocked = campaign_capabilities.BoltActionAmmoProduction
 	initial_ammo = world.total_ammunition()
+	alerts = Alerts.new(world)
 
 func advance(delta: float) -> void:
 	world.advance(delta)
@@ -33,6 +36,7 @@ func advance(delta: float) -> void:
 	if world.secured and world.battle_active() and objective_release_at < 0:
 		objective_release_at = world.elapsed
 		world.battle.auto_strike = true
+	alerts.update(world)
 
 func step(duration: float) -> void:
 	for tick in range(int(round(duration * 60))):

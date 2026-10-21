@@ -46,3 +46,16 @@ batches are scheduled. A completed or stopped order never repeats by itself.
 
 Victory or defeat ends and freezes the battle. You can still switch maps to
 inspect the aftermath. There are no Soldier movement, targeting or attack orders.
+
+The bottom **ALERTS** strip shows the newest unread operational alert and unread
+count in either map. **H / ALERT HISTORY** expands the most recent eight alerts;
+click a row to acknowledge it, or **K / ACK NEWEST** for the newest unread alert.
+Acknowledgement only clears its unread state. Opening the list does not pause live
+play. Older alerts can drop out of this small history.
+
+Alerts cover blocked/completed Worker orders, stock awaiting military authorization,
+completed physical delivery, new reports received by Company, and the battle result.
+“Rear attention useful” and “Battlefield report available” are suggestions. You
+choose whether to switch with **Tab**. Alerts never authorize stock, start/stop work,
+issue military orders or switch maps for you. They do not expose enemy events that
+have not reached Company, and historical reconstruction does not replay live alerts.
