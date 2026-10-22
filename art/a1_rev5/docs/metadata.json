@@ -1,0 +1,749 @@
+{
+  "package": "Trencho_v3_A1_Consolidated_Rev5",
+  "status": "SOURCE READY / ENGINE CHECK PENDING",
+  "source_scale_px_per_m": 32,
+  "canonical_forward": "NORTH / UP",
+  "runtime_pngs": [
+    "infantry/inf_rifle_idle_00.png",
+    "infantry/inf_rifle_walk_00.png",
+    "infantry/inf_rifle_walk_01.png",
+    "infantry/inf_rifle_walk_02.png",
+    "infantry/inf_rifle_walk_03.png",
+    "infantry/inf_rifle_walk_04.png",
+    "infantry/inf_rifle_walk_05.png",
+    "infantry/inf_rifle_walk_06.png",
+    "infantry/inf_rifle_walk_07.png",
+    "terrain/terrain_grass_01.png",
+    "terrain/terrain_grass_02.png",
+    "roads/road_straight.png",
+    "roads/road_corner_90.png",
+    "vehicles/truck_logistics.png",
+    "vehicles/tank_hull.png",
+    "vehicles/tank_turret.png",
+    "buildings/house_rural.png",
+    "vegetation/tree_deciduous_01.png"
+  ],
+  "infantry": {
+    "body_pivot_px": [
+      48,
+      80
+    ],
+    "walk_loop_target_seconds": [
+      0.8,
+      0.9
+    ],
+    "movement_target_m_per_s": 1.4,
+    "frames": [
+      {
+        "file": "infantry/inf_rifle_idle_00.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          20
+        ],
+        "content_bbox_px": [
+          32,
+          20,
+          64,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_00.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          12
+        ],
+        "content_bbox_px": [
+          31,
+          12,
+          65,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_01.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          11
+        ],
+        "content_bbox_px": [
+          30,
+          11,
+          65,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_02.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          11
+        ],
+        "content_bbox_px": [
+          30,
+          11,
+          66,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_03.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          10
+        ],
+        "content_bbox_px": [
+          30,
+          10,
+          65,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_04.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          49,
+          13
+        ],
+        "content_bbox_px": [
+          29,
+          13,
+          66,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_05.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          15
+        ],
+        "content_bbox_px": [
+          32,
+          15,
+          64,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_06.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          48,
+          10
+        ],
+        "content_bbox_px": [
+          30,
+          10,
+          65,
+          90
+        ]
+      },
+      {
+        "file": "infantry/inf_rifle_walk_07.png",
+        "canvas_px": [
+          96,
+          96
+        ],
+        "body_pivot_px": [
+          48,
+          80
+        ],
+        "muzzle_px": [
+          46,
+          13
+        ],
+        "content_bbox_px": [
+          32,
+          13,
+          64,
+          90
+        ]
+      }
+    ]
+  },
+  "terrain": {
+    "files": [
+      "terrain/terrain_grass_01.png",
+      "terrain/terrain_grass_02.png"
+    ],
+    "module_size_px": [
+      256,
+      256
+    ],
+    "module_size_m": [
+      8,
+      8
+    ],
+    "seam_strategy": "Grass 01 is a periodicized, rotationally symmetrized seamless master texture. Grass 02 derives from it with a broad center-only blend from a second grass texture while preserving the seamless boundary neighborhood. This avoids the dark forced-border bands of Rev2/Rev3.",
+    "validation": {
+      "unrotated_exact_checks": {
+        "A_right_vs_A_left": false,
+        "A_right_vs_B_left": false,
+        "B_right_vs_A_left": false,
+        "B_right_vs_B_left": false,
+        "A_bottom_vs_A_top": false,
+        "A_bottom_vs_B_top": false,
+        "B_bottom_vs_A_top": false,
+        "B_bottom_vs_B_top": false
+      },
+      "rotation_edge_rms": {
+        "A_rot90_right_vs_A_left": 39.878753662109375,
+        "A_rot90_bottom_vs_A_top": 39.878753662109375,
+        "B_rot90_right_vs_A_left": 39.878753662109375,
+        "B_rot90_bottom_vs_A_top": 39.878753662109375
+      },
+      "edge_luma_delta_vs_adjacent_inner_strip": {
+        "A_top_16px_minus_next_16px": 2.081695556640625,
+        "A_left_16px_minus_next_16px": 2.0816879272460938,
+        "B_top_16px_minus_next_16px": 2.092987060546875,
+        "B_left_16px_minus_next_16px": 2.0929794311523438
+      }
+    },
+    "visual_review_images": [
+      "reference/grass_rotated_4x4_visual_check.png",
+      "reference/grass_rotated_4x4_visual_check_grid.png"
+    ]
+  },
+  "roads": {
+    "straight": {
+      "file": "roads/road_straight.png",
+      "canvas_px": [
+        256,
+        256
+      ],
+      "module_size_m": [
+        8,
+        8
+      ],
+      "paved_width_px": 192,
+      "paved_width_m": 6.0,
+      "connections": [
+        {
+          "name": "north",
+          "center_px": [
+            128,
+            0
+          ],
+          "tangent": [
+            0,
+            -1
+          ]
+        },
+        {
+          "name": "south",
+          "center_px": [
+            128,
+            255
+          ],
+          "tangent": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "corner_90": {
+      "file": "roads/road_corner_90.png",
+      "canvas_px": [
+        512,
+        512
+      ],
+      "module_size_m": [
+        16,
+        16
+      ],
+      "paved_width_px": 192,
+      "paved_width_m": 6.0,
+      "connections": [
+        {
+          "name": "south",
+          "center_px": [
+            200,
+            511
+          ],
+          "tangent": [
+            0,
+            1
+          ]
+        },
+        {
+          "name": "east",
+          "center_px": [
+            511,
+            200
+          ],
+          "tangent": [
+            1,
+            0
+          ]
+        }
+      ],
+      "centerline_type": "quarter_circle_arc",
+      "centerline_definition": {
+        "center_px": [
+          511,
+          511
+        ],
+        "radius_px": 311,
+        "radius_m": 9.71875,
+        "start_point_px": [
+          200,
+          511
+        ],
+        "end_point_px": [
+          511,
+          200
+        ],
+        "sweep_degrees": 90,
+        "quadrant": "northwest"
+      },
+      "pavement_half_width_px": 96,
+      "inner_pavement_radius_px": 215,
+      "inner_pavement_radius_m": 6.71875,
+      "debug_overlay": "reference/road_corner_debug_overlay.png"
+    }
+  },
+  "truck": {
+    "file": "vehicles/truck_logistics.png",
+    "canvas_px": [
+      256,
+      256
+    ],
+    "physical_size_m": [
+      6.0,
+      2.4
+    ],
+    "pivot_px": [
+      128,
+      128
+    ],
+    "authoritative_footprint_rect_px": [
+      90,
+      32,
+      167,
+      224
+    ],
+    "rear_access_point_px": [
+      128,
+      224
+    ],
+    "content_bbox_px": [
+      89,
+      36,
+      166,
+      220
+    ]
+  },
+  "tank": {
+    "hull_file": "vehicles/tank_hull.png",
+    "turret_file": "vehicles/tank_turret.png",
+    "hull_canvas_px": [
+      256,
+      256
+    ],
+    "turret_canvas_px": [
+      384,
+      384
+    ],
+    "physical_hull_size_m": [
+      5.8,
+      2.9
+    ],
+    "authoritative_hull_footprint_rect_px": [
+      82,
+      35,
+      175,
+      221
+    ],
+    "hull_pivot_px": [
+      128,
+      128
+    ],
+    "turret_ring_center_on_hull_px": [
+      128,
+      128
+    ],
+    "turret_pivot_px": [
+      192,
+      192
+    ],
+    "muzzle_point_px": [
+      192,
+      5
+    ],
+    "hull_content_bbox_px": [
+      79,
+      25,
+      178,
+      211
+    ],
+    "turret_content_bbox_px": [
+      134,
+      5,
+      251,
+      259
+    ]
+  },
+  "house": {
+    "file": "buildings/house_rural.png",
+    "canvas_px": [
+      320,
+      448
+    ],
+    "physical_footprint_m": [
+      8.0,
+      12.0
+    ],
+    "authoritative_footprint_rect_px": [
+      32,
+      26,
+      288,
+      410
+    ],
+    "entrance_point_px": [
+      160,
+      404
+    ],
+    "entrance_side": "south",
+    "roof_overhang_allowed": true,
+    "content_bbox_px": [
+      16,
+      14,
+      304,
+      424
+    ],
+    "bottom_row_alpha_ge_128_count": 0,
+    "calibration_note": "Source art was recalibrated so the complete rendered roof/eaves envelope covers the unchanged 256x384 px (8x12m) authoritative footprint; metadata was not shrunk to fit the art."
+  },
+  "tree": {
+    "file": "vegetation/tree_deciduous_01.png",
+    "canvas_px": [
+      192,
+      192
+    ],
+    "trunk_collision_center_px": [
+      96,
+      96
+    ],
+    "trunk_collision_radius_px": 12,
+    "visual_canopy_bbox_px": [
+      8,
+      9,
+      184,
+      182
+    ],
+    "approx_canopy_diameter_m": 5.0
+  },
+  "proof_images": [
+    "reference/house_on_contrasting_bg.png",
+    "reference/grass_rotated_4x4_visual_check.png",
+    "reference/grass_rotated_4x4_visual_check_grid.png",
+    "reference/road_corner_debug_overlay.png",
+    "reference/tank_registration_proof.png",
+    "reference/rev4_reference_sheet.png"
+  ],
+  "assets": [
+    {
+      "file": "buildings/house_rural.png",
+      "sha256": "77590facb59afc78c18e8cbdc7095e7181578d18bb354be8496f2b586c79d346",
+      "bytes": 239709,
+      "size_px": [
+        320,
+        448
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_idle_00.png",
+      "sha256": "a9ab6282f4eb8562d148c06702af34a81e919ab67868b170f5366d743fb84fd8",
+      "bytes": 4811,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_00.png",
+      "sha256": "e3cad9c0e3f5ae33353112b1f0171f7a67e29f44fd0a27244fd1a1f299b15d45",
+      "bytes": 5100,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_01.png",
+      "sha256": "595f6a28222c664b2157ebbe48e716be8896b72994ec1d8ac1996a66b7d74c11",
+      "bytes": 5307,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_02.png",
+      "sha256": "af7addef2f369b54cf9f1a80c70250d176af380366c27e4caca35a4440eb8511",
+      "bytes": 5409,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_03.png",
+      "sha256": "95ed42dad2476124204f2319718be5b3b6eb859f0d5f9fce427d2c60d69a852d",
+      "bytes": 5054,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_04.png",
+      "sha256": "5769cd2a25f78825f60a10ce810b5913b2e11bdc8c855f988445b80a176c2a00",
+      "bytes": 5230,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_05.png",
+      "sha256": "6647b916da80bd9aa886e896cd98bbe9238eb53f9c0ffc687a39ec9659396394",
+      "bytes": 4828,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_06.png",
+      "sha256": "b8d3b1ec661510e8d6a26638bae24ee069333d7530d9999f6cd309a76d660151",
+      "bytes": 5177,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "infantry/inf_rifle_walk_07.png",
+      "sha256": "ec6cede1dd5342507ecf787b068127930779ee511adc411b03d08a6e22ec5257",
+      "bytes": 5010,
+      "size_px": [
+        96,
+        96
+      ]
+    },
+    {
+      "file": "reference/grass_rotated_4x4_visual_check.png",
+      "sha256": "99f6288ffe00775620042864743413bfafc82eb682544714f4295517f21410bd",
+      "bytes": 954654,
+      "size_px": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "file": "reference/grass_rotated_4x4_visual_check_grid.png",
+      "sha256": "3b2007b16b6939f43f476d7ac05d705e6f69a8abaca0b92f13e8b54a89b6fd64",
+      "bytes": 955114,
+      "size_px": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "file": "reference/grass_seam_proof.png",
+      "sha256": "532058a83eaf242fe473687e4823356a433b7a7d0cd987483c93361bf05e0e3a",
+      "bytes": 1348718,
+      "size_px": [
+        1024,
+        512
+      ]
+    },
+    {
+      "file": "reference/house_on_contrasting_bg.png",
+      "sha256": "1445cf93505504d2dc94829f3ad956cc0c7e7cf8286f76d64381d815e856b940",
+      "bytes": 236405,
+      "size_px": [
+        440,
+        560
+      ]
+    },
+    {
+      "file": "reference/rev4_reference_sheet.png",
+      "sha256": "92d31b0e6bee9d2c7fcae4e17335f3d72778cd55d1e0b42d3f9ef9bac099c298",
+      "bytes": 737039,
+      "size_px": [
+        1800,
+        1400
+      ]
+    },
+    {
+      "file": "reference/revision_overview.png",
+      "sha256": "d806eb75cdad500cd0c84d1d41dff15c3d335ae40d0ce9072e445e1556e28095",
+      "bytes": 917249,
+      "size_px": [
+        2000,
+        1500
+      ]
+    },
+    {
+      "file": "reference/road_corner_debug_overlay.png",
+      "sha256": "0637400cd493a3ee47b6b748c465d2f25c178642d27934209e6d398c0860e563",
+      "bytes": 585535,
+      "size_px": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "reference/tank_registration_proof.png",
+      "sha256": "e1d0db7d640bae81695fffad48b417bda7e92b29d0caeeb12ef78dff5ba563a9",
+      "bytes": 80947,
+      "size_px": [
+        640,
+        384
+      ]
+    },
+    {
+      "file": "roads/road_corner_90.png",
+      "sha256": "c75fc6fa37626c1a85f0802912d43ec118eff43dc7091c1532fc27b9e13476d7",
+      "bytes": 580460,
+      "size_px": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "roads/road_straight.png",
+      "sha256": "5f2996ced3253afaa2610da99259cf5904948e56fad6475982d7cb21bc2a72dc",
+      "bytes": 142711,
+      "size_px": [
+        256,
+        256
+      ]
+    },
+    {
+      "file": "terrain/terrain_grass_01.png",
+      "sha256": "723dd57b96f6435701609cdacd70d06e23b3c41b18fd1568378927d6f96c6363",
+      "bytes": 154768,
+      "size_px": [
+        256,
+        256
+      ]
+    },
+    {
+      "file": "terrain/terrain_grass_02.png",
+      "sha256": "6f5cdaf6ecf4142f4f20fe9cdfd8f26aa4b7464b98ddf5997a869479661ae891",
+      "bytes": 155660,
+      "size_px": [
+        256,
+        256
+      ]
+    },
+    {
+      "file": "vegetation/tree_deciduous_01.png",
+      "sha256": "9fd83e07a0dd45927ef9ee6b7a2c166215ca0e5b5fbf29121be8cc8a0f494903",
+      "bytes": 67283,
+      "size_px": [
+        192,
+        192
+      ]
+    },
+    {
+      "file": "vehicles/tank_hull.png",
+      "sha256": "0526f790d1872bb480ad439701d3d8ddd4e9a56bc0a8a6f4d1619fc20bfe7505",
+      "bytes": 45573,
+      "size_px": [
+        256,
+        256
+      ]
+    },
+    {
+      "file": "vehicles/tank_turret.png",
+      "sha256": "7ba02f59804ffda2d80d6bf160a21dc84acde357bb9741df56a68dab13503f12",
+      "bytes": 37356,
+      "size_px": [
+        384,
+        384
+      ]
+    },
+    {
+      "file": "vehicles/truck_logistics.png",
+      "sha256": "979f8c7f85bc8eeda6f03db41a1fa3a6836a3395a480ef041fe91def80a83569",
+      "bytes": 29287,
+      "size_px": [
+        256,
+        256
+      ]
+    }
+  ],
+  "reference_validation": {
+    "all_referenced_files_exist": true,
+    "missing": []
+  }
+}

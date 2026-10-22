@@ -1,0 +1,18 @@
+{
+  "terrain/terrain_grass_01.png": {
+    "sha256": "b8868dfb4ee76c5c95cf65f06ddd383aed1be27c6d5a23c77db3216d9eea61fb",
+    "bytes": 149905
+  },
+  "terrain/terrain_grass_02.png": {
+    "sha256": "24a7436015cabb92a2380628ee7508da5d3559fe8035428233d92800107c78a1",
+    "bytes": 150179
+  },
+  "reference/grass_rotated_4x4_full.png": {
+    "sha256": "b74fc1ec1213f4ec0490213e314d7b4e3e094dce1b3118ecd377ac1288a826fe",
+    "bytes": 2388606
+  },
+  "reference/grass_rotated_4x4_downsample_320.png": {
+    "sha256": "f2154a0dca7ad4a359ce2c0b8ff67fb687f572b0bee980066d610f9455fa5494",
+    "bytes": 209962
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "base_archive": {
+    "name": "Trencho_v3_A1_Consolidated_Rev5.zip",
+    "sha256": "bf6e01da1a4c58d8879305b313a0e5637a92377a68bb1cebce08b21e3e2b4adc"
+  },
+  "grass_patch_archive": {
+    "name": "Trencho_v3_Grass_Patch_Rev6.zip",
+    "sha256": "660dd1877f96a9584d7a220a2955fd24039b148d6b54df9583b51ff0abc0aa30"
+  },
+  "original_rev5_runtime_sha256": {
+    "infantry/inf_rifle_idle_00.png": "a9ab6282f4eb8562d148c06702af34a81e919ab67868b170f5366d743fb84fd8",
+    "infantry/inf_rifle_walk_00.png": "e3cad9c0e3f5ae33353112b1f0171f7a67e29f44fd0a27244fd1a1f299b15d45",
+    "infantry/inf_rifle_walk_01.png": "595f6a28222c664b2157ebbe48e716be8896b72994ec1d8ac1996a66b7d74c11",
+    "infantry/inf_rifle_walk_02.png": "af7addef2f369b54cf9f1a80c70250d176af380366c27e4caca35a4440eb8511",
+    "infantry/inf_rifle_walk_03.png": "95ed42dad2476124204f2319718be5b3b6eb859f0d5f9fce427d2c60d69a852d",
+    "infantry/inf_rifle_walk_04.png": "5769cd2a25f78825f60a10ce810b5913b2e11bdc8c855f988445b80a176c2a00",
+    "infantry/inf_rifle_walk_05.png": "6647b916da80bd9aa886e896cd98bbe9238eb53f9c0ffc687a39ec9659396394",
+    "infantry/inf_rifle_walk_06.png": "b8d3b1ec661510e8d6a26638bae24ee069333d7530d9999f6cd309a76d660151",
+    "infantry/inf_rifle_walk_07.png": "ec6cede1dd5342507ecf787b068127930779ee511adc411b03d08a6e22ec5257",
+    "terrain/terrain_grass_01.png": "723dd57b96f6435701609cdacd70d06e23b3c41b18fd1568378927d6f96c6363",
+    "terrain/terrain_grass_02.png": "6f5cdaf6ecf4142f4f20fe9cdfd8f26aa4b7464b98ddf5997a869479661ae891",
+    "roads/road_corner_90.png": "c75fc6fa37626c1a85f0802912d43ec118eff43dc7091c1532fc27b9e13476d7",
+    "roads/road_straight.png": "5f2996ced3253afaa2610da99259cf5904948e56fad6475982d7cb21bc2a72dc",
+    "vehicles/tank_hull.png": "0526f790d1872bb480ad439701d3d8ddd4e9a56bc0a8a6f4d1619fc20bfe7505",
+    "vehicles/tank_turret.png": "7ba02f59804ffda2d80d6bf160a21dc84acde357bb9741df56a68dab13503f12",
+    "vehicles/truck_logistics.png": "979f8c7f85bc8eeda6f03db41a1fa3a6836a3395a480ef041fe91def80a83569",
+    "buildings/house_rural.png": "77590facb59afc78c18e8cbdc7095e7181578d18bb354be8496f2b586c79d346",
+    "vegetation/tree_deciduous_01.png": "9fd83e07a0dd45927ef9ee6b7a2c166215ca0e5b5fbf29121be8cc8a0f494903"
+  },
+  "active_runtime_sha256": {
+    "infantry/inf_rifle_idle_00.png": "a9ab6282f4eb8562d148c06702af34a81e919ab67868b170f5366d743fb84fd8",
+    "infantry/inf_rifle_walk_00.png": "e3cad9c0e3f5ae33353112b1f0171f7a67e29f44fd0a27244fd1a1f299b15d45",
+    "infantry/inf_rifle_walk_01.png": "595f6a28222c664b2157ebbe48e716be8896b72994ec1d8ac1996a66b7d74c11",
+    "infantry/inf_rifle_walk_02.png": "af7addef2f369b54cf9f1a80c70250d176af380366c27e4caca35a4440eb8511",
+    "infantry/inf_rifle_walk_03.png": "95ed42dad2476124204f2319718be5b3b6eb859f0d5f9fce427d2c60d69a852d",
+    "infantry/inf_rifle_walk_04.png": "5769cd2a25f78825f60a10ce810b5913b2e11bdc8c855f988445b80a176c2a00",
+    "infantry/inf_rifle_walk_05.png": "6647b916da80bd9aa886e896cd98bbe9238eb53f9c0ffc687a39ec9659396394",
+    "infantry/inf_rifle_walk_06.png": "b8d3b1ec661510e8d6a26638bae24ee069333d7530d9999f6cd309a76d660151",
+    "infantry/inf_rifle_walk_07.png": "ec6cede1dd5342507ecf787b068127930779ee511adc411b03d08a6e22ec5257",
+    "terrain/terrain_grass_01.png": "b8868dfb4ee76c5c95cf65f06ddd383aed1be27c6d5a23c77db3216d9eea61fb",
+    "terrain/terrain_grass_02.png": "24a7436015cabb92a2380628ee7508da5d3559fe8035428233d92800107c78a1",
+    "roads/road_corner_90.png": "c75fc6fa37626c1a85f0802912d43ec118eff43dc7091c1532fc27b9e13476d7",
+    "roads/road_straight.png": "5f2996ced3253afaa2610da99259cf5904948e56fad6475982d7cb21bc2a72dc",
+    "vehicles/tank_hull.png": "0526f790d1872bb480ad439701d3d8ddd4e9a56bc0a8a6f4d1619fc20bfe7505",
+    "vehicles/tank_turret.png": "7ba02f59804ffda2d80d6bf160a21dc84acde357bb9741df56a68dab13503f12",
+    "vehicles/truck_logistics.png": "979f8c7f85bc8eeda6f03db41a1fa3a6836a3395a480ef041fe91def80a83569",
+    "buildings/house_rural.png": "77590facb59afc78c18e8cbdc7095e7181578d18bb354be8496f2b586c79d346",
+    "vegetation/tree_deciduous_01.png": "9fd83e07a0dd45927ef9ee6b7a2c166215ca0e5b5fbf29121be8cc8a0f494903"
+  },
+  "unchanged_active_rev5_runtime_count": 16,
+  "grass_status": "PASS FOR CURRENT REPRESENTATIVE SLICE",
+  "road_status": "ACCEPTABLE PROVISIONAL / PRODUCTION POLISH LATER",
+  "house_status": "ACCEPTABLE PROVISIONAL / PRODUCTION POLISH LATER",
+  "designer_gate": "T3-VIS-031-G1",
+  "developer_source_png_edits": false
+}

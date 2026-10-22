@@ -1,0 +1,13 @@
+{
+  "package_sha256": "bf6e01da1a4c58d8879305b313a0e5637a92377a68bb1cebce08b21e3e2b4adc",
+  "scope": "Isolated engine diagnostics only, authorized by Project Manage - Video Game Designer in decision40627. Source contract passes with provisional visual warnings; final art is not accepted.",
+  "families": {
+    "infantry": {"status": "PASS", "reason": "Inspected nine-frame overlay: complete96px canvases, common documented body pivot and per-frame muzzle points, no edge clipping. Runtime registration and walk appearance remain engine checks."},
+    "grass": {"status": "PASS", "reason": "Provisional diagnostic-use approval40627 only. Inspected mixed rotated4x4 source patch: thin border lines remain. Judge their severity at actual gameplay zoom; do not treat exact edge checks as final seam acceptance."},
+    "road": {"status": "PASS", "reason": "Inspected actual raster/path/truck overlay: coherent NW circle, center511511radius311, correct tangent ports and truck corridor. Stretched markings remain a provisional warning to assess at engine camera scales under40627."},
+    "truck": {"status": "PASS", "reason": "Inspected source footprint/access overlay: complete silhouette and correctly scaled6x2.4m authoritative envelope; no opaque canvas-edge clipping."},
+    "tank": {"status": "PASS", "reason": "Inspected actual hull/turret composition at0/45/90degrees: full turret body, stable common ring, documented muzzle. Independent engine headings remain to be checked."},
+    "house": {"status": "PASS", "reason": "Inspected footprint/entrance overlay: complete roof/eaves cover8x12m envelope; entrance inside south structure. Small facade cue is provisionally permitted by40627 pending contextual engine review."},
+    "tree": {"status": "PASS", "reason": "Inspected source canopy/trunk overlay: complete alpha silhouette, separate12px collision radius and visual canopy bounds; no source clipping."}
+  }
+}

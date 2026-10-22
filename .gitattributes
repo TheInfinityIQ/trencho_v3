@@ -1,0 +1,3 @@
+# Preserve artist-delivered bytes, including hash-bound source metadata/proofs.
+art/a1_rev5/** -text
+art/a1_grass_rev6/** -text

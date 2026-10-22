@@ -1,0 +1,122 @@
+{
+  "format": "mapping: relative_path -> {sha256, bytes}",
+  "note": "docs/file_hashes.json omits its own hash to avoid self-reference",
+  "files": {
+    "buildings/house_rural.png": {
+      "sha256": "77590facb59afc78c18e8cbdc7095e7181578d18bb354be8496f2b586c79d346",
+      "bytes": 239709
+    },
+    "docs/README.md": {
+      "sha256": "2ce959cdc5448cea9327d72dddf2538e619b4da3db1983efd0f656e2c7075792",
+      "bytes": 168
+    },
+    "docs/VALIDATION.md": {
+      "sha256": "5bdd4dd7bd125f72cb0465d6ee97357c76ccdc09f7a75b5b53406736c67b9bb2",
+      "bytes": 746
+    },
+    "docs/metadata.json": {
+      "sha256": "3c04e782865f94f2d0347a808fabdec42a4dc0b71d61c6f308d6e3886ff30398",
+      "bytes": 15906
+    },
+    "infantry/inf_rifle_idle_00.png": {
+      "sha256": "a9ab6282f4eb8562d148c06702af34a81e919ab67868b170f5366d743fb84fd8",
+      "bytes": 4811
+    },
+    "infantry/inf_rifle_walk_00.png": {
+      "sha256": "e3cad9c0e3f5ae33353112b1f0171f7a67e29f44fd0a27244fd1a1f299b15d45",
+      "bytes": 5100
+    },
+    "infantry/inf_rifle_walk_01.png": {
+      "sha256": "595f6a28222c664b2157ebbe48e716be8896b72994ec1d8ac1996a66b7d74c11",
+      "bytes": 5307
+    },
+    "infantry/inf_rifle_walk_02.png": {
+      "sha256": "af7addef2f369b54cf9f1a80c70250d176af380366c27e4caca35a4440eb8511",
+      "bytes": 5409
+    },
+    "infantry/inf_rifle_walk_03.png": {
+      "sha256": "95ed42dad2476124204f2319718be5b3b6eb859f0d5f9fce427d2c60d69a852d",
+      "bytes": 5054
+    },
+    "infantry/inf_rifle_walk_04.png": {
+      "sha256": "5769cd2a25f78825f60a10ce810b5913b2e11bdc8c855f988445b80a176c2a00",
+      "bytes": 5230
+    },
+    "infantry/inf_rifle_walk_05.png": {
+      "sha256": "6647b916da80bd9aa886e896cd98bbe9238eb53f9c0ffc687a39ec9659396394",
+      "bytes": 4828
+    },
+    "infantry/inf_rifle_walk_06.png": {
+      "sha256": "b8d3b1ec661510e8d6a26638bae24ee069333d7530d9999f6cd309a76d660151",
+      "bytes": 5177
+    },
+    "infantry/inf_rifle_walk_07.png": {
+      "sha256": "ec6cede1dd5342507ecf787b068127930779ee511adc411b03d08a6e22ec5257",
+      "bytes": 5010
+    },
+    "reference/grass_rotated_4x4_visual_check.png": {
+      "sha256": "99f6288ffe00775620042864743413bfafc82eb682544714f4295517f21410bd",
+      "bytes": 954654
+    },
+    "reference/grass_rotated_4x4_visual_check_grid.png": {
+      "sha256": "3b2007b16b6939f43f476d7ac05d705e6f69a8abaca0b92f13e8b54a89b6fd64",
+      "bytes": 955114
+    },
+    "reference/grass_seam_proof.png": {
+      "sha256": "532058a83eaf242fe473687e4823356a433b7a7d0cd987483c93361bf05e0e3a",
+      "bytes": 1348718
+    },
+    "reference/house_on_contrasting_bg.png": {
+      "sha256": "1445cf93505504d2dc94829f3ad956cc0c7e7cf8286f76d64381d815e856b940",
+      "bytes": 236405
+    },
+    "reference/rev4_reference_sheet.png": {
+      "sha256": "92d31b0e6bee9d2c7fcae4e17335f3d72778cd55d1e0b42d3f9ef9bac099c298",
+      "bytes": 737039
+    },
+    "reference/revision_overview.png": {
+      "sha256": "d806eb75cdad500cd0c84d1d41dff15c3d335ae40d0ce9072e445e1556e28095",
+      "bytes": 917249
+    },
+    "reference/road_corner_debug_overlay.png": {
+      "sha256": "0637400cd493a3ee47b6b748c465d2f25c178642d27934209e6d398c0860e563",
+      "bytes": 585535
+    },
+    "reference/tank_registration_proof.png": {
+      "sha256": "e1d0db7d640bae81695fffad48b417bda7e92b29d0caeeb12ef78dff5ba563a9",
+      "bytes": 80947
+    },
+    "roads/road_corner_90.png": {
+      "sha256": "c75fc6fa37626c1a85f0802912d43ec118eff43dc7091c1532fc27b9e13476d7",
+      "bytes": 580460
+    },
+    "roads/road_straight.png": {
+      "sha256": "5f2996ced3253afaa2610da99259cf5904948e56fad6475982d7cb21bc2a72dc",
+      "bytes": 142711
+    },
+    "terrain/terrain_grass_01.png": {
+      "sha256": "723dd57b96f6435701609cdacd70d06e23b3c41b18fd1568378927d6f96c6363",
+      "bytes": 154768
+    },
+    "terrain/terrain_grass_02.png": {
+      "sha256": "6f5cdaf6ecf4142f4f20fe9cdfd8f26aa4b7464b98ddf5997a869479661ae891",
+      "bytes": 155660
+    },
+    "vegetation/tree_deciduous_01.png": {
+      "sha256": "9fd83e07a0dd45927ef9ee6b7a2c166215ca0e5b5fbf29121be8cc8a0f494903",
+      "bytes": 67283
+    },
+    "vehicles/tank_hull.png": {
+      "sha256": "0526f790d1872bb480ad439701d3d8ddd4e9a56bc0a8a6f4d1619fc20bfe7505",
+      "bytes": 45573
+    },
+    "vehicles/tank_turret.png": {
+      "sha256": "7ba02f59804ffda2d80d6bf160a21dc84acde357bb9741df56a68dab13503f12",
+      "bytes": 37356
+    },
+    "vehicles/truck_logistics.png": {
+      "sha256": "979f8c7f85bc8eeda6f03db41a1fa3a6836a3395a480ef041fe91def80a83569",
+      "bytes": 29287
+    }
+  }
+}
