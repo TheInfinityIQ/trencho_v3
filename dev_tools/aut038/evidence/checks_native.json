@@ -1,0 +1,1225 @@
+{
+	"checks": 43,
+	"evidence": [
+		{
+			"anchors": {
+				"MAIN": [
+					403.96875,
+					545.0
+				],
+				"RESERVE": [
+					239.089279174805,
+					487.791442871094
+				],
+				"SUPPORT": [
+					319.96875,
+					541.0
+				]
+			},
+			"decision_fingerprint": "e181cb5df7e402da3d46c31186939d23f31b937c5f35b848d6bee221889ca5f9",
+			"final_routes": [
+				[
+					[
+						309.969177246094,
+						488.411804199219
+					],
+					[
+						309.969177246094,
+						515.261779785156
+					],
+					[
+						319.96875,
+						541.0
+					]
+				],
+				[
+					[
+						288.221282958984,
+						514.800354003906
+					],
+					[
+						309.96875,
+						550.0
+					]
+				],
+				[
+					[
+						256.0,
+						489.0
+					],
+					[
+						260.67529296875,
+						490.612457275391
+					],
+					[
+						265.383331298828,
+						515.255065917969
+					],
+					[
+						305.96875,
+						532.0
+					]
+				],
+				[]
+			],
+			"graph_edges": 4377,
+			"graph_nodes": 583,
+			"initial_routes": [
+				[
+					[
+						288.0,
+						489.0
+					],
+					[
+						352.0,
+						481.0
+					],
+					[
+						384.0,
+						489.0
+					],
+					[
+						403.96875,
+						545.0
+					]
+				],
+				[
+					[
+						283.514587402344,
+						491.405090332031
+					],
+					[
+						288.221282958984,
+						514.800354003906
+					],
+					[
+						352.0,
+						544.0
+					],
+					[
+						393.96875,
+						554.0
+					]
+				],
+				[
+					[
+						256.0,
+						489.0
+					],
+					[
+						260.67529296875,
+						490.612457275391
+					],
+					[
+						265.383331298828,
+						515.255065917969
+					],
+					[
+						305.96875,
+						532.0
+					]
+				],
+				[]
+			],
+			"seed": 35035,
+			"state_history": [
+				[
+					{
+						"destination": [
+							403.96875,
+							545.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Advance main formation",
+						"time": 0.0
+					},
+					{
+						"destination": [
+							319.96875,
+							541.0
+						],
+						"route_revision": 2,
+						"state": "REASSIGNED",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							319.96875,
+							541.0
+						],
+						"route_revision": 2,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							319.96875,
+							541.0
+						],
+						"route_revision": 2,
+						"state": "ARRIVED",
+						"task": "Redirect main formation",
+						"time": 65.3666666666643
+					}
+				],
+				[
+					{
+						"destination": [
+							393.96875,
+							554.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Advance main formation",
+						"time": 0.0
+					},
+					{
+						"destination": [
+							309.96875,
+							550.0
+						],
+						"route_revision": 2,
+						"state": "REASSIGNED",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							309.96875,
+							550.0
+						],
+						"route_revision": 2,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							309.96875,
+							550.0
+						],
+						"route_revision": 2,
+						"state": "ARRIVED",
+						"task": "Redirect main formation",
+						"time": 58.6833333333314
+					}
+				],
+				[
+					{
+						"destination": [
+							305.96875,
+							532.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Establish support",
+						"time": 0.0
+					},
+					{
+						"destination": [
+							305.96875,
+							532.0
+						],
+						"route_revision": 1,
+						"state": "ARRIVED",
+						"task": "Establish support",
+						"time": 53.8333333333316
+					}
+				],
+				[]
+			],
+			"states": [
+				"ARRIVED",
+				"ARRIVED",
+				"ARRIVED",
+				"HOLDING"
+			],
+			"trace": [
+				{
+					"actor": "HQ",
+					"choice": "Company receives generated MAIN anchor",
+					"echelon": "Operational",
+					"intent": "Advance main effort; establish support and retain reserve",
+					"reason": "Bounded deterministic operational intent; execution delegated",
+					"time": 0.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P1: Main effort",
+					"echelon": "Company",
+					"intent": "Advance main effort; establish support and retain reserve",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 0.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-A: Advance main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A",
+					"choice": "Geography route revision 1 with 4 waypoints",
+					"commander_person": "P1-A.1",
+					"echelon": "Squad",
+					"intent": "Advance main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-B: Advance main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B",
+					"choice": "Geography route revision 1 with 4 waypoints",
+					"commander_person": "P1-B.1",
+					"echelon": "Squad",
+					"intent": "Advance main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-B.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P2: Support / reserve",
+					"echelon": "Company",
+					"intent": "Advance main effort; establish support and retain reserve",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 0.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-A: Establish support",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A",
+					"choice": "Geography route revision 1 with 4 waypoints",
+					"commander_person": "P2-A.1",
+					"echelon": "Squad",
+					"intent": "Establish support",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P2-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-B: Hold reserve",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Retained capacity at generated staging area",
+					"time": 0.0
+				},
+				{
+					"actor": "HQ",
+					"choice": "Company receives generated SUPPORT anchor",
+					"echelon": "Operational",
+					"intent": "Redirect main effort to SUPPORT",
+					"reason": "Bounded deterministic operational intent; execution delegated",
+					"time": 24.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P1: Main effort",
+					"echelon": "Company",
+					"intent": "Redirect main effort to SUPPORT",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 24.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-A: Redirect main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A",
+					"choice": "Geography route revision 2 with 3 waypoints",
+					"commander_person": "P1-A.1",
+					"echelon": "Squad",
+					"intent": "Redirect main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-B: Redirect main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-B",
+					"choice": "Geography route revision 2 with 2 waypoints",
+					"commander_person": "P1-B.1",
+					"echelon": "Squad",
+					"intent": "Redirect main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-B.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-B.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-B.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-B.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P2: Support / reserve",
+					"echelon": "Company",
+					"intent": "Redirect main effort to SUPPORT",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 24.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-A: Establish support",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A",
+					"choice": "Geography route revision 1 with 4 waypoints",
+					"commander_person": "P2-A.1",
+					"echelon": "Squad",
+					"intent": "Establish support",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P2-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-B: Hold reserve",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Retained capacity at generated staging area",
+					"time": 24.0
+				}
+			]
+		},
+		{
+			"anchors": {
+				"MAIN": [
+					401.53125,
+					630.0
+				],
+				"RESERVE": [
+					248.53125,
+					573.0
+				],
+				"SUPPORT": [
+					322.53125,
+					626.0
+				]
+			},
+			"decision_fingerprint": "16e96ba9e5100b72b2a276910dcad226699bdc26a5832a4f7f7c8769ccdaf7c2",
+			"final_routes": [
+				[
+					[
+						319.933959960938,
+						572.680541992188
+					],
+					[
+						317.434204101563,
+						598.023193359375
+					],
+					[
+						308.53125,
+						617.0
+					]
+				],
+				[],
+				[
+					[
+						322.53125,
+						626.0
+					]
+				],
+				[
+					[
+						256.0,
+						574.0
+					],
+					[
+						270.409240722656,
+						577.613708496094
+					],
+					[
+						272.941192626953,
+						597.642578125
+					],
+					[
+						312.53125,
+						635.0
+					]
+				]
+			],
+			"graph_edges": 4459,
+			"graph_nodes": 601,
+			"initial_routes": [
+				[
+					[
+						320.0,
+						566.0
+					],
+					[
+						352.0,
+						574.0
+					],
+					[
+						362.757934570313,
+						577.418579101563
+					],
+					[
+						401.53125,
+						630.0
+					]
+				],
+				[
+					[
+						288.0,
+						574.0
+					],
+					[
+						293.259948730469,
+						575.823852539063
+					],
+					[
+						296.896697998047,
+						598.023193359375
+					],
+					[
+						352.0,
+						608.0
+					],
+					[
+						391.53125,
+						639.0
+					]
+				],
+				[
+					[
+						270.409240722656,
+						577.613708496094
+					],
+					[
+						272.941192626953,
+						597.642578125
+					],
+					[
+						308.53125,
+						617.0
+					]
+				],
+				[]
+			],
+			"seed": 35036,
+			"state_history": [
+				[
+					{
+						"destination": [
+							401.53125,
+							630.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Advance main formation",
+						"time": 0.0
+					},
+					{
+						"destination": [
+							308.53125,
+							617.0
+						],
+						"route_revision": 2,
+						"state": "REASSIGNED",
+						"task": "Establish support",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							308.53125,
+							617.0
+						],
+						"route_revision": 2,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Establish support",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							308.53125,
+							617.0
+						],
+						"route_revision": 2,
+						"state": "ARRIVED",
+						"task": "Establish support",
+						"time": 61.8333333333312
+					}
+				],
+				[
+					{
+						"destination": [
+							391.53125,
+							639.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Advance main formation",
+						"time": 0.0
+					},
+					{
+						"destination": [
+							295.930053710938,
+							592.117248535156
+						],
+						"route_revision": 1,
+						"state": "HOLDING",
+						"task": "Hold reserve",
+						"time": 24.0
+					}
+				],
+				[
+					{
+						"destination": [
+							308.53125,
+							617.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Establish support",
+						"time": 0.0
+					},
+					{
+						"destination": [
+							322.53125,
+							626.0
+						],
+						"route_revision": 2,
+						"state": "REASSIGNED",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							322.53125,
+							626.0
+						],
+						"route_revision": 2,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							322.53125,
+							626.0
+						],
+						"route_revision": 2,
+						"state": "ARRIVED",
+						"task": "Redirect main formation",
+						"time": 60.5666666666646
+					}
+				],
+				[
+					{
+						"destination": [
+							312.53125,
+							635.0
+						],
+						"route_revision": 1,
+						"state": "MOVING_TO_OBJECTIVE",
+						"task": "Redirect main formation",
+						"time": 24.0
+					},
+					{
+						"destination": [
+							312.53125,
+							635.0
+						],
+						"route_revision": 1,
+						"state": "ARRIVED",
+						"task": "Redirect main formation",
+						"time": 90.5166666666629
+					}
+				]
+			],
+			"states": [
+				"ARRIVED",
+				"HOLDING",
+				"ARRIVED",
+				"ARRIVED"
+			],
+			"trace": [
+				{
+					"actor": "HQ",
+					"choice": "Company receives generated MAIN anchor",
+					"echelon": "Operational",
+					"intent": "Advance main effort; establish support and retain reserve",
+					"reason": "Bounded deterministic operational intent; execution delegated",
+					"time": 0.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P1: Main effort",
+					"echelon": "Company",
+					"intent": "Advance main effort; establish support and retain reserve",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 0.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-A: Advance main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A",
+					"choice": "Geography route revision 1 with 4 waypoints",
+					"commander_person": "P1-A.1",
+					"echelon": "Squad",
+					"intent": "Advance main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-B: Advance main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B",
+					"choice": "Geography route revision 1 with 5 waypoints",
+					"commander_person": "P1-B.1",
+					"echelon": "Squad",
+					"intent": "Advance main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-B.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P1-B.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Advance main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P2: Support / reserve",
+					"echelon": "Company",
+					"intent": "Advance main effort; establish support and retain reserve",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 0.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-A: Establish support",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A",
+					"choice": "Geography route revision 1 with 3 waypoints",
+					"commander_person": "P2-A.1",
+					"echelon": "Squad",
+					"intent": "Establish support",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P2-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 0.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-B: Hold reserve",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Retained capacity at generated staging area",
+					"time": 0.0
+				},
+				{
+					"actor": "HQ",
+					"choice": "Company receives generated SUPPORT anchor",
+					"echelon": "Operational",
+					"intent": "Redirect main effort to SUPPORT",
+					"reason": "Bounded deterministic operational intent; execution delegated",
+					"time": 24.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P1: Support / reserve",
+					"echelon": "Company",
+					"intent": "Redirect main effort to SUPPORT",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 24.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-A: Establish support",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A",
+					"choice": "Geography route revision 2 with 3 waypoints",
+					"commander_person": "P1-A.1",
+					"echelon": "Squad",
+					"intent": "Establish support",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P1-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Establish support",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P1",
+					"choice": "P1-B: Hold reserve",
+					"echelon": "Platoon",
+					"intent": "Support / reserve",
+					"reason": "Retained capacity at generated staging area",
+					"time": 24.0
+				},
+				{
+					"actor": "C1",
+					"choice": "P2: Main effort",
+					"echelon": "Company",
+					"intent": "Redirect main effort to SUPPORT",
+					"reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+					"time": 24.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-A: Redirect main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A",
+					"choice": "Geography route revision 2 with 1 waypoints",
+					"commander_person": "P2-A.1",
+					"echelon": "Squad",
+					"intent": "Redirect main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P2-A.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-A.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2",
+					"choice": "P2-B: Redirect main formation",
+					"echelon": "Platoon",
+					"intent": "Main effort",
+					"reason": "Separate subordinate formation destinations; Squad selects route",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-B",
+					"choice": "Geography route revision 1 with 4 waypoints",
+					"commander_person": "P2-B.1",
+					"echelon": "Squad",
+					"intent": "Redirect main formation",
+					"reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+				},
+				{
+					"actor": "P2-B.1",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-B.2",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-B.3",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				},
+				{
+					"actor": "P2-B.4",
+					"choice": "Follow Squad formation slot at 1.4 m/s",
+					"echelon": "Soldier",
+					"intent": "Redirect main formation",
+					"reason": "Real individual position and movement budget; no assigned proof patrol",
+					"time": 24.0
+				}
+			]
+		},
+		{
+			"cap": 300,
+			"fingerprint": "b76b526734fbfdbf4c22342f1afb644777879c5607dced68a08ed6424cb9f305",
+			"generation": 1,
+			"model_update_us_max": 6829,
+			"model_update_us_p50": 176,
+			"model_update_us_p95": 244,
+			"native_people": 18,
+			"native_world_time": 140.000000000004,
+			"reassignment_update_us": 6829,
+			"slow_updates": [
+				{
+					"route_queries": 5,
+					"update_us": 6829,
+					"world_time": 24.0
+				}
+			]
+		}
+	],
+	"failures": [],
+	"native_model_update_us": [],
+	"native_reassignment_update_us": 6829
+}

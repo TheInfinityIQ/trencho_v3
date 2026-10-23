@@ -6,6 +6,8 @@ const Person = preload("res://soldier.gd")
 const Visual = preload("res://soldier_visual.gd")
 const Rural = preload("res://sector_environment.gd")
 const ParcelShader = preload("res://sector_parcel.gdshader")
+const Autonomous = preload("res://sector_scenario.gd")
+var world
 var layout = Layout.new()
 var environment = Rural.new()
 var parcel_materials: Array = []
@@ -166,6 +168,7 @@ func set_seed(value: int) -> void:
 	_active_chunk_range = Rect2i(-1, -1, 0, 0)
 	layout.generate(value)
 	environment.compose(layout)
+	world = Autonomous.new(layout, environment)
 	prepare_parcel_materials()
 	for chunk in layout.chunks:
 		var node := Node2D.new(); node.position = Vector2(chunk.key) * 256 * 32; static_root.add_child(node); chunk_nodes.append(node)
@@ -190,12 +193,12 @@ func set_seed(value: int) -> void:
 		for key in groups:
 			var z := 4 if key == "tree" else (3 if key in ["house", "house_b", "house_c", "farmhouse_d"] else 1)
 			batch(node, key, groups[key], z)
-	for i in range(layout.spawns.size()):
-		var spawn: Dictionary = layout.spawns[i]
-		var person = Person.new("Sector-%02d" % i, spawn.position, spawn.speed)
-		person.path.assign(spawn.route)
-		people.append(person)
+	people = world.all_people()
+	for person in people:
 		var visual := Visual.new(); visual.model_to_presentation = Transform2D(Vector2(32, 0), Vector2(0, 32), Vector2.ZERO); actors.add_child(visual); visual.bind_model(person); visuals.append(visual)
+	# The cohort starts moving immediately. Load the existing shared walking clip
+	# during setup, rather than making the first simulation tick pay its I/O cost.
+	Visual.Art.clip("standing_walk")
 	elapsed = 0
 	paused = false
 	generation_count += 1
@@ -211,13 +214,11 @@ func set_seed(value: int) -> void:
 
 func advance_models(delta: float) -> void:
 	var started := Time.get_ticks_usec()
-	elapsed += delta
+	world.advance(delta)
+	elapsed = world.elapsed
 	actor_chunks.clear()
 	for i in range(people.size()):
 		var person = people[i]
-		if person.arrived:
-			person.waypoint = 0; person.arrived = false
-		person.advance(delta)
 		visuals[i].sample(delta)
 		actor_chunks.append(Layout.owner(person.position))
 	# Presentation-only loop, reset at sector exit; no campaign vehicle changes.
@@ -334,7 +335,9 @@ func refresh_debug(redraw_static := false) -> void:
 	overlay.visible = debug_enabled; moving_overlay.visible = debug_enabled; status.visible = debug_enabled
 	if debug_enabled and redraw_static:
 		overlay.queue_redraw(); moving_overlay.queue_redraw()
-	if debug_enabled: status.text = "Seed %d · %s\n24 chunks · %d active · %d road modules · %d homes · %d trees\n6 fields · 3 meadows · %d access pieces\n16 Soldiers @ 1.4 m/s · truck @ 12 m/s · %d batches\nCamera %.1f, %.1f m · generation %.1f ms" % [layout.seed_value, Rural.VERSION, active_chunks, layout.roads.size(), layout.houses.size(), layout.trees.size(), environment.access.size(), batch_count, camera.position.x / 32, camera.position.y / 32, generation_ms]
+	if debug_enabled:
+		status.text = "Seed %d · %s · scenario %d\n24 chunks · %d active · %d road modules · %d homes · %d trees\n6 fields · 3 meadows · %d access pieces\n18 people / 4 Squads @ 1.4 m/s · truck @ 12 m/s · %d batches\nCamera %.1f, %.1f m · generation %.1f ms · world %.1f s" % [layout.seed_value, Rural.VERSION, world.scenario_seed, active_chunks, layout.roads.size(), layout.houses.size(), layout.trees.size(), environment.access.size(), batch_count, camera.position.x / 32, camera.position.y / 32, generation_ms, elapsed]
+		for squad in world.squads: status.text += "\n%s · %s · %s" % [squad.id, squad.task, squad.movement_state]
 
 func draw_debug(canvas: Node2D) -> void:
 	var width := 1.5 / camera.zoom.x
@@ -349,10 +352,25 @@ func draw_debug(canvas: Node2D) -> void:
 		for point in parcel.polygon: points.append(point * 32)
 		points.append(points[0]); canvas.draw_polyline(points, Color(0.9, 0.6, 0.2), width)
 	for tree in layout.trees: canvas.draw_circle(tree.position * 32, tree.trunk_radius * 32, Color(1, 0.4, 0.1))
-	for spawn in layout.spawns: canvas.draw_line(spawn.position * 32, spawn.route[0] * 32, Color(0.5, 0.85, 1, 0.6), width)
+	for key in world.anchors:
+		var point: Vector2 = world.anchors[key] * 32
+		canvas.draw_circle(point, 3 * 32, Color(0.6, 0.9, 1), false, width)
+		debug_label(canvas, point, key)
+
+func debug_label(canvas: Node2D, point: Vector2, text: String) -> void:
+	canvas.draw_set_transform(point, 0, Vector2.ONE / camera.zoom.x)
+	canvas.draw_string(ThemeDB.fallback_font, Vector2(8, -8), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.WHITE)
+	canvas.draw_set_transform(Vector2.ZERO)
 
 func draw_moving_debug(canvas: Node2D) -> void:
 	var width := 1.5 / camera.zoom.x
+	for squad in world.squads:
+		var point: Vector2 = squad.formation_reference * 32
+		canvas.draw_circle(point, 3 * 32, Color(0.4, 0.8, 1), false, width)
+		var route := PackedVector2Array([point])
+		for i in range(squad.formation_waypoint, squad.formation_route.size()): route.append(squad.formation_route[i] * 32)
+		if route.size() > 1: canvas.draw_polyline(route, Color(0.4, 0.8, 1, 0.6), width)
+		debug_label(canvas, point, squad.id)
 	var truck_outline := PackedVector2Array()
 	for corner in [Vector2(-38, -96), Vector2(39, -96), Vector2(39, 96), Vector2(-38, 96), Vector2(-38, -96)]: truck_outline.append(truck.transform * corner)
 	canvas.draw_polyline(truck_outline, Color.CYAN, width)

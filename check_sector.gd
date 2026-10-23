@@ -98,7 +98,7 @@ func visual_run() -> void:
 	var view = load("res://representative_sector.tscn").instantiate(); root.add_child(view)
 	await process_frame; await process_frame
 	view.paused = true
-	expect(not view.debug_enabled and not view.overlay.visible and view.people.size() == 16 and view.visuals.size() == 16, "Clean default scene uses16actual model-bound adapters")
+	expect(not view.debug_enabled and not view.overlay.visible and view.people.size() == 18 and view.visuals.size() == 18, "Clean scene uses16Squad personnel and2embodied Platoon leader adapters")
 	await capture("local_default")
 	var fingerprints: String = view.layout.fingerprint
 	var generations: int = view.generation_count
@@ -107,7 +107,9 @@ func visual_run() -> void:
 	var before: Vector2 = view.people[0].position
 	var distance_before: float = view.truck_distance
 	view.advance_models(1)
-	expect(is_equal_approx(view.people[0].position.distance_to(before), 1.4) and is_equal_approx(view.truck_distance - distance_before, 12), "Native real models and presentation truck use1.4/12m/s")
+	var person_step: float = view.people[0].position.distance_to(before)
+	var truck_step: float = view.truck_distance - distance_before
+	expect(absf(person_step - 1.4) < 0.0001 and absf(truck_step - 12) < 0.0001, "Native1second movement budgets: person %.6fm / truck %.6fm (float32 tolerance0.1mm)" % [person_step, truck_step])
 	expect(view.visuals[0].position.distance_to(view.people[0].position * 32) < 0.001 and view.visuals[0].clip_name == "standing_walk", "Accepted adapter reads actual moving model in32world/m")
 	await capture("local_walking")
 	for road in view.layout.roads:
@@ -129,6 +131,7 @@ func visual_run() -> void:
 	key(KEY_F3); await process_frame
 	expect(view.debug_enabled and view.overlay.visible, "Details toggle exposes chunks/footprints/routes")
 	await capture("tactical_debug")
+	view.camera.position = Layout.SIZE * 0.5 * 32
 	key(KEY_3); await process_frame
 	await capture("sector_debug")
 	key(KEY_F3); await process_frame
@@ -149,7 +152,7 @@ func visual_run() -> void:
 		intervals.sort(); updates.sort()
 		evidence.append({"mode":mode, "active_chunks":view.active_chunks, "frame_interval_p50_ms":intervals[60], "frame_interval_p95_ms":intervals[114], "model_adapter_update_p50_ms":updates[60], "model_adapter_update_p95_ms":updates[114]})
 	view.paused = true
-	evidence.append({"nodes":node_count, "process_nodes":count_processing(view), "batches":view.batch_count, "generation_ms":view.generation_ms, "live_soldiers":16})
+	evidence.append({"nodes":node_count, "process_nodes":count_processing(view), "batches":view.batch_count, "generation_ms":view.generation_ms, "live_soldiers":18})
 	key(KEY_N); await process_frame; view.paused = true
 	expect(view.layout.seed_value == Layout.ALTERNATE_SEED and view.layout.fingerprint != fingerprints and view.generation_count == generations + 1, "Seed input explicitly rebuilds deterministic alternate")
 	view.set_mode("tactical"); await capture("alternate_tactical")

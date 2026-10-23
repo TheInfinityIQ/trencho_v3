@@ -110,7 +110,7 @@ func capture(name: String) -> void:
 func visual_run() -> void:
 	var view = load("res://representative_sector.tscn").instantiate(); root.add_child(view)
 	await process_frame; await process_frame; view.paused = true
-	expect(not view.debug_enabled and view.visuals.size() == 16 and view.people.size() == 16, "Clean native scene retains16realmodel-bound Soldiers")
+	expect(not view.debug_enabled and view.visuals.size() == 18 and view.people.size() == 18, "Clean scene binds16Squad personnel and2physical Platoon leaders")
 	await capture("local_street_default")
 	var before: Vector2 = view.people[0].position
 	var truck_before: float = view.truck_distance
@@ -122,6 +122,7 @@ func visual_run() -> void:
 	var generations: int = view.generation_count
 	var fingerprint: String = view.layout.fingerprint
 	var nodes := count_nodes(view)
+	view.camera.position = Layout.SIZE * 0.5 * 32
 	view.set_mode("sector"); await capture("sector_overview")
 	view.toggle_debug(); await capture("sector_parcel_debug"); view.toggle_debug()
 	expect(view.active_chunks == 24 and view.generation_count == generations and view.layout.fingerprint == fingerprint and count_nodes(view) == nodes, "Whole-sector camera/culling does not regenerate environment")

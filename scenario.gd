@@ -39,7 +39,10 @@ var battle_state: String:
 func battle_active() -> bool:
 	return battle_state == "ACTIVE"
 
-func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false, with_battle := false, roster_setup: Dictionary = {}) -> void:
+func _init(with_rear := false, with_combat := false, with_vehicles := false, with_artillery := false, with_engineering := false, with_infrastructure := false, with_medical := false, with_battle := false, roster_setup: Dictionary = {}, initialize_fixture := true) -> void:
+	# Geography-specific Scenarios reuse this hierarchy owner without constructing
+	# the legacy obstacle/supply/contact fixture as a side effect.
+	if not initialize_fixture: return
 	integrated_rear = with_rear
 	var prefix: String = roster_setup.get("fresh_prefix", "")
 	var supplied: Array = roster_setup.get("main_members", [])
