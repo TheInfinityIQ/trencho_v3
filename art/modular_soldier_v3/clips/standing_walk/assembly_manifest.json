@@ -1,0 +1,760 @@
+{
+  "schema_version": 4,
+  "status": "bounded_visual_correction_candidate_not_final",
+  "clip": "standing_walk",
+  "canvas_px": [
+    96,
+    96
+  ],
+  "pivot_px": [
+    48,
+    56
+  ],
+  "scale_px_per_meter": 32,
+  "facing": "north/up",
+  "loop": true,
+  "cycle_seconds": 0.85,
+  "frame_duration_ms": 212,
+  "source_character": "one Quaternius Standard skeleton used for motion reference only",
+  "source_reference": "reference_captures",
+  "frames": [
+    {
+      "body_root": {
+        "neck": [
+          47.01,
+          52.85
+        ],
+        "left_shoulder": [
+          38.845,
+          50.625
+        ],
+        "right_shoulder": [
+          54.845,
+          50.625
+        ],
+        "left_hip": [
+          45.08,
+          54.45
+        ],
+        "right_hip": [
+          50.77,
+          54.25
+        ],
+        "shoulders_mount": [
+          46.845,
+          50.625
+        ],
+        "front_equipment_mount": [
+          47.385,
+          52.4875
+        ],
+        "back_equipment_mount": [
+          47.385,
+          52.4875
+        ]
+      },
+      "parts": {
+        "left_leg": {
+          "file": "frame_00/left_leg.png",
+          "anchors": {
+            "hip": [
+              45.08,
+              54.45
+            ],
+            "knee": [
+              43.5,
+              49.2
+            ],
+            "foot": [
+              42.7,
+              45.9
+            ]
+          }
+        },
+        "right_leg": {
+          "file": "frame_00/right_leg.png",
+          "anchors": {
+            "hip": [
+              50.77,
+              54.25
+            ],
+            "knee": [
+              51.7,
+              59.4
+            ],
+            "foot": [
+              53.0,
+              67.0
+            ]
+          }
+        },
+        "front_equipment": {
+          "file": "frame_00/front_equipment.png",
+          "anchors": {
+            "body_mount": [
+              47.385,
+              52.4875
+            ]
+          }
+        },
+        "back_equipment": {
+          "file": "frame_00/back_equipment.png",
+          "anchors": {
+            "body_mount": [
+              47.385,
+              52.4875
+            ]
+          }
+        },
+        "shoulders": {
+          "file": "frame_00/shoulders.png",
+          "anchors": {
+            "body_mount": [
+              46.845,
+              50.625
+            ]
+          }
+        },
+        "head": {
+          "file": "frame_00/head.png",
+          "anchors": {
+            "neck": [
+              47.01,
+              52.85
+            ]
+          }
+        },
+        "rifle_topdown": {
+          "file": "frame_00/rifle_topdown.png",
+          "anchors": {
+            "muzzle": [
+              55,
+              23.625
+            ],
+            "support_grip": [
+              53,
+              42.625
+            ],
+            "trigger_grip": [
+              55,
+              49.625
+            ],
+            "buttstock": [
+              55,
+              58.625
+            ]
+          }
+        },
+        "left_arm": {
+          "file": "frame_00/left_arm.png",
+          "anchors": {
+            "shoulder": [
+              38.845,
+              50.625
+            ],
+            "elbow": [
+              43.345,
+              43.625
+            ],
+            "support_grip": [
+              53,
+              42.625
+            ]
+          }
+        },
+        "right_arm": {
+          "file": "frame_00/right_arm.png",
+          "anchors": {
+            "shoulder": [
+              54.845,
+              50.625
+            ],
+            "elbow": [
+              57.845,
+              55.625
+            ],
+            "trigger_grip": [
+              55,
+              49.625
+            ]
+          }
+        }
+      },
+      "links": [
+        [
+          "left_arm.shoulder",
+          "body_root.left_shoulder"
+        ],
+        [
+          "left_arm.support_grip",
+          "rifle_topdown.support_grip"
+        ],
+        [
+          "right_arm.shoulder",
+          "body_root.right_shoulder"
+        ],
+        [
+          "right_arm.trigger_grip",
+          "rifle_topdown.trigger_grip"
+        ]
+      ],
+      "weapon_released": false,
+      "source_time_seconds": 0.0,
+      "reference": "standing_walk_00.png"
+    },
+    {
+      "body_root": {
+        "neck": [
+          47.96,
+          52.47
+        ],
+        "left_shoulder": [
+          39.875,
+          50.325
+        ],
+        "right_shoulder": [
+          55.875,
+          50.325
+        ],
+        "left_hip": [
+          45.14,
+          54.37
+        ],
+        "right_hip": [
+          50.84,
+          54.33
+        ],
+        "shoulders_mount": [
+          47.875,
+          50.325
+        ],
+        "front_equipment_mount": [
+          47.932500000000005,
+          52.3375
+        ],
+        "back_equipment_mount": [
+          47.932500000000005,
+          52.3375
+        ]
+      },
+      "parts": {
+        "left_leg": {
+          "file": "frame_01/left_leg.png",
+          "anchors": {
+            "hip": [
+              45.14,
+              54.37
+            ],
+            "knee": [
+              44.4,
+              55.9
+            ],
+            "foot": [
+              43.2,
+              60.8
+            ]
+          }
+        },
+        "right_leg": {
+          "file": "frame_01/right_leg.png",
+          "anchors": {
+            "hip": [
+              50.84,
+              54.33
+            ],
+            "knee": [
+              52.2,
+              49.3
+            ],
+            "foot": [
+              54.0,
+              53.2
+            ]
+          }
+        },
+        "front_equipment": {
+          "file": "frame_01/front_equipment.png",
+          "anchors": {
+            "body_mount": [
+              47.932500000000005,
+              52.3375
+            ]
+          }
+        },
+        "back_equipment": {
+          "file": "frame_01/back_equipment.png",
+          "anchors": {
+            "body_mount": [
+              47.932500000000005,
+              52.3375
+            ]
+          }
+        },
+        "shoulders": {
+          "file": "frame_01/shoulders.png",
+          "anchors": {
+            "body_mount": [
+              47.875,
+              50.325
+            ]
+          }
+        },
+        "head": {
+          "file": "frame_01/head.png",
+          "anchors": {
+            "neck": [
+              47.96,
+              52.47
+            ]
+          }
+        },
+        "rifle_topdown": {
+          "file": "frame_01/rifle_topdown.png",
+          "anchors": {
+            "muzzle": [
+              55,
+              23.325000000000003
+            ],
+            "support_grip": [
+              53,
+              42.325
+            ],
+            "trigger_grip": [
+              55,
+              49.325
+            ],
+            "buttstock": [
+              55,
+              58.325
+            ]
+          }
+        },
+        "left_arm": {
+          "file": "frame_01/left_arm.png",
+          "anchors": {
+            "shoulder": [
+              39.875,
+              50.325
+            ],
+            "elbow": [
+              44.375,
+              43.325
+            ],
+            "support_grip": [
+              53,
+              42.325
+            ]
+          }
+        },
+        "right_arm": {
+          "file": "frame_01/right_arm.png",
+          "anchors": {
+            "shoulder": [
+              55.875,
+              50.325
+            ],
+            "elbow": [
+              58.875,
+              55.325
+            ],
+            "trigger_grip": [
+              55,
+              49.325
+            ]
+          }
+        }
+      },
+      "links": [
+        [
+          "left_arm.shoulder",
+          "body_root.left_shoulder"
+        ],
+        [
+          "left_arm.support_grip",
+          "rifle_topdown.support_grip"
+        ],
+        [
+          "right_arm.shoulder",
+          "body_root.right_shoulder"
+        ],
+        [
+          "right_arm.trigger_grip",
+          "rifle_topdown.trigger_grip"
+        ]
+      ],
+      "weapon_released": false,
+      "source_time_seconds": 0.3333,
+      "reference": "standing_walk_01.png"
+    },
+    {
+      "body_root": {
+        "neck": [
+          49.07,
+          52.86
+        ],
+        "left_shoulder": [
+          41.215,
+          50.63
+        ],
+        "right_shoulder": [
+          57.215,
+          50.63
+        ],
+        "left_hip": [
+          45.23,
+          54.26
+        ],
+        "right_hip": [
+          50.92,
+          54.44
+        ],
+        "shoulders_mount": [
+          49.215,
+          50.63
+        ],
+        "front_equipment_mount": [
+          48.645,
+          52.489999999999995
+        ],
+        "back_equipment_mount": [
+          48.645,
+          52.489999999999995
+        ]
+      },
+      "parts": {
+        "left_leg": {
+          "file": "frame_02/left_leg.png",
+          "anchors": {
+            "hip": [
+              45.23,
+              54.26
+            ],
+            "knee": [
+              44.3,
+              58.0
+            ],
+            "foot": [
+              42.5,
+              65.7
+            ]
+          }
+        },
+        "right_leg": {
+          "file": "frame_02/right_leg.png",
+          "anchors": {
+            "hip": [
+              50.92,
+              54.44
+            ],
+            "knee": [
+              53.0,
+              48.5
+            ],
+            "foot": [
+              54.3,
+              45.6
+            ]
+          }
+        },
+        "front_equipment": {
+          "file": "frame_02/front_equipment.png",
+          "anchors": {
+            "body_mount": [
+              48.645,
+              52.489999999999995
+            ]
+          }
+        },
+        "back_equipment": {
+          "file": "frame_02/back_equipment.png",
+          "anchors": {
+            "body_mount": [
+              48.645,
+              52.489999999999995
+            ]
+          }
+        },
+        "shoulders": {
+          "file": "frame_02/shoulders.png",
+          "anchors": {
+            "body_mount": [
+              49.215,
+              50.63
+            ]
+          }
+        },
+        "head": {
+          "file": "frame_02/head.png",
+          "anchors": {
+            "neck": [
+              49.07,
+              52.86
+            ]
+          }
+        },
+        "rifle_topdown": {
+          "file": "frame_02/rifle_topdown.png",
+          "anchors": {
+            "muzzle": [
+              55,
+              23.630000000000003
+            ],
+            "support_grip": [
+              53,
+              42.63
+            ],
+            "trigger_grip": [
+              55,
+              49.63
+            ],
+            "buttstock": [
+              55,
+              58.63
+            ]
+          }
+        },
+        "left_arm": {
+          "file": "frame_02/left_arm.png",
+          "anchors": {
+            "shoulder": [
+              41.215,
+              50.63
+            ],
+            "elbow": [
+              45.715,
+              43.63
+            ],
+            "support_grip": [
+              53,
+              42.63
+            ]
+          }
+        },
+        "right_arm": {
+          "file": "frame_02/right_arm.png",
+          "anchors": {
+            "shoulder": [
+              57.215,
+              50.63
+            ],
+            "elbow": [
+              60.215,
+              55.63
+            ],
+            "trigger_grip": [
+              55,
+              49.63
+            ]
+          }
+        }
+      },
+      "links": [
+        [
+          "left_arm.shoulder",
+          "body_root.left_shoulder"
+        ],
+        [
+          "left_arm.support_grip",
+          "rifle_topdown.support_grip"
+        ],
+        [
+          "right_arm.shoulder",
+          "body_root.right_shoulder"
+        ],
+        [
+          "right_arm.trigger_grip",
+          "rifle_topdown.trigger_grip"
+        ]
+      ],
+      "weapon_released": false,
+      "source_time_seconds": 0.6667,
+      "reference": "standing_walk_02.png"
+    },
+    {
+      "body_root": {
+        "neck": [
+          48.17,
+          52.47
+        ],
+        "left_shoulder": [
+          40.29,
+          50.325
+        ],
+        "right_shoulder": [
+          56.29,
+          50.325
+        ],
+        "left_hip": [
+          45.17,
+          54.33
+        ],
+        "right_hip": [
+          50.86,
+          54.38
+        ],
+        "shoulders_mount": [
+          48.29,
+          50.325
+        ],
+        "front_equipment_mount": [
+          48.1525,
+          52.34
+        ],
+        "back_equipment_mount": [
+          48.1525,
+          52.34
+        ]
+      },
+      "parts": {
+        "left_leg": {
+          "file": "frame_03/left_leg.png",
+          "anchors": {
+            "hip": [
+              45.17,
+              54.33
+            ],
+            "knee": [
+              43.9,
+              49.3
+            ],
+            "foot": [
+              42.5,
+              53.2
+            ]
+          }
+        },
+        "right_leg": {
+          "file": "frame_03/right_leg.png",
+          "anchors": {
+            "hip": [
+              50.86,
+              54.38
+            ],
+            "knee": [
+              52.1,
+              55.9
+            ],
+            "foot": [
+              53.5,
+              60.8
+            ]
+          }
+        },
+        "front_equipment": {
+          "file": "frame_03/front_equipment.png",
+          "anchors": {
+            "body_mount": [
+              48.1525,
+              52.34
+            ]
+          }
+        },
+        "back_equipment": {
+          "file": "frame_03/back_equipment.png",
+          "anchors": {
+            "body_mount": [
+              48.1525,
+              52.34
+            ]
+          }
+        },
+        "shoulders": {
+          "file": "frame_03/shoulders.png",
+          "anchors": {
+            "body_mount": [
+              48.29,
+              50.325
+            ]
+          }
+        },
+        "head": {
+          "file": "frame_03/head.png",
+          "anchors": {
+            "neck": [
+              48.17,
+              52.47
+            ]
+          }
+        },
+        "rifle_topdown": {
+          "file": "frame_03/rifle_topdown.png",
+          "anchors": {
+            "muzzle": [
+              55,
+              23.325000000000003
+            ],
+            "support_grip": [
+              53,
+              42.325
+            ],
+            "trigger_grip": [
+              55,
+              49.325
+            ],
+            "buttstock": [
+              55,
+              58.325
+            ]
+          }
+        },
+        "left_arm": {
+          "file": "frame_03/left_arm.png",
+          "anchors": {
+            "shoulder": [
+              40.29,
+              50.325
+            ],
+            "elbow": [
+              44.79,
+              43.325
+            ],
+            "support_grip": [
+              53,
+              42.325
+            ]
+          }
+        },
+        "right_arm": {
+          "file": "frame_03/right_arm.png",
+          "anchors": {
+            "shoulder": [
+              56.29,
+              50.325
+            ],
+            "elbow": [
+              59.29,
+              55.325
+            ],
+            "trigger_grip": [
+              55,
+              49.325
+            ]
+          }
+        }
+      },
+      "links": [
+        [
+          "left_arm.shoulder",
+          "body_root.left_shoulder"
+        ],
+        [
+          "left_arm.support_grip",
+          "rifle_topdown.support_grip"
+        ],
+        [
+          "right_arm.shoulder",
+          "body_root.right_shoulder"
+        ],
+        [
+          "right_arm.trigger_grip",
+          "rifle_topdown.trigger_grip"
+        ]
+      ],
+      "weapon_released": false,
+      "source_time_seconds": 1.0,
+      "reference": "standing_walk_03.png"
+    }
+  ],
+  "revision": "T3-ART-CMP-033-standing-walk-rev1",
+  "parent_package_sha256": "abf4255e4059a2ec05ad77f9709c932be508aa6a00b05ef62c165cc21a89392c"
+}
