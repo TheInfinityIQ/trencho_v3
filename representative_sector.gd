@@ -44,6 +44,8 @@ var _camera_initialized := false
 var _active_chunk_range := Rect2i(-1, -1, 0, 0)
 var activation_revision := 0
 var _debug_elapsed := 0.0
+var _previous_max_fps := -1
+var _presentation_max_fps := -1
 
 class Overlay extends Node2D:
 	var host
@@ -54,6 +56,12 @@ class MovingOverlay extends Node2D:
 	func _draw() -> void: host.draw_moving_debug(self)
 
 func _ready() -> void:
+	# Lightweight views can run thousands of iterations/s even with VSync enabled
+	# on the tested Compatibility backend. Pace independently of the F3 overlay.
+	_previous_max_fps = Engine.max_fps
+	var refresh := DisplayServer.screen_get_refresh_rate(get_window().current_screen) if DisplayServer.get_name() != "headless" else -1.0
+	_presentation_max_fps = presentation_cap(refresh, _previous_max_fps)
+	Engine.max_fps = _presentation_max_fps
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	metadata = JSON.parse_string(FileAccess.get_file_as_string("res://art/a1_rev5/docs/metadata.json"))
 	for i in range(2): textures["grass%d" % i] = load("res://art/a1_grass_rev6/terrain/terrain_grass_%02d.png" % (i + 1))
@@ -85,6 +93,17 @@ func _ready() -> void:
 	status = Label.new(); status.position = Vector2(16, 88); status.add_theme_color_override("font_color", Color.WHITE); hud.add_child(status)
 	set_seed(Layout.DEFAULT_SEED)
 	get_viewport().size_changed.connect(viewport_resized)
+
+func _exit_tree() -> void:
+	# Do not overwrite a later cap chosen by another owner while this scene ran.
+	if _previous_max_fps >= 0 and Engine.max_fps == _presentation_max_fps:
+		Engine.max_fps = _previous_max_fps
+
+static func presentation_cap(refresh: float, previous: int) -> int:
+	if not is_finite(refresh) or refresh <= 0:
+		return previous if previous > 0 else 120
+	var limit := ceili(refresh)
+	return mini(previous, limit) if previous > 0 else limit
 
 func quad(size: Vector2) -> ArrayMesh:
 	var key := str(size)

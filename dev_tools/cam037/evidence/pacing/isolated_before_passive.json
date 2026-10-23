@@ -1,0 +1,47 @@
+[
+	{
+		"actual_screen_distance": 6350.67130365304,
+		"center_error_world_max": 0.0009765625,
+		"cycle": 0,
+		"frames": 20550,
+		"generation": 1,
+		"gpu_max": 0.0,
+		"max_ms": 7.167,
+		"p50": 0.343,
+		"p95": 0.602,
+		"position": "(11602.54, 15392.0)",
+		"screen_distance": 6350.67130364873,
+		"seconds": 8.000256,
+		"stuck_frames": 0
+	},
+	{
+		"actual_screen_distance": 5287.43544554099,
+		"center_error_world_max": 0.0009765625,
+		"cycle": 1,
+		"frames": 19551,
+		"generation": 1,
+		"gpu_max": 0.0,
+		"max_ms": 2.533,
+		"p50": 0.374,
+		"p95": 0.635,
+		"position": "(11571.41, 15392.0)",
+		"screen_distance": 5287.43545370892,
+		"seconds": 8.000184,
+		"stuck_frames": 0
+	},
+	{
+		"actual_screen_distance": 5289.72991234798,
+		"center_error_world_max": 0.0009765625,
+		"cycle": 2,
+		"frames": 20176,
+		"generation": 1,
+		"gpu_max": 0.0,
+		"max_ms": 3.532,
+		"p50": 0.359,
+		"p95": 0.628,
+		"position": "(11571.55, 15392.0)",
+		"screen_distance": 5289.7299207474,
+		"seconds": 8.000186,
+		"stuck_frames": 0
+	}
+]

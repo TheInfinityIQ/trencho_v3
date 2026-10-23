@@ -31,8 +31,15 @@ func run() -> void:
 	if DisplayServer.get_name() == "headless":
 		print("CAMERA CHECKS: native window required; run this suite without --headless")
 		quit(); return
+	var prior_cap := Engine.max_fps
 	view = load("res://representative_sector.gd").new(); root.add_child(view)
 	await process_frame; await process_frame
+	var selected_cap := Engine.max_fps
+	expect(selected_cap > 0 and (prior_cap == 0 or selected_cap <= prior_cap), "Scene installs bounded pacing without increasing an existing cap")
+	view.toggle_debug(); expect(Engine.max_fps == selected_cap, "Details on preserves presentation cap"); view.toggle_debug()
+	expect(Engine.max_fps == selected_cap, "Details off preserves presentation cap")
+	expect(view.presentation_cap(-1.0, 0) == 120 and view.presentation_cap(-1.0, 240) == 240, "Unknown refresh preserves configured cap or uses documented fallback")
+	expect(view.presentation_cap(NAN, 0) == 120 and view.presentation_cap(INF, 0) == 120, "Nonfinite refresh safely uses fallback")
 	view.paused = true; view.set_process(false)
 	var generation: int = view.generation_count
 	var fingerprint: String = view.layout.fingerprint
@@ -112,5 +119,12 @@ func run() -> void:
 	key(KEY_SPACE); key(KEY_SPACE, false); expect(not view.paused, "Space still toggles model pause"); view.paused = true
 	key(KEY_N); key(KEY_N, false)
 	expect(view.layout.seed_value == view.Layout.ALTERNATE_SEED and view.camera.position.is_equal_approx(center), "N toggles seed while retaining look point")
+	view.free()
+	expect(Engine.max_fps == prior_cap, "Leaving representative sector restores previous cap exactly")
+	Engine.max_fps = 45
+	view = load("res://representative_sector.gd").new(); root.add_child(view)
+	expect(Engine.max_fps == 45, "A pre-existing lower 45 FPS cap is honored")
+	view.free(); expect(Engine.max_fps == 45, "Scene exit restores lower configured cap")
+	Engine.max_fps = prior_cap
 	print("CAMERA CHECKS ", checks, " failures: ", failures, " baseline fingerprint: ", fingerprint)
-	view.free(); quit(0 if failures.is_empty() else 1)
+	quit(0 if failures.is_empty() else 1)
