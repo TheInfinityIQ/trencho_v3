@@ -1,0 +1,594 @@
+{
+  "buildings/house_b.png": {
+    "declared_footprint_px": [
+      64,
+      96,
+      256,
+      416
+    ],
+    "entrance_px": [
+      160,
+      402
+    ],
+    "footprint_opaque_fraction": 0.9421,
+    "roof_color_fraction": 0.7047,
+    "rows": [
+      {
+        "y_px": [
+          96,
+          112
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.859
+      },
+      {
+        "y_px": [
+          112,
+          128
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.892
+      },
+      {
+        "y_px": [
+          128,
+          144
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.868
+      },
+      {
+        "y_px": [
+          144,
+          160
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.593
+      },
+      {
+        "y_px": [
+          160,
+          176
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.507
+      },
+      {
+        "y_px": [
+          176,
+          192
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.586
+      },
+      {
+        "y_px": [
+          192,
+          208
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.764
+      },
+      {
+        "y_px": [
+          208,
+          224
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.854
+      },
+      {
+        "y_px": [
+          224,
+          240
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.879
+      },
+      {
+        "y_px": [
+          240,
+          256
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.887
+      },
+      {
+        "y_px": [
+          256,
+          272
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.858
+      },
+      {
+        "y_px": [
+          272,
+          288
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.865
+      },
+      {
+        "y_px": [
+          288,
+          304
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.895
+      },
+      {
+        "y_px": [
+          304,
+          320
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.878
+      },
+      {
+        "y_px": [
+          320,
+          336
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.778
+      },
+      {
+        "y_px": [
+          336,
+          352
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.763
+      },
+      {
+        "y_px": [
+          352,
+          368
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.674
+      },
+      {
+        "y_px": [
+          368,
+          384
+        ],
+        "opaque_fraction": 0.714,
+        "roof_color_fraction": 0.474
+      },
+      {
+        "y_px": [
+          384,
+          400
+        ],
+        "opaque_fraction": 0.614,
+        "roof_color_fraction": 0.207
+      },
+      {
+        "y_px": [
+          400,
+          416
+        ],
+        "opaque_fraction": 0.515,
+        "roof_color_fraction": 0.012
+      }
+    ]
+  },
+  "buildings/house_c.png": {
+    "declared_footprint_px": [
+      32,
+      32,
+      352,
+      352
+    ],
+    "entrance_px": [
+      192,
+      336
+    ],
+    "footprint_opaque_fraction": 0.9012,
+    "roof_color_fraction": 0.6717,
+    "rows": [
+      {
+        "y_px": [
+          32,
+          48
+        ],
+        "opaque_fraction": 0.744,
+        "roof_color_fraction": 0.501
+      },
+      {
+        "y_px": [
+          48,
+          64
+        ],
+        "opaque_fraction": 0.972,
+        "roof_color_fraction": 0.772
+      },
+      {
+        "y_px": [
+          64,
+          80
+        ],
+        "opaque_fraction": 0.972,
+        "roof_color_fraction": 0.802
+      },
+      {
+        "y_px": [
+          80,
+          96
+        ],
+        "opaque_fraction": 0.973,
+        "roof_color_fraction": 0.801
+      },
+      {
+        "y_px": [
+          96,
+          112
+        ],
+        "opaque_fraction": 0.973,
+        "roof_color_fraction": 0.803
+      },
+      {
+        "y_px": [
+          112,
+          128
+        ],
+        "opaque_fraction": 0.974,
+        "roof_color_fraction": 0.71
+      },
+      {
+        "y_px": [
+          128,
+          144
+        ],
+        "opaque_fraction": 0.972,
+        "roof_color_fraction": 0.584
+      },
+      {
+        "y_px": [
+          144,
+          160
+        ],
+        "opaque_fraction": 0.975,
+        "roof_color_fraction": 0.58
+      },
+      {
+        "y_px": [
+          160,
+          176
+        ],
+        "opaque_fraction": 0.972,
+        "roof_color_fraction": 0.746
+      },
+      {
+        "y_px": [
+          176,
+          192
+        ],
+        "opaque_fraction": 0.975,
+        "roof_color_fraction": 0.77
+      },
+      {
+        "y_px": [
+          192,
+          208
+        ],
+        "opaque_fraction": 0.972,
+        "roof_color_fraction": 0.773
+      },
+      {
+        "y_px": [
+          208,
+          224
+        ],
+        "opaque_fraction": 0.976,
+        "roof_color_fraction": 0.79
+      },
+      {
+        "y_px": [
+          224,
+          240
+        ],
+        "opaque_fraction": 0.976,
+        "roof_color_fraction": 0.819
+      },
+      {
+        "y_px": [
+          240,
+          256
+        ],
+        "opaque_fraction": 0.98,
+        "roof_color_fraction": 0.819
+      },
+      {
+        "y_px": [
+          256,
+          272
+        ],
+        "opaque_fraction": 0.978,
+        "roof_color_fraction": 0.814
+      },
+      {
+        "y_px": [
+          272,
+          288
+        ],
+        "opaque_fraction": 0.981,
+        "roof_color_fraction": 0.781
+      },
+      {
+        "y_px": [
+          288,
+          304
+        ],
+        "opaque_fraction": 0.978,
+        "roof_color_fraction": 0.744
+      },
+      {
+        "y_px": [
+          304,
+          320
+        ],
+        "opaque_fraction": 0.98,
+        "roof_color_fraction": 0.528
+      },
+      {
+        "y_px": [
+          320,
+          336
+        ],
+        "opaque_fraction": 0.372,
+        "roof_color_fraction": 0.247
+      },
+      {
+        "y_px": [
+          336,
+          352
+        ],
+        "opaque_fraction": 0.328,
+        "roof_color_fraction": 0.051
+      }
+    ]
+  },
+  "buildings/farmhouse_d.png": {
+    "declared_footprint_px": [
+      48,
+      64,
+      368,
+      512
+    ],
+    "entrance_px": [
+      208,
+      502
+    ],
+    "footprint_opaque_fraction": 0.8358,
+    "roof_color_fraction": 0.6362,
+    "rows": [
+      {
+        "y_px": [
+          64,
+          80
+        ],
+        "opaque_fraction": 0.754,
+        "roof_color_fraction": 0.616
+      },
+      {
+        "y_px": [
+          80,
+          96
+        ],
+        "opaque_fraction": 0.756,
+        "roof_color_fraction": 0.621
+      },
+      {
+        "y_px": [
+          96,
+          112
+        ],
+        "opaque_fraction": 0.756,
+        "roof_color_fraction": 0.63
+      },
+      {
+        "y_px": [
+          112,
+          128
+        ],
+        "opaque_fraction": 0.756,
+        "roof_color_fraction": 0.609
+      },
+      {
+        "y_px": [
+          128,
+          144
+        ],
+        "opaque_fraction": 0.776,
+        "roof_color_fraction": 0.54
+      },
+      {
+        "y_px": [
+          144,
+          160
+        ],
+        "opaque_fraction": 0.865,
+        "roof_color_fraction": 0.636
+      },
+      {
+        "y_px": [
+          160,
+          176
+        ],
+        "opaque_fraction": 0.866,
+        "roof_color_fraction": 0.686
+      },
+      {
+        "y_px": [
+          176,
+          192
+        ],
+        "opaque_fraction": 0.866,
+        "roof_color_fraction": 0.61
+      },
+      {
+        "y_px": [
+          192,
+          208
+        ],
+        "opaque_fraction": 0.866,
+        "roof_color_fraction": 0.603
+      },
+      {
+        "y_px": [
+          208,
+          224
+        ],
+        "opaque_fraction": 0.866,
+        "roof_color_fraction": 0.616
+      },
+      {
+        "y_px": [
+          224,
+          240
+        ],
+        "opaque_fraction": 0.866,
+        "roof_color_fraction": 0.705
+      },
+      {
+        "y_px": [
+          240,
+          256
+        ],
+        "opaque_fraction": 0.866,
+        "roof_color_fraction": 0.744
+      },
+      {
+        "y_px": [
+          256,
+          272
+        ],
+        "opaque_fraction": 0.868,
+        "roof_color_fraction": 0.713
+      },
+      {
+        "y_px": [
+          272,
+          288
+        ],
+        "opaque_fraction": 0.997,
+        "roof_color_fraction": 0.787
+      },
+      {
+        "y_px": [
+          288,
+          304
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.82
+      },
+      {
+        "y_px": [
+          304,
+          320
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.823
+      },
+      {
+        "y_px": [
+          320,
+          336
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.85
+      },
+      {
+        "y_px": [
+          336,
+          352
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.844
+      },
+      {
+        "y_px": [
+          352,
+          368
+        ],
+        "opaque_fraction": 1.0,
+        "roof_color_fraction": 0.81
+      },
+      {
+        "y_px": [
+          368,
+          384
+        ],
+        "opaque_fraction": 0.954,
+        "roof_color_fraction": 0.749
+      },
+      {
+        "y_px": [
+          384,
+          400
+        ],
+        "opaque_fraction": 0.897,
+        "roof_color_fraction": 0.723
+      },
+      {
+        "y_px": [
+          400,
+          416
+        ],
+        "opaque_fraction": 0.898,
+        "roof_color_fraction": 0.704
+      },
+      {
+        "y_px": [
+          416,
+          432
+        ],
+        "opaque_fraction": 0.897,
+        "roof_color_fraction": 0.7
+      },
+      {
+        "y_px": [
+          432,
+          448
+        ],
+        "opaque_fraction": 0.897,
+        "roof_color_fraction": 0.67
+      },
+      {
+        "y_px": [
+          448,
+          464
+        ],
+        "opaque_fraction": 0.856,
+        "roof_color_fraction": 0.465
+      },
+      {
+        "y_px": [
+          464,
+          480
+        ],
+        "opaque_fraction": 0.468,
+        "roof_color_fraction": 0.346
+      },
+      {
+        "y_px": [
+          480,
+          496
+        ],
+        "opaque_fraction": 0.434,
+        "roof_color_fraction": 0.176
+      },
+      {
+        "y_px": [
+          496,
+          512
+        ],
+        "opaque_fraction": 0.376,
+        "roof_color_fraction": 0.019
+      }
+    ]
+  }
+}

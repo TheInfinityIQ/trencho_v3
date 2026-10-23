@@ -1,0 +1,627 @@
+{
+  "task_id": "T3-ENV-036",
+  "revision": "rev2_candidate",
+  "package_type": "bounded source-art correction of T3-ENV-036 v1",
+  "preserved_parent_archives": {
+    "rev5_archive_sha256": "bf6e01da1a4c58d8879305b313a0e5637a92377a68bb1cebce08b21e3e2b4adc",
+    "rev6_grass_patch_sha256": "660dd1877f96a9584d7a220a2955fd24039b148d6b54df9583b51ff0abc0aa30",
+    "preservation_note": "No existing Rev5 or Rev6 runtime files are replaced by this add-on.",
+    "env036_v1_archive_sha256": "1a3b6d5cb913ff57e0b1f4aaeeae65a62a5bb76a5d881ba0ecb20f912fee336b"
+  },
+  "source_scale_px_per_m": 32,
+  "runtime_pngs": [
+    "buildings/house_b.png",
+    "buildings/house_c.png",
+    "buildings/farmhouse_d.png",
+    "access/driveway_short.png",
+    "access/driveway_long.png",
+    "access/yard_gravel.png",
+    "access/worn_ground.png",
+    "terrain/meadow_01.png",
+    "terrain/meadow_02.png",
+    "terrain/field_01.png",
+    "terrain/field_02.png"
+  ],
+  "buildings": {
+    "buildings/house_b.png": {
+      "asset_type": "building",
+      "label": "House B",
+      "canvas_px": [
+        320,
+        448
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        160,
+        256
+      ],
+      "physical_footprint_m": [
+        6.0,
+        10.0
+      ],
+      "physical_footprint_rect_px": [
+        64,
+        96,
+        256,
+        416
+      ],
+      "entrance_px": [
+        160,
+        430
+      ],
+      "entrance_side": "south",
+      "permitted_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "content_bounds_px": [
+        35,
+        8,
+        284,
+        440
+      ],
+      "eave_margin_px": {
+        "west": -29,
+        "north": -88,
+        "east": -28,
+        "south": -24
+      },
+      "notes": "Nominal building size rectangle unchanged, but roof/eaves and the porch extend outside it while portions inside it are transparent. The original rectangle is not sufficient for collision or spacing.",
+      "entrance_source_v1_px": [
+        160,
+        402
+      ],
+      "entrance_semantics": "south exterior approach/interaction threshold at the bottom central porch wall; not a claim that the brown facade panel is a visually open doorway",
+      "entrance_approach_direction": "south_to_north",
+      "physical_footprint_semantics": "original nominal size rectangle only, exactly the stated width/height at 32 px/m; visible roof/eaves and south porch extend outside it, so it is not a complete placement or collision envelope",
+      "entrance_beyond_nominal_rect_south_px": 14,
+      "visible_alpha_bounds_px": [
+        35,
+        8,
+        284,
+        440
+      ],
+      "placement_envelope_px": [
+        31,
+        4,
+        288,
+        444
+      ],
+      "placement_envelope_semantics": "authoritative conservative art clearance at source scale: bounds of alpha > 8 plus 4 px margin, clipped to canvas; includes the south porch threshold. Presentation spacing only; no claim of wall collision or navigation shape.",
+      "roof_fully_covers_rectangular_footprint": false,
+      "visible_roof_and_porch_outline": "use the supplied PNG alpha silhouette; derive placement clearance and occlusion from the actual art rather than the nominal rectangle",
+      "footprint_coverage_evidence": {
+        "opaque_fraction_alpha_gt_200": 0.9421,
+        "southern_16px_opaque_fraction": 0.515,
+        "southern_16px_roof_color_fraction_heuristic": 0.012,
+        "source": "reference/building_contracts.png and docs/building_coverage.json"
+      }
+    },
+    "buildings/house_c.png": {
+      "asset_type": "building",
+      "label": "House C",
+      "canvas_px": [
+        384,
+        384
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        192,
+        192
+      ],
+      "physical_footprint_m": [
+        10.0,
+        10.0
+      ],
+      "physical_footprint_rect_px": [
+        32,
+        32,
+        352,
+        352
+      ],
+      "entrance_px": [
+        192,
+        364
+      ],
+      "entrance_side": "south",
+      "permitted_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "content_bounds_px": [
+        32,
+        8,
+        351,
+        375
+      ],
+      "eave_margin_px": {
+        "west": 0,
+        "north": -24,
+        "east": 1,
+        "south": -23
+      },
+      "notes": "Nominal building size rectangle unchanged, but roof/eaves and the porch extend outside it while portions inside it are transparent. The original rectangle is not sufficient for collision or spacing.",
+      "entrance_source_v1_px": [
+        192,
+        336
+      ],
+      "entrance_semantics": "south exterior approach/interaction threshold at the bottom central porch wall; not a claim that the brown facade panel is a visually open doorway",
+      "entrance_approach_direction": "south_to_north",
+      "physical_footprint_semantics": "original nominal size rectangle only, exactly the stated width/height at 32 px/m; visible roof/eaves and south porch extend outside it, so it is not a complete placement or collision envelope",
+      "entrance_beyond_nominal_rect_south_px": 12,
+      "visible_alpha_bounds_px": [
+        32,
+        8,
+        351,
+        375
+      ],
+      "placement_envelope_px": [
+        28,
+        4,
+        355,
+        379
+      ],
+      "placement_envelope_semantics": "authoritative conservative art clearance at source scale: bounds of alpha > 8 plus 4 px margin, clipped to canvas; includes the south porch threshold. Presentation spacing only; no claim of wall collision or navigation shape.",
+      "roof_fully_covers_rectangular_footprint": false,
+      "visible_roof_and_porch_outline": "use the supplied PNG alpha silhouette; derive placement clearance and occlusion from the actual art rather than the nominal rectangle",
+      "footprint_coverage_evidence": {
+        "opaque_fraction_alpha_gt_200": 0.9012,
+        "southern_16px_opaque_fraction": 0.328,
+        "southern_16px_roof_color_fraction_heuristic": 0.051,
+        "source": "reference/building_contracts.png and docs/building_coverage.json"
+      }
+    },
+    "buildings/farmhouse_d.png": {
+      "asset_type": "building",
+      "label": "Farmhouse D",
+      "canvas_px": [
+        416,
+        544
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        208,
+        288
+      ],
+      "physical_footprint_m": [
+        10.0,
+        14.0
+      ],
+      "physical_footprint_rect_px": [
+        48,
+        64,
+        368,
+        512
+      ],
+      "entrance_px": [
+        208,
+        525
+      ],
+      "entrance_side": "south",
+      "permitted_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "content_bounds_px": [
+        44,
+        8,
+        370,
+        536
+      ],
+      "eave_margin_px": {
+        "west": -4,
+        "north": -56,
+        "east": -2,
+        "south": -24
+      },
+      "notes": "Nominal building size rectangle unchanged, but roof/eaves and the porch extend outside it while portions inside it are transparent. The original rectangle is not sufficient for collision or spacing.",
+      "entrance_source_v1_px": [
+        208,
+        502
+      ],
+      "entrance_semantics": "south exterior approach/interaction threshold at the bottom central porch wall; not a claim that the brown facade panel is a visually open doorway",
+      "entrance_approach_direction": "south_to_north",
+      "physical_footprint_semantics": "original nominal size rectangle only, exactly the stated width/height at 32 px/m; visible roof/eaves and south porch extend outside it, so it is not a complete placement or collision envelope",
+      "entrance_beyond_nominal_rect_south_px": 13,
+      "visible_alpha_bounds_px": [
+        44,
+        8,
+        370,
+        536
+      ],
+      "placement_envelope_px": [
+        40,
+        4,
+        374,
+        540
+      ],
+      "placement_envelope_semantics": "authoritative conservative art clearance at source scale: bounds of alpha > 8 plus 4 px margin, clipped to canvas; includes the south porch threshold. Presentation spacing only; no claim of wall collision or navigation shape.",
+      "roof_fully_covers_rectangular_footprint": false,
+      "visible_roof_and_porch_outline": "use the supplied PNG alpha silhouette; derive placement clearance and occlusion from the actual art rather than the nominal rectangle",
+      "footprint_coverage_evidence": {
+        "opaque_fraction_alpha_gt_200": 0.8358,
+        "southern_16px_opaque_fraction": 0.376,
+        "southern_16px_roof_color_fraction_heuristic": 0.019,
+        "source": "reference/building_contracts.png and docs/building_coverage.json"
+      }
+    }
+  },
+  "access_overlays": {
+    "access/driveway_short.png": {
+      "asset_type": "access_overlay",
+      "label": "Short driveway",
+      "canvas_px": [
+        160,
+        192
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        80,
+        96
+      ],
+      "physical_span_m": [
+        3.0,
+        4.0
+      ],
+      "physical_span_rect_px": [
+        32,
+        32,
+        128,
+        160
+      ],
+      "axis_endpoints_px": [
+        [
+          80,
+          32
+        ],
+        [
+          80,
+          160
+        ]
+      ],
+      "canonical_axis": "north_south",
+      "allowed_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "uniform_scale_limits": [
+        0.9,
+        1.15
+      ],
+      "content_bounds_px": [
+        30,
+        6,
+        130,
+        185
+      ],
+      "notes": "Connect road edge to small apron or house entrance."
+    },
+    "access/driveway_long.png": {
+      "asset_type": "access_overlay",
+      "label": "Long access strip",
+      "canvas_px": [
+        160,
+        320
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        80,
+        160
+      ],
+      "physical_span_m": [
+        3.0,
+        8.0
+      ],
+      "physical_span_rect_px": [
+        32,
+        32,
+        128,
+        288
+      ],
+      "axis_endpoints_px": [
+        [
+          80,
+          32
+        ],
+        [
+          80,
+          288
+        ]
+      ],
+      "canonical_axis": "north_south",
+      "allowed_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "uniform_scale_limits": [
+        0.9,
+        1.25
+      ],
+      "content_bounds_px": [
+        14,
+        7,
+        145,
+        313
+      ],
+      "notes": "Longer road-to-building connector with feathered edges."
+    },
+    "access/yard_gravel.png": {
+      "asset_type": "access_overlay",
+      "label": "Small gravel yard/apron",
+      "canvas_px": [
+        256,
+        256
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        128,
+        128
+      ],
+      "physical_span_m": [
+        6.0,
+        6.0
+      ],
+      "physical_span_rect_px": [
+        32,
+        32,
+        224,
+        224
+      ],
+      "allowed_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "uniform_scale_limits": [
+        0.9,
+        1.15
+      ],
+      "content_bounds_px": [
+        6,
+        8,
+        250,
+        248
+      ],
+      "notes": "Blend between driveway and doors/loading edge; soft transparent perimeter."
+    },
+    "access/worn_ground.png": {
+      "asset_type": "access_overlay",
+      "label": "Worn doorway/loading patch",
+      "canvas_px": [
+        128,
+        128
+      ],
+      "source_scale_px_per_m": 32,
+      "pivot_px": [
+        64,
+        64
+      ],
+      "physical_span_m": [
+        3.0,
+        3.0
+      ],
+      "physical_span_rect_px": [
+        16,
+        16,
+        112,
+        112
+      ],
+      "allowed_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "uniform_scale_limits": [
+        0.85,
+        1.2
+      ],
+      "content_bounds_px": [
+        6,
+        7,
+        122,
+        120
+      ],
+      "notes": "Small patch for thresholds and loading spots."
+    }
+  },
+  "terrain": {
+    "terrain/meadow_01.png": {
+      "asset_type": "terrain_tile",
+      "label": "Meadow rough grass 01",
+      "canvas_px": [
+        256,
+        256
+      ],
+      "world_span_m": [
+        8.0,
+        8.0
+      ],
+      "source_scale_px_per_m": 32,
+      "allowed_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "same_family_adjacent_with": [
+        "terrain/meadow_01.png",
+        "terrain/meadow_02.png"
+      ],
+      "tile_contract": "same-family arbitrary adjacency; visually checked in mixed rotated 4x4 patch full-size and downsampled 320x320",
+      "notes": "Built from accepted Rev6 grass base with additional rough meadow detail."
+    },
+    "terrain/meadow_02.png": {
+      "asset_type": "terrain_tile",
+      "label": "Meadow rough grass 02",
+      "canvas_px": [
+        256,
+        256
+      ],
+      "world_span_m": [
+        8.0,
+        8.0
+      ],
+      "source_scale_px_per_m": 32,
+      "allowed_rotations_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "same_family_adjacent_with": [
+        "terrain/meadow_01.png",
+        "terrain/meadow_02.png"
+      ],
+      "tile_contract": "same-family arbitrary adjacency; visually checked in mixed rotated 4x4 patch full-size and downsampled 320x320",
+      "notes": "Rougher variant with denser patches; edges normalized to meadow family."
+    },
+    "terrain/field_01.png": {
+      "asset_type": "terrain_tile",
+      "label": "Cultivated field 01",
+      "canvas_px": [
+        256,
+        256
+      ],
+      "world_span_m": [
+        8.0,
+        8.0
+      ],
+      "source_scale_px_per_m": 32,
+      "allowed_rotations_deg": [
+        0,
+        180
+      ],
+      "same_family_adjacent_with": [
+        "terrain/field_01.png",
+        "terrain/field_02.png"
+      ],
+      "furrow_orientation": "north_south canonical",
+      "transition_strategy": "clip the repeated field material to one property polygon in world coordinates, with a 12 source px (0.375 m) outer polygon alpha feather against Rev6 grass; no internal 8 m seam overlay. Exact strategy: docs/PARCEL_STRATEGY.md",
+      "notes": "New brown field texture with vertical 0.5 m furrow pitch and subtle two-variant detail; v1 RGB tiles retained only in the immutable parent archive.",
+      "tile_contract": "two new matching RGB field variants; arbitrary family adjacency at 0/180 degrees, exact shared boundary phase; generated at 256 px/8 m",
+      "generation_source": "tools/generate_field_tiles.py plus source/field_imagegen_attempt_01.png and _02.png; raw imagegen attempts provide microtexture only; vertical furrow/periodic boundary geometry is generated deterministically"
+    },
+    "terrain/field_02.png": {
+      "asset_type": "terrain_tile",
+      "label": "Cultivated field 02",
+      "canvas_px": [
+        256,
+        256
+      ],
+      "world_span_m": [
+        8.0,
+        8.0
+      ],
+      "source_scale_px_per_m": 32,
+      "allowed_rotations_deg": [
+        0,
+        180
+      ],
+      "same_family_adjacent_with": [
+        "terrain/field_01.png",
+        "terrain/field_02.png"
+      ],
+      "furrow_orientation": "north_south canonical",
+      "transition_strategy": "clip the repeated field material to one property polygon in world coordinates, with a 12 source px (0.375 m) outer polygon alpha feather against Rev6 grass; no internal 8 m seam overlay. Exact strategy: docs/PARCEL_STRATEGY.md",
+      "notes": "New brown field texture with vertical 0.5 m furrow pitch and subtle two-variant detail; v1 RGB tiles retained only in the immutable parent archive.",
+      "tile_contract": "two new matching RGB field variants; arbitrary family adjacency at 0/180 degrees, exact shared boundary phase; generated at 256 px/8 m",
+      "generation_source": "tools/generate_field_tiles.py plus source/field_imagegen_attempt_01.png and _02.png; raw imagegen attempts provide microtexture only; vertical furrow/periodic boundary geometry is generated deterministically"
+    }
+  },
+  "validation_summary": {
+    "meadow_family_mixed_rotated_patch_checked": true,
+    "meadow_source_bytes_unchanged": true,
+    "field_family_mixed_0_180_patch_checked": true,
+    "field_family_proofs": [
+      "reference/field_mixed_4x4_full.png",
+      "reference/field_mixed_4x4_320.png"
+    ],
+    "field_to_rev6_grass_proofs": [
+      "reference/field_boundary_local_crop_320.png",
+      "reference/field_parcel_rev6_local_0.3125.png",
+      "reference/field_parcel_rev6_tactical_0.1.png",
+      "reference/field_parcel_rev6_sector_0.0202.png"
+    ],
+    "seam_metric_note": "reference/seam_metrics.json is a simple local-gradient diagnostic; visual proofs and engine review decide perceptual suitability"
+  },
+  "limitations": [
+    "The original 6x10, 10x10 and 10x14 m rectangles are nominal size references, not complete art bounds: roof/eaves and porch extend outside while some interior areas are transparent. Use placement_envelope_px for conservative art clearance in presentation scenes; precise wall collision/navigation requires an authored game shape. The source art does not yet satisfy a strict rectangular physical-footprint contract.",
+    "The southern brown facade panels are stylized wall details, not visibly open doors. Entrance ports denote exterior interaction thresholds at the south wall; navigation openings require explicit game logic/door art in a later scope.",
+    "Field-to-grass blending is an outer property-polygon geometry mask, not a per-tile border asset. No separate runtime transition PNG is included."
+  ],
+  "source_correction_summary": {
+    "runtime_pngs_unchanged": [
+      "buildings/house_b.png",
+      "buildings/house_c.png",
+      "buildings/farmhouse_d.png",
+      "access/driveway_short.png",
+      "access/driveway_long.png",
+      "access/yard_gravel.png",
+      "access/worn_ground.png",
+      "terrain/meadow_01.png",
+      "terrain/meadow_02.png"
+    ],
+    "runtime_pngs_replaced_in_this_candidate": [
+      "terrain/field_01.png",
+      "terrain/field_02.png"
+    ],
+    "reason": "v1 mixed field adjacency showed a straight 8 m grid at 320 px proof; building roof-fill and doorway claims overstated actual raster; access proof did not connect road to entrance"
+  },
+  "access_chain_contract": {
+    "canonical_port": "building entrance_px is exterior south threshold; approach travels south from that point",
+    "driveway_axes": "driveway_short and driveway_long axis_endpoints_px remain authoritative; long axis spans 8 m and short 4 m at 32 px/m",
+    "proof": "reference/connected_road_to_house_b_full.png with marked geometry in reference/connected_road_to_house_b_geometry.png",
+    "proof_coordinates_px": {
+      "canvas": [
+        1024,
+        1024
+      ],
+      "house_b_top_left": [
+        352,
+        32
+      ],
+      "threshold_world": [
+        512,
+        462
+      ],
+      "driveway_long_top_left": [
+        432,
+        390
+      ],
+      "driveway_axis_world": [
+        [
+          512,
+          422
+        ],
+        [
+          512,
+          678
+        ]
+      ],
+      "yard_gravel_top_left": [
+        384,
+        352
+      ],
+      "worn_ground_top_left": [
+        448,
+        399
+      ],
+      "horizontal_road_tile_top_y": 600,
+      "paved_north_edge_approx_y": 632
+    },
+    "placement_rule": "Overlap transparent access assets at their physical endpoints; draw grass, road, driveway, yard, threshold wear, then building. Preserve source pixel sizes and use no forced nonuniform scale.",
+    "short_driveway_use": "substitute driveway_short for closer road/door separations; its 4 m axis endpoints are in access_overlays metadata; inspect connection geometry before placement"
+  }
+}

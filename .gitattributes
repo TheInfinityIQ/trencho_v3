@@ -2,3 +2,4 @@
 art/a1_rev5/** -text
 art/a1_grass_rev6/** -text
 art/modular_soldier_v3/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+art/env036/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

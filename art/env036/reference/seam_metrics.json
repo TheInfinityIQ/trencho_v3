@@ -1,0 +1,20 @@
+{
+  "field_v1": {
+    "horizontal_tile_seam_mean": 0.6979166865348816,
+    "vertical_tile_seam_mean": 7.156944751739502,
+    "ordinary_horizontal_gradient_median": 10.304166793823242,
+    "ordinary_vertical_gradient_median": 7.178124904632568
+  },
+  "field_revision": {
+    "horizontal_tile_seam_mean": 3.5625,
+    "vertical_tile_seam_mean": 4.256249904632568,
+    "ordinary_horizontal_gradient_median": 10.853123664855957,
+    "ordinary_vertical_gradient_median": 8.434374809265137
+  },
+  "meadow_unchanged": {
+    "horizontal_tile_seam_mean": 3.000347137451172,
+    "vertical_tile_seam_mean": 3.4194443225860596,
+    "ordinary_horizontal_gradient_median": 6.16041374206543,
+    "ordinary_vertical_gradient_median": 6.164583206176758
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "assets": [
+    {
+      "file": "buildings/house_b.png",
+      "ok": true,
+      "size": [
+        320,
+        448
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "buildings/house_c.png",
+      "ok": true,
+      "size": [
+        384,
+        384
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "buildings/farmhouse_d.png",
+      "ok": true,
+      "size": [
+        416,
+        544
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "access/driveway_short.png",
+      "ok": true,
+      "size": [
+        160,
+        192
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "access/driveway_long.png",
+      "ok": true,
+      "size": [
+        160,
+        320
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "access/yard_gravel.png",
+      "ok": true,
+      "size": [
+        256,
+        256
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "access/worn_ground.png",
+      "ok": true,
+      "size": [
+        128,
+        128
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "terrain/meadow_01.png",
+      "ok": true,
+      "size": [
+        256,
+        256
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "terrain/meadow_02.png",
+      "ok": true,
+      "size": [
+        256,
+        256
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "terrain/field_01.png",
+      "ok": true,
+      "size": [
+        256,
+        256
+      ],
+      "texture_imported": true
+    },
+    {
+      "file": "terrain/field_02.png",
+      "ok": true,
+      "size": [
+        256,
+        256
+      ],
+      "texture_imported": true
+    }
+  ],
+  "failed": false,
+  "godot_check": "runtime Image load, imported Texture2D resource and dimensions"
+}

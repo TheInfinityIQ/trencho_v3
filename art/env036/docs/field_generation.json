@@ -1,0 +1,41 @@
+{
+  "method": "new seeded periodic procedural field; original v1 RGB tiles preserved unchanged",
+  "canvas_px": [
+    256,
+    256
+  ],
+  "source_scale_px_per_m": 32,
+  "furrow_pitch_px": 16,
+  "furrow_orientation": "north_south",
+  "allowed_rotations_deg": [
+    0,
+    180
+  ],
+  "variants": {
+    "field_01.png": {
+      "mean_rgb": [
+        100.93,
+        82.02,
+        53.14
+      ],
+      "std_rgb": [
+        27.61,
+        22.8,
+        16.51
+      ]
+    },
+    "field_02.png": {
+      "mean_rgb": [
+        101.45,
+        82.46,
+        53.46
+      ],
+      "std_rgb": [
+        29.01,
+        24.01,
+        17.39
+      ]
+    }
+  },
+  "reason": "v1 arbitrary mixed adjacency showed visible 8 m grid; imagegen attempts supplied realistic microtexture but not usable exact tile phase or straight furrows; new periodic vertical geometry and boundary-only 180 symmetry retain those details without the checkerboard of procedural attempt 01"
+}
