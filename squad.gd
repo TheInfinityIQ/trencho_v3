@@ -22,6 +22,7 @@ var leader_unavailability := "unavailable"
 var leader_reports: Array[Dictionary] = []
 var leadership_log: Array[Dictionary] = []
 var morale := 100
+var morale_enabled := true
 var morale_state := "STEADY"
 var morale_log: Array[Dictionary] = []
 var morale_reports: Array[Dictionary] = []
@@ -52,7 +53,7 @@ func change_morale(amount: int, cause: String, now: float, person_id := "") -> v
 		routing_trigger = morale_log.back().duplicate(true)
 
 func combat_casualty(person, now: float) -> void:
-	if person not in soldiers or casualty_morale_ids.has(person.id):
+	if not morale_enabled or person not in soldiers or casualty_morale_ids.has(person.id):
 		return
 	casualty_morale_ids[person.id] = true
 	change_morale(-20, "Combat casualty", now, person.id)
@@ -66,7 +67,7 @@ func receive_suppression(amount: int, now: float) -> void:
 		suppression_decay_at = now + 2
 	if suppression >= 4 and not suppression_episode_penalized:
 		suppression_episode_penalized = true
-		change_morale(-15, "Sustained suppression episode", now)
+		if morale_enabled: change_morale(-15, "Sustained suppression episode", now)
 
 func decay_suppression(now: float) -> void:
 	while suppression > 0 and suppression_decay_at >= 0 and now + 0.000001 >= suppression_decay_at:

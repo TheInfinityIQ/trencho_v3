@@ -99,7 +99,7 @@ func visual_run() -> void:
 	var fingerprint: String = view.layout.fingerprint
 	var generations: int = view.generation_count
 	var graph_size: int = view.world.navigation.graph.get_point_count()
-	expect(view.people.size() == 18 and view.visuals.size() == 18 and not view.debug_enabled, "Native scene binds18embodied people through accepted SoldierVisual with clean default")
+	expect(view.world.friendly_people().size() == 18 and view.people.size() == 27 and view.visuals.size() == 27 and not view.debug_enabled, "Native scene binds18friendly and9enemy people through accepted SoldierVisual with clean default")
 	await capture("01_clean_initial_local")
 	advance_view(view, 12)
 	expect(view.visuals[0].clip_name == "standing_walk" and view.visuals[16].clip_name == "standing_walk", "Squad personnel and separate Platoon leader animate actual movement")

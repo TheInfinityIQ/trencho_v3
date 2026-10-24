@@ -1,0 +1,376 @@
+{
+  "suite_count": 37,
+  "passed": 37,
+  "results": [
+    {
+      "suite": "check.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "RECOVERY: {\"destination\":\"Recovery Team\",\"ownership_after\":\"military\",\"ownership_before\":\"military\",\"quantity\":3,\"reason\":\"Physical recovery completed; historical event unchanged\",\"source\":\"body:P2-B.4\",\"time\":21.5166666666668}",
+        "HIERARCHY CHECKS: 37 failures: []"
+      ]
+    },
+    {
+      "suite": "check_alerts.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+        "ALERT CHECKS: 40 failures: []"
+      ]
+    },
+    {
+      "suite": "check_art_microgate.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "",
+        "VIS031 CHECKS: 10 failures: []"
+      ]
+    },
+    {
+      "suite": "check_artillery.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "SHOT: {\"ammo_after\":0,\"ammo_before\":1,\"covered\":true,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.717784643173218,\"shooter\":\"E1.4\",\"shooter_position\":\"(855.0, 440.0)\",\"target\":\"P1-A.2\",\"target_position\":\"(712.3184, 274.545)\",\"time\":41.4666666666656}",
+        "ARTILLERY CHECKS: 30 failures: []"
+      ]
+    },
+    {
+      "suite": "check_autonomy.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "AUTONOMY CHECKS 38 failures: []",
+        "AUTONOMY COMPLETE 38 failures: []"
+      ]
+    },
+    {
+      "suite": "check_battle.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "ARTILLERY WORLD IMPACT: {\"effects\":[],\"impact\":\"(850.0, 200.0)\",\"impact_time\":17.0000000000003,\"report_observation_time\":0.0,\"source_report\":\"strategic-Enemy-HQ\",\"weapon\":\"Mortar-01\"}",
+        "BATTLE CHECKS: 31 failures: []"
+      ]
+    },
+    {
+      "suite": "check_bridge.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "INFRASTRUCTURE: {\"cause\":\"Construction-01\",\"event\":\"reconstruction completed\",\"infrastructure\":\"Bridge-A\",\"position\":\"(260.0, 162.5)\",\"revision\":5,\"source\":\"Engineer-01\",\"state\":\"INTACT\",\"time\":16.0000000000004}",
+        "BRIDGE CHECKS: 33 failures: []"
+      ]
+    },
+    {
+      "suite": "check_campaign.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "ARTILLERY WORLD IMPACT: {\"effects\":[],\"impact\":\"(850.0, 200.0)\",\"impact_time\":22.0166666666665,\"report_observation_time\":0.0,\"source_report\":\"strategic-Enemy-HQ\",\"weapon\":\"Mortar-01\"}",
+        "CAMPAIGN CHECKS: 32 failures: []"
+      ]
+    },
+    {
+      "suite": "check_cards.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "OMNISCIENT DEVELOPER FIXTURE: {\"cause\":\"explosion\",\"event_id\":\"fixture-incident-1\",\"event_time\":5.0,\"hidden_source_id\":\"enemy-indirect-source-7\",\"location\":\"(264.0, 634.0)\",\"soldier_id\":\"B2-P2-B.4\"}",
+        "CARDS CHECKS: 42 failures: []"
+      ]
+    },
+    {
+      "suite": "check_combat.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "SUPPLY TRANSFER: {\"category\":\"BoltActionRifleAmmo\",\"destination\":\"P1-A.2\",\"ownership_after\":\"military\",\"ownership_before\":\"enemy\",\"quantity\":4,\"reason\":\"Secured nearby enemy ammunition recovered without conversion\",\"source\":\"enemy-ammo-container\",\"time\":40.799999999999}",
+        "COMBAT CHECKS: 38 failures: []"
+      ]
+    },
+    {
+      "suite": "check_command.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "LOCAL FIELD SUCCESSION: {\"acting\":\"P1-A.3\",\"candidate_reasons\":{\"P1-A.1\":\"Not alive/active\",\"P1-A.2\":\"Eligible\",\"P1-A.3\":\"Eligible\",\"P1-A.4\":\"Missing SquadCommand qualification\"},\"intent\":\"Seize Objective A\",\"rank_unchanged\":\"SERGEANT\",\"squad\":\"P1-A\",\"state\":\"ACTING_COMMAND\",\"time\":13.5}",
+        "COMMAND CHECKS: 25 failures: []"
+      ]
+    },
+    {
+      "suite": "check_consumable.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "ARTILLERY WORLD IMPACT: {\"effects\":[],\"impact\":\"(850.0, 200.0)\",\"impact_time\":22.0166666666668,\"report_observation_time\":0.0,\"source_report\":\"strategic-Enemy-HQ\",\"weapon\":\"Mortar-01\"}",
+        "CONSUMABLE CHECKS: 42 failures: []"
+      ]
+    },
+    {
+      "suite": "check_contact.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "LEADER CASUALTY RELAY: Company {\"acting_replacement\":\"\",\"deceased_leader\":\"P2-B.1\",\"kind\":\"LEADER_CASUALTY\",\"observation_time\":76.099999999997,\"received_at\":78.599999999997,\"sent_at\":76.599999999997,\"squad\":\"P2-B\",\"unavailability\":\"dead\",\"unavailable_leader\":\"P2-B.1\"}",
+        "CONTACT CHECKS 30 failures: []"
+      ]
+    },
+    {
+      "suite": "check_context.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+        "CONTEXT CHECKS: 21 failures: []"
+      ]
+    },
+    {
+      "suite": "check_damage.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "FORTIFICATION LIFECYCLE: {\"cause\":\"Spatial blast within24units\",\"event\":\"damaged\",\"integrity\":1,\"position\":\"(650.0, 580.0)\",\"source\":\"Mortar-01\",\"state\":\"DAMAGED\",\"structure\":\"Structure-Construction-02\",\"time\":12.1}",
+        "DAMAGE CHECKS: 36 failures: []"
+      ]
+    },
+    {
+      "suite": "check_engineering.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "RECOVERY: {\"destination\":\"Recovery Team\",\"ownership_after\":\"military\",\"ownership_before\":\"military\",\"quantity\":3,\"reason\":\"Physical recovery completed; historical event unchanged\",\"source\":\"body:P2-B.4\",\"time\":21.5166666666668}",
+        "ENGINEERING CHECKS: 39 failures: []"
+      ]
+    },
+    {
+      "suite": "check_information.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+        "INFORMATION CHECKS: 127 failures: []"
+      ]
+    },
+    {
+      "suite": "check_land_use.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "",
+        "ENV036 CHECKS: 39 failures: []"
+      ]
+    },
+    {
+      "suite": "check_loop.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "ARTILLERY WORLD IMPACT: {\"effects\":[{\"distance\":77.1751251220703,\"effect\":\"suppressed\",\"person\":\"B2-P2-A.3\",\"position\":\"(140.0, 634.0)\",\"solid_obstruction\":false,\"suppression_added\":2}],\"impact\":\"(100.0, 700.0)\",\"impact_time\":8.01666666666665,\"report_observation_time\":0.0,\"source_report\":\"strategic-Friendly-HQ\",\"weapon\":\"B2-Mortar-01\"}",
+        "LOOP CHECKS: 27 failures: []"
+      ]
+    },
+    {
+      "suite": "check_medical.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "COMBAT WORLD EVENT: {\"body_inventory\":{\"BoltActionRifleAmmo\":4},\"event\":\"combat casualty\",\"location\":\"(420.5727, 210.5266)\",\"person\":\"P1-A.2\",\"time\":15.0000000000001,\"world_source\":\"Mortar-01\"}",
+        "MEDICAL CHECKS: 38 failures: []"
+      ]
+    },
+    {
+      "suite": "check_meta.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "ARTILLERY WORLD IMPACT: {\"effects\":[],\"impact\":\"(850.0, 200.0)\",\"impact_time\":8.01666666666665,\"report_observation_time\":0.0,\"source_report\":\"strategic-Enemy-HQ\",\"weapon\":\"B2-Mortar-01\"}",
+        "META CHECKS: 34 failures: []"
+      ]
+    },
+    {
+      "suite": "check_morale.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "SHOT: {\"ammo_after\":19,\"ammo_before\":20,\"covered\":false,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.908948659896851,\"shooter\":\"E1.1\",\"shooter_position\":\"(296.0, 298.0)\",\"target\":\"P1-A.2\",\"target_position\":\"(356.0, 298.0)\",\"time\":23.9999999999997}",
+        "MORALE CHECKS: 64 failures: []"
+      ]
+    },
+    {
+      "suite": "check_operations.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "SHOT: {\"ammo_after\":0,\"ammo_before\":1,\"covered\":false,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.86437326669693,\"shooter\":\"E1.4\",\"shooter_position\":\"(855.0, 440.0)\",\"target\":\"P1-A.2\",\"target_position\":\"(672.7086, 254.6967)\",\"time\":36.2166666666659}",
+        "OPERATIONS CHECKS: 23 failures: []"
+      ]
+    },
+    {
+      "suite": "check_priority.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "SHOT: {\"ammo_after\":0,\"ammo_before\":1,\"covered\":false,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.86437326669693,\"shooter\":\"E1.4\",\"shooter_position\":\"(855.0, 440.0)\",\"target\":\"P1-A.2\",\"target_position\":\"(673.1923, 254.2107)\",\"time\":46.1166666666653}",
+        "PRIORITY CHECKS: 31 failures: []"
+      ]
+    },
+    {
+      "suite": "check_rear.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "RECOVERY: {\"destination\":\"Recovery Team\",\"ownership_after\":\"military\",\"ownership_before\":\"military\",\"quantity\":3,\"reason\":\"Physical recovery completed; historical event unchanged\",\"source\":\"body:P2-B.4\",\"time\":21.5166666666669}",
+        "REAR CHECKS: 33 failures: []"
+      ]
+    },
+    {
+      "suite": "check_recovery.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+        "RECOVERY CHECKS: 21 failures: []"
+      ]
+    },
+    {
+      "suite": "check_representative_scale.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "",
+        "SCL032 CHECKS: 21 failures: []"
+      ]
+    },
+    {
+      "suite": "check_resume.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "MEDICAL WORLD EVENT: {\"event\":\"died from wounds\",\"medical_state\":\"DEAD\",\"on_battlefield\":true,\"person\":\"B2-P1-B.4\",\"position\":\"(350.0, 400.0)\",\"source\":\"B2-E1.1\",\"time\":13.5}",
+        "RESUME CHECKS: 33 failures: []"
+      ]
+    },
+    {
+      "suite": "check_roads.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "VEHICLE: {\"assigned_vehicle\":\"TrackedCarrier-01\",\"cargo\":0,\"destination\":\"resupply\",\"driver\":\"Driver-02\",\"driver_active\":true,\"mobility\":\"TRACKED\",\"position\":\"(262.7609, 163.3628)\",\"reason\":\"Infrastructure changed; active route invalidated\",\"route\":[\"carrier_start\",\"depot\",\"junction\",\"crossing_exit\",\"resupply\"],\"route_legal_world_diagnostic\":false,\"state\":\"NO_LEGAL_ROUTE\",\"time\":10.2166666666667,\"vehicle\":\"TrackedCarrier-01\"}",
+        "ROAD CHECKS: 33 failures: []"
+      ]
+    },
+    {
+      "suite": "check_save.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "ARTILLERY WORLD IMPACT: {\"effects\":[],\"impact\":\"(850.0, 200.0)\",\"impact_time\":8.01666666666665,\"report_observation_time\":0.0,\"source_report\":\"strategic-Enemy-HQ\",\"weapon\":\"B2-Mortar-01\"}",
+        "SAVE CHECKS: 31 failures: []"
+      ]
+    },
+    {
+      "suite": "check_sector.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "",
+        "MAP035 CHECKS: 21 failures: []"
+      ]
+    },
+    {
+      "suite": "check_situation.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+        "SITUATION CHECKS: 30 failures: []"
+      ]
+    },
+    {
+      "suite": "check_soldier_visual.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "COMBAT WORLD EVENT: {\"body_inventory\":{\"BoltActionRifleAmmo\":1},\"event\":\"combat casualty\",\"location\":\"(179.0, 324.0)\",\"person\":\"P1-A.4\",\"time\":2.0,\"world_source\":\"E1.1\"}",
+        "SPR034 CHECKS: 22 failures: []"
+      ]
+    },
+    {
+      "suite": "check_supply.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "RECOVERY: {\"destination\":\"Recovery Team\",\"ownership_after\":\"military\",\"ownership_before\":\"military\",\"quantity\":3,\"reason\":\"Physical recovery completed; historical event unchanged\",\"source\":\"body:P2-B.4\",\"time\":21.5166666666668}",
+        "SUPPLY CHECKS: 24 failures: []"
+      ]
+    },
+    {
+      "suite": "check_triage.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+        "TRIAGE CHECKS: 73 failures: []"
+      ]
+    },
+    {
+      "suite": "check_vehicles.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "SHOT: {\"ammo_after\":0,\"ammo_before\":1,\"covered\":false,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.801050901412964,\"shooter\":\"E1.4\",\"shooter_position\":\"(814.0, 444.0)\",\"target\":\"P1-A.2\",\"target_position\":\"(650.0124, 242.5235)\",\"time\":53.7999999999982}",
+        "VEHICLE CHECKS: 20 failures: []"
+      ]
+    },
+    {
+      "suite": "check_worker.gd",
+      "exit": 0,
+      "errors": [],
+      "passed": true,
+      "summary": [
+        "TERMINAL BATTLE: {\"defeated_primary\":\"enemy\",\"event\":\"terminal battle result\",\"hq\":\"Enemy-HQ\",\"result\":\"ENDED_FRIENDLY_VICTORY\",\"source\":\"test\",\"time\":0.916666666666668}",
+        "WORKER CHECKS: 99 failures: []"
+      ]
+    }
+  ]
+}

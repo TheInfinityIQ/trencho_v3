@@ -98,7 +98,7 @@ func visual_run() -> void:
 	var view = load("res://representative_sector.tscn").instantiate(); root.add_child(view)
 	await process_frame; await process_frame
 	view.paused = true
-	expect(not view.debug_enabled and not view.overlay.visible and view.people.size() == 18 and view.visuals.size() == 18, "Clean scene uses16Squad personnel and2embodied Platoon leader adapters")
+	expect(not view.debug_enabled and not view.overlay.visible and view.world.friendly_people().size() == 18 and view.people.size() == 27 and view.visuals.size() == 27, "Clean scene uses18friendly and9enemy model-bound adapters")
 	await capture("local_default")
 	var fingerprints: String = view.layout.fingerprint
 	var generations: int = view.generation_count
@@ -152,7 +152,7 @@ func visual_run() -> void:
 		intervals.sort(); updates.sort()
 		evidence.append({"mode":mode, "active_chunks":view.active_chunks, "frame_interval_p50_ms":intervals[60], "frame_interval_p95_ms":intervals[114], "model_adapter_update_p50_ms":updates[60], "model_adapter_update_p95_ms":updates[114]})
 	view.paused = true
-	evidence.append({"nodes":node_count, "process_nodes":count_processing(view), "batches":view.batch_count, "generation_ms":view.generation_ms, "live_soldiers":18})
+	evidence.append({"nodes":node_count, "process_nodes":count_processing(view), "batches":view.batch_count, "generation_ms":view.generation_ms, "live_soldiers":27})
 	key(KEY_N); await process_frame; view.paused = true
 	expect(view.layout.seed_value == Layout.ALTERNATE_SEED and view.layout.fingerprint != fingerprints and view.generation_count == generations + 1, "Seed input explicitly rebuilds deterministic alternate")
 	view.set_mode("tactical"); await capture("alternate_tactical")

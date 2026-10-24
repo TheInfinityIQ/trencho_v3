@@ -33,6 +33,7 @@ var first_contact := -1.0
 var encounter_over := false
 var hold_contact_enabled := false
 var contact_refresh_interval := 0.0
+var verbose_events := true
 
 func _init(scenario) -> void:
 	model = weakref(scenario)
@@ -95,6 +96,18 @@ func covered(shooter: Vector2, target: Vector2) -> bool:
 	var near_cover := target.distance_to(target.clamp(LOW_COVER.position, LOW_COVER.end)) <= 80
 	return near_cover and crosses_rect(shooter, target, LOW_COVER)
 
+func combat_squads() -> Array:
+	return model.get_ref().squads
+
+func incoming_fire(shooter, target, now: float) -> void:
+	if shooter.faction != "enemy": return
+	for squad in combat_squads():
+		if target in squad.soldiers:
+			if squad == model.get_ref().squads[0]:
+				add_suppression(1, now, "Incoming effective fire prohibits exposed advance")
+			else:
+				squad.receive_suppression(1, now)
+
 func constructed_blast_solids() -> Array[Rect2]:
 	var result: Array[Rect2] = []
 	var engineering = model.get_ref().engineering
@@ -113,18 +126,18 @@ func kill(target, shooter, now: float) -> void:
 	target.medical_state = "DEAD"
 	target.bleed_out_at = -1
 	target.body_present = true
-	for squad in model.get_ref().squads:
+	for squad in combat_squads():
 		if target in squad.soldiers:
 			squad.recognize_leader_loss(now)
 			squad.combat_casualty(target, now)
 	history.append({"event": "combat casualty", "person": target.id, "location": target.position, "time": now, "world_source": shooter.id, "body_inventory": target.inventory.duplicate(true)})
 	target.personal_history.append(history.back().duplicate(true))
-	print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
+	if verbose_events: print("COMBAT WORLD EVENT: ", JSON.stringify(history.back()))
 
 func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 	if not model.get_ref().battle_active():
 		return false
-	for squad in model.get_ref().squads:
+	for squad in combat_squads():
 		if shooter in squad.soldiers and squad.routing_state != "NONE":
 			return false
 	if not shooter.active or shooter.medical_state != "FIT" or not shooter.on_battlefield or shooter.inventory.get(AMMO, 0) <= 0 or shooter.weapon_category != "BoltActionRifle":
@@ -139,20 +152,14 @@ func attempt_shot(shooter, target, now: float, roll: float) -> bool:
 	shots.append({"shooter": shooter.id, "target": target.id, "time": now, "shooter_position": shooter.position, "target_position": target.position, "los": true, "locally_detected": true, "ammo_before": before, "ammo_after": before - 1, "covered": protected, "roll": roll, "hit": hit})
 	if first_contact < 0:
 		first_contact = now
-	if shooter.faction == "enemy":
-		for squad in model.get_ref().squads:
-			if target in squad.soldiers:
-				if squad == model.get_ref().squads[0]:
-					add_suppression(1, now, "Incoming effective fire prohibits exposed advance")
-				else:
-					squad.receive_suppression(1, now)
+	incoming_fire(shooter, target, now)
 	if hit:
 		var medical = model.get_ref().medical
 		if medical != null and medical.wound_target_ids.has(target.id):
 			medical.wound(target, shooter, now)
 		else:
 			kill(target, shooter, now)
-	print("SHOT: ", JSON.stringify(shots.back()))
+	if verbose_events: print("SHOT: ", JSON.stringify(shots.back()))
 	return true
 
 func move_to_cover(now: float) -> void:

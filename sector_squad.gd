@@ -8,6 +8,7 @@ var formation_route: Array[Vector2] = []
 var formation_waypoint := 0
 var route_revision := 0
 var command_time := 0.0
+var contact_hold := false
 const SPACING := 2.2
 const SPEED := 1.4
 
@@ -50,12 +51,16 @@ func assign(local_task: String, target: Vector2, _obstacle := Rect2()) -> Dictio
 
 func advance(delta: float) -> void:
 	command_time += delta
+	if suppression >= 4: contact_hold = true
+	if contact_hold and suppression <= 1: contact_hold = false
+	if contact_hold: return
 	if not command_available() or movement_state in ["HOLDING", "ARRIVED"]: return
 	if movement_state == "REASSIGNED": change_state("MOVING_TO_OBJECTIVE")
 	# Pause the reference for a separated member to catch up at ordinary speed.
 	# Positions are never regenerated from a Squad token or teleported for cohesion.
 	var coherent := true
 	for i in range(soldiers.size()):
+		if not soldiers[i].active: continue
 		if soldiers[i].position.distance_to(formation_reference + slot(i)) > 0.15: coherent = false
 	var budget := SPEED * delta if coherent else 0.0
 	while budget > 0 and formation_waypoint < formation_route.size():
@@ -67,6 +72,7 @@ func advance(delta: float) -> void:
 	var arrived := formation_waypoint == formation_route.size()
 	for i in range(soldiers.size()):
 		var person = soldiers[i]
+		if not person.active: continue
 		person.path.assign([formation_reference + slot(i)]); person.waypoint = 0
 		person.advance(delta)
 		arrived = arrived and person.arrived

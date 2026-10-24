@@ -110,7 +110,7 @@ func capture(name: String) -> void:
 func visual_run() -> void:
 	var view = load("res://representative_sector.tscn").instantiate(); root.add_child(view)
 	await process_frame; await process_frame; view.paused = true
-	expect(not view.debug_enabled and view.visuals.size() == 18 and view.people.size() == 18, "Clean scene binds16Squad personnel and2physical Platoon leaders")
+	expect(not view.debug_enabled and view.world.friendly_people().size() == 18 and view.visuals.size() == 27 and view.people.size() == 27, "Clean scene binds18friendly and9physical enemies")
 	await capture("local_street_default")
 	var before: Vector2 = view.people[0].position
 	var truck_before: float = view.truck_distance

@@ -1,0 +1,6208 @@
+{
+	"checks": 30,
+	"evidence": [
+		{
+			"ammo_remaining": 227,
+			"casualties": [
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						311.069183349609,
+						506.200378417969
+					],
+					"person": "P1-A.4",
+					"time": 38.3499999999992,
+					"world_source": "E1-B.1"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						568.641296386719,
+						539.331176757813
+					],
+					"person": "E1-A.1",
+					"time": 38.3499999999992,
+					"world_source": "P1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						311.069183349609,
+						504.607360839844
+					],
+					"person": "P1-A.2",
+					"time": 39.3499999999991,
+					"world_source": "E1-B.1"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						308.869171142578,
+						506.807373046875
+					],
+					"person": "P1-A.3",
+					"time": 41.349999999999,
+					"world_source": "E1-B.1"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						308.869171142578,
+						504.607360839844
+					],
+					"person": "P1-A.1",
+					"time": 42.0833333333323,
+					"world_source": "E1-B.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 0
+					},
+					"event": "combat casualty",
+					"location": [
+						306.969177246094,
+						505.707366943359
+					],
+					"person": "P1-PL",
+					"time": 43.2999999999989,
+					"world_source": "E1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 6
+					},
+					"event": "combat casualty",
+					"location": [
+						560.614379882813,
+						542.643981933594
+					],
+					"person": "E1-A.3",
+					"time": 44.6333333333322,
+					"world_source": "P1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 9
+					},
+					"event": "combat casualty",
+					"location": [
+						561.426391601563,
+						540.636474609375
+					],
+					"person": "E1-A.2",
+					"time": 45.6333333333321,
+					"world_source": "P1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						561.426391601563,
+						542.83642578125
+					],
+					"person": "E1-A.4",
+					"time": 45.7833333333321,
+					"world_source": "P1-B.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 6
+					},
+					"event": "combat casualty",
+					"location": [
+						561.738647460938,
+						544.109802246094
+					],
+					"person": "E1-B.1",
+					"time": 49.9666666666652,
+					"world_source": "P2-A.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 7
+					},
+					"event": "combat casualty",
+					"location": [
+						303.241180419922,
+						538.414306640625
+					],
+					"person": "P1-B.4",
+					"time": 50.0166666666652,
+					"world_source": "E1-B.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 8
+					},
+					"event": "combat casualty",
+					"location": [
+						303.241180419922,
+						536.21435546875
+					],
+					"person": "P1-B.2",
+					"time": 51.0166666666651,
+					"world_source": "E1-B.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 4
+					},
+					"event": "combat casualty",
+					"location": [
+						561.738647460938,
+						546.309753417969
+					],
+					"person": "E1-B.3",
+					"time": 51.1666666666651,
+					"world_source": "P2-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 9
+					},
+					"event": "combat casualty",
+					"location": [
+						305.520751953125,
+						532.462890625
+					],
+					"person": "P2-A.4",
+					"time": 52.6333333333317,
+					"world_source": "E1-B.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 8
+					},
+					"event": "combat casualty",
+					"location": [
+						305.628631591797,
+						530.307312011719
+					],
+					"person": "P2-A.2",
+					"time": 53.716666666665,
+					"world_source": "E1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 0
+					},
+					"event": "combat casualty",
+					"location": [
+						563.326416015625,
+						541.736450195313
+					],
+					"person": "E1-PL",
+					"time": 63.8333333333311,
+					"world_source": "P2-A.1"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						304.205352783203,
+						532.826965332031
+					],
+					"person": "P2-A.3",
+					"time": 64.3166666666644,
+					"world_source": "E1-B.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						304.421112060547,
+						530.7158203125
+					],
+					"person": "P2-A.1",
+					"time": 64.483333333331,
+					"world_source": "E1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 12
+					},
+					"event": "combat casualty",
+					"location": [
+						303.942016601563,
+						543.115539550781
+					],
+					"person": "P1-B.3",
+					"time": 68.9666666666641,
+					"world_source": "E1-B.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						304.003234863281,
+						541.014770507813
+					],
+					"person": "P1-B.1",
+					"time": 69.0499999999974,
+					"world_source": "E1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 0
+					},
+					"event": "combat casualty",
+					"location": [
+						302.521118164063,
+						531.815795898438
+					],
+					"person": "P2-PL",
+					"time": 76.2333333333304,
+					"world_source": "E1-B.2"
+				}
+			],
+			"contacts": [
+				{
+					"contact_id": "E1-A.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 38.1666666666659,
+					"observed_position": [
+						568.895751953125,
+						539.2958984375
+					],
+					"observer": "P1-A.4",
+					"received_at": 40.1666666666659,
+					"report_id": "contact-1",
+					"source_echelon": "Company",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 45.6333333333321,
+					"observed_position": [
+						561.426391601563,
+						540.636474609375
+					],
+					"observer": "P1-B.4",
+					"received_at": 47.6333333333321,
+					"report_id": "contact-5",
+					"source_echelon": "Company",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 41.6833333333323,
+					"observed_position": [
+						564.708801269531,
+						542.076354980469
+					],
+					"observer": "P1-A.1",
+					"received_at": 43.6833333333323,
+					"report_id": "contact-4",
+					"source_echelon": "Company",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 45.6833333333321,
+					"observed_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"observer": "P1-B.4",
+					"received_at": 47.6833333333321,
+					"report_id": "contact-6",
+					"source_echelon": "Company",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 47.983333333332,
+					"observed_position": [
+						563.137573242188,
+						544.199645996094
+					],
+					"observer": "P1-B.4",
+					"received_at": 49.983333333332,
+					"report_id": "contact-7",
+					"source_echelon": "Company",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 68.9999999999974,
+					"observed_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"observer": "P1-B.1",
+					"received_at": 70.9999999999974,
+					"report_id": "contact-12",
+					"source_echelon": "Company",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 49.9833333333319,
+					"observed_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"observer": "P1-B.2",
+					"received_at": 51.9833333333319,
+					"report_id": "contact-8",
+					"source_echelon": "Company",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-PL",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 63.7666666666644,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.3",
+					"received_at": 65.7666666666644,
+					"report_id": "contact-10",
+					"source_echelon": "Company",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				}
+			],
+			"first_company": 40.1666666666657,
+			"first_detection": 38.1666666666659,
+			"first_friendly_detection": 38.1666666666659,
+			"local_events": [
+				{
+					"contact_id": "P1-A.4",
+					"distance_m": 259.974822998047,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.1666666666659,
+					"observed_position": [
+						311.069183349609,
+						505.943572998047
+					],
+					"observer": "E1-A.1",
+					"observer_position": [
+						568.895751953125,
+						539.2958984375
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.1",
+					"distance_m": 259.974822998047,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 38.1666666666659,
+					"observed_position": [
+						568.895751953125,
+						539.2958984375
+					],
+					"observer": "P1-A.4",
+					"observer_position": [
+						311.069183349609,
+						505.943572998047
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.4",
+					"distance_m": 259.983947753906,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.3499999999992,
+					"observed_position": [
+						311.069183349609,
+						506.200378417969
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						568.641296386719,
+						541.531127929688
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-A.4",
+					"distance_m": 259.991485595703,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.3499999999992,
+					"observed_position": [
+						311.069183349609,
+						506.200378417969
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						568.220336914063,
+						544.526062011719
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-A.1",
+					"distance_m": 259.983947753906,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 38.3499999999992,
+					"observed_position": [
+						568.641296386719,
+						539.331176757813
+					],
+					"observer": "P1-A.2",
+					"observer_position": [
+						311.069183349609,
+						504.000366210938
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.2",
+					"distance_m": 259.975341796875,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.5666666666658,
+					"observed_position": [
+						311.069183349609,
+						504.303863525391
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						567.917236328125,
+						544.506591796875
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.975341796875,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 38.5666666666658,
+					"observed_position": [
+						567.917236328125,
+						544.506591796875
+					],
+					"observer": "P1-A.2",
+					"observer_position": [
+						311.069183349609,
+						504.303863525391
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.2",
+					"distance_m": 259.973114013672,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.7833333333325,
+					"observed_position": [
+						311.069183349609,
+						504.607360839844
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						567.614135742188,
+						546.687072753906
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P1-A.2",
+					"distance_m": 259.980804443359,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 39.0166666666658,
+					"observed_position": [
+						311.069183349609,
+						504.607360839844
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						568.409973144531,
+						541.563232421875
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-A.3",
+					"distance_m": 259.983734130859,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 39.8499999999991,
+					"observed_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						566.121948242188,
+						544.391296386719
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.983734130859,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 39.8499999999991,
+					"observed_position": [
+						566.121948242188,
+						544.391296386719
+					],
+					"observer": "P1-A.3",
+					"observer_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.3",
+					"distance_m": 259.985076904297,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 40.0833333333324,
+					"observed_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						565.795532226563,
+						546.570251464844
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.985107421875,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 40.0833333333324,
+					"observed_position": [
+						565.795532226563,
+						544.370300292969
+					],
+					"observer": "P1-A.1",
+					"observer_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.3",
+					"distance_m": 259.990417480469,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 40.3999999999991,
+					"observed_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						566.489990234375,
+						541.829406738281
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 258.935546875,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 41.349999999999,
+					"observed_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						564.396606445313,
+						546.48046875
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 258.994903564453,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 41.3666666666657,
+					"observed_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						565.148315429688,
+						542.015380859375
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 258.588928222656,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 41.3666666666657,
+					"observed_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						564.396606445313,
+						544.280517578125
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"distance_m": 258.56884765625,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 41.6833333333323,
+					"observed_position": [
+						564.708801269531,
+						542.076354980469
+					],
+					"observer": "P1-A.1",
+					"observer_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 259.989074707031,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 42.0166666666656,
+					"observed_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						566.446105957031,
+						539.940551757813
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-PL",
+					"distance_m": 259.731567382813,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 42.099999999999,
+					"observed_position": [
+						306.969177246094,
+						505.707366943359
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						564.130493164063,
+						542.156494140625
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-PL",
+					"distance_m": 259.992248535156,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 43.2999999999989,
+					"observed_position": [
+						306.969177246094,
+						505.707366943359
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						564.664916992188,
+						540.1875
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-B.4",
+					"distance_m": 259.990631103516,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 44.6333333333322,
+					"observed_position": [
+						300.7548828125,
+						534.387512207031
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						560.614379882813,
+						542.643981933594
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"distance_m": 259.990631103516,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 44.6333333333322,
+					"observed_position": [
+						560.614379882813,
+						542.643981933594
+					],
+					"observer": "P1-B.4",
+					"observer_position": [
+						300.7548828125,
+						534.387512207031
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P1-B.4",
+					"distance_m": 259.984741210938,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 45.6333333333321,
+					"observed_position": [
+						301.490875244141,
+						535.577697753906
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						561.426391601563,
+						540.636474609375
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"distance_m": 259.984741210938,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 45.6333333333321,
+					"observed_position": [
+						561.426391601563,
+						540.636474609375
+					],
+					"observer": "P1-B.4",
+					"observer_position": [
+						301.490875244141,
+						535.577697753906
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P1-B.4",
+					"distance_m": 259.998504638672,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 45.6833333333321,
+					"observed_position": [
+						301.527587890625,
+						535.63720703125
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"distance_m": 259.998504638672,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 45.6833333333321,
+					"observed_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"observer": "P1-B.4",
+					"observer_position": [
+						301.527587890625,
+						535.63720703125
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"distance_m": 259.991058349609,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 45.7833333333321,
+					"observed_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"observer": "P1-B.2",
+					"observer_position": [
+						301.601013183594,
+						533.556274414063
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P1-B.4",
+					"distance_m": 259.986145019531,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 47.983333333332,
+					"observed_position": [
+						303.216705322266,
+						538.374633789063
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						563.137573242188,
+						544.199645996094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.986145019531,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 47.983333333332,
+					"observed_position": [
+						563.137573242188,
+						544.199645996094
+					],
+					"observer": "P1-B.4",
+					"observer_position": [
+						303.216705322266,
+						538.374633789063
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P1-B.4",
+					"distance_m": 259.972351074219,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 48.0166666666653,
+					"observed_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						563.090942382813,
+						546.396606445313
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.972351074219,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 48.0166666666653,
+					"observed_position": [
+						563.090942382813,
+						544.196655273438
+					],
+					"observer": "P1-B.2",
+					"observer_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.998657226563,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 49.9666666666652,
+					"observed_position": [
+						561.738647460938,
+						544.109802246094
+					],
+					"observer": "P2-A.4",
+					"observer_position": [
+						302.068603515625,
+						531.042053222656
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"distance_m": 258.694519042969,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 49.9833333333319,
+					"observed_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"observer": "P1-B.2",
+					"observer_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"distance_m": 258.618011474609,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 49.9833333333319,
+					"observed_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"observer": "P1-B.4",
+					"observer_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P1-B.2",
+					"distance_m": 258.694519042969,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 50.0333333333319,
+					"observed_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"distance_m": 259.986145019531,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 50.0666666666652,
+					"observed_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"observer": "P2-A.4",
+					"observer_position": [
+						302.198059082031,
+						531.095336914063
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"distance_m": 259.991424560547,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 50.1666666666652,
+					"observed_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"observer": "P2-A.2",
+					"observer_position": [
+						302.327514648438,
+						528.948669433594
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.4",
+					"distance_m": 258.707122802734,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 51.0333333333318,
+					"observed_position": [
+						303.449462890625,
+						531.6103515625
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-PL",
+					"distance_m": 259.89892578125,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 51.1666666666651,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.4",
+					"observer_position": [
+						303.6220703125,
+						531.681396484375
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-PL",
+					"distance_m": 259.971374511719,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 51.1833333333318,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.2",
+					"observer_position": [
+						303.643646240234,
+						529.490356445313
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.4",
+					"distance_m": 259.997833251953,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 51.6333333333318,
+					"observed_position": [
+						304.226196289063,
+						531.930053710938
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P2-A.4",
+					"distance_m": 260.0,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 51.7166666666651,
+					"observed_position": [
+						304.334075927734,
+						531.974487304688
+					],
+					"observer": "E1-B.4",
+					"observer_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P2-A.2",
+					"distance_m": 258.915588378906,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 52.6333333333317,
+					"observed_position": [
+						305.520751953125,
+						530.262939453125
+					],
+					"observer": "E1-B.4",
+					"observer_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P2-A.2",
+					"distance_m": 258.766540527344,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 52.6499999999984,
+					"observed_position": [
+						305.542327880859,
+						530.271789550781
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-PL",
+					"distance_m": 259.996002197266,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 63.7666666666644,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.3",
+					"observer_position": [
+						303.493347167969,
+						532.533874511719
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-PL",
+					"distance_m": 259.995361328125,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 63.8333333333311,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.1",
+					"observer_position": [
+						303.579650878906,
+						530.369445800781
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.3",
+					"distance_m": 259.978210449219,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 64.3166666666644,
+					"observed_position": [
+						304.205352783203,
+						532.826965332031
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P2-A.1",
+					"distance_m": 259.994934082031,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 64.383333333331,
+					"observed_position": [
+						304.291656494141,
+						530.662536621094
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"distance_m": 259.994934082031,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 64.383333333331,
+					"observed_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"observer": "P2-A.1",
+					"observer_position": [
+						304.291656494141,
+						530.662536621094
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.1",
+					"distance_m": 259.985565185547,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 64.483333333331,
+					"observed_position": [
+						304.421112060547,
+						530.7158203125
+					],
+					"observer": "E1-B.4",
+					"observer_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P1-B.3",
+					"distance_m": 259.998504638672,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 68.9666666666641,
+					"observed_position": [
+						303.942016601563,
+						543.115539550781
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P1-B.1",
+					"distance_m": 259.991241455078,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 68.9999999999974,
+					"observed_position": [
+						303.966491699219,
+						540.955261230469
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"distance_m": 259.991241455078,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 68.9999999999974,
+					"observed_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"observer": "P1-B.1",
+					"observer_position": [
+						303.966491699219,
+						540.955261230469
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P1-B.1",
+					"distance_m": 259.989288330078,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 69.0499999999974,
+					"observed_position": [
+						304.003234863281,
+						541.014770507813
+					],
+					"observer": "E1-B.4",
+					"observer_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P2-PL",
+					"distance_m": 259.977752685547,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 76.2333333333304,
+					"observed_position": [
+						302.521118164063,
+						531.815795898438
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						562.213256835938,
+						543.9990234375
+					],
+					"source_formation": "E1-B"
+				}
+			],
+			"reports": [
+				{
+					"contact_id": "E1-A.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 38.1666666666659,
+					"observed_position": [
+						568.895751953125,
+						539.2958984375
+					],
+					"observer": "P1-A.4",
+					"received_at": 40.1666666666659,
+					"report_id": "contact-1",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 38.5666666666658,
+					"observed_position": [
+						567.917236328125,
+						544.506591796875
+					],
+					"observer": "P1-A.2",
+					"received_at": 40.5666666666658,
+					"report_id": "contact-2",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 41.5666666666657,
+					"observed_position": [
+						564.396606445313,
+						544.280517578125
+					],
+					"observer": "P1-A.1",
+					"received_at": 43.5666666666657,
+					"report_id": "contact-3",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 41.6833333333323,
+					"observed_position": [
+						564.708801269531,
+						542.076354980469
+					],
+					"observer": "P1-A.1",
+					"received_at": 43.6833333333323,
+					"report_id": "contact-4",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 45.6333333333321,
+					"observed_position": [
+						561.426391601563,
+						540.636474609375
+					],
+					"observer": "P1-B.4",
+					"received_at": 47.6333333333321,
+					"report_id": "contact-5",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 45.6833333333321,
+					"observed_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"observer": "P1-B.4",
+					"received_at": 47.6833333333321,
+					"report_id": "contact-6",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 47.983333333332,
+					"observed_position": [
+						563.137573242188,
+						544.199645996094
+					],
+					"observer": "P1-B.4",
+					"received_at": 49.983333333332,
+					"report_id": "contact-7",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 49.9833333333319,
+					"observed_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"observer": "P1-B.2",
+					"received_at": 51.9833333333319,
+					"report_id": "contact-8",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-PL",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 51.1666666666651,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.4",
+					"received_at": 53.1666666666651,
+					"report_id": "contact-9",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-PL",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 63.7666666666644,
+					"observed_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"observer": "P2-A.3",
+					"received_at": 65.7666666666644,
+					"report_id": "contact-10",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 64.383333333331,
+					"observed_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"observer": "P2-A.1",
+					"received_at": 66.383333333331,
+					"report_id": "contact-11",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 68.9999999999974,
+					"observed_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"observer": "P1-B.1",
+					"received_at": 70.9999999999974,
+					"report_id": "contact-12",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				}
+			],
+			"seed": 35035,
+			"shots": [
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.542072474956512,
+					"shooter": "E1-A.1",
+					"shooter_position": [
+						568.895751953125,
+						539.2958984375
+					],
+					"target": "P1-A.4",
+					"target_position": [
+						311.069183349609,
+						505.943572998047
+					],
+					"time": 38.1666666666659
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.807175934314728,
+					"shooter": "P1-A.4",
+					"shooter_position": [
+						311.069183349609,
+						505.943572998047
+					],
+					"target": "E1-A.1",
+					"target_position": [
+						568.895751953125,
+						539.2958984375
+					],
+					"time": 38.1666666666659
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.406536519527435,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						568.641296386719,
+						541.531127929688
+					],
+					"target": "P1-A.4",
+					"target_position": [
+						311.069183349609,
+						506.200378417969
+					],
+					"time": 38.3499999999992
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.127050504088402,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						568.220336914063,
+						544.526062011719
+					],
+					"target": "P1-A.4",
+					"target_position": [
+						311.069183349609,
+						506.200378417969
+					],
+					"time": 38.3499999999992
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.138340577483177,
+					"shooter": "P1-A.2",
+					"shooter_position": [
+						311.069183349609,
+						504.000366210938
+					],
+					"target": "E1-A.1",
+					"target_position": [
+						568.641296386719,
+						539.331176757813
+					],
+					"time": 38.3499999999992
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.499224334955215,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						567.614135742188,
+						546.687072753906
+					],
+					"target": "P1-A.2",
+					"target_position": [
+						311.069183349609,
+						504.607360839844
+					],
+					"time": 38.7833333333325
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.631278991699219,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						567.947326660156,
+						541.627319335938
+					],
+					"target": "P1-A.2",
+					"target_position": [
+						311.069183349609,
+						504.607360839844
+					],
+					"time": 39.3499999999991
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.153662770986557,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						566.821411132813,
+						544.436218261719
+					],
+					"target": "P1-A.2",
+					"target_position": [
+						311.069183349609,
+						504.607360839844
+					],
+					"time": 39.3499999999991
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.476106107234955,
+					"shooter": "P1-A.3",
+					"shooter_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						566.121948242188,
+						544.391296386719
+					],
+					"time": 39.8499999999991
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.508710145950317,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						565.795532226563,
+						546.570251464844
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"time": 40.0833333333324
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.455624759197235,
+					"shooter": "P1-A.1",
+					"shooter_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						565.795532226563,
+						544.370300292969
+					],
+					"time": 40.0833333333324
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.429631650447845,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						565.422485351563,
+						544.346374511719
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"time": 40.3499999999991
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.852656722068787,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						566.489990234375,
+						541.829406738281
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"time": 40.3999999999991
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.967341125011444,
+					"shooter": "P1-A.3",
+					"shooter_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						564.723022460938,
+						544.301452636719
+					],
+					"time": 40.849999999999
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.966244757175446,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						564.396606445313,
+						546.48046875
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"time": 41.0833333333324
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.439787060022354,
+					"shooter": "P1-A.1",
+					"shooter_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						564.396606445313,
+						544.280517578125
+					],
+					"time": 41.0833333333324
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.33584451675415,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						564.396606445313,
+						544.280517578125
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						308.869171142578,
+						506.807373046875
+					],
+					"time": 41.349999999999
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.88287615776062,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						565.10205078125,
+						542.021850585938
+					],
+					"target": "P1-A.1",
+					"target_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"time": 41.399999999999
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.503351926803589,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						566.446105957031,
+						539.940551757813
+					],
+					"target": "P1-A.1",
+					"target_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"time": 42.0166666666656
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.330988764762878,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						564.396606445313,
+						546.48046875
+					],
+					"target": "P1-A.1",
+					"target_position": [
+						308.869171142578,
+						504.607360839844
+					],
+					"time": 42.0833333333323
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.979571580886841,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						563.714111328125,
+						542.214233398438
+					],
+					"target": "P1-PL",
+					"target_position": [
+						306.969177246094,
+						505.707366943359
+					],
+					"time": 42.399999999999
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.208687976002693,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						564.664916992188,
+						540.1875
+					],
+					"target": "P1-PL",
+					"target_position": [
+						306.969177246094,
+						505.707366943359
+					],
+					"time": 43.2999999999989
+				},
+				{
+					"ammo_after": 6,
+					"ammo_before": 7,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.991079926490784,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						560.614379882813,
+						542.643981933594
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						300.7548828125,
+						534.387512207031
+					],
+					"time": 44.6333333333322
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0187185797840357,
+					"shooter": "P1-B.4",
+					"shooter_position": [
+						300.7548828125,
+						534.387512207031
+					],
+					"target": "E1-A.3",
+					"target_position": [
+						560.614379882813,
+						542.643981933594
+					],
+					"time": 44.6333333333322
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.752874135971069,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						561.426391601563,
+						540.636474609375
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						301.490875244141,
+						535.577697753906
+					],
+					"time": 45.6333333333321
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.385359585285187,
+					"shooter": "P1-B.4",
+					"shooter_position": [
+						301.490875244141,
+						535.577697753906
+					],
+					"target": "E1-A.2",
+					"target_position": [
+						561.426391601563,
+						540.636474609375
+					],
+					"time": 45.6333333333321
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.519808530807495,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						301.527587890625,
+						535.63720703125
+					],
+					"time": 45.6833333333321
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.354445666074753,
+					"shooter": "P1-B.2",
+					"shooter_position": [
+						301.601013183594,
+						533.556274414063
+					],
+					"target": "E1-A.4",
+					"target_position": [
+						561.426391601563,
+						542.83642578125
+					],
+					"time": 45.7833333333321
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.579744040966034,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						563.137573242188,
+						544.199645996094
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						303.216705322266,
+						538.374633789063
+					],
+					"time": 47.983333333332
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.875758230686188,
+					"shooter": "P1-B.4",
+					"shooter_position": [
+						303.216705322266,
+						538.374633789063
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						563.137573242188,
+						544.199645996094
+					],
+					"time": 47.983333333332
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.691189110279083,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						563.090942382813,
+						546.396606445313
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"time": 48.0166666666653
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.470337510108948,
+					"shooter": "P1-B.2",
+					"shooter_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						563.090942382813,
+						544.196655273438
+					],
+					"time": 48.0166666666653
+				},
+				{
+					"ammo_after": 6,
+					"ammo_before": 7,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.797806859016418,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						561.738647460938,
+						544.109802246094
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"time": 48.9833333333319
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.584604263305664,
+					"shooter": "P1-B.4",
+					"shooter_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						561.738647460938,
+						544.109802246094
+					],
+					"time": 48.9833333333319
+				},
+				{
+					"ammo_after": 6,
+					"ammo_before": 7,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.752228796482086,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"time": 49.0166666666652
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.979635655879974,
+					"shooter": "P1-B.2",
+					"shooter_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						561.738647460938,
+						544.109802246094
+					],
+					"time": 49.0166666666652
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.368884921073914,
+					"shooter": "P2-A.4",
+					"shooter_position": [
+						302.068603515625,
+						531.042053222656
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						561.738647460938,
+						544.109802246094
+					],
+					"time": 49.9666666666652
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.852169096469879,
+					"shooter": "P1-B.4",
+					"shooter_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"target": "E1-B.3",
+					"target_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"time": 49.9833333333319
+				},
+				{
+					"ammo_after": 5,
+					"ammo_before": 6,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0126366997137666,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"target": "P1-B.4",
+					"target_position": [
+						303.241180419922,
+						538.414306640625
+					],
+					"time": 50.0166666666652
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.658372640609741,
+					"shooter": "P1-B.2",
+					"shooter_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"target": "E1-B.3",
+					"target_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"time": 50.0166666666652
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.917440354824066,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						302.327514648438,
+						528.948669433594
+					],
+					"target": "E1-B.3",
+					"target_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"time": 50.1666666666652
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.58868020772934,
+					"shooter": "P2-A.4",
+					"shooter_position": [
+						303.363159179688,
+						531.574829101563
+					],
+					"target": "E1-B.3",
+					"target_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"time": 50.9666666666651
+				},
+				{
+					"ammo_after": 4,
+					"ammo_before": 5,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.365679919719696,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"target": "P1-B.2",
+					"target_position": [
+						303.241180419922,
+						536.21435546875
+					],
+					"time": 51.0166666666651
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.234203785657883,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						303.6220703125,
+						529.4814453125
+					],
+					"target": "E1-B.3",
+					"target_position": [
+						561.738647460938,
+						546.309753417969
+					],
+					"time": 51.1666666666651
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.675423860549927,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						304.226196289063,
+						531.930053710938
+					],
+					"time": 51.6333333333318
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.639312624931335,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						304.334075927734,
+						531.974487304688
+					],
+					"time": 51.7166666666651
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.789303660392761,
+					"shooter": "P2-A.4",
+					"shooter_position": [
+						304.65771484375,
+						532.107666015625
+					],
+					"target": "E1-PL",
+					"target_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"time": 51.9666666666651
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.699928939342499,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						304.916625976563,
+						530.014282226563
+					],
+					"target": "E1-PL",
+					"target_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"time": 52.1666666666651
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.198931977152824,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						305.520751953125,
+						532.462890625
+					],
+					"time": 52.6333333333317
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.465412199497223,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"target": "P2-A.2",
+					"target_position": [
+						305.628631591797,
+						530.307312011719
+					],
+					"time": 52.716666666665
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.866961658000946,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						305.628631591797,
+						530.307312011719
+					],
+					"target": "E1-PL",
+					"target_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"time": 53.166666666665
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.552045404911041,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"target": "P2-A.2",
+					"target_position": [
+						305.628631591797,
+						530.307312011719
+					],
+					"time": 53.6333333333316
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.14744071662426,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"target": "P2-A.2",
+					"target_position": [
+						305.628631591797,
+						530.307312011719
+					],
+					"time": 53.716666666665
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.601823925971985,
+					"shooter": "P2-A.3",
+					"shooter_position": [
+						303.493347167969,
+						532.533874511719
+					],
+					"target": "E1-PL",
+					"target_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"time": 63.7666666666644
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.2032211124897,
+					"shooter": "P2-A.1",
+					"shooter_position": [
+						303.579650878906,
+						530.369445800781
+					],
+					"target": "E1-PL",
+					"target_position": [
+						563.326416015625,
+						541.736450195313
+					],
+					"time": 63.8333333333311
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0391144827008247,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"target": "P2-A.3",
+					"target_position": [
+						304.205352783203,
+						532.826965332031
+					],
+					"time": 64.3166666666644
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.328220576047897,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"target": "P2-A.1",
+					"target_position": [
+						304.421112060547,
+						530.7158203125
+					],
+					"time": 64.483333333331
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.296634286642075,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"target": "P1-B.3",
+					"target_position": [
+						303.942016601563,
+						543.115539550781
+					],
+					"time": 68.9666666666641
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.7223801612854,
+					"shooter": "P1-B.1",
+					"shooter_position": [
+						303.966491699219,
+						540.955261230469
+					],
+					"target": "E1-B.2",
+					"target_position": [
+						563.938598632813,
+						544.109802246094
+					],
+					"time": 68.9999999999974
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.25445082783699,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						563.938598632813,
+						546.309753417969
+					],
+					"target": "P1-B.1",
+					"target_position": [
+						304.003234863281,
+						541.014770507813
+					],
+					"time": 69.0499999999974
+				},
+				{
+					"ammo_after": 6,
+					"ammo_before": 7,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0685698911547661,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						562.213256835938,
+						543.9990234375
+					],
+					"target": "P2-PL",
+					"target_position": [
+						302.521118164063,
+						531.815795898438
+					],
+					"time": 76.2333333333304
+				}
+			],
+			"suppression": [
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.4",
+					"time": 38.1666666666659,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.1",
+					"time": 38.1666666666659,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.4",
+					"time": 38.3499999999992,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.4",
+					"time": 38.3499999999992,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.1",
+					"time": 38.3499999999992,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.2",
+					"time": 38.7833333333325,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.2",
+					"time": 39.3499999999991,
+					"value": 5
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.2",
+					"time": 39.3499999999991,
+					"value": 6
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 39.8499999999991,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 40.0833333333324,
+					"value": 7
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 40.0833333333324,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 40.3499999999991,
+					"value": 8
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 40.3999999999991,
+					"value": 9
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 40.849999999999,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 41.0833333333324,
+					"value": 10
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 41.0833333333324,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 41.349999999999,
+					"value": 11
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.1",
+					"time": 41.399999999999,
+					"value": 12
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.1",
+					"time": 42.0166666666656,
+					"value": 13
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.1",
+					"time": 42.0833333333323,
+					"value": 14
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 44.6333333333322,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.3",
+					"time": 44.6333333333322,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 45.6333333333321,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.2",
+					"time": 45.6333333333321,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 45.6833333333321,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.4",
+					"time": 45.7833333333321,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 47.983333333332,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 47.983333333332,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 48.0166666666653,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 48.0166666666653,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 48.9833333333319,
+					"value": 5
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 48.9833333333319,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 49.0166666666652,
+					"value": 6
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 49.0166666666652,
+					"value": 5
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 49.9666666666652,
+					"value": 6
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.3",
+					"time": 49.9833333333319,
+					"value": 7
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.4",
+					"time": 50.0166666666652,
+					"value": 7
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.3",
+					"time": 50.0166666666652,
+					"value": 8
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.3",
+					"time": 50.1666666666652,
+					"value": 9
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.3",
+					"time": 50.9666666666651,
+					"value": 10
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.2",
+					"time": 51.0166666666651,
+					"value": 8
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.3",
+					"time": 51.1666666666651,
+					"value": 11
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 51.6333333333318,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 51.7166666666651,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 52.6333333333317,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.2",
+					"time": 52.716666666665,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.2",
+					"time": 53.6333333333316,
+					"value": 5
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.2",
+					"time": 53.716666666665,
+					"value": 6
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.3",
+					"time": 64.3166666666644,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.1",
+					"time": 64.483333333331,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.3",
+					"time": 68.9666666666641,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.2",
+					"time": 68.9999999999974,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-B",
+					"target": "P1-B.1",
+					"time": 69.0499999999974,
+					"value": 2
+				}
+			]
+		},
+		{
+			"ammo_remaining": 232,
+			"casualties": [
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						577.54931640625,
+						618.412414550781
+					],
+					"person": "E1-A.1",
+					"time": 38.5166666666658,
+					"world_source": "P1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						319.539978027344,
+						588.919616699219
+					],
+					"person": "P1-A.4",
+					"time": 39.5166666666658,
+					"world_source": "E1-A.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						319.459869384766,
+						587.531433105469
+					],
+					"person": "P1-A.2",
+					"time": 40.5166666666657,
+					"world_source": "E1-A.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 9
+					},
+					"event": "combat casualty",
+					"location": [
+						572.116821289063,
+						633.676391601563
+					],
+					"person": "E1-B.1",
+					"time": 42.399999999999,
+					"world_source": "P1-A.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 9
+					},
+					"event": "combat casualty",
+					"location": [
+						572.116821289063,
+						635.876342773438
+					],
+					"person": "E1-B.3",
+					"time": 42.6833333333323,
+					"world_source": "P1-A.1"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						317.259857177734,
+						589.731384277344
+					],
+					"person": "P1-A.3",
+					"time": 46.5499999999987,
+					"world_source": "E1-A.3"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 8
+					},
+					"event": "combat casualty",
+					"location": [
+						575.12451171875,
+						620.678955078125
+					],
+					"person": "E1-A.3",
+					"time": 46.7499999999987,
+					"world_source": "P1-A.1"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 8
+					},
+					"event": "combat casualty",
+					"location": [
+						317.259857177734,
+						587.531433105469
+					],
+					"person": "P1-A.1",
+					"time": 49.1333333333319,
+					"world_source": "E1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 0
+					},
+					"event": "combat casualty",
+					"location": [
+						315.35986328125,
+						588.631408691406
+					],
+					"person": "P1-PL",
+					"time": 50.1333333333318,
+					"world_source": "E1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						570.00341796875,
+						633.732849121094
+					],
+					"person": "E1-B.2",
+					"time": 51.7666666666651,
+					"world_source": "P2-A.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						312.186859130859,
+						620.522338867188
+					],
+					"person": "P2-A.4",
+					"time": 52.766666666665,
+					"world_source": "E1-A.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 9
+					},
+					"event": "combat casualty",
+					"location": [
+						312.186859130859,
+						618.322387695313
+					],
+					"person": "P2-A.2",
+					"time": 52.816666666665,
+					"world_source": "E1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						309.986846923828,
+						618.322387695313
+					],
+					"person": "P2-A.1",
+					"time": 58.999999999998,
+					"world_source": "E1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 10
+					},
+					"event": "combat casualty",
+					"location": [
+						309.986846923828,
+						620.522338867188
+					],
+					"person": "P2-A.3",
+					"time": 59.999999999998,
+					"world_source": "E1-A.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 0
+					},
+					"event": "combat casualty",
+					"location": [
+						308.086883544922,
+						619.42236328125
+					],
+					"person": "P2-PL",
+					"time": 65.3666666666643,
+					"world_source": "E1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 12
+					},
+					"event": "combat casualty",
+					"location": [
+						296.489440917969,
+						619.909545898438
+					],
+					"person": "P2-B.4",
+					"time": 73.6666666666638,
+					"world_source": "E1-A.2"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 12
+					},
+					"event": "combat casualty",
+					"location": [
+						296.489440917969,
+						617.709594726563
+					],
+					"person": "P2-B.2",
+					"time": 73.6666666666638,
+					"world_source": "E1-A.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 2
+					},
+					"event": "combat casualty",
+					"location": [
+						555.734375,
+						619.072265625
+					],
+					"person": "E1-A.2",
+					"time": 74.1833333333305,
+					"world_source": "P1-B.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 12
+					},
+					"event": "combat casualty",
+					"location": [
+						295.748657226563,
+						621.287780761719
+					],
+					"person": "P2-B.3",
+					"time": 75.0999999999971,
+					"world_source": "E1-A.4"
+				},
+				{
+					"body_inventory": {
+						"BoltActionRifleAmmo": 11
+					},
+					"event": "combat casualty",
+					"location": [
+						296.766754150391,
+						620.049377441406
+					],
+					"person": "P2-B.1",
+					"time": 76.099999999997,
+					"world_source": "E1-A.4"
+				}
+			],
+			"contacts": [
+				{
+					"contact_id": "E1-A.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 38.3166666666659,
+					"observed_position": [
+						577.8291015625,
+						618.404724121094
+					],
+					"observer": "P1-A.4",
+					"received_at": 40.3166666666659,
+					"report_id": "contact-1",
+					"source_echelon": "Company",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 74.1833333333305,
+					"observed_position": [
+						555.734375,
+						619.072265625
+					],
+					"observer": "P1-B.4",
+					"received_at": 76.1833333333305,
+					"report_id": "contact-12",
+					"source_echelon": "Company",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 46.7499999999987,
+					"observed_position": [
+						575.12451171875,
+						620.678955078125
+					],
+					"observer": "P1-A.1",
+					"received_at": 48.7499999999987,
+					"report_id": "contact-5",
+					"source_echelon": "Company",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 75.0999999999971,
+					"observed_position": [
+						555.734375,
+						621.272216796875
+					],
+					"observer": "P2-B.1",
+					"received_at": 77.0999999999971,
+					"report_id": "contact-13",
+					"source_echelon": "Company",
+					"source_formation": "P2-B",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 40.4666666666657,
+					"observed_position": [
+						574.821411132813,
+						633.640991210938
+					],
+					"observer": "P1-A.2",
+					"received_at": 42.4666666666657,
+					"report_id": "contact-3",
+					"source_echelon": "Company",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 50.7999999999985,
+					"observed_position": [
+						571.355712890625,
+						633.715148925781
+					],
+					"observer": "P2-A.4",
+					"received_at": 52.7999999999985,
+					"report_id": "contact-8",
+					"source_echelon": "Company",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 42.4166666666656,
+					"observed_position": [
+						572.116821289063,
+						635.876342773438
+					],
+					"observer": "P1-A.1",
+					"received_at": 44.4166666666656,
+					"report_id": "contact-4",
+					"source_echelon": "Company",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"knowledge_state": "STALE",
+					"observation_time": 51.7833333333318,
+					"observed_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"observer": "P2-A.2",
+					"received_at": 53.7833333333318,
+					"report_id": "contact-9",
+					"source_echelon": "Company",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				}
+			],
+			"first_company": 40.3166666666657,
+			"first_detection": 38.3166666666659,
+			"first_friendly_detection": 38.3166666666659,
+			"local_events": [
+				{
+					"contact_id": "P1-A.4",
+					"distance_m": 259.997711181641,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.3166666666659,
+					"observed_position": [
+						319.704772949219,
+						587.249694824219
+					],
+					"observer": "E1-A.1",
+					"observer_position": [
+						577.8291015625,
+						618.404724121094
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.1",
+					"distance_m": 259.997711181641,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 38.3166666666659,
+					"observed_position": [
+						577.8291015625,
+						618.404724121094
+					],
+					"observer": "P1-A.4",
+					"observer_position": [
+						319.704772949219,
+						587.249694824219
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.4",
+					"distance_m": 259.985656738281,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 38.5166666666658,
+					"observed_position": [
+						319.677307128906,
+						587.528015136719
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						577.54931640625,
+						620.612365722656
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.1",
+					"distance_m": 259.985656738281,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 38.5166666666658,
+					"observed_position": [
+						577.54931640625,
+						618.412414550781
+					],
+					"observer": "P1-A.2",
+					"observer_position": [
+						319.677307128906,
+						585.328063964844
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"distance_m": 259.985656738281,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 38.5166666666658,
+					"observed_position": [
+						577.54931640625,
+						620.612365722656
+					],
+					"observer": "P1-A.4",
+					"observer_position": [
+						319.677307128906,
+						587.528015136719
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"distance_m": 259.987274169922,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 39.1999999999991,
+					"observed_position": [
+						577.292846679688,
+						620.619384765625
+					],
+					"observer": "P1-A.2",
+					"observer_position": [
+						319.583465576172,
+						586.278991699219
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.2",
+					"distance_m": 259.5341796875,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 39.5333333333325,
+					"observed_position": [
+						319.537689208984,
+						586.742858886719
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						576.849853515625,
+						620.631591796875
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-A.2",
+					"distance_m": 259.994659423828,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 40.0999999999991,
+					"observed_position": [
+						319.459869384766,
+						587.531433105469
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						575.334350585938,
+						633.63427734375
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P1-A.2",
+					"distance_m": 259.982391357422,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 40.3999999999991,
+					"observed_position": [
+						319.459869384766,
+						587.531433105469
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						574.914672851563,
+						635.839721679688
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.491058349609,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 40.4666666666657,
+					"observed_position": [
+						574.821411132813,
+						633.640991210938
+					],
+					"observer": "P1-A.2",
+					"observer_position": [
+						319.459869384766,
+						587.531433105469
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.3",
+					"distance_m": 259.993530273438,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 41.399999999999,
+					"observed_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"observer": "E1-B.1",
+					"observer_position": [
+						573.515747070313,
+						633.658081054688
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.993530273438,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 41.399999999999,
+					"observed_position": [
+						573.515747070313,
+						633.658081054688
+					],
+					"observer": "P1-A.3",
+					"observer_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.3",
+					"distance_m": 259.985076904297,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 41.6833333333323,
+					"observed_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"observer": "E1-B.3",
+					"observer_position": [
+						573.119384765625,
+						635.863220214844
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"distance_m": 259.985076904297,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 41.6833333333323,
+					"observed_position": [
+						573.119384765625,
+						633.663269042969
+					],
+					"observer": "P1-A.1",
+					"observer_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"distance_m": 259.401794433594,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 42.4166666666656,
+					"observed_position": [
+						572.116821289063,
+						635.876342773438
+					],
+					"observer": "P1-A.1",
+					"observer_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"distance_m": 259.000823974609,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 42.4166666666656,
+					"observed_position": [
+						572.116821289063,
+						635.876342773438
+					],
+					"observer": "P1-A.3",
+					"observer_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.3",
+					"distance_m": 259.991973876953,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 46.5499999999987,
+					"observed_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						575.404296875,
+						620.671264648438
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 259.986419677734,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 46.7499999999987,
+					"observed_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"observer": "E1-A.3",
+					"observer_position": [
+						575.12451171875,
+						620.678955078125
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"distance_m": 259.986419677734,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 46.7499999999987,
+					"observed_position": [
+						575.12451171875,
+						620.678955078125
+					],
+					"observer": "P1-A.1",
+					"observer_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 259.984313964844,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 48.133333333332,
+					"observed_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						575.389282226563,
+						618.5322265625
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"distance_m": 259.984313964844,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 48.133333333332,
+					"observed_position": [
+						575.389282226563,
+						618.5322265625
+					],
+					"observer": "P1-A.1",
+					"observer_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"source_formation": "P1-A"
+				},
+				{
+					"contact_id": "P1-A.1",
+					"distance_m": 259.979309082031,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 48.333333333332,
+					"observed_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						575.109497070313,
+						620.739807128906
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-PL",
+					"distance_m": 259.988220214844,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 49.3999999999986,
+					"observed_position": [
+						315.35986328125,
+						588.631408691406
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						573.617309570313,
+						618.580871582031
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-PL",
+					"distance_m": 259.997192382813,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 49.5833333333319,
+					"observed_position": [
+						315.35986328125,
+						588.631408691406
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						573.36083984375,
+						620.787902832031
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-A.2",
+					"distance_m": 259.964294433594,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 50.7666666666651,
+					"observed_position": [
+						311.741760253906,
+						618.066528320313
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						571.705444335938,
+						618.633422851563
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-A.4",
+					"distance_m": 259.964294433594,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 50.7666666666651,
+					"observed_position": [
+						311.741760253906,
+						620.266479492188
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"distance_m": 259.964294433594,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 50.7666666666651,
+					"observed_position": [
+						571.705444335938,
+						618.633422851563
+					],
+					"observer": "P2-A.2",
+					"observer_position": [
+						311.741760253906,
+						618.066528320313
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"distance_m": 259.964294433594,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 50.7666666666651,
+					"observed_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"observer": "P2-A.4",
+					"observer_position": [
+						311.741760253906,
+						620.266479492188
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.4",
+					"distance_m": 259.964569091797,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 50.7833333333318,
+					"observed_position": [
+						311.761962890625,
+						620.278137207031
+					],
+					"observer": "E1-B.2",
+					"observer_position": [
+						571.379028320313,
+						633.71484375
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"distance_m": 259.920440673828,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 50.7999999999985,
+					"observed_position": [
+						571.355712890625,
+						633.715148925781
+					],
+					"observer": "P2-A.4",
+					"observer_position": [
+						311.7822265625,
+						620.289733886719
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.4",
+					"distance_m": 259.999237060547,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 50.8166666666651,
+					"observed_position": [
+						311.802429199219,
+						620.301391601563
+					],
+					"observer": "E1-B.4",
+					"observer_position": [
+						571.332397460938,
+						635.915405273438
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"distance_m": 259.778442382813,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 50.8999999999985,
+					"observed_position": [
+						571.2158203125,
+						633.716979980469
+					],
+					"observer": "P2-A.2",
+					"observer_position": [
+						311.903625488281,
+						618.159545898438
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-B.4",
+					"distance_m": 258.417297363281,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 51.7833333333318,
+					"observed_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"observer": "P2-A.2",
+					"observer_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-B.4",
+					"distance_m": 258.276702880859,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 51.7833333333318,
+					"observed_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"observer": "P2-A.4",
+					"observer_position": [
+						312.186859130859,
+						620.522338867188
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.2",
+					"distance_m": 258.417297363281,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 52.766666666665,
+					"observed_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"observer": "E1-B.4",
+					"observer_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"source_formation": "E1-B"
+				},
+				{
+					"contact_id": "P2-A.2",
+					"distance_m": 259.530731201172,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 52.7833333333317,
+					"observed_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-A.1",
+					"distance_m": 259.993499755859,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 57.9999999999981,
+					"observed_position": [
+						309.986846923828,
+						618.322387695313
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						569.980102539063,
+						618.680847167969
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-A.3",
+					"distance_m": 259.993499755859,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 57.9999999999981,
+					"observed_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						569.980102539063,
+						620.880798339844
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"distance_m": 259.993499755859,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 57.9999999999981,
+					"observed_position": [
+						569.980102539063,
+						618.680847167969
+					],
+					"observer": "P2-A.1",
+					"observer_position": [
+						309.986846923828,
+						618.322387695313
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"distance_m": 259.993499755859,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 57.9999999999981,
+					"observed_position": [
+						569.980102539063,
+						620.880798339844
+					],
+					"observer": "P2-A.3",
+					"observer_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"source_formation": "P2-A"
+				},
+				{
+					"contact_id": "P2-A.3",
+					"distance_m": 258.600616455078,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 59.0166666666647,
+					"observed_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						568.581176757813,
+						618.71923828125
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-PL",
+					"distance_m": 259.982269287109,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 65.3666666666643,
+					"observed_position": [
+						308.086883544922,
+						619.42236328125
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						568.068237304688,
+						618.733337402344
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-B.4",
+					"distance_m": 259.969116210938,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 73.6666666666638,
+					"observed_position": [
+						296.489440917969,
+						619.909545898438
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						556.457153320313,
+						619.052368164063
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P2-B.2",
+					"distance_m": 259.991851806641,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 73.6666666666638,
+					"observed_position": [
+						296.489440917969,
+						617.709594726563
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						556.457153320313,
+						621.252319335938
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "P1-B.4",
+					"distance_m": 259.993103027344,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 74.1833333333305,
+					"observed_position": [
+						297.030059814453,
+						593.217224121094
+					],
+					"observer": "E1-A.2",
+					"observer_position": [
+						555.734375,
+						619.072265625
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"distance_m": 259.993103027344,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 74.1833333333305,
+					"observed_position": [
+						555.734375,
+						619.072265625
+					],
+					"observer": "P1-B.4",
+					"observer_position": [
+						297.030059814453,
+						593.217224121094
+					],
+					"source_formation": "P1-B"
+				},
+				{
+					"contact_id": "P2-B.3",
+					"distance_m": 259.985717773438,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 75.0999999999971,
+					"observed_position": [
+						295.748657226563,
+						621.287780761719
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						555.734375,
+						621.272216796875
+					],
+					"source_formation": "E1-A"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"distance_m": 259.994903564453,
+					"faction": "friendly",
+					"los": "open provisional",
+					"observation_time": 75.0999999999971,
+					"observed_position": [
+						555.734375,
+						621.272216796875
+					],
+					"observer": "P2-B.1",
+					"observer_position": [
+						295.748657226563,
+						619.087829589844
+					],
+					"source_formation": "P2-B"
+				},
+				{
+					"contact_id": "P2-B.1",
+					"distance_m": 259.977752685547,
+					"faction": "enemy",
+					"los": "open provisional",
+					"observation_time": 75.1166666666638,
+					"observed_position": [
+						295.765655517578,
+						619.103820800781
+					],
+					"observer": "E1-A.4",
+					"observer_position": [
+						555.734375,
+						621.272216796875
+					],
+					"source_formation": "E1-A"
+				}
+			],
+			"reports": [
+				{
+					"contact_id": "E1-A.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 38.3166666666659,
+					"observed_position": [
+						577.8291015625,
+						618.404724121094
+					],
+					"observer": "P1-A.4",
+					"received_at": 40.3166666666659,
+					"report_id": "contact-1",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 38.5166666666658,
+					"observed_position": [
+						577.54931640625,
+						620.612365722656
+					],
+					"observer": "P1-A.4",
+					"received_at": 40.5166666666658,
+					"report_id": "contact-2",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.1",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 40.4666666666657,
+					"observed_position": [
+						574.821411132813,
+						633.640991210938
+					],
+					"observer": "P1-A.2",
+					"received_at": 42.4666666666657,
+					"report_id": "contact-3",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-B.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 42.4166666666656,
+					"observed_position": [
+						572.116821289063,
+						635.876342773438
+					],
+					"observer": "P1-A.1",
+					"received_at": 44.4166666666656,
+					"report_id": "contact-4",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.3",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 46.7499999999987,
+					"observed_position": [
+						575.12451171875,
+						620.678955078125
+					],
+					"observer": "P1-A.1",
+					"received_at": 48.7499999999987,
+					"report_id": "contact-5",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 48.133333333332,
+					"observed_position": [
+						575.389282226563,
+						618.5322265625
+					],
+					"observer": "P1-A.1",
+					"received_at": 50.133333333332,
+					"report_id": "contact-6",
+					"source_formation": "P1-A",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 50.7666666666651,
+					"observed_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"observer": "P2-A.4",
+					"received_at": 52.7666666666651,
+					"report_id": "contact-7",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-B.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 50.7999999999985,
+					"observed_position": [
+						571.355712890625,
+						633.715148925781
+					],
+					"observer": "P2-A.4",
+					"received_at": 52.7999999999985,
+					"report_id": "contact-8",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-B.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 51.7833333333318,
+					"observed_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"observer": "P2-A.2",
+					"received_at": 53.7833333333318,
+					"report_id": "contact-9",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 57.9999999999981,
+					"observed_position": [
+						569.980102539063,
+						618.680847167969
+					],
+					"observer": "P2-A.1",
+					"received_at": 59.9999999999981,
+					"report_id": "contact-10",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 57.9999999999981,
+					"observed_position": [
+						569.980102539063,
+						620.880798339844
+					],
+					"observer": "P2-A.3",
+					"received_at": 59.9999999999981,
+					"report_id": "contact-11",
+					"source_formation": "P2-A",
+					"source_platoon": "P2"
+				},
+				{
+					"contact_id": "E1-A.2",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 74.1833333333305,
+					"observed_position": [
+						555.734375,
+						619.072265625
+					],
+					"observer": "P1-B.4",
+					"received_at": 76.1833333333305,
+					"report_id": "contact-12",
+					"source_formation": "P1-B",
+					"source_platoon": "P1"
+				},
+				{
+					"contact_id": "E1-A.4",
+					"detection_basis": "individual open LOS within260m",
+					"kind": "ENEMY_POSITION_OBSERVED",
+					"observation_time": 75.0999999999971,
+					"observed_position": [
+						555.734375,
+						621.272216796875
+					],
+					"observer": "P2-B.1",
+					"received_at": 77.0999999999971,
+					"report_id": "contact-13",
+					"source_formation": "P2-B",
+					"source_platoon": "P2"
+				}
+			],
+			"seed": 35036,
+			"shots": [
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.542072474956512,
+					"shooter": "E1-A.1",
+					"shooter_position": [
+						577.8291015625,
+						618.404724121094
+					],
+					"target": "P1-A.4",
+					"target_position": [
+						319.704772949219,
+						587.249694824219
+					],
+					"time": 38.3166666666659
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.807175934314728,
+					"shooter": "P1-A.4",
+					"shooter_position": [
+						319.704772949219,
+						587.249694824219
+					],
+					"target": "E1-A.1",
+					"target_position": [
+						577.8291015625,
+						618.404724121094
+					],
+					"time": 38.3166666666659
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.406536519527435,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						577.54931640625,
+						620.612365722656
+					],
+					"target": "P1-A.4",
+					"target_position": [
+						319.677307128906,
+						587.528015136719
+					],
+					"time": 38.5166666666658
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.138340577483177,
+					"shooter": "P1-A.2",
+					"shooter_position": [
+						319.677307128906,
+						585.328063964844
+					],
+					"target": "E1-A.1",
+					"target_position": [
+						577.54931640625,
+						618.412414550781
+					],
+					"time": 38.5166666666658
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.476106107234955,
+					"shooter": "P1-A.4",
+					"shooter_position": [
+						319.567443847656,
+						588.641296386719
+					],
+					"target": "E1-A.3",
+					"target_position": [
+						577.129638671875,
+						620.623901367188
+					],
+					"time": 39.3166666666658
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.127050504088402,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						576.849853515625,
+						620.631591796875
+					],
+					"target": "P1-A.4",
+					"target_position": [
+						319.539978027344,
+						588.919616699219
+					],
+					"time": 39.5166666666658
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.455624759197235,
+					"shooter": "P1-A.2",
+					"shooter_position": [
+						319.539978027344,
+						586.719665527344
+					],
+					"target": "E1-A.3",
+					"target_position": [
+						576.849853515625,
+						620.631591796875
+					],
+					"time": 39.5166666666658
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.499224334955215,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						575.334350585938,
+						633.63427734375
+					],
+					"target": "P1-A.2",
+					"target_position": [
+						319.459869384766,
+						587.531433105469
+					],
+					"time": 40.0999999999991
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.631278991699219,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						574.914672851563,
+						635.839721679688
+					],
+					"target": "P1-A.2",
+					"target_position": [
+						319.459869384766,
+						587.531433105469
+					],
+					"time": 40.3999999999991
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.153662770986557,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						576.849853515625,
+						620.631591796875
+					],
+					"target": "P1-A.2",
+					"target_position": [
+						319.459869384766,
+						587.531433105469
+					],
+					"time": 40.5166666666657
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.508710145950317,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						573.515747070313,
+						633.658081054688
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"time": 41.399999999999
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.967341125011444,
+					"shooter": "P1-A.3",
+					"shooter_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						573.515747070313,
+						633.658081054688
+					],
+					"time": 41.399999999999
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.429631650447845,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						573.119384765625,
+						635.863220214844
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"time": 41.6833333333323
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.439787060022354,
+					"shooter": "P1-A.1",
+					"shooter_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						573.119384765625,
+						633.663269042969
+					],
+					"time": 41.6833333333323
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.852656722068787,
+					"shooter": "E1-B.1",
+					"shooter_position": [
+						572.116821289063,
+						633.676391601563
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"time": 42.399999999999
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0187185797840357,
+					"shooter": "P1-A.3",
+					"shooter_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"target": "E1-B.1",
+					"target_position": [
+						572.116821289063,
+						633.676391601563
+					],
+					"time": 42.399999999999
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.966244757175446,
+					"shooter": "E1-B.3",
+					"shooter_position": [
+						572.116821289063,
+						635.876342773438
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"time": 42.6833333333323
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.385359585285187,
+					"shooter": "P1-A.1",
+					"shooter_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"target": "E1-B.3",
+					"target_position": [
+						572.116821289063,
+						635.876342773438
+					],
+					"time": 42.6833333333323
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.33584451675415,
+					"shooter": "E1-A.3",
+					"shooter_position": [
+						575.404296875,
+						620.671264648438
+					],
+					"target": "P1-A.3",
+					"target_position": [
+						317.259857177734,
+						589.731384277344
+					],
+					"time": 46.5499999999987
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.354445666074753,
+					"shooter": "P1-A.1",
+					"shooter_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"target": "E1-A.3",
+					"target_position": [
+						575.12451171875,
+						620.678955078125
+					],
+					"time": 46.7499999999987
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.88287615776062,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						575.389282226563,
+						618.5322265625
+					],
+					"target": "P1-A.1",
+					"target_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"time": 48.133333333332
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.875758230686188,
+					"shooter": "P1-A.1",
+					"shooter_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"target": "E1-A.2",
+					"target_position": [
+						575.389282226563,
+						618.5322265625
+					],
+					"time": 48.133333333332
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.503351926803589,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						575.109497070313,
+						620.739807128906
+					],
+					"target": "P1-A.1",
+					"target_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"time": 48.333333333332
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.330988764762878,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						573.990356445313,
+						618.570617675781
+					],
+					"target": "P1-A.1",
+					"target_position": [
+						317.259857177734,
+						587.531433105469
+					],
+					"time": 49.1333333333319
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.979571580886841,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						573.36083984375,
+						620.787902832031
+					],
+					"target": "P1-PL",
+					"target_position": [
+						315.35986328125,
+						588.631408691406
+					],
+					"time": 49.5833333333319
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.208687976002693,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						572.591430664063,
+						618.609069824219
+					],
+					"target": "P1-PL",
+					"target_position": [
+						315.35986328125,
+						588.631408691406
+					],
+					"time": 50.1333333333318
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.991079926490784,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						311.741760253906,
+						620.266479492188
+					],
+					"time": 50.7666666666651
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.470337510108948,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						311.741760253906,
+						618.066528320313
+					],
+					"target": "E1-A.2",
+					"target_position": [
+						571.705444335938,
+						618.633422851563
+					],
+					"time": 50.7666666666651
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.584604263305664,
+					"shooter": "P2-A.4",
+					"shooter_position": [
+						311.741760253906,
+						620.266479492188
+					],
+					"target": "E1-A.4",
+					"target_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"time": 50.7666666666651
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.752874135971069,
+					"shooter": "E1-B.2",
+					"shooter_position": [
+						571.379028320313,
+						633.71484375
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						311.761962890625,
+						620.278137207031
+					],
+					"time": 50.7833333333318
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.519808530807495,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						571.332397460938,
+						635.915405273438
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						311.802429199219,
+						620.301391601563
+					],
+					"time": 50.8166666666651
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.579744040966034,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						571.705444335938,
+						618.633422851563
+					],
+					"target": "P2-A.2",
+					"target_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"time": 51.1333333333318
+				},
+				{
+					"ammo_after": 8,
+					"ammo_before": 9,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.691189110279083,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						312.186859130859,
+						620.522338867188
+					],
+					"time": 51.7666666666651
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.979635655879974,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"target": "E1-B.2",
+					"target_position": [
+						570.00341796875,
+						633.732849121094
+					],
+					"time": 51.7666666666651
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.368884921073914,
+					"shooter": "P2-A.4",
+					"shooter_position": [
+						312.186859130859,
+						620.522338867188
+					],
+					"target": "E1-B.2",
+					"target_position": [
+						570.00341796875,
+						633.732849121094
+					],
+					"time": 51.7666666666651
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.797806859016418,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						312.186859130859,
+						620.522338867188
+					],
+					"time": 51.8166666666651
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.752228796482086,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						571.705444335938,
+						618.633422851563
+					],
+					"target": "P2-A.2",
+					"target_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"time": 52.1333333333317
+				},
+				{
+					"ammo_after": 7,
+					"ammo_before": 8,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0126366997137666,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						571.705444335938,
+						620.833374023438
+					],
+					"target": "P2-A.4",
+					"target_position": [
+						312.186859130859,
+						620.522338867188
+					],
+					"time": 52.766666666665
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.852169096469879,
+					"shooter": "P2-A.2",
+					"shooter_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"target": "E1-B.4",
+					"target_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"time": 52.766666666665
+				},
+				{
+					"ammo_after": 9,
+					"ammo_before": 10,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.365679919719696,
+					"shooter": "E1-B.4",
+					"shooter_position": [
+						570.00341796875,
+						635.932800292969
+					],
+					"target": "P2-A.2",
+					"target_position": [
+						312.186859130859,
+						618.322387695313
+					],
+					"time": 52.816666666665
+				},
+				{
+					"ammo_after": 6,
+					"ammo_before": 7,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.675423860549927,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						569.980102539063,
+						618.680847167969
+					],
+					"target": "P2-A.1",
+					"target_position": [
+						309.986846923828,
+						618.322387695313
+					],
+					"time": 57.9999999999981
+				},
+				{
+					"ammo_after": 6,
+					"ammo_before": 7,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.639312624931335,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						569.980102539063,
+						620.880798339844
+					],
+					"target": "P2-A.3",
+					"target_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"time": 57.9999999999981
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.658372640609741,
+					"shooter": "P2-A.1",
+					"shooter_position": [
+						309.986846923828,
+						618.322387695313
+					],
+					"target": "E1-A.2",
+					"target_position": [
+						569.980102539063,
+						618.680847167969
+					],
+					"time": 57.9999999999981
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.917440354824066,
+					"shooter": "P2-A.3",
+					"shooter_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"target": "E1-A.4",
+					"target_position": [
+						569.980102539063,
+						620.880798339844
+					],
+					"time": 57.9999999999981
+				},
+				{
+					"ammo_after": 5,
+					"ammo_before": 6,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.198931977152824,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						568.581176757813,
+						618.71923828125
+					],
+					"target": "P2-A.1",
+					"target_position": [
+						309.986846923828,
+						618.322387695313
+					],
+					"time": 58.999999999998
+				},
+				{
+					"ammo_after": 5,
+					"ammo_before": 6,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.465412199497223,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						568.581176757813,
+						620.919189453125
+					],
+					"target": "P2-A.3",
+					"target_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"time": 58.999999999998
+				},
+				{
+					"ammo_after": 10,
+					"ammo_before": 11,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.58868020772934,
+					"shooter": "P2-A.3",
+					"shooter_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"target": "E1-A.4",
+					"target_position": [
+						568.581176757813,
+						620.919189453125
+					],
+					"time": 58.999999999998
+				},
+				{
+					"ammo_after": 4,
+					"ammo_before": 5,
+					"covered": false,
+					"faction": "enemy",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.552045404911041,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						568.581176757813,
+						618.71923828125
+					],
+					"target": "P2-A.3",
+					"target_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"time": 59.999999999998
+				},
+				{
+					"ammo_after": 4,
+					"ammo_before": 5,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.14744071662426,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						568.581176757813,
+						620.919189453125
+					],
+					"target": "P2-A.3",
+					"target_position": [
+						309.986846923828,
+						620.522338867188
+					],
+					"time": 59.999999999998
+				},
+				{
+					"ammo_after": 3,
+					"ammo_before": 4,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0391144827008247,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						568.068237304688,
+						618.733337402344
+					],
+					"target": "P2-PL",
+					"target_position": [
+						308.086883544922,
+						619.42236328125
+					],
+					"time": 65.3666666666643
+				},
+				{
+					"ammo_after": 2,
+					"ammo_before": 3,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.328220576047897,
+					"shooter": "E1-A.2",
+					"shooter_position": [
+						556.457153320313,
+						619.052368164063
+					],
+					"target": "P2-B.4",
+					"target_position": [
+						296.489440917969,
+						619.909545898438
+					],
+					"time": 73.6666666666638
+				},
+				{
+					"ammo_after": 3,
+					"ammo_before": 4,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.296634286642075,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						556.457153320313,
+						621.252319335938
+					],
+					"target": "P2-B.2",
+					"target_position": [
+						296.489440917969,
+						617.709594726563
+					],
+					"time": 73.6666666666638
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.234203785657883,
+					"shooter": "P1-B.4",
+					"shooter_position": [
+						297.030059814453,
+						593.217224121094
+					],
+					"target": "E1-A.2",
+					"target_position": [
+						555.734375,
+						619.072265625
+					],
+					"time": 74.1833333333305
+				},
+				{
+					"ammo_after": 2,
+					"ammo_before": 3,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.25445082783699,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						555.734375,
+						621.272216796875
+					],
+					"target": "P2-B.3",
+					"target_position": [
+						295.748657226563,
+						621.287780761719
+					],
+					"time": 75.0999999999971
+				},
+				{
+					"ammo_after": 11,
+					"ammo_before": 12,
+					"covered": false,
+					"faction": "friendly",
+					"hit": false,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.789303660392761,
+					"shooter": "P2-B.1",
+					"shooter_position": [
+						295.748657226563,
+						619.087829589844
+					],
+					"target": "E1-A.4",
+					"target_position": [
+						555.734375,
+						621.272216796875
+					],
+					"time": 75.0999999999971
+				},
+				{
+					"ammo_after": 1,
+					"ammo_before": 2,
+					"covered": false,
+					"faction": "enemy",
+					"hit": true,
+					"locally_detected": true,
+					"los": true,
+					"roll": 0.0685698911547661,
+					"shooter": "E1-A.4",
+					"shooter_position": [
+						555.734375,
+						621.272216796875
+					],
+					"target": "P2-B.1",
+					"target_position": [
+						296.766754150391,
+						620.049377441406
+					],
+					"time": 76.099999999997
+				}
+			],
+			"suppression": [
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.4",
+					"time": 38.3166666666659,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.1",
+					"time": 38.3166666666659,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.4",
+					"time": 38.5166666666658,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.1",
+					"time": 38.5166666666658,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.3",
+					"time": 39.3166666666658,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.4",
+					"time": 39.5166666666658,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.3",
+					"time": 39.5166666666658,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.2",
+					"time": 40.0999999999991,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.2",
+					"time": 40.3999999999991,
+					"value": 5
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.2",
+					"time": 40.5166666666657,
+					"value": 6
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 41.399999999999,
+					"value": 7
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 41.399999999999,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 41.6833333333323,
+					"value": 8
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 41.6833333333323,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 42.399999999999,
+					"value": 9
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.1",
+					"time": 42.399999999999,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 42.6833333333323,
+					"value": 10
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.3",
+					"time": 42.6833333333323,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.3",
+					"time": 46.5499999999987,
+					"value": 10
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.3",
+					"time": 46.7499999999987,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.1",
+					"time": 48.133333333332,
+					"value": 11
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.2",
+					"time": 48.133333333332,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.1",
+					"time": 48.333333333332,
+					"value": 12
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P1-A",
+					"target": "P1-A.1",
+					"time": 49.1333333333319,
+					"value": 13
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 50.7666666666651,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.2",
+					"time": 50.7666666666651,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.4",
+					"time": 50.7666666666651,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 50.7833333333318,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 50.8166666666651,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.2",
+					"time": 51.1333333333318,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 51.7666666666651,
+					"value": 5
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.2",
+					"time": 51.7666666666651,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.2",
+					"time": 51.7666666666651,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 51.8166666666651,
+					"value": 6
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.2",
+					"time": 52.1333333333317,
+					"value": 7
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.4",
+					"time": 52.766666666665,
+					"value": 8
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-B",
+					"target": "E1-B.4",
+					"time": 52.766666666665,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.2",
+					"time": 52.816666666665,
+					"value": 9
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.1",
+					"time": 57.9999999999981,
+					"value": 8
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.3",
+					"time": 57.9999999999981,
+					"value": 9
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.2",
+					"time": 57.9999999999981,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.4",
+					"time": 57.9999999999981,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.1",
+					"time": 58.999999999998,
+					"value": 10
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.3",
+					"time": 58.999999999998,
+					"value": 11
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.4",
+					"time": 58.999999999998,
+					"value": 4
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.3",
+					"time": 59.999999999998,
+					"value": 12
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-A",
+					"target": "P2-A.3",
+					"time": 59.999999999998,
+					"value": 13
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-B",
+					"target": "P2-B.4",
+					"time": 73.6666666666638,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-B",
+					"target": "P2-B.2",
+					"time": 73.6666666666638,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.2",
+					"time": 74.1833333333305,
+					"value": 1
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-B",
+					"target": "P2-B.3",
+					"time": 75.0999999999971,
+					"value": 3
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "E1-A",
+					"target": "E1-A.4",
+					"time": 75.0999999999971,
+					"value": 2
+				},
+				{
+					"source": "actual rifle shot",
+					"squad": "P2-B",
+					"target": "P2-B.1",
+					"time": 76.099999999997,
+					"value": 4
+				}
+			]
+		}
+	],
+	"failures": []
+}

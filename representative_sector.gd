@@ -6,7 +6,7 @@ const Person = preload("res://soldier.gd")
 const Visual = preload("res://soldier_visual.gd")
 const Rural = preload("res://sector_environment.gd")
 const ParcelShader = preload("res://sector_parcel.gdshader")
-const Autonomous = preload("res://sector_scenario.gd")
+const Autonomous = preload("res://sector_engagement.gd")
 var world
 var layout = Layout.new()
 var environment = Rural.new()
@@ -21,6 +21,9 @@ var static_root: Node2D
 var actors: Node2D
 var overlay: Node2D
 var moving_overlay: Node2D
+var contact_overlay: Node2D
+var knowledge_label: Label
+var _contact_elapsed := 0.0
 var hud: Control
 var status: Label
 var textures := {}
@@ -57,6 +60,10 @@ class MovingOverlay extends Node2D:
 	var host
 	func _draw() -> void: host.draw_moving_debug(self)
 
+class ContactOverlay extends Node2D:
+	var host
+	func _draw() -> void: host.draw_contacts(self)
+
 func _ready() -> void:
 	# Lightweight views can run thousands of iterations/s even with VSync enabled
 	# on the tested Compatibility backend. Pace independently of the F3 overlay.
@@ -84,6 +91,7 @@ func _ready() -> void:
 	camera = Camera2D.new(); add_child(camera); camera.enabled = true
 	overlay = Overlay.new(); overlay.host = self; overlay.z_index = 10; add_child(overlay)
 	moving_overlay = MovingOverlay.new(); moving_overlay.host = self; moving_overlay.z_index = 10; add_child(moving_overlay)
+	contact_overlay = ContactOverlay.new(); contact_overlay.host = self; contact_overlay.z_index = 9; add_child(contact_overlay)
 	var layer := CanvasLayer.new(); add_child(layer)
 	hud = Control.new(); hud.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); hud.mouse_filter = Control.MOUSE_FILTER_IGNORE; layer.add_child(hud)
 	var bar := ColorRect.new(); bar.color = Color(0.035, 0.05, 0.04, 0.92); bar.size = Vector2(2000, 48); bar.mouse_filter = Control.MOUSE_FILTER_IGNORE; hud.add_child(bar)
@@ -93,6 +101,7 @@ func _ready() -> void:
 		var button := Button.new(); button.text = actions[i][0]; button.position = Vector2(255 + i * 142, 8); button.size = Vector2(134, 32); button.focus_mode = Control.FOCUS_NONE; button.pressed.connect(actions[i][1]); hud.add_child(button)
 	var hint := Label.new(); hint.text = "WASD / arrows: pan   ·   Mouse wheel / 1–3: zoom"; hint.position = Vector2(16, 57); hint.add_theme_color_override("font_color", Color(0.94, 0.96, 0.89)); hud.add_child(hint)
 	status = Label.new(); status.position = Vector2(16, 88); status.add_theme_color_override("font_color", Color.WHITE); hud.add_child(status)
+	knowledge_label = Label.new(); knowledge_label.position = Vector2(16,88); knowledge_label.mouse_filter = Control.MOUSE_FILTER_IGNORE; knowledge_label.add_theme_color_override("font_color", Color(1,0.85,0.55)); hud.add_child(knowledge_label)
 	set_seed(Layout.DEFAULT_SEED)
 	get_viewport().size_changed.connect(viewport_resized)
 
@@ -199,6 +208,7 @@ func set_seed(value: int) -> void:
 	# The cohort starts moving immediately. Load the existing shared walking clip
 	# during setup, rather than making the first simulation tick pay its I/O cost.
 	Visual.Art.clip("standing_walk")
+	Visual.Art.clip("death_backward")
 	elapsed = 0
 	paused = false
 	generation_count += 1
@@ -219,7 +229,15 @@ func advance_models(delta: float) -> void:
 	actor_chunks.clear()
 	for i in range(people.size()):
 		var person = people[i]
-		visuals[i].sample(delta)
+		var context := {}
+		if elapsed - float(world.combat.last_shot_at.get(person.id,-INF)) <= 0.12:
+			context.action = "rifle_fire"
+			var shot: Dictionary = world.combat.last_shot[person.id]
+			context.look_vector = shot.target_position - shot.shooter_position
+		visuals[i].sample(delta, context)
+		if person.faction == "enemy":
+			visuals[i].modulate = Color(1,0.6,0.6)
+			visuals[i].visible = debug_enabled and visuals[i].visible
 		actor_chunks.append(Layout.owner(person.position))
 	# Presentation-only loop, reset at sector exit; no campaign vehicle changes.
 	truck_distance = 6 + fposmod(layout.village_distance - 30 - 6 + elapsed * 12, layout.route_length - 12)
@@ -229,6 +247,7 @@ func advance_models(delta: float) -> void:
 	actor_chunks.append(Layout.owner(sample.position))
 	update_us = Time.get_ticks_usec() - started
 	if debug_enabled: moving_overlay.queue_redraw()
+	contact_overlay.queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	if not paused: advance_models(delta)
@@ -253,6 +272,11 @@ func _process(delta: float) -> void:
 		camera_changed = true
 	if camera_changed:
 		clamp_camera(); update_activation()
+		contact_overlay.queue_redraw()
+	_contact_elapsed += delta
+	if _contact_elapsed >= 0.1:
+		_contact_elapsed = 0
+		refresh_knowledge()
 	if debug_enabled:
 		_debug_elapsed += delta
 		if _debug_elapsed >= 0.1:
@@ -333,11 +357,31 @@ func update_activation() -> void:
 func refresh_debug(redraw_static := false) -> void:
 	if overlay == null: return
 	overlay.visible = debug_enabled; moving_overlay.visible = debug_enabled; status.visible = debug_enabled
+	for i in range(people.size()):
+		if people[i].faction == "enemy": visuals[i].visible = debug_enabled and people[i].on_battlefield and (people[i].medical_state != "DEAD" or people[i].body_present)
+	refresh_knowledge()
 	if debug_enabled and redraw_static:
 		overlay.queue_redraw(); moving_overlay.queue_redraw()
 	if debug_enabled:
-		status.text = "Seed %d · %s · scenario %d\n24 chunks · %d active · %d road modules · %d homes · %d trees\n6 fields · 3 meadows · %d access pieces\n18 people / 4 Squads @ 1.4 m/s · truck @ 12 m/s · %d batches\nCamera %.1f, %.1f m · generation %.1f ms · world %.1f s" % [layout.seed_value, Rural.VERSION, world.scenario_seed, active_chunks, layout.roads.size(), layout.houses.size(), layout.trees.size(), environment.access.size(), batch_count, camera.position.x / 32, camera.position.y / 32, generation_ms, elapsed]
-		for squad in world.squads: status.text += "\n%s · %s · %s" % [squad.id, squad.task, squad.movement_state]
+		status.text = "DEBUG TRUTH · Seed %d · %s · scenario %d\n24 chunks · %d active · %d road modules · %d homes · %d trees\n6 fields · 3 meadows · %d access pieces\n27 people (18friendly /9enemy) @1.4m/s · truck @12m/s · %d batches\nCamera %.1f, %.1f m · setup %.1f ms · world %.1f s\n260m open LOS · buildings/vegetation ignored · shots %d\nCompany reports %d · no fire/reload animation (simple cues)" % [layout.seed_value,Rural.VERSION,world.scenario_seed,active_chunks,layout.roads.size(),layout.houses.size(),layout.trees.size(),environment.access.size(),batch_count,camera.position.x/32,camera.position.y/32,generation_ms,elapsed,world.combat.shots.size(),world.information.contact_knowledge.Company.size()]
+		for squad in world.squads + world.enemy_platoon.squads: status.text += "\n%s · %s · %s · suppression %d · ammo %d" % [squad.id,squad.task,squad.movement_state,squad.suppression,squad.carried_ammunition("BoltActionRifleAmmo")]
+
+func refresh_knowledge() -> void:
+	if knowledge_label == null or world == null: return
+	knowledge_label.visible = not debug_enabled
+	var contacts: Array = world.company_contacts()
+	var newest := 0.0
+	for report in contacts: newest = maxf(newest,report.observation_time)
+	knowledge_label.text = "Company: no contact reports received" if contacts.is_empty() else "Company: %d last-known contacts · newest sighting %.1f s ago" % [contacts.size(),elapsed-newest]
+	contact_overlay.queue_redraw()
+
+func draw_contacts(canvas: Node2D) -> void:
+	for report in world.company_contacts():
+		var point: Vector2 = report.observed_position * 32
+		var color := Color(1,0.45,0.15) if report.knowledge_state == "LAST_KNOWN" else Color(0.8,0.65,0.4)
+		canvas.draw_circle(point, 6 / camera.zoom.x, color, false, 1.5 / camera.zoom.x)
+		if debug_enabled: debug_label(canvas,point,"%s · %s · observed %.1fs ago" % [report.contact_id,report.knowledge_state,elapsed-report.observation_time])
+	for effect in world.player_observation(): canvas.draw_circle(effect.position * 32,2.5 / camera.zoom.x,Color(1,0.9,0.2))
 
 func draw_debug(canvas: Node2D) -> void:
 	var width := 1.5 / camera.zoom.x
@@ -364,13 +408,17 @@ func debug_label(canvas: Node2D, point: Vector2, text: String) -> void:
 
 func draw_moving_debug(canvas: Node2D) -> void:
 	var width := 1.5 / camera.zoom.x
-	for squad in world.squads:
+	for squad in world.squads + world.enemy_platoon.squads:
 		var point: Vector2 = squad.formation_reference * 32
 		canvas.draw_circle(point, 3 * 32, Color(0.4, 0.8, 1), false, width)
 		var route := PackedVector2Array([point])
 		for i in range(squad.formation_waypoint, squad.formation_route.size()): route.append(squad.formation_route[i] * 32)
 		if route.size() > 1: canvas.draw_polyline(route, Color(0.4, 0.8, 1, 0.6), width)
 		debug_label(canvas, point, squad.id)
+	for i in range(world.combat.shots.size()-1,-1,-1):
+		var shot: Dictionary = world.combat.shots[i]
+		if elapsed - shot.time > 0.2: break
+		canvas.draw_line(shot.shooter_position * 32,shot.target_position * 32,Color(1,0.3,0.2,0.8),width)
 	var truck_outline := PackedVector2Array()
 	for corner in [Vector2(-38, -96), Vector2(39, -96), Vector2(39, 96), Vector2(-38, 96), Vector2(-38, -96)]: truck_outline.append(truck.transform * corner)
 	canvas.draw_polyline(truck_outline, Color.CYAN, width)

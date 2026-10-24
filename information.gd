@@ -18,6 +18,7 @@ var contact_next_hop := 1
 var contact_updates: Array[Dictionary] = []
 var contact_observed_at: Dictionary = {}
 var next_contact_report := 1
+var fixture_enabled := true
 var leader_knowledge := {"Squad": [], "Platoon": [], "Company": []}
 var leader_relays: Array[Dictionary] = []
 var morale_knowledge := {"Squad": [], "Platoon": [], "Company": []}
@@ -42,7 +43,7 @@ func observe_enemy(observer: String, point: Vector2, now: float) -> void:
 	contact_knowledge.Squad.append({"kind": "ENEMY_POSITION_OBSERVED", "report_id": "contact-1", "observer": observer, "observation_time": now, "observed_position": point, "received_at": now})
 	print("LOCAL CONTACT OBSERVATION: ", JSON.stringify(contact_knowledge.Squad[0]))
 
-func observe_contact(observer: String, contact_id: String, point: Vector2, now: float, interval := 3.0) -> bool:
+func observe_contact(observer: String, contact_id: String, point: Vector2, now: float, interval := 3.0, provenance: Dictionary = {}) -> bool:
 	if observer.is_empty() or contact_id.is_empty() or now < 0 or interval <= 0:
 		return false
 	if contact_observed_at.has(contact_id) and now + 0.000001 < float(contact_observed_at[contact_id]) + interval:
@@ -51,6 +52,8 @@ func observe_contact(observer: String, contact_id: String, point: Vector2, now: 
 	# Disable only the legacy single-report relay when this stream is selected.
 	contact_next_hop = 3
 	var report := {"kind": "ENEMY_POSITION_OBSERVED", "contact_id": contact_id, "report_id": "contact-" + str(next_contact_report), "observer": observer, "observation_time": now, "observed_position": point, "received_at": now}
+	for key in ["source_formation", "source_platoon", "detection_basis"]:
+		if provenance.has(key): report[key] = provenance[key]
 	next_contact_report += 1
 	contact_observed_at[contact_id] = now
 	contact_knowledge.Squad.append(report)
@@ -63,6 +66,8 @@ func company_contact_snapshot() -> Array[Dictionary]:
 		var delivered := {"kind": record.kind, "report_id": record.report_id, "observer": record.observer, "observation_time": record.observation_time, "observed_position": record.observed_position, "received_at": record.received_at, "source_echelon": "Company"}
 		if record.has("contact_id"):
 			delivered.contact_id = record.contact_id
+		for key in ["source_formation", "source_platoon", "detection_basis"]:
+			if record.has(key): delivered[key] = record[key]
 		result.append(delivered)
 	return result
 
@@ -82,7 +87,7 @@ func advance(now: float, casualty) -> void:
 			morale_deliveries.append({"kind": received.kind, "squad": received.squad, "sender": ECHELONS[relay.hop - 1], "recipient": ECHELONS[relay.hop], "sent_at": received.received_at - HOP_DELAY, "received_at": received.received_at, "observation_time": received.observation_time})
 			print("MORALE REPORT RELAY: ", JSON.stringify(morale_deliveries.back()))
 			relay.hop += 1
-	if world_event.is_empty() and now + 0.000001 >= EVENT_TIME:
+	if fixture_enabled and world_event.is_empty() and now + 0.000001 >= EVENT_TIME:
 		casualty.active = false
 		casualty.medical_state = "DEAD"
 		casualty.body_present = true
