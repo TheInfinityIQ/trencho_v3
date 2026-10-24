@@ -1,0 +1,515 @@
+[
+  {
+    "checks": 24,
+    "equal_time_contact": {
+      "reports": 8,
+      "shots": 61,
+      "world_time": 120.0
+    },
+    "failures": [],
+    "rear_cross_view": {
+      "ammo": 32,
+      "avatar": "(367.5, 500.0)",
+      "history": [
+        {
+          "ammo_produced": 8,
+          "completed_at": 4.25,
+          "destination": "rear-finished-ammo",
+          "metal_consumed": 1,
+          "ownership_after": "rear",
+          "ownership_before": "rear",
+          "producer": "Avatar",
+          "reason": "One Metal transformed into eight rounds by timed labor",
+          "source": "rear-Metal",
+          "started_at": 0.25
+        },
+        {
+          "ammo_produced": 8,
+          "completed_at": 9.55,
+          "destination": "rear-finished-ammo",
+          "metal_consumed": 1,
+          "ownership_after": "rear",
+          "ownership_before": "rear",
+          "producer": "Worker-01",
+          "reason": "One Metal transformed into eight rounds by timed labor",
+          "source": "rear-Metal",
+          "started_at": 5.55
+        },
+        {
+          "ammo_produced": 8,
+          "completed_at": 13.5666666666667,
+          "destination": "rear-finished-ammo",
+          "metal_consumed": 1,
+          "ownership_after": "rear",
+          "ownership_before": "rear",
+          "producer": "Worker-01",
+          "reason": "One Metal transformed into eight rounds by timed labor",
+          "source": "rear-Metal",
+          "started_at": 9.56666666666667
+        },
+        {
+          "ammo_produced": 8,
+          "completed_at": 17.5833333333333,
+          "destination": "rear-finished-ammo",
+          "metal_consumed": 1,
+          "ownership_after": "rear",
+          "ownership_before": "rear",
+          "producer": "Worker-01",
+          "reason": "One Metal transformed into eight rounds by timed labor",
+          "source": "rear-Metal",
+          "started_at": 13.5833333333333
+        }
+      ],
+      "job": {},
+      "metal": 0,
+      "people": [
+        [
+          "P1-A.1",
+          "(306.0235, 485.5064)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-A.2",
+          "(308.2235, 485.5064)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-A.3",
+          "(306.0235, 487.7064)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-A.4",
+          "(308.2235, 487.7064)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-B.1",
+          "(284.6778, 501.5463)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-B.2",
+          "(286.8778, 501.5463)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-B.3",
+          "(284.6778, 503.7463)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-B.4",
+          "(286.8778, 503.7463)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-A.1",
+          "(263.6978, 511.0909)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-A.2",
+          "(265.8979, 511.0909)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-A.3",
+          "(263.6978, 513.2909)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-A.4",
+          "(265.8979, 513.2909)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-B.1",
+          "(241.8687, 486.9)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-B.2",
+          "(244.0688, 486.9)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-B.3",
+          "(241.8687, 489.1)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P2-B.4",
+          "(244.0688, 489.1)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "P1-PL",
+          "(304.1235, 486.6064)",
+          true,
+          {
+            "BoltActionRifleAmmo": 0
+          }
+        ],
+        [
+          "P2-PL",
+          "(261.7979, 512.1909)",
+          true,
+          {
+            "BoltActionRifleAmmo": 0
+          }
+        ],
+        [
+          "E1-A.1",
+          "(593.763, 535.8304)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-A.2",
+          "(595.963, 535.8304)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-A.3",
+          "(593.763, 538.0303)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-A.4",
+          "(595.963, 538.0303)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-B.1",
+          "(593.5405, 546.1202)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-B.2",
+          "(595.7405, 546.1202)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-B.3",
+          "(593.5405, 548.3202)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-B.4",
+          "(595.7405, 548.3202)",
+          true,
+          {
+            "BoltActionRifleAmmo": 12
+          }
+        ],
+        [
+          "E1-PL",
+          "(597.863, 536.9304)",
+          true,
+          {
+            "BoltActionRifleAmmo": 0
+          }
+        ]
+      ],
+      "rear_time": 20.25,
+      "reports": [],
+      "shots": [],
+      "ticks": 1215,
+      "time": 20.25,
+      "trace": [
+        {
+          "actor": "HQ",
+          "choice": "Company receives generated MAIN anchor",
+          "echelon": "Operational",
+          "intent": "Advance main effort; establish support and retain reserve",
+          "reason": "Bounded deterministic operational intent; execution delegated",
+          "time": 0.0
+        },
+        {
+          "actor": "C1",
+          "choice": "P1: Main effort",
+          "echelon": "Company",
+          "intent": "Advance main effort; establish support and retain reserve",
+          "reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+          "time": 0.0
+        },
+        {
+          "actor": "P1",
+          "choice": "P1-A: Advance main formation",
+          "echelon": "Platoon",
+          "intent": "Main effort",
+          "reason": "Separate subordinate formation destinations; Squad selects route",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-A",
+          "choice": "Geography route revision 1 with 4 waypoints",
+          "commander_person": "P1-A.1",
+          "echelon": "Squad",
+          "intent": "Advance main formation",
+          "reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+        },
+        {
+          "actor": "P1-A.1",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-A.2",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-A.3",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-A.4",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1",
+          "choice": "P1-B: Advance main formation",
+          "echelon": "Platoon",
+          "intent": "Main effort",
+          "reason": "Separate subordinate formation destinations; Squad selects route",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-B",
+          "choice": "Geography route revision 1 with 4 waypoints",
+          "commander_person": "P1-B.1",
+          "echelon": "Squad",
+          "intent": "Advance main formation",
+          "reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+        },
+        {
+          "actor": "P1-B.1",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-B.2",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-B.3",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P1-B.4",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Advance main formation",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "C1",
+          "choice": "P2: Support / reserve",
+          "echelon": "Company",
+          "intent": "Advance main effort; establish support and retain reserve",
+          "reason": "Nearest platoon carries main effort; retain supporting and staged capacity",
+          "time": 0.0
+        },
+        {
+          "actor": "P2",
+          "choice": "P2-A: Establish support",
+          "echelon": "Platoon",
+          "intent": "Support / reserve",
+          "reason": "Separate subordinate formation destinations; Squad selects route",
+          "time": 0.0
+        },
+        {
+          "actor": "P2-A",
+          "choice": "Geography route revision 1 with 4 waypoints",
+          "commander_person": "P2-A.1",
+          "echelon": "Squad",
+          "intent": "Establish support",
+          "reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+        },
+        {
+          "actor": "P2-A.1",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Establish support",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P2-A.2",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Establish support",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P2-A.3",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Establish support",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P2-A.4",
+          "choice": "Follow Squad formation slot at 1.4 m/s",
+          "echelon": "Soldier",
+          "intent": "Establish support",
+          "reason": "Real individual position and movement budget; no assigned proof patrol",
+          "time": 0.0
+        },
+        {
+          "actor": "P2",
+          "choice": "P2-B: Hold reserve",
+          "echelon": "Platoon",
+          "intent": "Support / reserve",
+          "reason": "Retained capacity at generated staging area",
+          "time": 0.0
+        },
+        {
+          "actor": "Opposing intent",
+          "choice": "E1 receives generated geography objective",
+          "echelon": "Operational",
+          "intent": "Approach settlement",
+          "reason": "Initial high-level mission only; contact/fire require local detection",
+          "time": 0.0
+        },
+        {
+          "actor": "E1",
+          "choice": "E1-A: approach",
+          "echelon": "Platoon",
+          "intent": "Approach generated settlement/support area",
+          "reason": "Squad computes route through the same geography graph",
+          "time": 0.0
+        },
+        {
+          "actor": "E1-A",
+          "choice": "Geography route revision 1 with 5 waypoints",
+          "commander_person": "E1-A.1",
+          "echelon": "Squad",
+          "intent": "Approach settlement",
+          "reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+        },
+        {
+          "actor": "E1",
+          "choice": "E1-B: approach",
+          "echelon": "Platoon",
+          "intent": "Approach generated settlement/support area",
+          "reason": "Squad computes route through the same geography graph",
+          "time": 0.0
+        },
+        {
+          "actor": "E1-B",
+          "choice": "Geography route revision 1 with 5 waypoints",
+          "commander_person": "E1-B.1",
+          "echelon": "Squad",
+          "intent": "Approach settlement",
+          "reason": "Squad selects bounded road/open-ground route avoiding presentation envelopes"
+        }
+      ],
+      "worker": {
+        "assigned": false,
+        "batches_remaining": 0,
+        "eligible": true,
+        "id": "Worker-01",
+        "position": "(379.275, 490.0854)"
+      }
+    }
+  }
+]

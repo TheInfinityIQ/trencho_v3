@@ -2,7 +2,13 @@
 
 Godot 4.7 project. Open `project.godot` and run (F6/F5 from the main scene/project).
 
-For the playable logistics battle, open **operations.tscn** and press **F6**.
+## T3-SES-041 — Unified rear/battlefield session
+
+Normal project launch (F5) now starts in the protected rear. Walk near the bench with WASD/arrows; E works one batch, F assigns a finite Worker order. Tab or the REAR/BATTLEFIELD buttons switch views while both simulations continue. Space pauses/resumes the shared clock; HUD buttons choose Normal or provisional4x. Battlefield wheel/1–3 zoom and WASD camera controls remain. See [SES041.md](SES041.md) for evidence, limits and the required human test; [design transfer status](docs/design/README.md).
+
+The unified session is not yet saveable. Earlier proof scenes and their focused save/campaign checks remain available below.
+
+For the earlier focused logistics battle, open **operations.tscn** and press **F6**.
 See **PLAYER_GUIDE.md** for the controls and five-step supply loop.
 
 ## T3-CTX-029 — Knowledge-bound request context and informed allocation

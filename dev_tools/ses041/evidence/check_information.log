@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.1","ownership_after":"military","ownership_before":"military","quantity":2,"reason":"Nearby squadmate sharing","source":"P1-A.2","time":4.999}
+OMNISCIENT DEVELOPER FIXTURE: {"cause":"explosion","event_id":"fixture-incident-1","event_time":5.0,"hidden_source_id":"enemy-indirect-source-7","location":"(264.0, 634.0)","soldier_id":"P2-B.4"}
+SUPPLY DECISION: {"actor":"P1-A","carried":8,"choice":"Hold final approach","reason":"Carried ammunition below sixteen-round fixture threshold","time":5.999}
+SUPPLY DECISION: {"actor":"P1-A","carried":8,"choice":"Request eight rounds","reason":"After local sharing, only eight rounds physically carried","time":5.999}
+SUPPLY DECISION: {"actor":"P1-A","carried":8,"choice":"Company approves allocation","reason":"Finite military depot can supply eight; approval does not transfer custody","time":5.999}
+REPORT DELIVERY: {"observation_time":5.0,"observer":"P2-B.1","received_at":6.0,"recipient":"Platoon","sender":"Squad","sent_at":5.0}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"military-truck","ownership_after":"military","ownership_before":"military","quantity":8,"reason":"Load approved military shipment","source":"military-depot","time":6.999}
+REPORT DELIVERY: {"observation_time":5.0,"observer":"P2-B.1","received_at":7.0,"recipient":"Company","sender":"Platoon","sent_at":6.0}
+REPORT DELIVERY: {"observation_time":5.0,"observer":"P2-B.1","received_at":8.0,"recipient":"HQ","sender":"Company","sent_at":7.0}
+INFORMATION CHECKS: 127 failures: []

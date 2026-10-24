@@ -287,7 +287,7 @@ func advance(delta: float, now: float, supply, supplies: Array = []) -> void:
 		for chain in supplies:
 			if chain.request_id == shipment.get("request_id", ""):
 				supply = chain
-	elif supply.requested_at >= 0 and committed == 0 and shipment.state == "None":
+	elif supply != null and supply.requested_at >= 0 and committed == 0 and shipment.state == "None":
 		commit(8, now)
 	if committed > 0 and now + 0.000001 >= commitment_time + LOADING_DELAY:
 		var quantity := committed

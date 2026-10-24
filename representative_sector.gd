@@ -8,6 +8,8 @@ const Rural = preload("res://sector_environment.gd")
 const ParcelShader = preload("res://sector_parcel.gdshader")
 const Autonomous = preload("res://sector_engagement.gd")
 var world
+# Non-null only when the unified session owns simulation and scenario identity.
+var session_owner
 var layout = Layout.new()
 var environment = Rural.new()
 var parcel_materials: Array = []
@@ -71,6 +73,8 @@ func _ready() -> void:
 	var refresh := DisplayServer.screen_get_refresh_rate(get_window().current_screen) if DisplayServer.get_name() != "headless" else -1.0
 	_presentation_max_fps = presentation_cap(refresh, _previous_max_fps)
 	Engine.max_fps = _presentation_max_fps
+	if session_owner != null:
+		layout = session_owner.layout; environment = session_owner.environment
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	metadata = JSON.parse_string(FileAccess.get_file_as_string("res://art/a1_rev5/docs/metadata.json"))
 	for i in range(2): textures["grass%d" % i] = load("res://art/a1_grass_rev6/terrain/terrain_grass_%02d.png" % (i + 1))
@@ -93,10 +97,13 @@ func _ready() -> void:
 	moving_overlay = MovingOverlay.new(); moving_overlay.host = self; moving_overlay.z_index = 10; add_child(moving_overlay)
 	contact_overlay = ContactOverlay.new(); contact_overlay.host = self; contact_overlay.z_index = 9; add_child(contact_overlay)
 	var layer := CanvasLayer.new(); add_child(layer)
+	if session_owner != null: layer.offset.y = 56
 	hud = Control.new(); hud.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); hud.mouse_filter = Control.MOUSE_FILTER_IGNORE; layer.add_child(hud)
 	var bar := ColorRect.new(); bar.color = Color(0.035, 0.05, 0.04, 0.92); bar.size = Vector2(2000, 48); bar.mouse_filter = Control.MOUSE_FILTER_IGNORE; hud.add_child(bar)
 	var title := Label.new(); title.text = "TRENCHO  ·  Rural sector"; title.position = Vector2(16, 12); hud.add_child(title)
 	var actions := [["1 Local", set_mode.bind("local")], ["2 Tactical", set_mode.bind("tactical")], ["3 Sector", set_mode.bind("sector")], ["N New seed", next_seed], ["F3 Details", toggle_debug], ["Space Pause", toggle_pause]]
+	if session_owner != null:
+		actions = actions.slice(0, 3) + [["F3 Details", toggle_debug]]
 	for i in range(actions.size()):
 		var button := Button.new(); button.text = actions[i][0]; button.position = Vector2(255 + i * 142, 8); button.size = Vector2(134, 32); button.focus_mode = Control.FOCUS_NONE; button.pressed.connect(actions[i][1]); hud.add_child(button)
 	var hint := Label.new(); hint.text = "WASD / arrows: pan   ·   Mouse wheel / 1–3: zoom"; hint.position = Vector2(16, 57); hint.add_theme_color_override("font_color", Color(0.94, 0.96, 0.89)); hud.add_child(hint)
@@ -170,14 +177,18 @@ func build_parcels(node: Node2D, chunk: Vector2i) -> void:
 			batch_count += 1
 
 func set_seed(value: int) -> void:
+	if session_owner != null and generation_count > 0: return
 	var started := Time.get_ticks_usec()
 	for node in chunk_nodes: node.free()
 	for visual in visuals: visual.free()
 	chunk_nodes.clear(); visuals.clear(); people.clear(); actor_chunks.clear(); batch_count = 0
 	_active_chunk_range = Rect2i(-1, -1, 0, 0)
-	layout.generate(value)
-	environment.compose(layout)
-	world = Autonomous.new(layout, environment)
+	if session_owner == null:
+		layout.generate(value)
+		environment.compose(layout)
+		world = Autonomous.new(layout, environment)
+	else:
+		world = session_owner.battlefield
 	prepare_parcel_materials()
 	for chunk in layout.chunks:
 		var node := Node2D.new(); node.position = Vector2(chunk.key) * 256 * 32; static_root.add_child(node); chunk_nodes.append(node)
@@ -224,7 +235,7 @@ func set_seed(value: int) -> void:
 
 func advance_models(delta: float) -> void:
 	var started := Time.get_ticks_usec()
-	world.advance(delta)
+	if session_owner == null: world.advance(delta)
 	elapsed = world.elapsed
 	actor_chunks.clear()
 	for i in range(people.size()):
@@ -250,7 +261,7 @@ func advance_models(delta: float) -> void:
 	contact_overlay.queue_redraw()
 
 func _physics_process(delta: float) -> void:
-	if not paused: advance_models(delta)
+	if session_owner == null and not paused: advance_models(delta)
 
 func _process(delta: float) -> void:
 	var camera_changed := false
@@ -300,12 +311,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_1: set_mode("local")
 		KEY_2: set_mode("tactical")
 		KEY_3: set_mode("sector")
-		KEY_N: next_seed()
+		KEY_N:
+			if session_owner == null: next_seed()
 		KEY_F3: toggle_debug()
-		KEY_SPACE: toggle_pause()
+		KEY_SPACE:
+			if session_owner == null: toggle_pause()
 
 func next_seed() -> void: set_seed(Layout.ALTERNATE_SEED if layout.seed_value == Layout.DEFAULT_SEED else Layout.DEFAULT_SEED)
-func toggle_pause() -> void: paused = not paused
+func toggle_pause() -> void:
+	if session_owner != null: session_owner.toggle_pause()
+	else: paused = not paused
 func toggle_debug() -> void: debug_enabled = not debug_enabled; refresh_debug(true)
 
 func sector_zoom() -> float:

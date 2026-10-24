@@ -1,0 +1,167 @@
+{
+  "captures": [
+    {
+      "avatar": "(330.0, 500.0)",
+      "file": "01_boot_rear.png",
+      "job": {},
+      "rate": 1,
+      "rear_ammo": 0,
+      "rear_metal": 4,
+      "shots": 0,
+      "time": 0.283333333333333,
+      "view": "REAR"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "02_avatar_near_bench.png",
+      "job": {},
+      "rate": 1,
+      "rear_ammo": 0,
+      "rear_metal": 4,
+      "shots": 0,
+      "time": 0.6,
+      "view": "REAR"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "03_rear_work_started.png",
+      "job": {
+        "finishes_at": 4.6,
+        "id": "RearProduction-01",
+        "input_metal": 1,
+        "producer": "Avatar",
+        "started_at": 0.6
+      },
+      "rate": 1,
+      "rear_ammo": 0,
+      "rear_metal": 3,
+      "shots": 0,
+      "time": 0.616666666666667,
+      "view": "REAR"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "04_battlefield_work_continues.png",
+      "job": {
+        "finishes_at": 4.6,
+        "id": "RearProduction-01",
+        "input_metal": 1,
+        "producer": "Avatar",
+        "started_at": 0.6
+      },
+      "rate": 1,
+      "rear_ammo": 0,
+      "rear_metal": 3,
+      "shots": 0,
+      "time": 0.666666666666667,
+      "view": "BATTLEFIELD"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "05_return_rear_work_complete.png",
+      "job": {},
+      "rate": 1,
+      "rear_ammo": 8,
+      "rear_metal": 3,
+      "shots": 0,
+      "time": 4.75,
+      "view": "REAR"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "06_paused_rear.png",
+      "job": {},
+      "rate": 0,
+      "rear_ammo": 8,
+      "rear_metal": 3,
+      "shots": 0,
+      "time": 5.35,
+      "view": "REAR"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "07_fast_battlefield.png",
+      "job": {},
+      "rate": 4,
+      "rear_ammo": 8,
+      "rear_metal": 3,
+      "shots": 0,
+      "time": 5.58333333333333,
+      "view": "BATTLEFIELD"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "08_worker_finished_during_fast_time.png",
+      "job": {},
+      "rate": 4,
+      "rear_ammo": 32,
+      "rear_metal": 0,
+      "shots": 0,
+      "time": 18.7166666666667,
+      "view": "REAR"
+    },
+    {
+      "avatar": "(375.0, 500.0)",
+      "file": "09_clean_contact_battlefield.png",
+      "job": {},
+      "rate": 4,
+      "rear_ammo": 32,
+      "rear_metal": 0,
+      "shots": 57,
+      "time": 65.1166666666667,
+      "view": "BATTLEFIELD"
+    }
+  ],
+  "checks": 21,
+  "failures": [],
+  "performance": [
+    {
+      "case": "battlefield_normal",
+      "frames": 121,
+      "max_ms": 16.962,
+      "p50_ms": 16.657,
+      "p95_ms": 16.846
+    },
+    {
+      "case": "rear_normal",
+      "frames": 121,
+      "max_ms": 17.059,
+      "p50_ms": 16.666,
+      "p95_ms": 16.922
+    },
+    {
+      "case": "rear_fast4x",
+      "frames": 120,
+      "max_ms": 17.214,
+      "p50_ms": 16.68,
+      "p95_ms": 16.997
+    },
+    {
+      "case": "battlefield_fast4x",
+      "frames": 121,
+      "max_ms": 17.03,
+      "p50_ms": 16.669,
+      "p95_ms": 16.88
+    },
+    {
+      "case": "switch_handlers",
+      "generation_count": 1,
+      "harness_fps_cap": 60,
+      "product_fps_cap": 300,
+      "samples_ms": [
+        0.14,
+        0.49,
+        0.061,
+        0.514,
+        0.062,
+        0.424,
+        0.062,
+        0.409,
+        0.06,
+        0.4,
+        0.058,
+        0.398
+      ]
+    }
+  ]
+}

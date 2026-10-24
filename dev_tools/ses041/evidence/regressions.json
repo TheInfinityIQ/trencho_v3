@@ -1,0 +1,134 @@
+[
+  {
+    "suite": "check_session",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "LEADER CASUALTY RELAY: Company {\"acting_replacement\":\"\",\"deceased_leader\":\"P1-B.1\",\"kind\":\"LEADER_CASUALTY\",\"observation_time\":69.0499999999974,\"received_at\":71.5499999999974,\"sent_at\":69.5499999999974,\"squad\":\"P1-B\",\"unavailability\":\"dead\",\"unavailable_leader\":\"P1-B.1\"}",
+      "LEADER CASUALTY RELAY: Company {\"acting_replacement\":\"\",\"deceased_leader\":\"P1-B.1\",\"kind\":\"LEADER_CASUALTY\",\"observation_time\":69.0499999999974,\"received_at\":71.5499999999974,\"sent_at\":69.5499999999974,\"squad\":\"P1-B\",\"unavailability\":\"dead\",\"unavailable_leader\":\"P1-B.1\"}",
+      "SESSION CHECKS 24 FAILURES []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_contact",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "LEADER CASUALTY RELAY: Platoon {\"acting_replacement\":\"\",\"deceased_leader\":\"P2-B.1\",\"kind\":\"LEADER_CASUALTY\",\"observation_time\":76.099999999997,\"received_at\":77.599999999997,\"sent_at\":76.599999999997,\"squad\":\"P2-B\",\"unavailability\":\"dead\",\"unavailable_leader\":\"P2-B.1\"}",
+      "LEADER CASUALTY RELAY: Company {\"acting_replacement\":\"\",\"deceased_leader\":\"P2-B.1\",\"kind\":\"LEADER_CASUALTY\",\"observation_time\":76.099999999997,\"received_at\":78.599999999997,\"sent_at\":76.599999999997,\"squad\":\"P2-B\",\"unavailability\":\"dead\",\"unavailable_leader\":\"P2-B.1\"}",
+      "CONTACT CHECKS 30 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_autonomy",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "P2-B HOLDING route=[] start=(252.5313, 573.0)",
+      "AUTONOMY CHECKS 38 failures: []",
+      "AUTONOMY COMPLETE 38 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_sector",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org",
+      "",
+      "MAP035 CHECKS: 21 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_land_use",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org",
+      "",
+      "ENV036 CHECKS: 39 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_rear",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "SUPPLY DECISION: {\"actor\":\"P1-A\",\"carried\":16,\"choice\":\"Resume final approach\",\"reason\":\"Readiness satisfied by ammunition in actual member inventories\",\"time\":20.4833333333335}",
+      "RECOVERY: {\"destination\":\"Recovery Team\",\"ownership_after\":\"military\",\"ownership_before\":\"military\",\"quantity\":3,\"reason\":\"Physical recovery completed; historical event unchanged\",\"source\":\"body:P2-B.4\",\"time\":21.5166666666669}",
+      "REAR CHECKS: 33 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_worker",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+      "TERMINAL BATTLE: {\"defeated_primary\":\"enemy\",\"event\":\"terminal battle result\",\"hq\":\"Enemy-HQ\",\"result\":\"ENDED_FRIENDLY_VICTORY\",\"source\":\"test\",\"time\":0.916666666666668}",
+      "WORKER CHECKS: 99 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_operations",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "SHOT: {\"ammo_after\":1,\"ammo_before\":2,\"covered\":true,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.742021679878235,\"shooter\":\"P1-A.4\",\"shooter_position\":\"(649.2047, 226.897)\",\"target\":\"E1.3\",\"target_position\":\"(790.0, 445.0)\",\"time\":36.0333333333326}",
+      "SHOT: {\"ammo_after\":0,\"ammo_before\":1,\"covered\":false,\"hit\":false,\"locally_detected\":true,\"los\":true,\"roll\":0.86437326669693,\"shooter\":\"E1.4\",\"shooter_position\":\"(855.0, 440.0)\",\"target\":\"P1-A.2\",\"target_position\":\"(672.7086, 254.6967)\",\"time\":36.2166666666659}",
+      "OPERATIONS CHECKS: 23 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_information",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":7.0,\"recipient\":\"Company\",\"sender\":\"Platoon\",\"sent_at\":6.0}",
+      "REPORT DELIVERY: {\"observation_time\":5.0,\"observer\":\"P2-B.1\",\"received_at\":8.0,\"recipient\":\"HQ\",\"sender\":\"Company\",\"sent_at\":7.0}",
+      "INFORMATION CHECKS: 127 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_save",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "TERMINAL BATTLE: {\"defeated_primary\":\"enemy\",\"event\":\"terminal battle result\",\"hq\":\"Enemy-HQ\",\"result\":\"ENDED_FRIENDLY_VICTORY\",\"source\":\"B2-Mortar-01\",\"time\":8.01666666666665}",
+      "ARTILLERY WORLD IMPACT: {\"effects\":[],\"impact\":\"(850.0, 200.0)\",\"impact_time\":8.01666666666665,\"report_observation_time\":0.0,\"source_report\":\"strategic-Enemy-HQ\",\"weapon\":\"B2-Mortar-01\"}",
+      "SAVE CHECKS: 31 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_resume",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "COMBAT WORLD EVENT: {\"body_inventory\":{\"BoltActionRifleAmmo\":0},\"event\":\"combat casualty\",\"location\":\"(350.0, 400.0)\",\"person\":\"B2-P1-B.4\",\"time\":13.5,\"world_source\":\"B2-E1.1\"}",
+      "MEDICAL WORLD EVENT: {\"event\":\"died from wounds\",\"medical_state\":\"DEAD\",\"on_battlefield\":true,\"person\":\"B2-P1-B.4\",\"position\":\"(350.0, 400.0)\",\"source\":\"B2-E1.1\",\"time\":13.5}",
+      "RESUME CHECKS: 33 failures: []"
+    ],
+    "passed": true
+  },
+  {
+    "suite": "check_loop",
+    "exit": 0,
+    "errors": [],
+    "summary": [
+      "TERMINAL BATTLE: {\"defeated_primary\":\"friendly\",\"event\":\"terminal battle result\",\"hq\":\"Friendly-HQ\",\"result\":\"ENDED_FRIENDLY_DEFEAT\",\"source\":\"B2-Mortar-01\",\"time\":8.01666666666665}",
+      "ARTILLERY WORLD IMPACT: {\"effects\":[{\"distance\":77.1751251220703,\"effect\":\"suppressed\",\"person\":\"B2-P2-A.3\",\"position\":\"(140.0, 634.0)\",\"solid_obstruction\":false,\"suppression_added\":2}],\"impact\":\"(100.0, 700.0)\",\"impact_time\":8.01666666666665,\"report_observation_time\":0.0,\"source_report\":\"strategic-Friendly-HQ\",\"weapon\":\"B2-Mortar-01\"}",
+      "LOOP CHECKS: 27 failures: []"
+    ],
+    "passed": true
+  }
+]

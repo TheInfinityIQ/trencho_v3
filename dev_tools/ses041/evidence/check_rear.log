@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.1","ownership_after":"military","ownership_before":"military","quantity":2,"reason":"Nearby squadmate sharing","source":"P1-A.2","time":1.0}
+OMNISCIENT DEVELOPER FIXTURE: {"cause":"explosion","event_id":"fixture-incident-1","event_time":5.0,"hidden_source_id":"enemy-indirect-source-7","location":"(264.0, 634.0)","soldier_id":"P2-B.4"}
+SUPPLY DECISION: {"actor":"P1-A","carried":8,"choice":"Hold final approach","reason":"Carried ammunition below sixteen-round fixture threshold","time":5.74999999999999}
+SUPPLY DECISION: {"actor":"P1-A","carried":8,"choice":"Request eight rounds","reason":"After local sharing, only eight rounds physically carried","time":5.74999999999999}
+SUPPLY DECISION: {"actor":"P1-A","carried":8,"choice":"Forward request to rear","reason":"Receiving point empty; player authorization and physical export required","time":5.74999999999999}
+REPORT DELIVERY: {"observation_time":5.0,"observer":"P2-B.1","received_at":6.0,"recipient":"Platoon","sender":"Squad","sent_at":5.0}
+REPORT DELIVERY: {"observation_time":5.0,"observer":"P2-B.1","received_at":7.0,"recipient":"Company","sender":"Platoon","sent_at":6.0}
+REPORT DELIVERY: {"observation_time":5.0,"observer":"P2-B.1","received_at":8.0,"recipient":"HQ","sender":"Company","sent_at":7.0}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"military-truck","ownership_after":"military","ownership_before":"military","quantity":8,"reason":"Load approved military shipment","source":"military-depot","time":15.0333333333337}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.3","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.4","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.1","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.3","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.4","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.1","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.3","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY TRANSFER: {"category":"BoltActionRifleAmmo","destination":"P1-A.4","ownership_after":"military","ownership_before":"military","quantity":1,"reason":"Physical delivery at staging","source":"military-truck","time":20.4666666666668}
+SUPPLY DECISION: {"actor":"P1-A","carried":16,"choice":"Resume final approach","reason":"Readiness satisfied by ammunition in actual member inventories","time":20.4833333333335}
+RECOVERY: {"destination":"Recovery Team","ownership_after":"military","ownership_before":"military","quantity":3,"reason":"Physical recovery completed; historical event unchanged","source":"body:P2-B.4","time":21.5166666666669}
+REAR CHECKS: 33 failures: []
