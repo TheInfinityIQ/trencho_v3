@@ -1,0 +1,2 @@
+cmp033/REVIEW.md -text whitespace=cr-at-eol
+cmp033_rev1/REVIEW.md -text whitespace=cr-at-eol
