@@ -206,7 +206,7 @@ These may become later design tasks but do not block the connected-slice validat
 
 The authorized connected-slice sequence is:
 
-`T3-LOG-043 → T3-CMD-047 → T3-LOG-044 → T3-OPP-048 → T3-OUT-050 → T3-SLICE-049`
+`T3-LOG-043 → T3-CMD-047 → T3-LOG-044A → T3-LOG-044 → T3-OPP-048 → T3-OUT-050 → T3-SLICE-049`
 
 The previously proposed standalone `T3-REA-046` is removed. Its bounded production-versus-dispatch labor choice is part of T3-LOG-043.
 
@@ -217,3 +217,73 @@ After a task is design-accepted, the coordinator may dispatch the next listed ta
 Return for an additional design decision only when implementation evidence reveals a semantic contradiction or an unresolved product choice outside this addendum.
 
 This continuation does not grant code push, merge or release authority.
+
+## CS-04B — Sector-native ammunition handoff locality
+
+For the representative connected slice, Company staging has one authoritative physical ammunition issue point in representative-sector geography.
+
+Local person-level handoff requires the recipient's authoritative sector position to be within 4.0 design meters of that issue point.
+
+This distance is expressed directly in sector design meters. It is not derived from, converted from or constrained by legacy standalone Supply proof radii.
+
+The 4.0-meter value is a bounded connected-slice interaction locality, not a final logistics-distribution radius or general battlefield supply doctrine.
+
+Ammunition cannot be remotely transferred from Company staging to personnel outside this locality.
+
+## CS-04C — Slice replenishment target
+
+Final individual ammunition carrying capacity remains unresolved under D-10.
+
+For the representative connected slice only, each person's authored carried ammunition at representative battle initialization is snapshotted as that person's slice replenishment target for that compatible ammunition category.
+
+Rear/military resupply may restore a person toward this target but may not use this target as proof of a final inventory-capacity rule.
+
+A recipient is eligible only when living, friendly, compatible, assigned a positive target, below that target and physically local under CS-04B.
+
+A person authored with zero starting ammunition has a zero target and is not automatically made a recipient solely because they possess a compatible weapon.
+
+The bounded handoff amount is:
+
+min(target deficit, physically local staging stock)
+
+Dead, incompatible, enemy, zero-target and non-local personnel receive nothing.
+
+## CS-08A — Autonomous resupply rendezvous
+
+When normal autonomous movement does not bring legitimately depleted personnel into Company staging locality, do not enlarge the locality or teleport supply to force the proof.
+
+Company command may autonomously initiate a bounded resupply rendezvous when it legitimately knows both that a subordinate has an ammunition/readiness deficit and that compatible stock is physically available at Company staging.
+
+The player does not select the formation, route or recipient.
+
+For the representative slice:
+
+Company selects the subordinate formation requiring resupply using received readiness;
+
+Platoon selects one eligible Squad with the greatest aggregate positive ammunition deficit, using deterministic ID order for ties;
+
+Squad Leader routes that Squad to Company staging through the authoritative sector movement system;
+
+infantry physically moves;
+
+the Squad's previous intent is preserved while resupply is pending;
+
+after legitimate local resupply completion, that preserved intent may resume.
+
+This is autonomous logistics/command behavior, not player tactical control.
+
+No second movement authority, remote refill or teleportation is permitted.
+
+The behavior should use side-owned semantics so an opposing belligerent can later use the same relevant logic.
+
+## CS-13 — Continuation authority amendment
+
+The authorized connected-slice sequence is now:
+
+T3-LOG-043 → T3-CMD-047 → T3-LOG-044A → T3-LOG-044 → T3-OPP-048 → T3-OUT-050 → T3-SLICE-049
+
+T3-LOG-044A was inserted after source evidence established that no accepted sector-native handoff locality existed and normal autonomous behavior did not bring depleted personnel to Company staging.
+
+This added task resolves physical rendezvous only. T3-LOG-044 remains responsible for actual local inventory transfer, repeated demand/resupply cycles and observable combat-endurance consequence.
+
+No intermediate human experience gate is introduced.
