@@ -1,12 +1,26 @@
 # Exact design-document transfer status
 
-SES-041 criterion M: **blocked by environment boundary**, not reconstructed. The designated designer supplied these cloud-local source paths and expected identities; the Windows developer environment cannot access that chat's `/mnt/data` or download another chat's `sandbox:` file links. Local synced `sources/` and named Downloads contained no copies. Both provided source paths were checked and are absent locally.
+## Current status
 
-| Required repository path | Designer-supplied source | Bytes | SHA256 |
-|---|---|---|---|
-| `docs/design/Trencho_Game_Design_Document_v1.1_2026-10-20.md` | `/mnt/data/trencho_design/Trencho_Game_Design_Document_v1.1_2026-10-20.md` | 89594 | `3bc75da8c89720fa219bcd90b30aaead27be6914fe283584f107b5416910c5c3` |
-| `docs/design/GDD_Supplement_2026-10-23.md` | `/mnt/data/trencho_design/GDD_Supplement_2026-10-23.md` | 18500 | `614e298b6a6811ba7266bcd2397d95ee3741d98fad39518c63ab6395742a5dd2` |
+The original **Trencho Game Design Document v1.1 · 20 October 2026** has been restored to the public repository byte-for-byte without semantic modification:
 
-These are reported source hashes, not hashes of files received or verified here. No placeholder files were created at the two required document paths. Request sent to the design owner; exact attachments must be transferred to the local environment, verified against both size/hash, then copied byte-for-byte. The supplement remains a separate document and does not replace the GDD.
+| Repository path | Status | Bytes | SHA256 |
+|---|---|---:|---|
+| `docs/design/Trencho_Game_Design_Document_v1.1_2026-10-20.md` | Restored exact original | 89594 | `3bc75da8c89720fa219bcd90b30aaead27be6914fe283584f107b5416910c5c3` |
+| `docs/design/GDD_Supplement_2026-10-23.md` | Original still unavailable; not reconstructed | 18500 expected | `614e298b6a6811ba7266bcd2397d95ee3741d98fad39518c63ab6395742a5dd2` expected |
 
-Designer clarification (chat `6ad83d2b-3768-83e9-97be-371e5bff2d21`, turn `34d57bad-c2f3-48f9-a4ed-abdddd583150`) permits SES-041 review with this substep explicitly blocked. It does not grant new gameplay scope.
+The restored GDD was published in commit `54ebc77e99bda793f54a2107ccf58107bce3dfc2`.
+
+The original supplement remains a separate missing design document. No placeholder or reconstructed replacement should be treated as that original.
+
+The earlier public transfer record, including the designated identities for both source documents, is preserved here:
+
+https://github.com/TheInfinityIQ/trencho_v3/blob/682a30df6d87726ef5efee897126c2ed7928f85e/docs/design/README.md
+
+## SES-041 status
+
+The exact-GDD-transfer portion of the prior SES-041 documentation gap is resolved by the verified restoration above. The missing original supplement remains unresolved as a document-transfer gap and must not be silently reconstructed.
+
+Issue #12 remains pending its required human unified-session evaluation. No human pass is claimed by this document update.
+
+This status correction changes no gameplay requirement, design rule, task acceptance condition, or development scope.
