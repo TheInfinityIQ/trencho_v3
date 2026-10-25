@@ -2995,3 +2995,401 @@ Decision: Leadership Unavailable remains mandatory branch behavior but may be pr
 Reason: The leadership rule is semantically independent of whether the current default encounter naturally preserves a live shortage long enough for stock and leadership failure to coexist.
 
 Status: Authoritative PV0 acceptance boundary.
+
+## Resupply Cycle Freshness and Concurrent Combat Amendment — 24 October 2026
+
+This amendment resolves the observed overlap between:
+
+request closure at Company staging;
+
+an ongoing local rendezvous/handoff;
+
+normal combat expenditure occurring during that handoff;
+
+creation of the next distinct Rifle Ammunition demand cycle.
+
+It supersedes any acceptance wording that requires Cycle B to arise merely because Request A has reached Closed.
+
+1. Request lifecycle and resupply-cycle lifecycle are distinct
+
+A Company Rifle Ammunition request and a Company Rifle Ammunition resupply cycle are not the same lifecycle.
+
+The request may reach:
+
+Closed
+
+after its authorized cargo has physically arrived at staging and Company has received the corresponding staging status.
+
+The broader resupply cycle remains active while that delivered ammunition is still being handled through its associated rendezvous.
+
+For the same ammunition category, the cycle begins when Company creates the request and remains active until its associated distribution attempt reaches a defined terminal state.
+
+2. One active Rifle Ammunition resupply cycle
+
+Company may have only:
+
+one active Rifle Ammunition resupply cycle
+
+at a time.
+
+This is stronger than merely having one active transport request.
+
+While the cycle remains active:
+
+Company may receive newer readiness reports;
+
+Company may receive staging updates;
+
+people may fire;
+
+local handoffs may occur;
+
+the military truck may already be returning;
+
+but Company does not create another Rifle Ammunition request.
+
+This prevents the same unresolved shortage from being divided into overlapping request identities merely because the transport portion closed before local distribution finished.
+
+3. Cycle terminal states
+
+A Rifle Ammunition resupply cycle becomes terminal when its current distribution attempt reaches one of:
+
+Resupplied
+
+Stock Exhausted
+
+No Eligible Recipient
+
+Cancelled — Need Resolved
+
+Delivered to Staging and transport-request Closed are not cycle-terminal states.
+
+Delayed — Leadership Unavailable is also not terminal while a legitimate deficit and staged stock remain.
+
+4. Freshness requirement for the next cycle
+
+After Cycle A becomes terminal, Cycle B may form only from a new legitimately received readiness report whose source timestamp is strictly later than Cycle A's terminal world time.
+
+Therefore:
+
+readiness source time <= previous cycle terminal time
+
+cannot create the next same-category request.
+
+The report may still update historical/display information, but it is not sufficiently fresh to establish a distinct post-cycle demand.
+
+5. Observed premature Request B is not valid Cycle B
+
+In the reported deterministic run:
+
+readiness source time = 186.65;
+
+Cycle A handoffs begin at 190.50;
+
+Request B attempts to form at 191.50;
+
+Cycle A becomes Stock Exhausted at approximately 193.57.
+
+That 186.65 readiness sample predates Cycle A's local distribution.
+
+It therefore describes the original shortage state.
+
+Under this amendment it cannot create Request B.
+
+Company must wait until Cycle A reaches its terminal state and then receive a readiness sample sourced after that terminal time.
+
+6. Combat continues during handoff
+
+The local resupply rendezvous does not impose a ceasefire.
+
+If valid enemies are already engageable while infantry are inside the 4 m issue locality, ordinary combat behavior continues.
+
+An eligible person may:
+
+receive ammunition;
+
+fire some or all of it through normal autonomous combat;
+
+become deficient again before the current rendezvous has finished servicing other people.
+
+This is legitimate.
+
+No handoff rule suppresses normal firing merely to make accounting visually tidy.
+
+7. Expenditure sufficient for a later cycle may occur during Cycle A
+
+The phrase actual expenditure between cycles is clarified.
+
+For Cycle B acceptance, ammunition delivered by Cycle A must have been legitimately expended after its local issue and before Request B is created.
+
+That expenditure is allowed to occur while Cycle A's rendezvous is still active.
+
+It does not have to occur after the exact terminal timestamp of Cycle A.
+
+What must occur after Cycle A becomes terminal is the fresh readiness observation used to establish Cycle B.
+
+Therefore the required causal ordering is:
+
+Cycle A local handoff
+→ actual firing of Cycle-A-delivered ammunition
+→ Cycle A terminal state
+→ new readiness sample sourced after that terminal state
+→ Company receives that fresh readiness
+→ Request B
+
+This cleanly distinguishes a new demand cycle without imposing an artificial ceasefire.
+
+8. Recipient selection remains dynamic
+
+The existing individual issue rule remains authoritative:
+
+Before each individual handoff, re-evaluate currently eligible local recipients and select:
+
+greatest current positive serviceable deficit;
+
+stable person ID for ties.
+
+There is no once-per-person-per-rendezvous rule.
+
+9. The same person may receive more than once
+
+A person who has already received ammunition during the current rendezvous may become eligible again if normal combat subsequently reduces their carried ammunition below target.
+
+If they again have the greatest current serviceable deficit, they may be selected again.
+
+Example:
+
+Person 1 receives 2 rounds: 0 → 2.
+
+Person 1 legitimately fires those 2 rounds.
+
+Person 1 is now 0 / target 2.
+
+Before a later handoff, Person 1 again has the greatest deficit.
+
+They may legitimately receive again.
+
+No ammunition is duplicated because the earlier ammunition was actually expended.
+
+10. No fairness rotation
+
+The handoff system does not guarantee that every eligible Squad member receives once before anybody receives twice.
+
+Do not introduce:
+
+round-robin issue;
+
+previously-served exclusion;
+
+per-cycle fairness flags;
+
+firing suppression;
+
+reserved individual shares.
+
+The authored greatest-current-deficit rule remains authoritative.
+
+Thus an observed sequence such as:
+
+Person 1 → Person 2 → Person 1 → Person 2
+
+is valid if each selection is correct when that handoff begins.
+
+11. Target and conservation remain unchanged
+
+Every successful handoff still obeys:
+
+transfer = min(current individual deficit, staging rounds)
+
+and:
+
+staging decrease = recipient increase
+
+No recipient exceeds their replenishment target at the instant of transfer.
+
+Later firing may immediately reduce their carried ammunition again.
+
+12. Stock Exhausted with continuing deficit
+
+If normal concurrent firing causes staging to reach zero while positive serviceable deficit remains:
+
+current cycle terminates:
+
+Stock Exhausted
+
+The selected Squad resumes its preserved intent according to the existing rules.
+
+Company does not immediately create Request B from an older readiness sample.
+
+It waits for a new report sourced after the Stock Exhausted terminal time.
+
+13. Fresh post-terminal report
+
+The first valid report capable of creating the next cycle must represent subordinate ammunition state sampled after the prior cycle ended.
+
+Example:
+
+Cycle A terminal:
+
+193.57
+
+Valid Cycle B readiness source:
+
+> 193.57
+
+If that fresh report establishes:
+
+positive serviceable deficit;
+
+insufficient known staging;
+
+insufficient known other inbound;
+
+no active cycle;
+
+Company may form Request B.
+
+Its request identity and cargo must be distinct from Cycle A.
+
+14. No artificial report injection
+
+The acceptance scenario may not force a readiness report at the cycle boundary.
+
+The normal accepted readiness/report cadence must produce the post-terminal sample and deliver it through the ordinary information path.
+
+The acceptance evidence should record:
+
+cycle terminal timestamp;
+
+next readiness source timestamp;
+
+readiness receive timestamp;
+
+Request B creation timestamp.
+
+15. Two-cycle acceptance definition
+
+A valid pair of distinct cycles now requires:
+
+Cycle A
+
+fresh shortage
+→ Request A
+→ physical supply A
+→ staging A
+→ rendezvous/issue A
+→ some A-issued ammunition actually fired
+→ Cycle A terminal
+
+Cycle B
+
+readiness sampled after Cycle A terminal
+→ fresh deficit still/newly present
+→ Request B
+→ distinct physical supply B
+→ staging B
+→ rendezvous/issue B
+→ at least one B-issued round later fired
+
+The cycles may be temporally close.
+
+They may not overlap at the Company request-cycle level.
+
+16. A/B endurance remains unchanged
+
+The equal-time supplied/control comparison remains authoritative.
+
+The supplied case may naturally fire during local issue.
+
+The control case must not receive ammunition.
+
+Acceptance continues to compare actual legitimate P1-A ammunition expenditure/shots at equal world time.
+
+No firing suppression or artificial pacing is authorized.
+
+17. Company Resupply Decision Graph v2.1
+
+Replace the same-category repeat-demand portion of Company Resupply Decision Graph v2.0 with:
+
+New readiness/logistics information received?
+
+→ NO
+No demand decision from hidden truth.
+
+→ YES
+
+Update legitimate Company knowledge.
+
+Rifle Ammunition resupply cycle active?
+
+→ YES
+Do not create another Rifle Ammunition request.
+Continue the current cycle.
+Preserve the newer information for normal knowledge/status purposes.
+
+→ NO
+
+Was there a previous Rifle Ammunition cycle?
+
+→ YES
+
+Latest readiness source timestamp > previous cycle terminal timestamp?
+
+→ NO
+Do not create a new request from stale/pre-terminal readiness.
+
+→ YES
+Continue demand evaluation.
+
+→ NO previous cycle
+Continue demand evaluation.
+
+Calculate request gap under the existing rules.
+
+request gap > 0?
+
+→ NO
+No request.
+
+→ YES
+
+Create one request according to the existing crate-count rule.
+
+That request opens a new Rifle Ammunition resupply cycle.
+
+18. Rendezvous cycle closure
+
+When the rendezvous reaches:
+
+Resupplied;
+
+Stock Exhausted;
+
+No Eligible Recipient;
+
+record that world time as the cycle terminal time.
+
+If the cycle instead cancels before physical loading as Need Resolved, the cancellation time is its terminal time.
+
+Only a later readiness sample may establish a subsequent cycle.
+
+Design-history entry
+PV0-ML01-D13 — Resupply cycle freshness boundary
+
+Decision: Same-category request closure at staging does not end the resupply cycle. The cycle remains active through local distribution and must reach a terminal rendezvous/cancellation state before another request may form.
+
+Reason: Transport completion can occur well before physical distribution. Allowing new requests from pre-distribution readiness causes one underlying shortage to fragment into overlapping request identities.
+
+PV0-ML01-D14 — Post-terminal readiness required
+
+Decision: A subsequent Rifle Ammunition request requires a readiness sample sourced strictly after the previous cycle's terminal time.
+
+Reason: The new request must represent the post-cycle state rather than stale information describing the shortage Cycle A was already servicing.
+
+PV0-ML01-D15 — Concurrent combat during issue
+
+Decision: Combat remains live during handoff. Previously served recipients may become eligible and receive again under the existing greatest-current-deficit rule.
+
+Reason: Resupply locality is not a ceasefire zone, and introducing fairness rotation or firing suppression would alter accepted tactical behavior solely for test convenience.
+
+Status: Authoritative PV0 behavior.
