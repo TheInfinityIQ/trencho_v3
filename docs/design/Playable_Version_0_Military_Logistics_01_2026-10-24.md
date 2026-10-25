@@ -1565,3 +1565,310 @@ communication failure;
 must explicitly update the relevant request, allocation, transport, rendezvous and handoff decision graphs.
 
 Engineering must return unresolved game-behavior ambiguity to the Game Designer rather than selecting product semantics.
+
+## Active Request Cancellation Clarification — 24 October 2026
+
+This amendment clarifies Sections 8, 16 and 56 of Playable Version 0 — Military Logistics 01: HQ-to-Company Resupply, Local Handoff & Combat Endurance.
+
+1. Two distinct gap calculations
+Request-formation gap
+
+When no active Rifle Ammunition request exists:
+
+request gap = latest received serviceable deficit - known staging rounds - known pre-existing inbound rounds
+
+If:
+
+request gap > 0
+
+Company may create a request according to the existing crate-count rule.
+
+At this point there is no current-request allocation yet.
+
+Pre-loading cancellation gap
+
+After a request has been created and HQ has authorized some or all of its cargo, cancellation uses:
+
+cancellation gap = latest received serviceable deficit - known staging rounds - known other inbound rounds
+
+Known other inbound rounds explicitly excludes every crate allocated to the current active request.
+
+The current request's own authorized cargo must never mathematically cancel the request that caused that cargo to be authorized.
+
+2. Cancellation rule
+
+Before physical loading of the current request begins:
+
+If
+
+cancellation gap <= 0
+
+then the need has been resolved independently of the current request.
+
+The request is cancelled as:
+
+Cancelled — Need Resolved
+
+and every crate allocated to that request is released back to Available HQ stock.
+
+If
+
+cancellation gap > 0
+
+the request remains valid.
+
+Its own allocated cargo is not subtracted again for cancellation purposes.
+
+3. What counts as "other inbound"
+
+For this rule, other inbound means compatible ammunition that:
+
+is not part of the current active request;
+
+is legitimately known to be destined for this Company;
+
+has not yet entered the Company's known staging stock.
+
+Examples may include separately committed compatible supply from an earlier or independent legitimate supply movement if such a source exists.
+
+The active request's own:
+
+Authorized cargo;
+
+Awaiting Military Truck cargo;
+
+Loading-at-HQ cargo before the loading cutoff;
+
+does not count as other inbound.
+
+4. Partial allocation
+
+Example:
+
+Received serviceable deficit:
+
+24 rounds
+
+Known staging:
+
+0
+
+Known other inbound:
+
+0
+
+Company requests:
+
+3 crates / 24 rounds
+
+HQ currently has only:
+
+2 crates / 16 rounds
+
+HQ partially authorizes those two crates.
+
+Cancellation calculation remains:
+
+24 - 0 - 0 = 24
+
+not:
+
+24 - 0 - 16 = 8
+
+and certainly not zero because of the current request's own cargo.
+
+The two allocated crates therefore remain authorized.
+
+The missing third crate is not maintained as a hidden backorder under the existing partial-fulfillment rule.
+
+After this shipment/distribution cycle, later legitimate readiness may create a new request if need remains.
+
+5. Other supply resolves the need
+
+Example:
+
+Received serviceable deficit:
+
+16
+
+Current request has already been authorized for:
+
+2 crates / 16 rounds
+
+but loading has not begun.
+
+Company then legitimately receives knowledge that:
+
+8 rounds are already at staging; and
+
+a separate 8 compatible rounds are legitimately inbound.
+
+Cancellation gap:
+
+16 - 8 - 8 = 0
+
+The current request is cancelled.
+
+Its own allocated two crates are released to Available HQ stock.
+
+They are not included in the cancellation calculation.
+
+6. Updated readiness resolves the need
+
+Example:
+
+Current request is authorized but not yet loading.
+
+A newer legitimately received readiness report establishes:
+
+serviceable deficit = 0
+
+Cancellation gap is therefore zero regardless of the current request's own allocation.
+
+Cancel the request and release its committed crates.
+
+This allows casualties, other replenishment, or other legitimate state changes to resolve the need before physical shipment begins.
+
+7. Updated readiness reduces but does not eliminate need
+
+If a newer received readiness report reduces the cancellation gap but leaves:
+
+cancellation gap > 0
+
+the current request remains authorized.
+
+For PV0, its already authorized crate count is not dynamically resized downward.
+
+Example:
+
+Request authorized for 3 crates.
+
+New legitimate information reduces unresolved need to 9 rounds.
+
+Loading has not begun.
+
+Because the independent need remains positive:
+
+do not cancel;
+
+keep the existing 3-crate authorization.
+
+Any resulting excess that reaches Company staging remains legitimate Company stock.
+
+Dynamic request resizing is not part of this capability.
+
+8. Increased need after authorization
+
+If a newer readiness report increases the deficit before loading:
+
+do not automatically enlarge the current authorization;
+
+preserve the already authorized cargo.
+
+After the existing request completes and closes, later received readiness may justify another distinct request.
+
+This preserves the one-active-request and no-hidden-backorder rules.
+
+9. Stale information
+
+Cancellation may use only the Company's currently accepted legitimate knowledge.
+
+A later-received report/status whose source timestamp is older than the newer authoritative information already held for that same information stream must not roll Company knowledge backward for cancellation purposes.
+
+Therefore an older readiness report must not:
+
+resurrect a resolved deficit;
+
+cancel a request based on obsolete staging state;
+
+undo newer legitimate logistics knowledge.
+
+This is an information-semantic requirement, not an instruction for technical implementation.
+
+10. Loading-start cutoff
+
+The cancellation window closes when:
+
+the first crate belonging to the current request begins physical loading onto the military resupply truck.
+
+Before that moment:
+
+cancellation may occur under the rule above.
+
+At or after that moment:
+
+the request may no longer be cancelled;
+
+all cargo already authorized for that request completes the shipment;
+
+later readiness/staging/other-supply changes do not return cargo to HQ.
+
+This cutoff applies even if the new information would otherwise make the cancellation gap zero or negative.
+
+11. Loading-start boundary example
+
+Request authorized for 2 crates.
+
+Before loading:
+
+cancellation gap = 8
+
+Request remains valid.
+
+First crate begins physical loading.
+
+Immediately afterward, Company receives a new readiness report showing:
+
+serviceable deficit = 0
+
+Result:
+
+do not cancel;
+
+complete the authorized 2-crate shipment;
+
+delivered ammunition becomes legitimate Company staging stock;
+
+later demand calculations account for that stock normally.
+
+No cargo reverses direction because battlefield need changed after physical loading began.
+
+12. Authoritative Company cancellation decision
+
+Replace the relevant branch in Company Resupply Decision Graph v2.0 with:
+
+Active request exists and physical loading has NOT begun?
+
+→ YES
+
+Calculate:
+
+cancellation gap = latest received serviceable deficit - known staging - known OTHER inbound
+
+where OTHER inbound excludes this active request's own allocated cargo.
+
+cancellation gap <= 0?
+
+→ YES
+Cancel request as Need Resolved.
+Release all current-request allocated crates to Available HQ stock.
+
+→ NO
+Keep the current authorization unchanged.
+
+Physical loading has begun?
+
+→ YES
+Cancellation is no longer permitted.
+Complete the authorized shipment.
+
+Design-history entry
+PV0-ML01-D09 — Own allocation does not self-cancel
+
+Decision: Cargo allocated to the current active request is excluded from that request's pre-loading cancellation calculation.
+
+Reason: Authorization is the response to the identified supply need. Counting that same authorized cargo as an independent resolution of the need would allow a valid request to cancel itself before physical shipment begins.
+
+Additional rule: Pre-loading cancellation occurs only when newer legitimate readiness, staging stock or other independent compatible inbound supply resolves the need.
+
+Status: Authoritative PV0 behavior.
