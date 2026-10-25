@@ -1423,3 +1423,198 @@ Target effect: Their replenishment targets snapshot to 32 under the ordinary acc
 Defending pressure: Compatible defending rifle personnel may be authored to 0 before initialization.
 
 Status: Acceptance-only focused scenario; normal gameplay unchanged.
+
+## Commander-Loss Acceptance Clarification — 25 October 2026
+
+This amendment clarifies Sections 29, 30, 65 and the acceptance requirements of Playable Version 0 — Combat Outcome 01: Sector-Native Combat HQs & Battle Termination.
+
+1. No Commander embodiment added
+
+Combat Outcome 01 does not introduce a physical Commander person.
+
+The currently accepted Commander remains the existing logical adjacent-echelon command decision role.
+
+#19 must not add solely for outcome testing:
+
+Commander Soldier/person identity;
+
+Commander health;
+
+Commander position;
+
+Commander weapon/ammunition;
+
+Commander death animation/state;
+
+Commander succession;
+
+replacement Commander selection;
+
+physical Commander movement.
+
+Those are unresolved command/personnel-system questions outside this capability.
+
+2. WAR-01 semantic requirement
+
+The authoritative outcome rule remains:
+
+Only destruction of a primary belligerent's Combat HQ produces that belligerent's WAR-01 defeat in this package.
+
+Therefore loss, absence or inability of command personnel/roles must not independently create:
+
+Friendly Victory;
+
+Friendly Defeat;
+
+Mutual HQ Destruction;
+
+any other terminal battle result.
+
+3. Runtime negative evidence
+
+Normal/focused runtime evidence must demonstrate a real non-HQ leadership/personnel loss while both Combat HQs remain above 0 Integrity.
+
+Valid examples include:
+
+Platoon Leader death;
+
+Squad leadership loss;
+
+extensive infantry casualties;
+
+complete current battlefield-personnel annihilation if naturally or deterministically established.
+
+Expected outcome:
+
+Battle remains Active
+
+unless a Combat HQ has actually reached 0 Integrity.
+
+This evidence must be described using the actual actor that died.
+
+Do not label a Platoon Leader or other Soldier as the Commander.
+
+4. Commander-loss outcome guard
+
+Because the current product contains no killable Commander actor, the specific statement:
+
+Commander loss is not victory
+
+may be verified with an isolated outcome-only Commander-loss guard.
+
+The guard may establish the abstract outcome precondition:
+
+the side's Commander role is considered lost/unavailable
+
+while:
+
+Friendly Combat HQ Integrity > 0;
+
+Enemy Combat HQ Integrity > 0.
+
+Expected result:
+
+Battle remains Active.
+
+No WAR-01 terminal result may be produced from that fact.
+
+5. Guard boundary
+
+The Commander-loss guard proves only:
+
+battle-outcome logic does not treat Commander loss as Combat HQ destruction.
+
+It does not prove or define:
+
+how a Commander dies;
+
+whether Commander is ever embodied;
+
+succession;
+
+communications after Commander loss;
+
+formation behavior after Commander loss;
+
+who assumes command.
+
+Those remain outside #19.
+
+The guard must be labeled as an isolated outcome-semantic fixture rather than normal gameplay evidence.
+
+6. No synthetic gameplay effects
+
+The guard must not be used to:
+
+remove real battlefield orders;
+
+suppress command processing;
+
+create succession;
+
+kill another actor as a proxy;
+
+alter Combat HQ Integrity;
+
+cause or prevent HQ assault.
+
+It tests the outcome boundary only.
+
+7. Runtime command behavior remains existing behavior
+
+Outside the isolated guard, the existing accepted logical Commander and command hierarchy continue unchanged.
+
+Combat Outcome 01 adds no new response to "Commander death" because no such ordinary runtime event currently exists.
+
+If a later design introduces an embodied Commander, that design must separately define:
+
+death;
+
+succession;
+
+information consequences;
+
+command continuity.
+
+WAR-01 will still require Combat HQ destruction unless deliberately amended.
+
+8. Revised negative-acceptance set
+
+#19 now requires three distinct non-HQ negative checks:
+
+A. Real leadership/personnel loss
+
+A real embodied battlefield leader/person dies while HQ survives.
+
+Expected:
+
+Battle Active
+
+B. Commander-loss outcome guard
+
+Abstract Commander-loss fact with both HQs intact.
+
+Expected:
+
+Battle Active
+
+C. Ammunition/logistics exhaustion
+
+A side loses immediately usable ammunition and/or finite logistics supply while HQ survives.
+
+Expected:
+
+Battle Active
+
+None substitute for Combat HQ destruction.
+
+Design-history entry
+PV0-CO01-D10 — Commander remains logical in Combat Outcome 01
+
+Decision: #19 does not create an embodied Commander merely to test the negative WAR-01 rule.
+
+Reason: Commander embodiment, health and succession are separate game systems. Introducing them here would expand outcome implementation into unresolved command/personnel design.
+
+Acceptance: Real personnel/leadership loss proves ordinary runtime non-HQ casualties do not terminate battle; a clearly isolated outcome-only Commander-loss guard proves the explicit Commander-loss negative branch.
+
+Status: Authoritative PV0 boundary.
