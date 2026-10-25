@@ -1486,3 +1486,165 @@ Decision: A former Main that later becomes commandable re-enters the candidate p
 Reason: Avoid oscillation and preserve consequential Company decisions.
 
 Status: Authoritative PV0 command continuity.
+
+## Internal Acceptance / Experience-Candidate Record
+
+T3-SLICE-049 — Final Internal Acceptance
+
+Date: 25 October 2026
+Disposition: Accepted — Representative Experience Candidate
+Accepted local artifact: 8a09ea20147c58e95ae91460b26093a0fb7f3a5a
+Predecessor: f715ff2a51d5832486301da8f23237e121a2bd35
+
+#20 — T3-SLICE-049
+
+Mark ACCEPTED and close.
+
+Supersede any stale historical/top-level Blocked or Ready lifecycle marker.
+
+Internal acceptance covers the exact published Playable Version 0 — Representative Connected Battle 01 contract plus PV0-RCB01-D07 through D10.
+
+Accepted representative assembly
+
+The accepted normal-F5 candidate demonstrates in one continuous world:
+
+ordinary first legitimate person combat inside the authored 90–120 second contact window;
+
+legal 4 Wood / 6 Metal / 2 People first order;
+
+empty player rear developed through ordinary zoning, labor, construction and production;
+
+physical player-manufactured Ammo Crates;
+
+actual player shipment confirmation;
+
+physical friendly rear→HQ→military→Company→4 m person custody;
+
+later ordinary firing of player-produced ammunition;
+
+finite automated enemy manufacture from physical Metal;
+
+physical enemy rear→HQ→military→Company→4 m person custody;
+
+later ordinary firing of enemy-produced ammunition;
+
+both manufactured chains operating in the same continuous representative world;
+
+bilateral Commander→Company→Platoon→Squad Leader→infantry command behavior;
+
+side-owned delayed information;
+
+target-aware readiness and accepted D09–D15 logistics semantics;
+
+D07–D10 Main-effort leadership continuity semantics;
+
+sector-native Combat HQ objective;
+
+legitimate Friendly Victory through ordinary HQ destruction;
+
+exact WAR-01 terminal freeze across combat, command, rear work and logistics;
+
+resource/ammunition conservation;
+
+pause, 1×, accepted 4× and view-history consistency;
+
+preserved accepted subsystem regressions.
+
+Player authorization control
+
+The matched control is accepted as evidence that physical production alone does not make ammunition militarily available.
+
+Without player shipment confirmation:
+
+manufactured ammunition remains in rear Dispatch;
+
+Friendly HQ does not receive it;
+
+Company staging does not receive it;
+
+military personnel do not receive those rounds.
+
+Enemy behavior remains active rather than being disabled to manufacture the comparison.
+
+Main-effort continuity
+
+The principal continuous native run did not naturally require Main-effort succession.
+
+The separate deterministic command guard is accepted for the D07–D10 branch because it proves:
+
+received Main leadership loss
+→ Main becomes ineligible
+→ commandable Support becomes eligible replacement
+→ Company sends replacement role
+→ replacement remains Support until receipt
+→ Platoon→SquadLeader→infantry execution only after receipt
+
+with freshness, stale-report, no-eligible, recovery, tie and Low-ammunition boundaries covered.
+
+It is command-branch evidence only and is not misrepresented as a second representative world.
+
+Evidence provenance
+
+Acceptance is based on developer execution/evidence and coordinator integrity/source reconciliation.
+
+Coordinator verified evidence-file sizes/SHA256 but did not independently rerun the build, operate the native scenario, or watch every frame.
+
+Game Designer did not execute the local artifact directly.
+
+No independent runtime execution is implied.
+
+Known experience risk — pacing
+
+Record, but do not treat as an internal acceptance failure:
+
+accepted continuous run terminates at world time approximately 9133.9333;
+
+approximately 152 world minutes;
+
+approximately 38 wall minutes if sustained at 4×.
+
+No claim is made that this pacing is desirable.
+
+Do not add a tuning exception before the representative experience evaluation solely to shorten the evidence run.
+
+Whether the player feels forced to remain at 4×, encounters excessive waiting, or loses causal understanding during long logistics/combat intervals is now an explicit experience question.
+
+Experience-candidate status
+
+The accepted normal-F5 build is now authorized as the first Dawson representative experience candidate.
+
+The evaluation is experiential only.
+
+Do not ask Dawson to verify:
+
+crate accounting;
+
+request timing;
+
+conservation;
+
+command timestamps;
+
+HQ hit counts;
+
+test results;
+
+implementation correctness.
+
+Those remain developer/internal responsibilities.
+
+Publication/document disposition
+
+No new gameplay-semantic design document is required.
+
+Append this acceptance record to:
+
+docs/design/Playable_Version_0_Representative_Connected_Battle_01_2026-10-25.md
+
+as an Internal Acceptance / Experience-Candidate Record, without altering the existing RCB01 decisions.
+
+Append the same lifecycle disposition to issue #20 and close #20 as accepted.
+
+Do not create a successor task from this acceptance.
+
+Do not infer code push, merge, release, balance approval or final-product approval.
