@@ -1872,3 +1872,506 @@ Reason: Authorization is the response to the identified supply need. Counting th
 Additional rule: Pre-loading cancellation occurs only when newer legitimate readiness, staging stock or other independent compatible inbound supply resolves the need.
 
 Status: Authoritative PV0 behavior.
+
+## Deterministic Two-Cycle Acceptance Scenario Amendment — 24 October 2026
+
+This amendment replaces the focused-acceptance scenario boundary in Section 60 of Playable Version 0 — Military Logistics 01: HQ-to-Company Resupply, Local Handoff & Combat Endurance.
+
+It does not change the normal/default playable battle.
+
+1. Purpose
+
+The previously accepted focused condition with enemy rifle ammunition authored to zero successfully preserved embodied friendly leadership, but it does not contain enough combat endurance demand.
+
+Observed fact:
+
+friendly forces fire approximately 45 actual shots;
+
+all nine hostile targets are dead by world time 300;
+
+normal friendly riflemen begin with substantially more ammunition than is required to finish that encounter.
+
+That setup cannot demonstrate:
+
+meaningful exhaustion caused by lack of supply;
+
+two distinct later resupply cycles;
+
+firing of ammunition delivered during both cycles;
+
+materially greater supplied endurance than an unsupplied control.
+
+A different deterministic acceptance scenario is therefore authorized.
+
+2. Default scenario remains unchanged
+
+Normal/default F5 combat initialization remains unchanged.
+
+This amendment does not change its:
+
+authored friendly starting ammunition;
+
+enemy starting ammunition;
+
+formation sizes;
+
+objectives;
+
+weapons;
+
+damage;
+
+movement;
+
+suppression;
+
+command behavior;
+
+encounter outcome.
+
+The focused scenario exists only for deterministic internal acceptance of the complete resupply chain.
+
+Default behavior must still be separately checked for the accepted leadership-unavailable outcome.
+
+3. Focused scenario — friendly authored ammunition
+
+Before representative battle initialization and before replenishment-target snapshots are taken:
+
+Selected Squad
+
+Use the already accepted representative Squad:
+
+P1-A
+
+Its four ordinary compatible rifle infantry begin with:
+
+2 Rifle Ammunition rounds each
+
+Total selected-Squad starting ammunition:
+
+8 rounds
+
+All other friendly rifle users
+
+Every other friendly person who would otherwise possess compatible Rifle Ammunition begins this focused scenario with:
+
+0 compatible Rifle Ammunition rounds
+
+This includes rifle personnel outside P1-A.
+
+Existing leaders whose authored compatible starting load is already zero remain zero.
+
+No compatible ammunition is granted to any friendly person after initialization except through the actual designed resupply chain.
+
+4. Replenishment-target interaction
+
+The existing replenishment-target rule is preserved exactly.
+
+Targets are snapshotted from the focused scenario's authored starting loads.
+
+Therefore:
+
+P1-A ordinary rifle infantry
+
+Each of the four selected infantry receives focused-scenario replenishment target:
+
+2 rounds
+
+Other friendly rifle personnel authored with zero
+
+Their focused-scenario replenishment target is:
+
+0 rounds
+
+They are consequently ineligible for this resupply path.
+
+This is intentional.
+
+The focused scenario does not temporarily treat their normal 12-round load as a hidden capacity or target.
+
+A P1-A rifleman may therefore be replenished only up to:
+
+2 carried rounds
+
+during any one rendezvous.
+
+The normal/default scenario continues to snapshot its normal authored starting loads instead.
+
+5. Why the low target is intentional
+
+A lower target is desirable in this acceptance scenario.
+
+The four selected infantry have a maximum aggregate serviceable deficit of:
+
+8 rounds
+
+when empty.
+
+That produces a clean request requirement of:
+
+1 Ammo Crate 8
+
+rather than allowing the first Company-wide shortage to authorize a large shipment that could leave enough staging stock to suppress the second demand cycle.
+
+The acceptance scenario therefore tests the existing target semantics rather than bypassing them.
+
+6. Focused opposing force
+
+Before battle initialization, the focused scenario contains:
+
+32 ordinary hostile rifle infantry
+
+using normal existing hostile combat behavior, movement, weapons, health, damage, suppression and targeting rules.
+
+Their authored compatible rifle ammunition is:
+
+0 rounds
+
+They therefore provide persistent legitimate hostile targets without creating the enemy fire that previously killed the embodied friendly leadership required for the rendezvous.
+
+Existing hostile command/objective behavior remains in place.
+
+No hostile unit is:
+
+invulnerable;
+
+damage-modified;
+
+accuracy-modified;
+
+artificially immobilized;
+
+spawned after initialization.
+
+They are ordinary initialized combatants with zero starting rifle ammunition.
+
+7. Friendly combat statistics remain normal
+
+Except for the explicitly authored starting ammunition described above, the focused friendly force uses normal accepted gameplay values.
+
+Do not change:
+
+health;
+
+weapon damage;
+
+fire rate;
+
+accuracy;
+
+movement speed;
+
+suppression;
+
+AI decision rules;
+
+command latency;
+
+formation behavior;
+
+target selection.
+
+The acceptance scenario creates ammunition scarcity through initial load, not through altered weapon performance.
+
+8. Positions, objectives and command hierarchy
+
+The focused scenario preserves:
+
+accepted friendly command hierarchy;
+
+embodied Commander/Company/Platoon/Squad leadership;
+
+accepted P1-A identity;
+
+normal formation movement;
+
+normal operational objective;
+
+accepted rendezvous command path;
+
+accepted Company staging point;
+
+accepted 4.0 design-meter issue locality.
+
+No actor may be moved into rendezvous position by scenario setup after initialization.
+
+No resupply order is pre-created.
+
+9. No post-initialization scenario assistance
+
+After initialization, the focused scenario may not:
+
+grant ammunition;
+
+alter replenishment targets;
+
+spawn replacement hostile targets;
+
+inject requests;
+
+mark requests fulfilled;
+
+move the Squad;
+
+move individual recipients;
+
+move the military truck;
+
+create staging stock;
+
+change HQ stock;
+
+force shots;
+
+force hits;
+
+force kills;
+
+prevent legitimate AI movement;
+
+prevent legitimate casualties through hidden protection.
+
+All such behavior must arise from the real playable systems.
+
+10. Supplied-case logistics
+
+The supplied A/B case must use real Playable Version logistics.
+
+At least:
+
+2 physical Rifle Ammunition Crates 8
+
+must reach Friendly HQ Military Stores through:
+
+raw resources
+→ rear production
+→ Dispatch
+→ rear outbound truck
+→ physical HQ unloading
+
+They may arrive after the first Company request has already entered Waiting for HQ Stock.
+
+No acceptance advantage is obtained by injecting those crates at HQ.
+
+11. Cycle 1 required sequence
+
+P1-A begins with:
+
+4 people × 2 rounds = 8 rounds
+
+Those rounds must be expended through actual autonomous firing.
+
+This creates an aggregate selected-Squad serviceable deficit of:
+
+8 rounds
+
+after legitimate reporting.
+
+With no known Company staging/inbound stock, the corresponding request is:
+
+1 Ammo Crate 8
+
+The first distinct cycle must then demonstrate:
+
+actual initial firing
+→ received shortage
+→ Request A
+→ HQ allocation of one actual Ammo Crate 8
+→ physical military truck
+→ Company staging
+→ accepted rendezvous
+→ four-person local handoff up to target 2
+→ P1-A resumes prior intent
+
+When all four are empty and eligible, successful full service results in:
+
+staging decrease: 8
+
+aggregate P1-A inventory increase: 8
+
+each person: 0 → 2
+
+subject to actual eligibility at handoff time.
+
+12. Firing between cycles
+
+After Cycle 1 handoff, P1-A must actually expend the delivered ammunition through normal combat.
+
+For deterministic acceptance, require that the Cycle 1 delivered rounds are exhausted sufficiently to re-establish:
+
+8 rounds aggregate serviceable deficit
+
+before Request B forms.
+
+The intent is to produce a clean second one-crate shortage, not a partially overlapping stale demand.
+
+No shot is forced.
+
+The hostile force exists specifically so valid combat targets remain available.
+
+13. Cycle 2 required sequence
+
+After Cycle 1 request/rendezvous state has closed and later firing creates the new received 8-round deficit:
+
+create a distinct:
+
+Request B — 1 Ammo Crate 8
+
+Request B must have:
+
+a new request identity;
+
+a distinct physical cargo identity;
+
+its own allocation;
+
+its own truck/staging accounting;
+
+its own rendezvous/handoff event.
+
+The second physical Ammo Crate may be the second crate already legitimately present in HQ Military Stores.
+
+After the Cycle 2 handoff:
+
+at least one round delivered by Cycle 2 must subsequently be fired through ordinary autonomous combat.
+
+This proves that the second cycle is not merely inventory movement.
+
+14. Required supplied-case endurance
+
+The supplied case must therefore demonstrate at minimum:
+
+8 initial P1-A rifle shots worth of available ammunition;
+
+8 rounds received during Cycle 1 and later expended sufficiently to create Cycle 2;
+
+at least one Cycle 2 delivered round later expended.
+
+Thus the supplied Squad demonstrates legitimate combat activity beyond the ammunition that existed at initialization.
+
+The acceptance metric should use actual compatible P1-A ammunition expenditure/shots, not hostile casualties alone.
+
+15. Unsupplied control
+
+The deterministic control uses the exact same focused combat initialization:
+
+same seed;
+
+same friendly starting loads;
+
+same replenishment targets;
+
+same 32 hostile infantry;
+
+same hostile zero ammunition;
+
+same positions;
+
+same command hierarchy;
+
+same objectives;
+
+same gameplay statistics.
+
+The difference is logistical availability:
+
+no compatible Rifle Ammunition becomes Available in Friendly HQ Military Stores for the request.
+
+When P1-A exhausts its eight initial rounds:
+
+the legitimate shortage may be reported;
+
+Company may create the request;
+
+the request remains Waiting for HQ Stock;
+
+no military resupply cargo is manufactured;
+
+no Company staging increase occurs;
+
+no local handoff occurs.
+
+P1-A therefore cannot gain additional compatible ammunition through this resupply system.
+
+16. A/B endurance comparison
+
+The primary endurance comparison is:
+
+actual P1-A compatible rifle ammunition expended / legitimate rifle shots over equal world time
+
+not number of enemy deaths.
+
+The supplied case must show materially greater legitimate firing because real delivered ammunition entered individual inventories.
+
+The control case must remain limited by its eight authored starting rounds.
+
+The supplied case must demonstrate ammunition expenditure from both Cycle 1 and Cycle 2.
+
+No different player battlefield orders are permitted between cases.
+
+17. Target persistence requirement
+
+The 32 zero-ammunition hostile infantry are included so that the deterministic combat encounter still contains legitimate hostile targets while the two resupply cycles occur.
+
+Acceptance requires:
+
+at least one living hostile target remains available when the first Cycle 2-delivered round is fired.
+
+If that condition does not occur, the focused scenario has failed its authored acceptance purpose and must be returned to the Game Designer rather than adding post-initialization targets or altering weapon statistics.
+
+Do not silently modify the scenario during implementation.
+
+18. Default leadership case remains separate
+
+The focused two-cycle scenario does not replace the required default evidence.
+
+The unmodified/default relevant battle condition must still demonstrate the established behavior when the embodied Platoon Leader dies before rendezvous execution:
+
+supply may reach Company staging;
+
+rendezvous remains delayed;
+
+staged ammunition remains physical;
+
+no dead-person command action occurs;
+
+no fake movement or handoff occurs.
+
+The focused scenario demonstrates the successful branch.
+
+The default scenario demonstrates the legitimate leadership-blocked branch.
+
+Both are required.
+
+19. Allowed focused modifications — exhaustive list
+
+For this deterministic acceptance scenario, the only combat-start modifications newly authorized are:
+
+P1-A's four ordinary compatible rifle infantry start with 2 rounds each.
+
+All other friendly compatible rifle personnel start with 0 rounds.
+
+The hostile force contains 32 ordinary rifle infantry.
+
+Those hostile rifle infantry start with 0 compatible rounds.
+
+All four values are authored before battle initialization and before replenishment-target snapshotting.
+
+No other gameplay-stat or post-initialization modification is authorized by this amendment.
+
+Design-history entry
+PV0-ML01-D10 — Ammunition-constrained deterministic acceptance scenario
+
+Decision: Use one four-rifle Squad with 2 authored rounds per person, all other friendly rifle users at 0, against 32 ordinary hostile rifle infantry with 0 rifle ammunition.
+
+Status: Acceptance-only focused scenario.
+
+Reason: The prior zero-enemy-ammunition focused setup preserved leadership but ended after approximately 45 friendly shots, while normal friendly starting ammunition exceeded the encounter's total need. It could not demonstrate two distinct supply cycles or supplied-vs-control endurance.
+
+Why not only lower all friendly loads: A Company-wide shortage could authorize enough ammunition in the first shipment to leave residual staging stock and suppress the required second request.
+
+Why P1-A only has a positive target: It bounds each clean deficit at 8 rounds, producing one-crate requests and preserving the accepted target rule.
+
+Why opposing force is enlarged: Legitimate targets must remain through firing after the second resupply cycle.
+
+Preserved rules: 4 m locality, target snapshot semantics, embodied command, physical movement, real requests, physical cargo, local handoff and ordinary autonomous firing.
