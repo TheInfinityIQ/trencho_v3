@@ -1201,3 +1201,225 @@ mutual destruction;
 terminal-state behavior.
 
 Engineering returns unresolved product semantics rather than inventing them.
+
+## Focused HQ Assault Load Amendment — 25 October 2026
+
+This amendment clarifies Sections 63 and 64 of Playable Version 0 — Combat Outcome 01: Sector-Native Combat HQs & Battle Termination.
+
+It applies only to the bounded deterministic Friendly-Victory and Enemy-Victory acceptance scenarios.
+
+1. Authorized attacking-side load
+
+For the focused HQ-assault acceptance scenario, designate one actual assault Squad on the attacking side.
+
+That Squad contains four ordinary compatible rifle infantry.
+
+Before battle initialization and before replenishment-target snapshotting, those four infantry begin with:
+
+32 Rifle Ammunition rounds each
+
+Total authored starting ammunition for the assault Squad:
+
+128 rounds
+
+This is an acceptance-scenario starting load, not a weapon-stat change, ammunition grant after initialization, or final carrying-capacity decision.
+
+2. Replenishment-target consequence
+
+The existing replenishment-target rule remains unchanged.
+
+Because those four infantry begin the focused scenario with 32 rounds each, their scenario-start replenishment targets are:
+
+32 rounds each
+
+Do not secretly retain the normal 12-round value as a hidden target or cap.
+
+This remains a replenishment target only; final carrying capacity remains unresolved.
+
+3. Other attacking-side personnel
+
+All other attacking-side personnel retain their ordinary authored starting ammunition for the normal scenario.
+
+Do not increase their loads for this acceptance proof.
+
+Only the four designated assault-Squad rifle infantry receive the focused 32-round starting load.
+
+4. Defending-side ammunition
+
+For the focused HQ-assault acceptance scenario, all ordinary compatible rifle personnel on the defending side may be authored with:
+
+0 Rifle Ammunition rounds
+
+before initialization.
+
+Their replenishment targets consequently snapshot to 0 under the accepted rules.
+
+This is permitted solely to bound opposing combat pressure and keep the evidence focused on legitimate HQ assault and WAR-01 termination.
+
+No defender receives ammunition after initialization unless the already accepted physical logistics systems legitimately provide it.
+
+5. Combat statistics remain ordinary
+
+The focused scenario does not alter:
+
+rifle damage;
+
+accuracy;
+
+fire rate;
+
+range;
+
+line of sight;
+
+movement speed;
+
+health;
+
+suppression;
+
+HQ Integrity;
+
+HQ rifle-hit damage;
+
+command latency;
+
+tactical decision rules.
+
+The attacking infantry use ordinary Rifle Ammunition and ordinary rifle combat.
+
+6. Starting geography
+
+The designated attacking Squad must begin:
+
+outside valid rifle range of the target Combat HQ;
+
+without a valid starting rifle shot against that HQ;
+
+on ordinary representative-sector ground;
+
+with a legitimate traversable route toward the assigned HQ objective.
+
+The focused scenario may author a clear/reachable route before initialization.
+
+It may not start the Squad already at the HQ or inside an artificial damage radius.
+
+The Squad must physically approach through normal sector movement.
+
+7. Objective and hierarchy
+
+The focused scenario uses the normal authored objective:
+
+Destroy Enemy Combat HQ
+
+The objective must still propagate through:
+
+Commander → Company → Platoon → Squad Leader → infantry
+
+The increased starting ammunition does not bypass any echelon.
+
+8. No required logistics assist
+
+The focused HQ-assault proof does not require an ammunition resupply cycle before HQ destruction.
+
+The 32-round starting load exists so the outcome proof is not accidentally blocked by ammunition exhaustion before twelve legitimate structural hits can occur.
+
+If ordinary accepted logistics happen naturally during the scenario, they remain valid, but acceptance must not inject or force them.
+
+9. Required physical assault
+
+Acceptance still requires:
+
+objective propagation
+→ physical Squad movement
+→ legitimate HQ observation/range
+→ ordinary rifle firing
+→ real ammunition expenditure
+→ 12 legitimate HQ hits
+→ HQ Integrity 12 → 0
+→ battle terminal result
+
+The authored 32-round load does not count as evidence of any of those later events.
+
+10. No post-initialization assistance
+
+After initialization, the focused assault scenario may not:
+
+grant ammunition;
+
+alter replenishment targets;
+
+move attackers;
+
+move the Combat HQ;
+
+alter HQ Integrity;
+
+inject hits;
+
+force target selection;
+
+force firing;
+
+suppress legitimate local hostile-person engagement;
+
+change objectives;
+
+alter weapon statistics.
+
+All combat and movement after initialization must come from the normal game systems.
+
+11. Mirrored Enemy-Victory evidence
+
+The Enemy-Victory focused scenario uses the exact mirrored rule:
+
+one designated enemy assault Squad;
+
+four ordinary enemy rifle infantry;
+
+32 rounds each before initialization;
+
+target 32 each;
+
+all other enemy personnel retain ordinary authored loads;
+
+ordinary compatible friendly defenders may be authored to 0;
+
+attackers begin outside valid HQ rifle range;
+
+ordinary hierarchy, movement and combat must destroy Friendly Combat HQ.
+
+No side-specific advantage exists in the outcome semantics.
+
+12. Normal default remains unchanged
+
+None of these focused values modifies normal F5 battle initialization.
+
+Normal play retains its existing:
+
+starting ammunition;
+
+replenishment targets;
+
+force composition;
+
+positions;
+
+logistics;
+
+combat behavior.
+
+The 32-round assault load is internal acceptance authoring only.
+
+Design-history entry
+PV0-CO01-D09 — Focused assault starting ammunition
+
+Decision: In mirrored deterministic Combat HQ assault evidence, the four ordinary rifle infantry of the designated attacking Squad begin with 32 Rifle Ammunition rounds each before initialization.
+
+Reason: The outcome proof requires twelve legitimate HQ rifle hits after physical approach while ordinary local combat remains active. A bounded higher starting load prevents ammunition exhaustion from becoming an incidental blocker without changing rifle statistics, injecting post-start supply or bypassing the hierarchy.
+
+Target effect: Their replenishment targets snapshot to 32 under the ordinary accepted rule.
+
+Defending pressure: Compatible defending rifle personnel may be authored to 0 before initialization.
+
+Status: Acceptance-only focused scenario; normal gameplay unchanged.
