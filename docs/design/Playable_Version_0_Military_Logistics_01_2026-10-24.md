@@ -2744,3 +2744,254 @@ Related clarification: Ammunition-low HOLD constrains continued operational adva
 Effect on accepted CMD047: This deliberately refines only its explicitly provisional ammunition threshold. Echelon responsibilities, delayed information flow, report provenance and received-report-driven decisions remain unchanged.
 
 Status: Authoritative PV0 behavior.
+
+## Default Cancellation and Leadership Evidence Amendment — 24 October 2026
+
+This amendment replaces the previous requirement that the unmodified default battle must necessarily demonstrate staged ammunition waiting behind an unavailable embodied leader.
+
+1. Default acceptance follows legitimate causality
+
+The unmodified default scenario must be accepted according to the actual sequence produced by the designed systems.
+
+If:
+
+actual combat creates a serviceable ammunition need;
+
+Company legitimately requests ammunition;
+
+the relevant depleted personnel subsequently die or otherwise cease contributing serviceable deficit;
+
+newer legitimately received readiness reduces the independent cancellation gap to zero;
+
+physical loading of that request has not begun;
+
+then the correct result is:
+
+Cancelled — Need Resolved
+
+Any crates that have reached or later reach Friendly HQ remain or return:
+
+Available in Friendly HQ Military Stores
+
+They do not continue toward Company solely to create a resupply demonstration.
+
+2. Correct default outcome for the observed case
+
+For the reported unmodified default case:
+
+normal friendly starting state remains unchanged;
+
+the P1 Platoon Leader dies naturally;
+
+depleted main-force personnel subsequently die;
+
+latest legitimately received serviceable need resolves before normal rear-produced ammunition becomes available for military loading;
+
+the request legitimately cancels under the authored pre-loading cancellation rule;
+
+real Ammo Crates remain available at Friendly HQ;
+
+Company staging remains 0;
+
+no rendezvous begins;
+
+no handoff occurs.
+
+This is a successful default negative-path result.
+
+It demonstrates that the logistics system does not ship ammunition merely because an old shortage once existed.
+
+3. Do not count dead-person need
+
+Dead/inactive personnel do not preserve a serviceable deficit simply to keep a request alive.
+
+Do not:
+
+retain their old deficit;
+
+prevent legitimate cancellation;
+
+accelerate HQ delivery;
+
+fabricate staging stock;
+
+force a rendezvous.
+
+Latest legitimately received readiness governs Company knowledge.
+
+4. No requirement for default Leadership Unavailable status
+
+The default scenario is no longer required to reach:
+
+Rendezvous Delayed — Leadership Unavailable
+
+unless the actual prerequisites for a rendezvous legitimately coexist.
+
+Specifically, that branch requires Company to legitimately know both:
+
+positive compatible Company staging stock; and
+
+a still-current serviceable subordinate deficit requiring rendezvous.
+
+If the shortage resolves before those prerequisites exist, cancellation correctly prevents the leadership branch from being reached.
+
+A branch not reached because its legitimate prerequisites disappeared is not a failure.
+
+5. Leadership-unavailable behavior remains authoritative
+
+The product rule itself remains unchanged:
+
+If Company legitimately has:
+
+received positive compatible staging stock;
+
+received positive serviceable deficit;
+
+but the embodied leadership required to execute the selected rendezvous is unavailable, then:
+
+no fake subordinate order occurs;
+
+no dead person exercises tactical agency;
+
+no movement is fabricated;
+
+no local handoff occurs;
+
+staging ammunition remains physically present;
+
+rendezvous state is:
+
+Delayed — Leadership Unavailable
+
+This remains a required negative branch.
+
+6. Separate leadership branch guard
+
+Because the unmodified default scenario may legitimately cancel before reaching this branch, #15 may verify Leadership Unavailable through a separate deterministic branch guard.
+
+For this guard only, it is permissible to begin at the rendezvous decision boundary with the following explicit accepted preconditions already established:
+
+Company has legitimately received knowledge of positive compatible staging stock;
+
+Company has legitimately received a positive serviceable deficit;
+
+the required embodied leader for the selected rendezvous is unavailable;
+
+no valid rendezvous order has yet been executed.
+
+The guard then verifies only the behavior from that decision boundary forward.
+
+Expected result:
+
+Delayed — Leadership Unavailable
+
+with:
+
+staging stock unchanged;
+
+recipient inventories unchanged;
+
+no fabricated movement;
+
+no handoff;
+
+no dead-person agency.
+
+7. Fixture limitation
+
+The branch guard above is deliberately not end-to-end logistics evidence.
+
+It may not be cited as proof that:
+
+ammunition was produced at the rear;
+
+ammunition travelled rear→HQ;
+
+HQ allocated it;
+
+a military truck transported it;
+
+Company staging received it physically.
+
+Those claims must come from the full focused/end-to-end acceptance evidence.
+
+The guard exists solely to prove the already accepted rendezvous negative branch when its preconditions are present.
+
+Its staged-stock precondition is therefore an explicitly authorized branch fixture, not permission to inject staging stock into the normal/default or supplied two-cycle acceptance runs.
+
+8. Full focused acceptance remains unchanged
+
+The D10/D11 deterministic supplied/control scenario still must independently demonstrate:
+
+real PV0 rear production;
+
+real rear→HQ delivery;
+
+real Company request;
+
+real HQ allocation;
+
+real military transport;
+
+real Company staging;
+
+autonomous rendezvous;
+
+4 m local handoff;
+
+actual later firing;
+
+two distinct completed resupply cycles;
+
+actual firing between cycles;
+
+Cycle-B-delivered ammunition later fired;
+
+equal-time supplied/control endurance difference.
+
+No fixture staging, injected inventory or forced movement is permitted in that full-chain proof.
+
+9. Evidence separation
+
+#15 acceptance now has three explicitly different evidence classes.
+
+A. Default normal scenario
+
+Purpose:
+
+prove truthful default negative-path behavior
+
+Acceptable observed result:
+
+need → request → need resolves before loading → cancellation → HQ stock retained → no staging/rendezvous/handoff
+
+B. Focused D10/D11 end-to-end scenario
+
+Purpose:
+
+prove the complete successful two-cycle causal chain and supplied endurance consequence
+
+No shortcut fixtures.
+
+C. Leadership-unavailable branch guard
+
+Purpose:
+
+prove embodied leadership still gates rendezvous once valid staging+need prerequisites actually exist
+
+May begin at the defined decision boundary.
+
+Must not be represented as end-to-end logistics evidence.
+
+Design-history entry
+PV0-ML01-D12 — Default cancellation supersedes forced leadership demonstration
+
+Decision: A legitimate pre-loading Need Resolved cancellation with ammunition retained at HQ satisfies the unmodified default negative-path requirement when serviceable demand disappears before military shipment.
+
+Reason: Forcing cargo to Company after the need has legitimately resolved would contradict the accepted cancellation design merely to exercise a later branch.
+
+Decision: Leadership Unavailable remains mandatory branch behavior but may be proven separately at its decision boundary.
+
+Reason: The leadership rule is semantically independent of whether the current default encounter naturally preserves a live shortage long enough for stock and leadership failure to coexist.
+
+Status: Authoritative PV0 acceptance boundary.
