@@ -1465,3 +1465,365 @@ truck graph;
 HQ intake graph.
 
 Engineering must return any unresolved player/world/AI semantic case to the Game Designer rather than inventing a rule.
+
+## HQ Logistics Receiver Clarification — 24 October 2026
+
+This clarification amends Rear Foundation 03 wherever it assumes that a physical Friendly HQ already exists in the normal PV0 path.
+
+1. Friendly HQ Logistics Receiver
+
+Rear Foundation 03 introduces a provisional world location named:
+
+Friendly HQ Logistics Receiver
+
+It represents the friendly HQ's logistics receiving and personnel-muster function for the Playable Version 0 reference scenario.
+
+It is deliberately not the future combat-capable Friendly HQ entity.
+
+The Logistics Receiver has no:
+
+health;
+
+damage state;
+
+capture state;
+
+destruction behavior;
+
+victory/defeat behavior;
+
+enemy interaction;
+
+defensive AI;
+
+combat geometry requirement.
+
+Those remain outside #24 and under the later HQ/outcome design work.
+
+2. Fixed authored location
+
+The Friendly HQ Logistics Receiver is fixed for the PV0 reference scenario.
+
+It is not positioned by procedural sector generation.
+
+The authored outbound logistics road connects:
+
+Rear outbound loading point → Friendly HQ Logistics Receiver
+
+The route and destination are stable between normal reference-scenario runs.
+
+No legacy proof coordinates or legacy Battle HQ positions are product authority.
+
+3. Relationship to the battlefield
+
+The Logistics Receiver represents the friendly HQ's rear-facing logistics interface.
+
+It does not establish where the eventual combat HQ building/objective must exist inside the battlefield.
+
+For #24:
+
+the existing battlefield continues unchanged;
+
+the existing logical Commander continues unchanged;
+
+the Logistics Receiver does not participate in combat;
+
+the Logistics Receiver cannot be targeted by enemies;
+
+ammunition delivered there does not automatically enter Company, staging, or individual inventories.
+
+Later design may connect or consolidate the logistics representation with a physical combat HQ.
+
+That is not decided by this task.
+
+4. Player-visible physical location
+
+The Logistics Receiver must be a normal-play observable location.
+
+The player must be able to see:
+
+the authored road arriving at it;
+
+the truck approach;
+
+the receiving position;
+
+passengers disembark;
+
+ammunition unload;
+
+the empty truck depart for the rear.
+
+This observation must not require a debug visualization.
+
+The exact camera implementation remains engineering-owned, but the product result must allow ordinary player observation of both the road journey and HQ intake.
+
+5. Player physical access
+
+The rear player character does not travel to or physically operate the Friendly HQ Logistics Receiver in Rear Foundation 03.
+
+Player agency at HQ is observational/inspection only.
+
+The player does not:
+
+manually unload the HQ truck;
+
+move HQ ammunition crates;
+
+assign delivered personnel to formations;
+
+perform HQ labor;
+
+issue battlefield orders from the receiver.
+
+This avoids introducing an additional playable-character travel loop before it is designed.
+
+6. Friendly inspection
+
+Because this is a friendly facility, the player may inspect its exact logistics state.
+
+Normal inspection exposes:
+
+Military Stores
+
+number of Rifle Ammunition Crates received;
+
+total Rifle Ammunition rounds represented by those crates.
+
+Personnel Muster
+
+persistent names of people currently Awaiting Military Assignment.
+
+Current delivery
+
+When a friendly logistics truck is actively unloading:
+
+remaining passengers;
+
+remaining ammunition crates.
+
+This is friendly logistics inspection and does not expose additional battlefield truth.
+
+7. Receiving point
+
+The Logistics Receiver contains one authored truck receiving position.
+
+Only the friendly outbound logistics truck uses it in this package.
+
+When the truck reaches that position:
+
+En Route to HQ → Unloading at HQ
+
+The truck remains physically present until every passenger and ammunition crate in that shipment has been unloaded.
+
+8. Personnel muster area
+
+The Logistics Receiver includes an authored Personnel Muster area.
+
+Passengers unload one at a time according to the existing one-world-second intake rule.
+
+After a passenger finishes disembarking:
+
+the person remains the exact same persistent individual;
+
+rear duty is cleared;
+
+Send to HQ designation is cleared;
+
+status becomes Awaiting Military Assignment;
+
+the person physically reports to/remains in the HQ Personnel Muster.
+
+They do not:
+
+join an existing Squad;
+
+replace a casualty;
+
+become a generic manpower value;
+
+enter battlefield combat;
+
+disappear.
+
+9. Muster capacity
+
+For Rear Foundation 03, Personnel Muster has:
+
+no gameplay capacity limit
+
+This is provisional.
+
+Delivered people must never be refused, deleted, teleported elsewhere, or left trapped inside the truck because a final HQ housing/personnel-capacity system has not yet been designed.
+
+People remain persistent and inspectable at Muster.
+
+A future personnel/facility-capacity design may replace this rule.
+
+10. Ammunition intake
+
+The receiver includes Friendly HQ Military Stores.
+
+Ammo Crates unload after passengers.
+
+Each crate requires the already specified one world second of HQ unloading.
+
+Only after that crate finishes unloading:
+
+truck custody decreases by one Ammo Crate 8;
+
+HQ military-store custody increases by that exact crate;
+
+displayed HQ Rifle Ammunition total increases by exactly 8 rounds.
+
+Arrival at the receiver alone does not credit ammunition.
+
+11. Military Stores capacity
+
+The previously authored provisional rule remains:
+
+no gameplay ammunition capacity limit in Rear Foundation 03
+
+No overflow, depot-capacity, dumping, rejection, or alternate-storage behavior is introduced in #24.
+
+12. No military distribution
+
+Ammunition in Friendly HQ Military Stores remains there.
+
+It does not automatically move to:
+
+Commander;
+
+Company;
+
+Platoon;
+
+Squad;
+
+individual infantry;
+
+existing Company staging.
+
+No demand is fulfilled merely because HQ has stock.
+
+The next military-side design must explicitly define legitimate custody and movement from HQ outward.
+
+13. Truck departure and return
+
+After the final passenger/crate leaves truck custody:
+
+the receiver releases the empty truck;
+
+truck state becomes Returning;
+
+the truck physically follows the authored road back to the rear;
+
+no return cargo exists in this package.
+
+14. Observation boundary
+
+The player may observe and inspect:
+
+friendly route;
+
+friendly truck;
+
+Friendly HQ Logistics Receiver;
+
+friendly HQ ammunition stores;
+
+friendly muster personnel.
+
+This does not reveal:
+
+enemy rear logistics;
+
+enemy HQ state;
+
+enemy personnel;
+
+hidden enemy battlefield state.
+
+15. Edge cases
+Personnel-only shipment
+
+Truck arrives, people disembark into Muster, then truck returns.
+
+Ammunition-only shipment
+
+Truck unloads crates into Military Stores, then returns.
+
+Mixed shipment
+
+Passengers unload first, ammunition second, as previously specified.
+
+Existing Muster population
+
+New people join the same persistent Muster population. No capacity failure occurs.
+
+Existing HQ ammunition
+
+Each unloaded crate adds exactly eight rounds to existing stores.
+
+Player viewing another area
+
+Truck travel and unloading continue on the shared world clock.
+
+Pause
+
+Truck and unloading stop.
+
+Combat elsewhere
+
+Combat does not damage, interrupt, capture, or destroy this provisional receiver.
+
+Logical Commander death/change
+
+Does not remove or invalidate the Logistics Receiver under this package.
+
+16. Combat-HQ non-equivalence
+
+For avoidance of doubt:
+
+Friendly HQ Logistics Receiver ≠ final physical combat HQ
+
+Rear Foundation 03 proves:
+
+rear logistics → physical road transport → HQ-side logistics custody
+
+It does not prove:
+
+combat HQ implementation → destruction → WAR-01 defeat
+
+That remains separately designed and accepted later.
+
+Design history
+PV0-R03-D10 — Provisional HQ logistics representation
+
+Decision: Introduce a fixed non-combat Friendly HQ Logistics Receiver for the PV0 reference scenario.
+
+Reason: The current normal session has a logical Commander but no physical HQ suitable for rear logistics intake. Rear→HQ logistics must become playable without prematurely defining #19 combat-HQ semantics.
+
+PV0-R03-D11 — Fixed/non-procedural destination
+
+Decision: The receiver and rear-to-HQ road are authored and stable.
+
+Reason: PV0 is intentionally establishing a deterministic reference scenario before procedural geography returns to the critical path.
+
+PV0-R03-D12 — Observation without player operation
+
+Decision: Player can normally observe and inspect the receiver but does not physically operate there.
+
+Reason: HQ intake must be legible without expanding #24 into a second player-character logistics workplace.
+
+PV0-R03-D13 — Unlimited provisional muster
+
+Decision: Personnel Muster has no gameplay capacity limit in #24.
+
+Reason: Personnel persistence must be preserved without inventing final HQ housing/recruit-capacity rules.
+
+PV0-R03-D14 — No relationship inferred to #19
+
+Decision: This receiver establishes no combat-HQ geometry, damage, capture, destruction, or defeat semantics.
+
+Reason: Rear logistics intake and WAR-01 combat-HQ resolution are separate unresolved capabilities.
