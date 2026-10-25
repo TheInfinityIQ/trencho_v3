@@ -1077,3 +1077,412 @@ Reason: the player controls logistical possibilities, not the battle result dire
 Representative Connected Battle 01 is the end of the current PV0 internal assembly sequence.
 
 Any changes prompted by Dawson's later experience evaluation return to explicit design rather than being silently folded into #20.
+
+## Main-Effort Leadership Continuity Amendment — 25 October 2026
+
+This amendment resolves the normal-entry #20 command deadlock in which the currently selected Main-effort Platoon's embodied leader becomes unavailable while another Platoon remains alive and commandable in Support.
+
+It amends Representative Connected Battle 01 without changing battlefield objectives, embodied-leadership requirements, movement, combat, logistics, or WAR-01.
+
+1. Main effort requires executable embodied command
+
+A Platoon is eligible to be selected as the Company's Main effort only if, according to Company's latest legitimately received information for that Platoon:
+
+the Platoon remains operationally extant;
+
+at least one living/active subordinate combat person remains;
+
+its embodied Platoon Leader is available to receive and exercise Platoon-level command.
+
+A Platoon whose required embodied Platoon Leader is known unavailable is:
+
+not eligible for new or continued Main-effort selection.
+
+This does not grant command authority to ordinary infantry.
+
+2. Leadership availability is received information
+
+Company does not react to hidden battlefield truth.
+
+A Platoon Leader's death/unavailability affects Company Main-effort selection only after Company legitimately receives the corresponding leadership/readiness information through the accepted hierarchy/report path.
+
+Until receipt:
+
+Company may continue believing the Platoon is executable;
+
+subordinate behavior may already be locally delayed because the embodied leader is actually unavailable.
+
+This information mismatch is legitimate.
+
+3. Main-effort reselection trigger
+
+While battle state is Active, Company must re-evaluate Main-effort assignment when it receives new relevant formation information showing that the current Main-effort Platoon is no longer eligible under Section 1.
+
+This is a genuine new Company decision.
+
+It is not an automatic global movement command.
+
+4. Candidate selection
+
+When reselection is required:
+
+exclude Platoons currently known ineligible under Section 1;
+
+among the remaining eligible Platoons, use the already accepted Main-effort selection rule:
+nearest according to the latest received formation position relevant to the current objective;
+
+use stable Platoon ID to break an exact tie.
+
+No new tactical scoring or omniscient route comparison is introduced.
+
+5. Support Platoon may become Main
+
+A Platoon currently assigned:
+
+Support
+
+is a valid Main-effort candidate if it satisfies the eligibility rule.
+
+Support is a current operational role, not permanent reserve exclusion.
+
+Therefore a living, commandable P2 may legitimately replace an unavailable P1 as Main.
+
+6. Role-transfer information path
+
+Company's reselection does not instantly move the replacement Platoon.
+
+Company sends the new role/intent through the accepted adjacent-echelon command path.
+
+Until the replacement Platoon's embodied leader receives the new Main-effort assignment:
+
+it continues its previously received Support behavior;
+
+no movement toward the Main objective is inferred from Company merely having sent the order.
+
+After legitimate receipt:
+
+its Platoon Leader may coordinate subordinate Squads toward the Main objective through the existing hierarchy.
+
+send ≠ receive remains authoritative.
+
+7. Former Main effort
+
+Once Company legitimately decides that the former Main Platoon is leadership-ineligible:
+
+its Company-level operational disposition becomes:
+
+Delayed — Leadership Unavailable
+
+It no longer occupies the unique Main-effort slot.
+
+Its remaining personnel may still:
+
+exist physically;
+
+defend themselves through accepted local behavior;
+
+preserve already valid local state where applicable.
+
+They do not receive new Platoon-level movement authority from a dead/unavailable leader.
+
+8. Company does not wait for impossible acknowledgement
+
+If the former Main Platoon Leader is dead/unavailable, Company does not require that leader to acknowledge loss of Main role before assigning another eligible Platoon.
+
+The received leadership-unavailable report is sufficient for Company to free the Main-effort role.
+
+This does not fabricate an order to the unavailable leader.
+
+9. Exactly one Company Main effort
+
+For this PV0 battle, Company has at most:
+
+one current Main-effort Platoon
+
+for the primary HQ objective.
+
+During a transfer there may temporarily be:
+
+former Main = Delayed — Leadership Unavailable;
+
+replacement Main assignment = In Transit;
+
+replacement Platoon still locally executing Support until receipt.
+
+This temporary gap is legitimate.
+
+There are not two simultaneously executable Main efforts.
+
+10. Information freshness
+
+For each Platoon and each relevant state channel, Company uses the newest legitimately received source state.
+
+A report with an older source timestamp must not overwrite a newer accepted report for the same fact.
+
+Therefore:
+
+a stale “leader available” report cannot resurrect a Platoon after a newer leadership-unavailable report;
+
+a stale position/readiness report cannot roll Company's accepted Platoon state backward.
+
+No omniscient correction is introduced.
+
+11. Candidate information need not be instantaneous
+
+A replacement candidate does not require a report sampled at the exact reselection moment.
+
+Company may decide from the latest legitimately received information it actually possesses.
+
+That information may be delayed.
+
+Knowledge-bound decisions remain valid even when later truth differs.
+
+12. Replacement becomes unavailable during transfer
+
+If Company selects P2 as replacement Main but P2's embodied leader becomes unavailable before or after receiving the assignment:
+
+no infantry receives global authority;
+
+P2's execution delays under the ordinary embodied-leadership gate;
+
+when Company later legitimately receives the new leadership-unavailable state, it re-evaluates Main effort again.
+
+13. No eligible replacement
+
+If Company legitimately knows no Platoon is Main-eligible:
+
+Company disposition becomes:
+
+Primary Objective Delayed — No Commandable Main Effort
+
+No new advance order is created.
+
+Remaining formations may retain legitimate local defensive behavior and existing non-Main responsibilities.
+
+Company re-evaluates only when later legitimate received information changes eligibility or the objective.
+
+14. Recovered leadership
+
+If a previously unavailable Platoon later becomes legitimately commandable under some future existing behavior:
+
+it re-enters the candidate pool only after Company receives that newer state;
+
+it does not automatically reclaim Main effort from a valid current Main.
+
+No role oscillation occurs merely because the old Main becomes eligible again.
+
+A later genuine reselection trigger may choose it normally.
+
+15. Low ammunition versus leadership ineligibility
+
+These conditions remain distinct.
+
+A Platoon with embodied leadership but Low Rifle Ammunition may remain a legitimate Main-effort formation whose advance is held/delayed according to accepted readiness rules.
+
+A Platoon with no available embodied Platoon Leader is not Main-eligible regardless of ammunition.
+
+Resupply does not cure missing embodied command.
+
+16. Support ammunition/readiness does not prevent promotion by itself
+
+A commandable Support Platoon may be selected as Main even if its received ammunition readiness later causes a HOLD.
+
+Main assignment establishes operational responsibility.
+
+Readiness governs whether that responsibility can currently be prosecuted.
+
+Do not require a fully supplied formation before it may become Main.
+
+17. Local combat remains ordinary
+
+Role transfer does not:
+
+suppress existing person-threat combat;
+
+force Squad movement;
+
+grant contact;
+
+grant ammunition;
+
+select rifle targets.
+
+The new Main Platoon must still execute through ordinary Platoon → Squad Leader → infantry behavior.
+
+18. Primary HQ objective remains unchanged
+
+The operational objective remains:
+
+Destroy Enemy Combat HQ
+
+Company is changing which executable Platoon carries the Main effort.
+
+It is not changing the victory condition or creating a replacement objective.
+
+19. Normal-entry #20 expected behavior
+
+For the reported normal representative world:
+
+P1 may legitimately begin as Main;
+
+P1 Platoon Leader may legitimately die;
+
+local P1 coordination may legitimately DELAY immediately;
+
+Company does not know the leadership loss until the report reaches it;
+
+once Company receives that leadership-unavailable state, P1 becomes ineligible as Main;
+
+living commandable P2 is reconsidered despite its prior Support role;
+
+if P2 is the nearest eligible candidate under Company's received knowledge, Company selects P2 as replacement Main;
+
+P2 remains in Support locally until it receives the new assignment;
+
+after receipt, P2 may prosecute the HQ objective through normal hierarchy behavior.
+
+No result is guaranteed; this only removes the permanent command-role deadlock.
+
+20. Negative cases
+Main leader dies, no commandable reserve
+
+Do not fabricate replacement authority.
+
+Result:
+
+Primary Objective Delayed — No Commandable Main Effort
+
+Support leader also dead but Company has not received that fact
+
+Company may legitimately select that Support Platoon based on stale-but-currently-accepted knowledge.
+
+Its local execution then delays.
+
+Later received leadership information causes another reselection.
+
+Former Main retains living infantry
+
+Living infantry do not inherit Platoon command simply because their leader died.
+
+Old Main is physically closest
+
+Leadership ineligibility filters it before distance comparison.
+
+Replacement is farther away
+
+A farther commandable Platoon is preferred over a nearer Platoon known unable to exercise embodied command.
+
+Stale availability arrives after death report
+
+Ignore it for current leadership state.
+
+Replacement order still in transit when battle ends
+
+WAR-01 terminal freeze preserves the in-transit command state exactly.
+
+21. Main-Effort Continuity Decision Graph v1.0
+
+Battle Active?
+
+→ NO
+No new role decision.
+
+→ YES
+
+New relevant Platoon formation/leadership information received?
+
+→ NO
+Maintain current Company role knowledge.
+
+→ YES
+Update that Platoon's accepted state using source-time freshness.
+
+Current Main exists and is Main-eligible?
+
+→ YES
+Maintain current Main assignment.
+Do not rotate merely because another Platoon becomes nearer.
+
+→ NO
+
+Build candidate set from Platoons Company currently knows are:
+
+operationally extant;
+
+have at least one living active subordinate;
+
+have available embodied Platoon leadership.
+
+Candidate set empty?
+
+→ YES
+Company = Primary Objective Delayed — No Commandable Main Effort
+
+→ NO
+
+Select nearest eligible candidate using latest received position; stable ID tie.
+
+Mark former Main, if any:
+
+Delayed — Leadership Unavailable when that is the disqualifying cause.
+
+Send new Main assignment through accepted Company→Platoon communication.
+
+Replacement changes local role only on legitimate receipt.
+
+22. Acceptance evidence
+
+The representative continuous run must now additionally show, if Main-effort leader loss occurs:
+
+actual embodied Platoon Leader loss;
+
+local delay without fake agency;
+
+leadership-status source time;
+
+Company receipt time;
+
+previous Main eligibility before receipt;
+
+previous Main becoming ineligible after receipt;
+
+candidate states used by Company;
+
+replacement Main decision and reason;
+
+sent time;
+
+replacement Platoon receipt time;
+
+no movement caused before receipt;
+
+subsequent Platoon→Squad Leader→infantry execution if the battle remains active.
+
+If the continuous run never loses its Main leader, an isolated deterministic command guard must demonstrate the same branch.
+
+Design-history entry
+PV0-RCB01-D07 — Main effort requires commandable embodied Platoon leadership
+
+Decision: A Platoon known by Company to lack its required embodied Platoon Leader cannot retain the unique Main-effort role.
+
+Reason: Embodied leadership must constrain execution, but loss of one leader must not permanently strand an otherwise commandable Company when a legitimate reserve exists.
+
+PV0-RCB01-D08 — Support is eligible reserve, not permanent HOLD ownership
+
+Decision: A Support Platoon may be reassigned to Main after Company legitimately learns the current Main cannot execute.
+
+Reason: Company owns formation-level commitment and must adapt its organization to received capability information.
+
+PV0-RCB01-D09 — Role transfer obeys message latency
+
+Decision: Company's reselection does not immediately change replacement-Platoon behavior. The new Main role takes effect locally only when legitimately received.
+
+Reason: Preserve CMD-03 and prevent role changes from becoming global instantaneous orders.
+
+PV0-RCB01-D10 — No automatic reclamation
+
+Decision: A former Main that later becomes commandable re-enters the candidate pool but does not automatically displace a valid replacement Main.
+
+Reason: Avoid oscillation and preserve consequential Company decisions.
+
+Status: Authoritative PV0 command continuity.
