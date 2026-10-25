@@ -1237,3 +1237,117 @@ multiple ammunition/equipment categories;
 must explicitly update the affected player rules, Hauler Decision Graph and Workshop Duty Decision Graph.
 
 If engineering encounters a product-behavior case not answered here, route the ambiguity to the Game Designer rather than selecting gameplay semantics independently.
+
+## Scheduling clarification amendment — 24 October 2026
+
+This amendment resolves production-instruction behavior for Sections 23, 33–35.
+
+Production scheduling invariant
+
+A workshop may have:
+
+one active production job; and
+
+at most one unstarted future production job.
+
+There is never a multi-job hidden backlog.
+
+An active job is protected. Changing or clearing the workshop's production instruction does not cancel the active job, return its committed material, reset its progress, or alter its output.
+
+An unstarted future job has not committed production material and may therefore be replaced or cleared by the player's scheduling choice.
+
+Build Once
+
+Selecting Build Once with no active or pending job creates one pending Build Once job.
+
+Selecting Build Once again while that same unstarted Build Once job exists has no additional effect.
+
+If a production job is already active, selecting Build Once schedules exactly one Build Once job to follow the active job.
+
+Repeated Build Once selections while that future Build Once job is already scheduled do not add further jobs.
+
+Build Once Per Shipment
+
+Selecting Build Once Per Shipment arms the workshop for future physical non-empty incoming shipments.
+
+If no job is active, switching to Build Once Per Shipment removes any unstarted Build Once job and leaves the workshop:
+
+Armed — Waiting for Next Shipment
+
+If a job is active, that active job continues unchanged. The new Per Shipment setting governs future scheduling after the current job.
+
+When a qualifying physical shipment arrives while another non-recurring job is active, the workshop may schedule exactly one recurring job behind that active job.
+
+A recurring job is therefore not skipped merely because an unrelated Build Once job is currently active.
+
+Recurring-job duplication
+
+If a recurring shipment-triggered job is already pending or active when another qualifying shipment arrives:
+
+no additional recurring job is created;
+
+the new shipment does not create backlog;
+
+workshop status records:
+
+Shipment Cycle Skipped — Previous Job Incomplete
+
+Once the existing recurring job completes, the workshop returns to its armed state and a later qualifying shipment may create the next recurring job.
+
+Mode changes with unstarted future work
+
+Changing scheduling mode may replace an unstarted future job.
+
+Per Shipment → Build Once
+
+If an unstarted recurring job exists, it is replaced by one pending Build Once job.
+
+Build Once → Per Shipment
+
+If an unstarted Build Once job exists, that job is removed and the workshop becomes armed for future qualifying shipments.
+
+No production material is returned or lost because unstarted future jobs have not yet committed production input.
+
+Clear Production Instruction
+
+Clearing the production instruction with no active job:
+
+removes any unstarted pending job;
+
+disables Per Shipment scheduling;
+
+leaves the workshop at:
+
+No Production Instruction
+
+Clearing while a job is active:
+
+does not affect the active job;
+
+removes any unstarted future job;
+
+disables future recurring scheduling;
+
+causes the workshop to become No Production Instruction after the active job completes.
+
+Shipment qualification remains unchanged
+
+Only a future physical non-empty incoming logistics truck arrival triggers Build Once Per Shipment.
+
+Empty-order cycles do not trigger it.
+
+Selecting Per Shipment is not retroactive.
+
+Debug due-now qualifies only when it still produces the normal physical shipment arrival.
+
+Player-facing requirement
+
+The workshop inspection interface must make the distinction understandable between:
+
+the current active job;
+
+one scheduled next job, when present;
+
+the current scheduling mode.
+
+The player must not be led to believe repeated clicks have created an unseen queue.
