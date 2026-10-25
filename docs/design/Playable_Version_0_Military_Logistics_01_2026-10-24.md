@@ -2375,3 +2375,372 @@ Why P1-A only has a positive target: It bounds each clean deficit at 8 rounds, p
 Why opposing force is enlarged: Legitimate targets must remain through firing after the second resupply cycle.
 
 Preserved rules: 4 m locality, target snapshot semantics, embodied command, physical movement, real requests, physical cargo, local handoff and ordinary autonomous firing.
+
+## Target-Aware Ammunition Readiness Amendment — 24 October 2026
+
+This amendment resolves the deterministic-scenario HOLD deadlock discovered under the exact D10 focused scenario.
+
+It refines the provisional CMD047 low-ammunition readiness rule for PV0.
+
+It does not change command hierarchy, objectives, movement, firing, replenishment targets, locality, or the default encounter setup.
+
+1. Problem resolved
+
+The prior provisional Commander low-ammunition rule treated ammunition as low when:
+
+compatible rounds <= 2 × active personnel
+
+Under the focused D10 scenario:
+
+P1-A has four positive-target rifle infantry carrying 2 rounds each;
+
+every other friendly rifle user has a zero replenishment target;
+
+hostile rifle personnel also begin with zero authored ammunition/zero target.
+
+Counting all active personnel and treating equality as low causes global HOLD before opposing forces establish contact.
+
+As a result:
+
+no firing occurs;
+
+no actual deficit develops;
+
+no demand develops;
+
+the focused scenario cannot exercise the intended supply loop.
+
+This is not the desired meaning of ammunition readiness.
+
+2. Serviceable rifle personnel for command readiness
+
+For the PV0 Rifle Ammunition readiness channel, a person counts as a:
+
+serviceable rifle user
+
+only while all of the following are true:
+
+living;
+
+active;
+
+friendly to the formation being reported;
+
+compatible with Rifle Ammunition;
+
+scenario-start replenishment target is greater than zero.
+
+Personnel with replenishment target:
+
+0
+
+do not contribute either:
+
+ammunition rounds; or
+
+personnel count
+
+to the Rifle Ammunition low-readiness calculation.
+
+They are not interpreted as infinitely ammunition-starved rifle users.
+
+3. Low-ammunition threshold
+
+For a formation with at least one serviceable rifle user:
+
+low-ammunition threshold = 2 rounds × number of serviceable rifle users
+
+The formation is considered:
+
+Low Rifle Ammunition
+
+only when:
+
+current compatible rounds carried by those serviceable rifle users < low-ammunition threshold
+
+The comparison is strictly less than, not less-than-or-equal.
+
+4. Exact threshold is not low
+
+Example:
+
+Four serviceable P1-A riflemen.
+
+Each carries:
+
+2 rounds
+
+Aggregate:
+
+8 rounds
+
+Threshold:
+
+2 × 4 = 8
+
+Because:
+
+8 < 8 is false,
+
+P1-A is not Low Rifle Ammunition.
+
+Its normal operational advance is therefore not held merely because it starts exactly at the provisional two-round-per-rifleman boundary.
+
+After legitimate firing reduces aggregate ammunition below 8, later readiness may report Low Rifle Ammunition.
+
+5. Formation with zero serviceable rifle users
+
+If a formation currently has:
+
+0 serviceable rifle users
+
+the Rifle Ammunition low-readiness condition is:
+
+Not Applicable
+
+not:
+
+Low Rifle Ammunition
+
+Zero-target personnel therefore do not cause an ammunition-based HOLD.
+
+This rule applies equally to friendly and enemy formations.
+
+A force intentionally authored with zero replenishment-target rifle personnel may still:
+
+execute its operational intent;
+
+move;
+
+observe;
+
+react according to other valid AI conditions.
+
+It simply has no serviceable Rifle Ammunition requirement represented by this readiness channel.
+
+6. Effect on the focused D10 scenario
+
+The D10 scenario remains exactly:
+
+Friendly
+
+P1-A:
+
+four ordinary compatible rifle infantry;
+
+2 authored Rifle Ammunition rounds each;
+
+target 2 each.
+
+All other friendly compatible rifle personnel:
+
+0 authored Rifle Ammunition;
+
+target 0.
+
+Enemy
+
+32 ordinary hostile rifle infantry;
+
+0 authored Rifle Ammunition;
+
+target 0.
+
+No initial position, objective or AI change is authorized.
+
+Expected initial command consequence:
+
+P1-A begins at its exact non-low boundary;
+
+zero-target friendly formations do not create false ammunition-low readiness;
+
+zero-target hostile formations do not create false ammunition-low readiness;
+
+both sides remain free to execute their ordinary operational intent until some other legitimate condition changes it;
+
+ordinary movement therefore remains capable of establishing actual contact.
+
+7. Low-ammunition HOLD after contact
+
+A Commander decision to HOLD because of Low Rifle Ammunition means:
+
+do not continue the ammunition-risking operational advance
+
+It does not mean:
+
+cease legitimate local combat against already observed/engageable enemies.
+
+Once contact exists, subordinate tactical behavior may continue to:
+
+observe;
+
+hold position;
+
+return fire;
+
+engage valid known targets;
+
+according to existing combat behavior.
+
+No extra shots are granted and no target engagement is forced.
+
+This distinction is authoritative.
+
+8. Supply recovery and command intent
+
+When newer legitimately received readiness establishes that the relevant formation is no longer Low Rifle Ammunition:
+
+the ammunition-low HOLD reason clears.
+
+If the previous operational intent remains otherwise valid:
+
+normal hierarchy behavior may maintain/resume that intent.
+
+Resupply does not automatically force an ADVANCE.
+
+Other legitimate reasons to HOLD, adapt or delay remain authoritative.
+
+9. Relationship to serviceable deficit
+
+Two related but different concepts now exist.
+
+Command low-ammunition readiness
+
+Determines whether ammunition scarcity justifies higher-echelon caution:
+
+current rounds < 2 × serviceable rifle users
+
+Serviceable resupply deficit
+
+Determines how many rounds may legitimately be restored:
+
+replenishment target - current carried rounds
+
+These must not be conflated.
+
+Example:
+
+A P1-A rifleman with target 2 and current 1:
+
+contributes 1 round of serviceable deficit;
+
+contributes to a Low Rifle Ammunition formation because aggregate ammunition is below the two-per-user readiness threshold.
+
+After restoration to target 2:
+
+their serviceable deficit is 0;
+
+the focused Squad may clear the ammunition-low condition.
+
+10. Normal/default gameplay
+
+The normal/default scenario is not reauthored.
+
+Its:
+
+starting ammunition;
+
+replenishment targets;
+
+objectives;
+
+positions;
+
+enemy ammunition;
+
+formation composition
+
+remain unchanged.
+
+This amendment changes only the semantics of the provisional ammunition-readiness calculation:
+
+target-zero personnel are excluded;
+
+equality with the two-round-per-serviceable-user threshold is not Low.
+
+No default successful rendezvous is inferred.
+
+The separately required default leadership-loss evidence remains unchanged.
+
+11. Focused acceptance remains natural after initialization
+
+After the focused scenario initializes:
+
+no system may:
+
+grant contact;
+
+move forces into contact;
+
+force ADVANCE;
+
+suppress a legitimate HOLD;
+
+force firing;
+
+add targets;
+
+change ammunition targets;
+
+grant ammunition;
+
+create demand;
+
+create reports;
+
+create requests;
+
+move rendezvous participants.
+
+The normal hierarchy, movement, perception and combat systems must produce those events.
+
+If the amended exact scenario still cannot establish legitimate contact and satisfy the two-cycle acceptance purpose, return the factual blocker to the Game Designer.
+
+Do not add another silent scenario exception.
+
+Decision-graph amendment — Commander ammunition readiness
+
+For received readiness pertaining to Rifle Ammunition:
+
+serviceable rifle-user count > 0?
+
+→ NO
+Rifle-ammunition readiness = Not Applicable.
+Do not issue or maintain ammunition-low HOLD for this reason.
+
+→ YES
+
+Calculate:
+
+threshold = 2 × serviceable rifle-user count
+
+and:
+
+current = compatible rounds carried by those serviceable rifle users
+
+current < threshold?
+
+→ YES
+Low Rifle Ammunition.
+Commander may maintain/delay/adapt subordinate operational intent according to the accepted command decision behavior.
+
+→ NO
+Not Low Rifle Ammunition.
+Do not maintain an ammunition-low HOLD for this reason.
+
+When ammunition-low HOLD already exists and newer received readiness changes the answer to NO:
+
+clear this HOLD reason and re-evaluate existing operational intent normally.
+
+Design-history entry
+PV0-ML01-D11 — Target-aware command ammunition readiness
+
+Decision: The provisional two-round-per-person readiness rule counts only living, active, compatible personnel with positive scenario-start replenishment targets, and Low applies only below—not at—the two-round-per-serviceable-user threshold.
+
+Reason: Zero-target personnel have no serviceable Rifle Ammunition requirement and must not force a global shortage state. A focused Squad authored exactly at two rounds per eligible rifleman must be able to execute normal intent long enough for real combat to create the shortage being tested.
+
+Related clarification: Ammunition-low HOLD constrains continued operational advance but does not forbid ordinary local engagement of already observed valid enemies.
+
+Effect on accepted CMD047: This deliberately refines only its explicitly provisional ammunition threshold. Echelon responsibilities, delayed information flow, report provenance and received-report-driven decisions remain unchanged.
+
+Status: Authoritative PV0 behavior.
